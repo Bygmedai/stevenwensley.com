@@ -15,7 +15,7 @@ function discoverPages(dir, prefix = '') {
   const pages = [];
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   for (const entry of entries) {
-    if (entry.name.startsWith('.') || entry.name === 'node_modules') continue;
+    if (entry.name.startsWith('.') || entry.name === 'node_modules' || entry.name === 'src') continue;
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
       pages.push(...discoverPages(fullPath, prefix + entry.name + '/'));
