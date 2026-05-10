@@ -648,12 +648,14 @@
   }
 
 </style>
+<style id="a11y-skip-link">.skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;font-family:'Space Grotesk',sans-serif;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}</style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Spring til indhold</a>
 
 <!-- NAV -->
-<nav>
-  <a href="/index-da.html" class="logo" style="text-decoration:none;"><svg class="nav-logo-svg" viewBox="0 0 80 28" width="80" height="28" xmlns="http://www.w3.org/2000/svg"><text x="2" y="22" font-family="'DM Serif Display',Georgia,serif" font-size="22" font-weight="700" fill="var(--gold)" stroke="var(--gold)" stroke-width="0.8">SSW</text></svg></a>
+<nav aria-label="Primary">
+  <a href="/index-da.html" class="logo" style="text-decoration:none;"><span class="visually-hidden" style="position:absolute;left:-10000px;">Steven Seidenfaden Wensley — home</span><svg class="nav-logo-svg" viewBox="0 0 80 28" width="80" height="28" xmlns="http://www.w3.org/2000/svg"><text x="2" y="22" font-family="'DM Serif Display',Georgia,serif" font-size="22" font-weight="700" fill="var(--gold)" stroke="var(--gold)" stroke-width="0.8">SSW</text></svg></a>
   <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
   <div class="nav-links">
     <a href="ai-governance-assessment.html" style="color: var(--gold);">Assessment</a>
@@ -669,6 +671,8 @@
     </span>
   </div>
 </nav>
+<main id="main" tabindex="-1">
+
 
 <!-- HERO -->
 <section class="hero">
@@ -697,7 +701,7 @@
       </a>
     </div>
   </div>
-  <img src="img/photo-hero.jpg" alt="Steven Seidenfaden Wensley" class="hero-photo">
+  <img src="img/photo-hero.jpg" alt="Steven Seidenfaden Wensley" class="hero-photo" width="341" height="512" decoding="async" fetchpriority="high">
 </section>
 
 <!-- AVAILABLE FOR HIRE -->
@@ -806,7 +810,7 @@
     <div class="section-label">Om mig</div>
     <h2 class="section-title">Broen mellem regulering<br>og operationel virkelighed.</h2>
     <div class="about-layout">
-      <img src="img/photo-about.jpg" alt="Steven Seidenfaden Wensley - professionelt portræt" class="about-photo">
+      <img src="img/photo-about.jpg" alt="Steven Seidenfaden Wensley - professionelt portræt" class="about-photo" width="341" height="512" loading="lazy" decoding="async">
       <div class="about-text-wrap">
         <p class="about-text">
           Jeg k&oslash;rer programmer som andre har givet op p&aring;. Datacentermigrationer med 27
@@ -1150,7 +1154,7 @@
   <div class="section-inner">
     <div class="section-label">Kontakt</div>
     <div class="gold-line"></div>
-    <img src="img/photo-contact.jpg" alt="Steven Seidenfaden Wensley" class="contact-photo">
+    <img src="img/photo-contact.jpg" alt="Steven Seidenfaden Wensley" class="contact-photo" width="341" height="512" loading="lazy" decoding="async">
     <h2 class="section-title">Har du brug for at f&aring; et program p&aring; sporet?</h2>
     <p class="contact-text">
       Jeg tager fuldtids programopgaver, typisk 6&ndash;12 m&aring;neder.
@@ -1180,6 +1184,7 @@
 </section>
 
 <!-- FOOTER -->
+</main>
 <footer>
   <div style="font-size: 0.72rem; color: var(--text-secondary); letter-spacing: 0.05em; margin-bottom: 0.5rem;">PMP &middot; PRINCE2 &middot; MSP &middot; P3O &middot; MoP &middot; Agile PM &middot; 18+ &aring;r i regulerede milj&oslash;er</div>
   &copy; 2026 Steven Seidenfaden Wensley. Alle rettigheder forbeholdes.

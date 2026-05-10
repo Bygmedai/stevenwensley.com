@@ -7,6 +7,30 @@ on:
     branches: [main]
 
 jobs:
+  build-verify:
+    name: Eleventy Build Verify
+    # Re-runs `npm run build` and fails if the committed /insights/*.html
+    # files differ from the freshly built output. This catches "dev forgot
+    # to run build before commit" — the canonical source is /src/ and the
+    # /insights/*.html files are committed build artefacts (so GitHub
+    # Pages can serve them directly).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Verify committed /insights/ matches build output
+        run: |
+          if ! git diff --exit-code --stat insights/; then
+            echo "::error::Committed /insights/*.html differs from npm run build output."
+            echo "Run 'npm run build' locally and commit the result."
+            exit 1
+          fi
+
   html-validate:
     name: HTML Validation
     runs-on: ubuntu-latest
@@ -18,8 +42,14 @@ jobs:
       - run: npm install -g html-validate
       - name: Validate all HTML files
         run: |
-          # Find all HTML files (skip node_modules and backups)
-          FILES=$(find . -name "*.html" -not -path "*/node_modules/*" -not -name "*backup*" | sort)
+          # Find all HTML files (skip node_modules, _site build dir, src
+          # source files (which contain Nunjucks template syntax that
+          # html-validate would flag), and any *backup* files).
+          FILES=$(find . -name "*.html" \
+            -not -path "*/node_modules/*" \
+            -not -path "*/_site/*" \
+            -not -path "*/src/*" \
+            -not -name "*backup*" | sort)
           if [ -z "$FILES" ]; then
             echo "No HTML files found"
             exit 0
@@ -76,15 +106,15 @@ jobs:
           sleep 2
       - name: Run Lighthouse on key pages
         run: |
-          # Auto-discover HTML files (max 6 for CI speed)
-          PAGES=()
-          if [ -f "index.html" ]; then
-            PAGES+=("http://localhost:8080/index.html")
-          fi
-          for f in $(find . -maxdepth 1 -name "*.html" -not -name "index.html" -not -name "*backup*" | sort | head -5); do
-            PAGE=$(basename "$f")
-            PAGES+=("http://localhost:8080/$PAGE")
-          done
+          # Curated list spanning landing, services, insights hub, one article and one tool
+          PAGES=(
+            "http://localhost:8080/index.html"
+            "http://localhost:8080/services.html"
+            "http://localhost:8080/insights.html"
+            "http://localhost:8080/insights/ai-governance-starter-kit.html"
+            "http://localhost:8080/ai-governance-assessment.html"
+            "http://localhost:8080/book-session.html"
+          )
           if [ ${#PAGES[@]} -eq 0 ]; then
             echo "No HTML pages found for Lighthouse"
             exit 0

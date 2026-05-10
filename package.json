@@ -1,13 +1,19 @@
 {
-  "name": "quality-gate",
-  "version": "1.0.0",
+  "name": "stevenwensley.com",
+  "version": "1.1.0",
+  "description": "Static site for Steven Seidenfaden Wensley (AI governance consultancy). Built with Eleventy.",
   "private": true,
   "scripts": {
+    "build": "eleventy",
+    "build:watch": "eleventy --watch",
+    "serve": "eleventy --serve --port=8080",
     "test": "npx playwright test tests/ --reporter=list",
     "test:serve": "npx http-server . -p 8080 -s &",
-    "test:screenshots": "npx playwright test tests/ --reporter=list --grep='Screenshots'"
+    "test:screenshots": "npx playwright test tests/ --reporter=list --grep='Screenshots'",
+    "verify": "npm run build && diff -r _site/insights/ insights/"
   },
-  "dependencies": {
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
     "@playwright/test": "^1.58.2",
     "http-server": "^14.1.1"
   }

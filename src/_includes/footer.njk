@@ -1,0 +1,36 @@
+{# Three-column site footer. Links go to absolute URLs because some
+   tools (book-session, assessment) serve from project root. #}
+<footer>
+  <div class="footer-content">
+    {# NB: footer link targets are a faithful port of the existing pre-Eleventy
+       site. /about.html and /contact.html currently 404 — see MIGRATION.md
+       "Known broken links" section. Fix-up scheduled for a follow-up PR. #}
+    <div>
+      <h4>{{ site.shortName }}</h4>
+      <ul>
+        <li><a href="{{ site.url }}">Home</a></li>
+        <li><a href="{{ site.url }}/insights.html">Insights</a></li>
+        <li><a href="{{ site.url }}/about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <ul>
+        <li><a href="{{ site.url }}/services.html">Advisory</a></li>
+        <li><a href="{{ site.url }}/ai-governance-assessment.html">Assessment</a></li>
+        <li><a href="{{ site.url }}/contact.html">Book a Call</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="{{ site.url }}/eu-ai-act-classifier.html">AI Risk Classifier</a></li>
+        <li><a href="{{ site.url }}/cost-of-inaction.html">Cost Calculator</a></li>
+        <li><a href="{{ site.url }}/contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 {{ site.name }}. All rights reserved.</p>
+  </div>
+</footer>

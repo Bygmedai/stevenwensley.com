@@ -1,0 +1,18 @@
+{# Site navigation. Links rendered from site.navLinks (defined in
+   /src/_data/site.js). The `activeNav` variable from frontmatter
+   highlights the current page (matched on .id). #}
+<nav aria-label="Primary">
+  <div class="nav-container">
+    <a href="{{ site.url }}" class="logo" style="text-decoration:none;">
+      <span class="visually-hidden" style="position:absolute;left:-10000px;">{{ site.name }} — home</span>
+      <svg class="nav-logo-svg" viewBox="0 0 80 28" width="80" height="28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <text x="2" y="22" font-family="DM Serif Display,Georgia,serif" font-size="22" font-weight="700" fill="var(--gold)" stroke="var(--gold)" stroke-width="0.8">SSW</text>
+      </svg>
+    </a>
+    <ul class="nav-links">
+      {%- for link in site.navLinks %}
+      <li><a href="{{ site.url }}{{ link.href }}"{% if activeNav == link.id %} class="active"{% endif %}>{{ link.label }}</a></li>
+      {%- endfor %}
+    </ul>
+  </div>
+</nav>

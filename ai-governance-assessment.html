@@ -21,6 +21,9 @@
   <meta name="twitter:description" content="Find ud af hvor klar din organisation er til EU AI Act. Gratis, 5-minutters self-assessment.">
   <meta name="twitter:image" content="https://stevenwensley.com/og-image.png">
   <link rel="canonical" href="https://stevenwensley.com/ai-governance-assessment.html">
+<link rel="alternate" hreflang="en" href="https://stevenwensley.com/ai-governance-assessment.html">
+<link rel="alternate" hreflang="da" href="https://stevenwensley.com/ai-governance-assessment.html">
+<link rel="alternate" hreflang="x-default" href="https://stevenwensley.com/ai-governance-assessment.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -105,9 +108,15 @@
   }
 
 </style>
+<style id="a11y-skip-link">.skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;font-family:'Space Grotesk',sans-serif;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}</style>
 </head>
 <body>
-  <div id="root"></div>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <noscript>
+    <h1 style="font-family:'DM Serif Display',serif;color:#C9A96E;text-align:center;padding:4rem 1rem;">AI Governance Readiness Assessment</h1>
+    <p style="text-align:center;padding:0 1rem 2rem;color:#9a9aaa;">30 spørgsmål, 6 dimensioner, 5 minutter. Aktivér JavaScript for at gennemføre — eller <a href="/book-session.html" style="color:#C9A96E;">book en session direkte</a>.</p>
+  </noscript>
+  <main id="main" tabindex="-1"><div id="root"></div></main>
   <script type="text/babel">
     const { useState, useMemo } = React;
 
@@ -552,9 +561,9 @@
             )}
             <div className="fade-in" style={{ maxWidth: 1000, margin: "0 auto", padding: "40px 20px" }}>
               <div style={{ textAlign: "center", marginBottom: 40 }}>
-                <h1 style={{ fontSize: 28, fontWeight: 700, color: "#C9A96E", marginBottom: 8 }}>
+                <h2 style={{ fontSize: 28, fontWeight: 700, color: "#C9A96E", marginBottom: 8 }}>
                   {t("Din AI Governance Score", "Your AI Governance Score")}
-                </h1>
+                </h2>
                 <div className="score-anim" style={{ fontSize: 72, fontWeight: 800, color: maturityLevel.color, lineHeight: 1 }}>{totalScore}%</div>
                 <div style={{ fontSize: 22, fontWeight: 600, color: maturityLevel.color, marginTop: 8 }}>
                   {t(maturityLevel.level, maturityLevel.levelEN)}

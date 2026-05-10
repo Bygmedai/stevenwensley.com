@@ -15,7 +15,7 @@ function discoverPages(dir, prefix = '') {
   const pages = [];
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   for (const entry of entries) {
-    if (entry.name.startsWith('.') || entry.name === 'node_modules') continue;
+    if (entry.name.startsWith('.') || entry.name === 'node_modules' || entry.name === 'src') continue;
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
       pages.push(...discoverPages(fullPath, prefix + entry.name + '/'));
@@ -90,10 +90,15 @@ const VIEWPORTS = [
 ];
 
 // Only screenshot key pages (not all 30)
-const KEY_PAGES = ALL_PAGES.filter(p =>
-  ['index.html', 'services.html', 'priser.html', 'om.html', 'foer-efter.html'].includes(p) ||
-  p === ALL_PAGES[0] // Always include first page
-).slice(0, 6);
+const KEY_PAGE_NAMES = [
+  'index.html',
+  'index-da.html',
+  'services.html',
+  'insights.html',
+  'book-session.html',
+  'ai-governance-assessment.html',
+];
+const KEY_PAGES = ALL_PAGES.filter(p => KEY_PAGE_NAMES.includes(p)).slice(0, 6);
 
 test.describe('Responsive Screenshots', () => {
   for (const page of KEY_PAGES) {
