@@ -8,16 +8,16 @@
 <title>Playbooks — How I&#39;d Fix It | Steven Wensley</title>
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="description" content="Four scenarios from 18 years in regulated IT delivery: red programme turnaround, stalled GxP datacenter migration, NIS2/DORA compliance, IT carve-out. How I'd approach each — method, tools and politics.">
+<meta name="description" content="Four interactive scenarios from 18 years in regulated IT delivery: red programme turnaround, stalled GxP datacenter migration, NIS2/DORA compliance, IT carve-out. How I'd approach each — method, tools and politics.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://stevenwensley.com/playbooks.html">
 <meta property="og:title" content="Playbooks — How I'd Fix It | Steven Wensley">
-<meta property="og:description" content="Four scenarios from regulated IT delivery — turnaround, GxP migration, NIS2/DORA, carve-out. How I'd approach each: method, tools and the politics nobody writes down.">
+<meta property="og:description" content="Four interactive scenarios from regulated IT delivery — turnaround, GxP migration, NIS2/DORA, carve-out. How I'd approach each: method, tools and the politics nobody writes down.">
 <meta property="og:image" content="https://stevenwensley.com/og-image.png">
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Playbooks — How I'd Fix It | Steven Wensley">
-<meta name="twitter:description" content="Four regulated-IT scenarios: turnaround, GxP migration, NIS2/DORA, carve-out — how I'd approach each.">
+<meta name="twitter:description" content="Four interactive regulated-IT scenarios: turnaround, GxP migration, NIS2/DORA, carve-out.">
 <meta name="twitter:image" content="https://stevenwensley.com/og-image.png">
 <link rel="canonical" href="https://stevenwensley.com/playbooks.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,7 +34,6 @@
   }
   html { scroll-behavior: smooth; }
   body { background: var(--bg-primary); color: var(--text-primary); font-family: var(--sans); font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
-
   nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
   nav .logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-decoration: none; }
   nav .nav-links { display: flex; gap: 2.5rem; align-items: center; }
@@ -51,7 +50,6 @@
     nav .nav-links.open { display: flex; }
     nav .nav-links a { font-size: 0.9rem; padding: 0.5rem 0; }
   }
-
   .wrap { max-width: 1000px; margin: 0 auto; padding: 0 3rem; }
   .page-hero { padding: 10rem 0 2rem; }
   .page-hero h1 { font-family: var(--serif); font-size: clamp(2.2rem, 4.5vw, 3.4rem); font-weight: 700; line-height: 1.15; margin-bottom: 1.5rem; }
@@ -59,49 +57,28 @@
   .lede { font-size: 1.15rem; color: var(--text-secondary); max-width: 720px; line-height: 1.75; }
   .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
 
-  /* SELECTOR */
-  .selector { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 1rem; padding: 2rem 0 4rem; }
-  .sel-card { display: block; padding: 1.8rem; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 2px; text-decoration: none; color: inherit; transition: border-color 0.3s, transform 0.3s; position: relative; }
+  .selector { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 1.5rem; padding: 2.5rem 0 1rem; }
+  .sel-card { display: flex; flex-direction: column; padding: 2.2rem; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 2px; text-decoration: none; color: inherit; transition: border-color 0.3s, transform 0.3s; position: relative; }
   .sel-card:hover { border-color: var(--gold); transform: translateY(-4px); }
   .sel-card.flagship { border-left: 3px solid var(--gold); }
-  .sel-flag { position: absolute; top: 1.2rem; right: 1.2rem; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--bg-primary); background: var(--gold); padding: 3px 8px; border-radius: 3px; }
+  .sel-flag { position: absolute; top: 1.4rem; right: 1.4rem; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--bg-primary); background: var(--gold); padding: 3px 8px; border-radius: 3px; }
   .sel-sector { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
-  .sel-card h3 { font-family: var(--serif); font-size: 1.15rem; font-weight: 600; color: var(--text-primary); line-height: 1.3; margin-bottom: 0.8rem; }
+  .sel-card h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; color: var(--text-primary); line-height: 1.3; margin-bottom: 0.8rem; }
+  .sel-card p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 1.4rem; flex: 1; }
   .sel-card .sel-go { font-size: 0.74rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
 
-  /* SCENARIO SECTIONS */
-  .scenario { padding: 5rem 0; border-top: 1px solid var(--border); scroll-margin-top: 6rem; }
-  .scenario:nth-of-type(even) { background: var(--bg-secondary); }
-  .sc-sector { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
-  .sc-title { font-family: var(--serif); font-size: clamp(1.7rem, 3.2vw, 2.4rem); font-weight: 600; line-height: 1.2; margin-bottom: 1.2rem; }
-  .sc-keyword { display: inline-block; font-size: 0.72rem; color: var(--text-muted); font-family: var(--sans); letter-spacing: 0.05em; margin-bottom: 1.8rem; padding: 0.3rem 0.8rem; border: 1px dashed var(--border); border-radius: 3px; }
-  .sc-situation { font-size: 1.1rem; color: var(--text-primary); max-width: 740px; line-height: 1.75; margin-bottom: 2.5rem; }
+  .anatomy { padding: 4.5rem 0; border-top: 1px solid var(--border); }
+  .anatomy .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 1rem; margin-top: 2rem; }
+  .anatomy .step { padding: 1.4rem 1.2rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px; }
+  .anatomy .step .n { font-family: var(--serif); font-size: 1.1rem; color: var(--gold); margin-bottom: 0.4rem; }
+  .anatomy .step p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
+  .prose { font-size: 1.05rem; color: var(--text-secondary); max-width: 720px; line-height: 1.8; }
 
-  .sc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
-  @media (max-width: 720px) { .sc-grid { grid-template-columns: 1fr; } }
-  .sc-block h4 { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
-  .sc-block p { font-size: 0.98rem; color: var(--text-secondary); line-height: 1.75; }
-  .sc-block.political p { color: var(--text-primary); font-style: italic; border-left: 3px solid var(--red); padding-left: 1rem; }
-  .sc-block ul { list-style: none; margin-top: 0.5rem; }
-  .sc-block li { font-size: 0.96rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.8rem; padding-left: 1.4rem; position: relative; }
-  .sc-block li::before { content: '→'; position: absolute; left: 0; color: var(--gold); }
-
-  .tools-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.5rem 0; }
-  .tool-chip { padding: 0.4rem 0.9rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 20px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary); }
-
-  .outcome-box { padding: 1.6rem 2rem; background: linear-gradient(135deg, rgba(76,154,114,0.08) 0%, rgba(10,10,15,0.5) 100%); border: 1px solid rgba(76,154,114,0.3); border-left: 3px solid var(--green); border-radius: 4px; max-width: 760px; }
-  .outcome-box .outcome-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green); margin-bottom: 0.6rem; }
-  .outcome-box p { font-size: 1rem; color: var(--text-primary); line-height: 1.7; }
-
-  .flagship-callout { margin-top: 2rem; padding: 2rem; background: var(--bg-card); border: 1px solid var(--gold); border-radius: 4px; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
-  .flagship-callout p { font-size: 0.98rem; color: var(--text-secondary); max-width: 560px; }
-  .btn-primary { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.9rem 2rem; background: var(--gold); color: var(--bg-primary); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: opacity 0.3s; white-space: nowrap; }
-  .btn-primary:hover { opacity: 0.9; }
-
-  .cta-band { padding: 5rem 0; text-align: center; border-top: 1px solid var(--border); }
+  .cta-band { padding: 5rem 0; text-align: center; border-top: 1px solid var(--border); background: var(--bg-secondary); }
   .cta-band h2 { font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 600; margin-bottom: 1rem; }
   .cta-band p { font-size: 1.05rem; color: var(--text-secondary); max-width: 560px; margin: 0 auto 2rem; }
-
+  .btn-primary { display: inline-flex; align-items: center; gap: 0.6rem; padding: 1rem 2.5rem; background: var(--gold); color: var(--bg-primary); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: opacity 0.3s; }
+  .btn-primary:hover { opacity: 0.9; }
   .disclaimer { font-size: 0.82rem; color: var(--text-muted); max-width: 760px; line-height: 1.7; font-style: italic; }
 
   footer { padding: 3rem; text-align: center; color: var(--text-muted); font-size: 0.78rem; letter-spacing: 0.05em; border-top: 1px solid var(--border); }
@@ -113,7 +90,6 @@
     .wrap { padding: 0 1.5rem; }
     .page-hero { padding: 8rem 0 1rem; }
   }
-
   [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
   [data-reveal].revealed { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } [data-reveal] { opacity: 1; transform: none; transition: none; } }
@@ -140,164 +116,56 @@
     <div class="section-label">Playbooks</div>
     <h1>Show, don&rsquo;t tell.<br><span class="accent">Pick your situation.</span></h1>
     <p class="lede">
-      Four scenarios drawn from 18 years in regulated delivery &mdash; and from the Danish programmes everyone remembers. I don&rsquo;t reuse confidential client detail; the pattern is the point. Each walks through how I&rsquo;d actually approach it: the method, the tools, and the political reality nobody writes down.
+      Four interactive scenarios drawn from 18 years in regulated delivery &mdash; and from the Danish programmes everyone remembers. I don&rsquo;t reuse confidential client detail; the pattern is the point. Each walks through how I&rsquo;d actually approach it: the method, the tools, and the political reality nobody writes down.
     </p>
   </div>
 </div>
 
 <div class="wrap">
   <div class="selector">
-    <a href="playbook-programme-recovery.html" class="sel-card flagship">
-      <span class="sel-flag">Interactive</span>
-      <div class="sel-sector">Turnaround</div>
+    <a href="playbook-programme-recovery.html" class="sel-card flagship" data-reveal>
+      <span class="sel-flag">Flagship</span>
+      <div class="sel-sector">Turnaround &middot; cross-sector</div>
       <h3>The red programme you just inherited</h3>
-      <span class="sel-go">Walk the first 90 days &rarr;</span>
+      <p>Multiple vendors, an SKI framework that locks you in, a nervous board, and governance that stopped working months ago. Walk the first 90 days: Control, Stabilise, Correct.</p>
+      <span class="sel-go">Open the walkthrough &rarr;</span>
     </a>
-    <a href="#gxp" class="sel-card">
+    <a href="playbook-gxp-migration.html" class="sel-card" data-reveal>
       <div class="sel-sector">Pharma / life science</div>
       <h3>The stalled GxP datacenter migration</h3>
-      <span class="sel-go">See the approach &darr;</span>
+      <p>Production can&rsquo;t go down, validated systems are frozen, and QA holds a veto everyone respects and no one enjoys. It&rsquo;s validation debt, not servers.</p>
+      <span class="sel-go">Open the walkthrough &rarr;</span>
     </a>
-    <a href="#nis2" class="sel-card">
+    <a href="playbook-nis2-compliance.html" class="sel-card" data-reveal>
       <div class="sel-sector">Critical infra / finance</div>
       <h3>The NIS2 deadline you&rsquo;re already past</h3>
-      <span class="sel-go">See the approach &darr;</span>
+      <p>In force since 1 July 2025. Controls on paper, ownership nowhere &mdash; and a Danish transposition that left out personal liability, so no one&rsquo;s neck is on the line.</p>
+      <span class="sel-go">Open the walkthrough &rarr;</span>
     </a>
-    <a href="#carveout" class="sel-card">
+    <a href="playbook-carveout-separation.html" class="sel-card" data-reveal>
       <div class="sel-sector">M&amp;A / divestiture</div>
       <h3>The carve-out separating two entities</h3>
-      <span class="sel-go">See the approach &darr;</span>
+      <p>A fixed business date, 1,500+ interdependent decisions, and a parent company with no incentive to help you leave. Day 1 readiness, ruthlessly defined.</p>
+      <span class="sel-go">Open the walkthrough &rarr;</span>
     </a>
   </div>
 </div>
 
-<!-- GxP -->
-<section class="scenario" id="gxp" data-reveal>
+<section class="anatomy" data-reveal>
   <div class="wrap">
-    <div class="sc-sector">Pharma &middot; life science</div>
-    <h2 class="sc-title">The stalled GxP datacenter migration</h2>
-    <span class="sc-keyword">GxP datacenter migration transition manager</span>
-    <p class="sc-situation">
-      Production can&rsquo;t go down. Your MES, SCADA and PAS-X systems are validated, and every one of them is now frozen because nobody wants to touch a qualified system mid-audit-cycle. The migration slipped two quarters ago. IT says it&rsquo;s ready; <strong style="color:var(--text-primary);font-weight:500;">Kvalitet</strong> (QA) says prove it &mdash; and QA holds a veto everyone respects and no one enjoys.
-    </p>
-    <div class="sc-grid">
-      <div class="sc-block">
-        <h4>What&rsquo;s actually broken</h4>
-        <p>It&rsquo;s validation debt, not servers. EU GMP Annex 11 and GAMP 5 make the move a re-qualification event &mdash; audit trails, ALCOA+ data integrity and e-signature continuity all have to survive the migration and be <em>proven</em> to have survived. That proof was never planned into the schedule, and FDA data-integrity findings have only made sign-off harder.</p>
-      </div>
-      <div class="sc-block political">
-        <h4>The political read</h4>
-        <p>Underneath the technical stall is a turf line: QA&rsquo;s authority <em>is</em> the delay, IT owns a deadline it can&rsquo;t hit without QA&rsquo;s signature, and the vendor is quietly protecting scope. Nobody wants to be the name on the afvigelse when the auditor arrives.</p>
-      </div>
-    </div>
-    <div class="sc-block">
-      <h4>My first moves</h4>
-      <ul>
-        <li>Split the technical migration from the validation migration and run them as two synchronised tracks.</li>
-        <li>Get QA and IT to agree the data-integrity acceptance evidence <em>before</em> a system moves &mdash; turning the turf line into a shared contract.</li>
-        <li>Re-baseline against a risk-based CSV approach so effort lands on GxP-critical systems, not spread evenly.</li>
-      </ul>
-    </div>
-    <div class="tools-row">
-      <span class="tool-chip">GAMP 5</span>
-      <span class="tool-chip">EU GMP Annex 11</span>
-      <span class="tool-chip">21 CFR Part 11</span>
-      <span class="tool-chip">CSV / CSA runbooks</span>
-      <span class="tool-chip">PRINCE2 stage gates</span>
-    </div>
-    <div class="outcome-box">
-      <div class="outcome-label">What delivered looks like</div>
-      <p>Production-critical systems migrated with zero unplanned downtime and an audit-ready validation trail &mdash; migration and compliance evidence landing together, with QA and IT on the same side of the table for once.</p>
+    <div class="section-label">How these work</div>
+    <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; margin-bottom: 1.2rem; line-height: 1.3;">Same anatomy, every time.</h2>
+    <p class="prose">Each playbook follows the same honest structure &mdash; the situation you&rsquo;ll recognise, what&rsquo;s actually broken underneath, the political reality, the moves I&rsquo;d make, the tools I&rsquo;d reach for, and what &ldquo;delivered&rdquo; looks like.</p>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><p>The situation you&rsquo;ll recognise</p></div>
+      <div class="step"><div class="n">02</div><p>What&rsquo;s actually broken</p></div>
+      <div class="step"><div class="n">03</div><p>The political read</p></div>
+      <div class="step"><div class="n">04</div><p>My first moves &amp; tools</p></div>
+      <div class="step"><div class="n">05</div><p>What delivered looks like</p></div>
     </div>
   </div>
 </section>
 
-<!-- NIS2 -->
-<section class="scenario" id="nis2" data-reveal>
-  <div class="wrap">
-    <div class="sc-sector">Critical infrastructure &middot; finance</div>
-    <h2 class="sc-title">The NIS2 deadline you&rsquo;re already past</h2>
-    <span class="sc-keyword">NIS2 programme turnaround Denmark</span>
-    <p class="sc-situation">
-      The Danish NIS2 Act has been in force since <strong style="color:var(--text-primary);font-weight:500;">1 July 2025</strong> &mdash; the date is behind you, not ahead. You&rsquo;re an Essential or Important Entity under the sector-specific bekendtgørelser, with risk-management measures and incident-response playbooks that exist on paper and nowhere else. If you&rsquo;re a financial entity, DORA sits on top. Fines mirror NIS2: up to &euro;10M or 2% of global turnover.
-    </p>
-    <div class="sc-grid">
-      <div class="sc-block">
-        <h4>What&rsquo;s actually broken</h4>
-        <p>It was scoped as a document exercise, not a delivery programme. Governance artefacts exist; effective governance doesn&rsquo;t. Decision rights are unclear, supply-chain risk is un-mapped, and no one owns the operational reality of proving continuous monitoring.</p>
-      </div>
-      <div class="sc-block political">
-        <h4>The political read</h4>
-        <p>The Danish twist that makes it harder: the transposition left out personal management liability, so &mdash; unlike a GDPR panic &mdash; no individual&rsquo;s neck is on the line, and compliance becomes the hot potato nobody wants to own. The CISO wants budget, økonomi wants it cheap, the board wants deniability.</p>
-      </div>
-    </div>
-    <div class="sc-block">
-      <h4>My first moves</h4>
-      <ul>
-        <li>Gap-to-obligation mapping against the actual Danish bekendtgørelser &mdash; not the generic directive.</li>
-        <li>Convert the paper controls into an operating programme with named owners and evidence pipelines.</li>
-        <li>Sequence the supply-chain and incident-response gaps that carry the real audit and fine exposure first.</li>
-      </ul>
-    </div>
-    <div class="tools-row">
-      <span class="tool-chip">NIS2 Art. 21 &amp; 23</span>
-      <span class="tool-chip">DORA ICT-risk pillars</span>
-      <span class="tool-chip">ISO 27001 backbone</span>
-      <span class="tool-chip">PMO / decision rights</span>
-    </div>
-    <div class="outcome-box">
-      <div class="outcome-label">What delivered looks like</div>
-      <p>From &ldquo;compliant on paper&rdquo; to demonstrably operating &mdash; evidence a tilsynsmyndighed would accept, owned by the business rather than the binder.</p>
-    </div>
-  </div>
-</section>
-
-<!-- CARVE-OUT -->
-<section class="scenario" id="carveout" data-reveal>
-  <div class="wrap">
-    <div class="sc-sector">M&amp;A &middot; divestiture</div>
-    <h2 class="sc-title">The carve-out separating two entities</h2>
-    <span class="sc-keyword">IT carve-out programme manager</span>
-    <p class="sc-situation">
-      Two entities are separating, the business date is fixed, and IT is the long pole nobody costed. Shared systems, shared networks, shared vendor contracts, years of entanglement &mdash; and a TSA clock ticking, because every extra month of Transitional Service Agreement is margin bleeding to the parent.
-    </p>
-    <div class="sc-grid">
-      <div class="sc-block">
-        <h4>What&rsquo;s actually broken</h4>
-        <p>IT decisions get delayed while the business timeline stays fixed; scope boundaries stay fuzzy; dependencies are underestimated. A typical TSA exit involves 1,500+ interdependent design decisions &mdash; miss the sequencing and you either miss Day 1 or bleed TSA extension costs. Hidden licensing and legacy dependencies surface late and blow the budget.</p>
-      </div>
-      <div class="sc-block political">
-        <h4>The political read</h4>
-        <p>The dirty part is incentives: the parent has no reason to help you leave &mdash; the TSA is their revenue and their leverage &mdash; and the internal teams whose jobs vanish at separation won&rsquo;t sprint toward their own last day. Everyone smiles in the SteerCo and protects their own P&amp;L in the workstream.</p>
-      </div>
-    </div>
-    <div class="sc-block">
-      <h4>My first moves</h4>
-      <ul>
-        <li>Define Day 1 readiness ruthlessly &mdash; the minimum the carved-out entity needs to run independently, and nothing more.</li>
-        <li>Map the dependency web and the TSA exit sequence early, treating the 1,500 decisions as a governed backlog, not discovery-as-you-go.</li>
-        <li>Name the incentive problem out loud, then govern around it &mdash; a separation plan that assumes goodwill from the party you&rsquo;re leaving is a fantasy.</li>
-      </ul>
-    </div>
-    <div class="tools-row">
-      <span class="tool-chip">TSA design &amp; exit</span>
-      <span class="tool-chip">Day 1 readiness</span>
-      <span class="tool-chip">Multi-workstream governance</span>
-      <span class="tool-chip">Vendor disentanglement</span>
-    </div>
-    <div class="outcome-box">
-      <div class="outcome-label">What delivered looks like</div>
-      <p>Clean Day 1 separation, TSA exited on schedule instead of extended, and no operational surprise on cutover day.</p>
-    </div>
-
-    <div class="flagship-callout">
-      <p><strong style="color:var(--text-primary);font-weight:500;">The flagship playbook goes deeper.</strong> The turnaround scenario is a full interactive walk through the first 90 days &mdash; Control, Stabilise, Correct.</p>
-      <a href="playbook-programme-recovery.html" class="btn-primary">Open the interactive &rarr;</a>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
 <section class="cta-band" data-reveal>
   <div class="wrap">
     <div class="section-label" style="text-align:center;">Get in touch</div>

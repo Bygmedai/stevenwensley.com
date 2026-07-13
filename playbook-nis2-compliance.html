@@ -5,21 +5,21 @@
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-17Y98NY34Y');</script><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow">
-<title>Red Programme Turnaround — First 90 Days | Steven Wensley</title>
+<title>NIS2 &amp; DORA Compliance Turnaround — Playbook | Steven Wensley</title>
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="description" content="How I take over a red, regulated IT programme and turn it around — an interactive walk through the first 90 days: Control, Stabilise, Correct. The method, the tools, and the politics nobody writes down.">
+<meta name="description" content="How I turn NIS2/DORA compliance from paper to operating after the deadline has passed — interactive walkthrough: gap to obligation, assign ownership, operate & prove. Danish bekendtgørelser, Art. 21/23, DORA.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://stevenwensley.com/playbook-programme-recovery.html">
-<meta property="og:title" content="Playbook: Recovering a Red IT Programme — First 90 Days">
-<meta property="og:description" content="An interactive walk through how I turn around a red, regulated IT programme: Control, Stabilise, Correct — method, tools and the politics nobody writes down.">
+<meta property="og:url" content="https://stevenwensley.com/playbook-nis2-compliance.html">
+<meta property="og:title" content="NIS2 & DORA Compliance Turnaround — Playbook | Steven Wensley">
+<meta property="og:description" content="Interactive: how I turn NIS2/DORA compliance from paper to operating after the deadline — gap to obligation, assign ownership, operate & prove.">
 <meta property="og:image" content="https://stevenwensley.com/og-image.png">
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Playbook: Recovering a Red IT Programme — First 90 Days">
-<meta name="twitter:description" content="Interactive: how I turn around a red, regulated IT programme — Control, Stabilise, Correct.">
+<meta name="twitter:title" content="NIS2 & DORA Compliance Turnaround — Playbook | Steven Wensley">
+<meta name="twitter:description" content="Interactive: NIS2/DORA compliance from paper to operating.">
 <meta name="twitter:image" content="https://stevenwensley.com/og-image.png">
-<link rel="canonical" href="https://stevenwensley.com/playbook-programme-recovery.html">
+<link rel="canonical" href="https://stevenwensley.com/playbook-nis2-compliance.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -34,7 +34,6 @@
   }
   html { scroll-behavior: smooth; }
   body { background: var(--bg-primary); color: var(--text-primary); font-family: var(--sans); font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
-
   nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
   nav .logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-decoration: none; }
   nav .nav-links { display: flex; gap: 2.5rem; align-items: center; }
@@ -51,7 +50,6 @@
     nav .nav-links.open { display: flex; }
     nav .nav-links a { font-size: 0.9rem; padding: 0.5rem 0; }
   }
-
   .wrap { max-width: 1000px; margin: 0 auto; padding: 0 3rem; }
   .page-hero { padding: 10rem 0 3rem; }
   .breadcrumb { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1.5rem; }
@@ -61,26 +59,16 @@
   .page-hero h1 .accent { color: var(--gold); }
   .lede { font-size: 1.2rem; color: var(--text-secondary); max-width: 720px; line-height: 1.75; }
   .lede strong { color: var(--text-primary); font-weight: 500; }
-
   section { padding: 4.5rem 0; }
   .band { background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
   .section-title { font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 600; margin-bottom: 1.5rem; line-height: 1.3; }
   .prose { font-size: 1.05rem; color: var(--text-secondary); max-width: 720px; line-height: 1.8; }
-
-  /* ── RECOGNISE CHECKLIST ── */
   .recognise { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 1rem; margin-top: 2rem; }
   .recognise li { list-style: none; padding: 1.2rem 1.4rem; background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: 2px; font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6; }
-
-  /* ── INTERACTIVE STEPPER ── */
   .stepper-intro { margin-bottom: 2.5rem; }
   .timeline { display: flex; gap: 0; margin-bottom: 0; position: relative; flex-wrap: wrap; }
-  .phase-tab {
-    flex: 1; min-width: 200px; text-align: left; cursor: pointer;
-    background: var(--bg-card); border: 1px solid var(--border); border-bottom: none;
-    padding: 1.4rem 1.6rem; font-family: var(--sans); color: var(--text-secondary);
-    transition: background 0.3s, color 0.3s; position: relative;
-  }
+  .phase-tab { flex: 1; min-width: 200px; text-align: left; cursor: pointer; background: var(--bg-card); border: 1px solid var(--border); border-bottom: none; padding: 1.4rem 1.6rem; font-family: var(--sans); color: var(--text-secondary); transition: background 0.3s, color 0.3s; position: relative; }
   .phase-tab:not(:first-child) { border-left: none; }
   .phase-tab .phase-when { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; display: block; }
   .phase-tab .phase-name { font-family: var(--serif); font-size: 1.25rem; font-weight: 600; color: var(--text-primary); }
@@ -90,13 +78,11 @@
   .phase-tab[aria-selected="true"] .phase-when { color: var(--gold); }
   .phase-tab:hover { background: var(--bg-secondary); }
   .phase-tab:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
-
   .phase-panel { display: none; background: var(--bg-secondary); border: 1px solid var(--gold); border-top: 3px solid var(--gold); border-radius: 0 0 4px 4px; padding: 2.5rem; }
   .phase-panel.active { display: block; animation: panel-in 0.4s ease; }
   @keyframes panel-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
   .phase-panel h3 { font-family: var(--serif); font-size: 1.5rem; font-weight: 600; margin-bottom: 0.4rem; }
   .phase-goal { font-size: 0.95rem; color: var(--gold-light); margin-bottom: 2rem; }
-
   .panel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
   @media (max-width: 720px) { .panel-grid { grid-template-columns: 1fr; } }
   .panel-block h4 { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
@@ -105,34 +91,25 @@
   .panel-block li::before { content: '→'; position: absolute; left: 0; color: var(--gold); }
   .panel-block.political li::before { content: '•'; color: var(--red); font-size: 1.2rem; line-height: 1; }
   .panel-block.political li { color: var(--text-primary); font-style: italic; }
-
   .tools-row { display: flex; flex-wrap: wrap; gap: 0.6rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
   .tools-row .tools-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); width: 100%; margin-bottom: 0.3rem; }
   .tool-chip { padding: 0.4rem 0.9rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 20px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary); }
-
-  /* ── OUTCOME ── */
   .outcome-box { margin-top: 1rem; padding: 2rem 2.4rem; background: linear-gradient(135deg, rgba(76,154,114,0.08) 0%, rgba(10,10,15,0.6) 100%); border: 1px solid rgba(76,154,114,0.35); border-left: 3px solid var(--green); border-radius: 4px; }
   .outcome-box .outcome-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green); margin-bottom: 0.8rem; }
   .outcome-box p { font-size: 1.08rem; color: var(--text-primary); line-height: 1.7; }
-
-  /* ── OTHER PLAYBOOKS ── */
   .other-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 1rem; margin-top: 2rem; }
   .other-card { display: block; padding: 1.6rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px; text-decoration: none; color: inherit; transition: border-color 0.3s, transform 0.3s; }
   .other-card:hover { border-color: var(--gold); transform: translateY(-3px); }
   .other-card .os { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
   .other-card h4 { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--text-primary); line-height: 1.3; }
-
-  /* ── CTA ── */
   .cta-band { text-align: center; }
   .cta-band h2 { font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 600; margin-bottom: 1rem; }
   .cta-band p { font-size: 1.05rem; color: var(--text-secondary); max-width: 560px; margin: 0 auto 2rem; }
   .btn-primary { display: inline-flex; align-items: center; gap: 0.6rem; padding: 1rem 2.5rem; background: var(--gold); color: var(--bg-primary); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: opacity 0.3s; }
   .btn-primary:hover { opacity: 0.9; }
-
   footer { padding: 3rem; text-align: center; color: var(--text-muted); font-size: 0.78rem; letter-spacing: 0.05em; border-top: 1px solid var(--border); }
   footer a { color: var(--text-secondary); text-decoration: none; }
   footer a:hover { color: var(--gold); }
-
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
     .wrap { padding: 0 1.5rem; }
@@ -140,20 +117,14 @@
     section { padding: 3.5rem 0; }
     .phase-tab { min-width: 100%; border: 1px solid var(--border); border-bottom: none; }
   }
-
   [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
   [data-reveal].revealed { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    [data-reveal] { opacity: 1; transform: none; transition: none; }
-    .phase-panel.active { animation: none; }
-  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } [data-reveal] { opacity: 1; transform: none; transition: none; } .phase-panel.active { animation: none; } }
   .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}
 </style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
-
 <nav aria-label="Primary">
   <a href="/" class="logo" aria-label="Steven Wensley — home">SSW</a>
   <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -163,186 +134,171 @@
     <a href="/#contact">Contact</a>
   </div>
 </nav>
-
 <main id="main" tabindex="-1">
 
 <div class="page-hero">
   <div class="wrap">
-    <div class="breadcrumb"><a href="playbooks.html">Playbooks</a> &nbsp;/&nbsp; Turnaround</div>
-    <span class="scenario-tag">Interactive playbook &middot; cross-sector</span>
-    <h1>The red programme<br>you just <span class="accent">inherited.</span></h1>
+    <div class="breadcrumb"><a href="playbooks.html">Playbooks</a> &nbsp;/&nbsp; Critical infra &amp; finance</div>
+    <span class="scenario-tag">Interactive playbook &middot; NIS2 / DORA</span>
+    <h1>The NIS2 deadline<br>you&rsquo;re <span class="accent">already past.</span></h1>
     <p class="lede">
-      You&rsquo;ve been handed a programme that&rsquo;s already red. Multiple vendors, an SKI framework that locks you in, a styregruppe that meets monthly to watch it get worse, and a board that reads about it in <em>Version2</em> before it reads about it from you. <strong>Here is exactly how I&rsquo;d take the first 90 days.</strong>
+      The Danish NIS2 Act has been in force since <strong>1 July 2025</strong> &mdash; the date is behind you. You&rsquo;re an Essential or Important Entity, the sector bekendtgørelser apply, and your controls exist on paper and nowhere else. If you&rsquo;re a financial entity, DORA sits on top. <strong>Here&rsquo;s how I&rsquo;d turn paper into evidence.</strong>
     </p>
   </div>
 </div>
 
-<!-- RECOGNISE -->
 <section class="band" data-reveal>
   <div class="wrap">
     <div class="section-label">Is this you?</div>
-    <h2 class="section-title">What red actually looks like.</h2>
+    <h2 class="section-title">What &ldquo;compliant on paper&rdquo; looks like.</h2>
     <ul class="recognise">
-      <li>Time, cost and scope have all blown past what anyone will admit out loud.</li>
-      <li>The SteerCo reviews the same amber slide every month; nothing moves.</li>
-      <li>Vendors have read the contract more carefully than you have.</li>
-      <li>Everyone is busy. No one is deciding.</li>
-      <li>The real conversation about the programme happens in the car park, not the meeting.</li>
-      <li>Someone already owns the failure &mdash; and they&rsquo;re still in the room.</li>
+      <li>A binder of policies that no one operates day to day.</li>
+      <li>Risk-management measures written, but no named owner for any of them.</li>
+      <li>Supply-chain risk un-mapped &mdash; you can&rsquo;t list your critical ICT third parties.</li>
+      <li>An incident-response playbook nobody has ever run.</li>
+      <li>No evidence you could hand a tilsynsmyndighed tomorrow.</li>
+      <li>Compliance is everyone&rsquo;s job, which means it&rsquo;s no one&rsquo;s.</li>
     </ul>
   </div>
 </section>
 
-<!-- THE INTERACTIVE STEPPER -->
 <section data-reveal>
   <div class="wrap">
     <div class="stepper-intro">
-      <div class="section-label">The first 90 days</div>
-      <h2 class="section-title">Control &rarr; Stabilise &rarr; Correct.</h2>
-      <p class="prose">A turnaround isn&rsquo;t a Gantt chart &mdash; it&rsquo;s a sequence of decisions made in the right order, against people who don&rsquo;t all want the programme to succeed. Click through each phase: what I do, the political reality nobody writes down, and the tools I reach for.</p>
+      <div class="section-label">The approach</div>
+      <h2 class="section-title">Map &rarr; Own &rarr; Operate.</h2>
+      <p class="prose">NIS2 stalls when it&rsquo;s scoped as a document exercise. The fix is to map against the actual Danish obligations, put a name on every control, and sequence the work by real exposure &mdash; then produce evidence a supervisor would accept. Click through each phase.</p>
     </div>
 
-    <div class="timeline" role="tablist" aria-label="First 90 days phases">
-      <button class="phase-tab" id="tab-control" role="tab" aria-selected="true" aria-controls="panel-control" type="button">
-        <span class="phase-num">01</span>
-        <span class="phase-when">Days 1&ndash;7</span>
-        <span class="phase-name">Control</span>
+    <div class="timeline" role="tablist" aria-label="NIS2 compliance phases">
+      <button class="phase-tab" id="tab-map" role="tab" aria-selected="true" aria-controls="panel-map" type="button">
+        <span class="phase-num">01</span><span class="phase-when">Week 1&ndash;3</span><span class="phase-name">Gap to obligation</span>
       </button>
-      <button class="phase-tab" id="tab-stabilise" role="tab" aria-selected="false" aria-controls="panel-stabilise" type="button" tabindex="-1">
-        <span class="phase-num">02</span>
-        <span class="phase-when">Weeks 2&ndash;4</span>
-        <span class="phase-name">Stabilise</span>
+      <button class="phase-tab" id="tab-own" role="tab" aria-selected="false" aria-controls="panel-own" type="button" tabindex="-1">
+        <span class="phase-num">02</span><span class="phase-when">Weeks 4&ndash;6</span><span class="phase-name">Assign ownership</span>
       </button>
-      <button class="phase-tab" id="tab-correct" role="tab" aria-selected="false" aria-controls="panel-correct" type="button" tabindex="-1">
-        <span class="phase-num">03</span>
-        <span class="phase-when">Weeks 5&ndash;12</span>
-        <span class="phase-name">Correct</span>
+      <button class="phase-tab" id="tab-operate" role="tab" aria-selected="false" aria-controls="panel-operate" type="button" tabindex="-1">
+        <span class="phase-num">03</span><span class="phase-when">Weeks 7+</span><span class="phase-name">Operate &amp; prove</span>
       </button>
     </div>
 
-    <!-- CONTROL -->
-    <div class="phase-panel active" id="panel-control" role="tabpanel" aria-labelledby="tab-control" tabindex="0">
-      <h3>Control</h3>
-      <p class="phase-goal">Get the truth. Decide honestly whether it can be saved.</p>
+    <div class="phase-panel active" id="panel-map" role="tabpanel" aria-labelledby="tab-map" tabindex="0">
+      <h3>Gap to obligation</h3>
+      <p class="phase-goal">Map against the actual Danish obligations &mdash; then triage by real exposure.</p>
       <div class="panel-grid">
         <div class="panel-block">
           <h4>What I do</h4>
           <ul>
-            <li>Run a fast, diplomatic assessment &mdash; the real scope of the mess, not the reported one.</li>
-            <li>Find the root causes: unclear decision rights, diluted accountability, slow escalation.</li>
-            <li>Map two org charts &mdash; who&rsquo;s <em>accountable</em>, and who actually <em>decides</em>.</li>
-            <li>Say the unsayable early: recoverable, or should it be stopped?</li>
+            <li>Map the gap against the sector-specific bekendtgørelser, not the generic directive.</li>
+            <li>Confirm your classification &mdash; Essential vs Important &mdash; and what that actually obliges.</li>
+            <li>For financial entities, overlay DORA&rsquo;s ICT-risk and third-party requirements.</li>
+            <li>Rank every gap by audit and fine exposure, not by ease.</li>
           </ul>
         </div>
         <div class="panel-block political">
           <h4>The political read</h4>
           <ul>
-            <li>Someone owns this red status. They&rsquo;ll help you in the meeting and undermine you in the corridor.</li>
-            <li>The board wants a scapegoat almost as much as a solution &mdash; don&rsquo;t become it.</li>
-            <li>The vendor is already positioning the contract as your problem, not theirs.</li>
+            <li>Denmark left personal management liability out &mdash; so no one&rsquo;s neck is on the line, and urgency has to be manufactured.</li>
+            <li>Compliance is the hot potato: the CISO wants budget, økonomi wants it cheap, the board wants deniability.</li>
+            <li>A ranked, exposure-based list is how you make the board choose instead of defer.</li>
           </ul>
         </div>
       </div>
       <div class="tools-row">
         <span class="tools-label">Tools engaged</span>
-        <span class="tool-chip">Root-cause assessment</span>
-        <span class="tool-chip">Stakeholder mapping</span>
-        <span class="tool-chip">PMI recovery: Control</span>
-        <span class="tool-chip">Contract &amp; SLA review</span>
+        <span class="tool-chip">Gap-to-obligation mapping</span>
+        <span class="tool-chip">Danish bekendtgørelser</span>
+        <span class="tool-chip">DORA overlay</span>
+        <span class="tool-chip">Exposure ranking</span>
       </div>
     </div>
 
-    <!-- STABILISE -->
-    <div class="phase-panel" id="panel-stabilise" role="tabpanel" aria-labelledby="tab-stabilise" tabindex="0" hidden>
-      <h3>Stabilise</h3>
-      <p class="phase-goal">Re-establish decision rights. Get a recovery plan the board will sign.</p>
+    <div class="phase-panel" id="panel-own" role="tabpanel" aria-labelledby="tab-own" tabindex="0" hidden>
+      <h3>Assign ownership</h3>
+      <p class="phase-goal">Turn paper controls into an operating programme with named owners.</p>
       <div class="panel-grid">
         <div class="panel-block">
           <h4>What I do</h4>
           <ul>
-            <li>Rebuild the governance: clear decision rights, real accountability, fast escalation.</li>
-            <li>Make the unpopular calls &mdash; descope, re-sequence, reset the delivery baseline.</li>
-            <li>Reset vendor governance against the rammeaftale &mdash; obligations, not goodwill.</li>
-            <li>Produce a recovery plan that survives both a styregruppe and a board.</li>
+            <li>Put a named owner and a decision right on every control &mdash; no orphan measures.</li>
+            <li>Build the evidence pipelines: what gets logged, by whom, reviewed how often.</li>
+            <li>Stand up governance with a real cadence, not a quarterly slide.</li>
+            <li>Map and onboard critical ICT third parties into the supply-chain controls.</li>
           </ul>
         </div>
         <div class="panel-block political">
           <h4>The political read</h4>
           <ul>
-            <li>Make the hard calls before the politics makes them for you.</li>
-            <li>The people who benefit from vagueness will fight a plan with named owners and dates.</li>
-            <li>Reset the vendor relationship now &mdash; the honeymoon is the only leverage you get.</li>
+            <li>Named ownership is the whole game &mdash; it converts &ldquo;compliance&rdquo; from theatre into accountability.</li>
+            <li>Expect resistance from anyone who preferred the ambiguity; make the RACI explicit.</li>
+            <li>Tie ownership to existing roles, not a new committee no one attends.</li>
           </ul>
         </div>
       </div>
       <div class="tools-row">
         <span class="tools-label">Tools engaged</span>
-        <span class="tool-chip">Decision-rights matrix</span>
-        <span class="tool-chip">PRINCE2 crisis governance</span>
-        <span class="tool-chip">Re-baselined plan</span>
-        <span class="tool-chip">Vendor / SLA reset</span>
+        <span class="tool-chip">NIS2 Art. 21 measures</span>
+        <span class="tool-chip">Decision-rights / RACI</span>
+        <span class="tool-chip">ISO 27001 backbone</span>
+        <span class="tool-chip">Supply-chain onboarding</span>
       </div>
     </div>
 
-    <!-- CORRECT -->
-    <div class="phase-panel" id="panel-correct" role="tabpanel" aria-labelledby="tab-correct" tabindex="0" hidden>
-      <h3>Correct</h3>
-      <p class="phase-goal">Deliver a visible win. Rebuild trust with reporting the politics can&rsquo;t argue with.</p>
+    <div class="phase-panel" id="panel-operate" role="tabpanel" aria-labelledby="tab-operate" tabindex="0" hidden>
+      <h3>Operate &amp; prove</h3>
+      <p class="phase-goal">Produce continuous evidence a supervisor would accept.</p>
       <div class="panel-grid">
         <div class="panel-block">
           <h4>What I do</h4>
           <ul>
-            <li>Land one visible early win to prove the programme can move again.</li>
-            <li>Re-sync the teams &mdash; SAFe cadence where multiple workstreams have drifted apart.</li>
-            <li>Reconnect governance to delivery so it stops being theatre.</li>
-            <li>Report honestly, on cadence, in front of the people who&rsquo;d rather it stayed vague.</li>
+            <li>Stand up the incident-reporting path against Art. 23 timelines and test it for real.</li>
+            <li>Prove continuous monitoring with evidence that&rsquo;s generated, not assembled the night before.</li>
+            <li>Close the supply-chain and highest-exposure gaps first, in sequence.</li>
+            <li>Rehearse the supervisory conversation &mdash; can you show it, not just claim it?</li>
           </ul>
         </div>
         <div class="panel-block political">
           <h4>The political read</h4>
           <ul>
-            <li>The one thing the politics can&rsquo;t argue with is a delivered result and an honest number.</li>
-            <li>A visible win converts the fence-sitters faster than any status deck.</li>
-            <li>Transparent reporting quietly removes the cover that failure was hiding under.</li>
+            <li>Evidence quietly removes deniability &mdash; which is exactly why it&rsquo;s resisted, and exactly why it matters.</li>
+            <li>A tested incident path is worth more than a perfect untested policy.</li>
+            <li>&ldquo;Show me&rdquo; beats &ldquo;trust me&rdquo; in front of a tilsyn every time.</li>
           </ul>
         </div>
       </div>
       <div class="tools-row">
         <span class="tools-label">Tools engaged</span>
-        <span class="tool-chip">Early-win delivery</span>
-        <span class="tool-chip">SAFe re-sync</span>
-        <span class="tool-chip">Cadenced board reporting</span>
-        <span class="tool-chip">PMI recovery: Correct</span>
+        <span class="tool-chip">NIS2 Art. 23 reporting</span>
+        <span class="tool-chip">Continuous monitoring</span>
+        <span class="tool-chip">Evidence pipelines</span>
+        <span class="tool-chip">DORA resilience testing</span>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- OUTCOME -->
 <section class="band" data-reveal>
   <div class="wrap">
     <div class="section-label">What delivered looks like</div>
     <div class="outcome-box">
       <div class="outcome-label">Outcome</div>
-      <p>A programme that was heading for the Rigsrevisionen shelf, restructured and delivered instead &mdash; governance rebuilt, timeline recovered, and a board that trusts the reporting again. That&rsquo;s the signature: not a rescue plan, a rescue.</p>
+      <p>From &ldquo;compliant on paper&rdquo; to demonstrably operating &mdash; evidence a tilsynsmyndighed would accept, owned by the business rather than the binder, with the highest-exposure gaps closed first.</p>
     </div>
   </div>
 </section>
 
-<!-- OTHER PLAYBOOKS -->
 <section data-reveal>
   <div class="wrap">
     <div class="section-label">Other situations</div>
     <h2 class="section-title">Not your situation? Try another.</h2>
     <div class="other-grid">
+      <a href="playbook-programme-recovery.html" class="other-card">
+        <div class="os">Turnaround &middot; interactive</div>
+        <h4>The red programme you just inherited</h4>
+      </a>
       <a href="playbook-gxp-migration.html" class="other-card">
         <div class="os">Pharma / life science</div>
         <h4>The stalled GxP datacenter migration</h4>
-      </a>
-      <a href="playbook-nis2-compliance.html" class="other-card">
-        <div class="os">Critical infra / finance</div>
-        <h4>The NIS2 deadline you&rsquo;re already past</h4>
       </a>
       <a href="playbook-carveout-separation.html" class="other-card">
         <div class="os">M&amp;A / divestiture</div>
@@ -352,42 +308,31 @@
   </div>
 </section>
 
-<!-- CTA -->
 <section class="band cta-band" data-reveal>
   <div class="wrap">
     <div class="section-label" style="text-align:center;">Get in touch</div>
-    <h2>Got a programme that&rsquo;s gone quiet at the top?</h2>
-    <p>If it&rsquo;s red, stalled, or a compliance date has already slipped, I can help. Interim or freelance, via broker or direct. References from previous clients available on request.</p>
+    <h2>Compliant on paper, exposed in practice?</h2>
+    <p>If NIS2 or DORA is in force and your controls only exist in a binder, I can help make them operate. Interim or freelance, via broker or direct. References from previous clients available on request.</p>
     <a href="/#contact" class="btn-primary">Discuss an assignment &rarr;</a>
   </div>
 </section>
 
 </main>
-
 <footer>
   <div style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="playbooks.html">Playbooks</a> &middot; <a href="about.html">About</a> &middot; <a href="/#contact">Contact</a></div>
   &copy; 2026 Steven Seidenfaden Wensley. All rights reserved.
 </footer>
-
 <script>
 (function() {
   'use strict';
   var tabs = Array.prototype.slice.call(document.querySelectorAll('.phase-tab'));
-  var panels = {
-    'tab-control': document.getElementById('panel-control'),
-    'tab-stabilise': document.getElementById('panel-stabilise'),
-    'tab-correct': document.getElementById('panel-correct')
-  };
   function select(tab) {
     tabs.forEach(function(t) {
       var on = t === tab;
       t.setAttribute('aria-selected', on ? 'true' : 'false');
       t.tabIndex = on ? 0 : -1;
-      var panel = panels[t.id];
-      if (panel) {
-        panel.classList.toggle('active', on);
-        if (on) { panel.removeAttribute('hidden'); } else { panel.setAttribute('hidden', ''); }
-      }
+      var panel = document.getElementById(t.getAttribute('aria-controls'));
+      if (panel) { panel.classList.toggle('active', on); if (on) { panel.removeAttribute('hidden'); } else { panel.setAttribute('hidden', ''); } }
     });
   }
   tabs.forEach(function(tab, i) {
@@ -401,7 +346,6 @@
       if (idx !== null) { e.preventDefault(); select(tabs[idx]); tabs[idx].focus(); }
     });
   });
-
   try {
     var ro = new IntersectionObserver(function(entries) {
       entries.forEach(function(en) { if (en.isIntersecting) { en.target.classList.add('revealed'); ro.unobserve(en.target); } });
