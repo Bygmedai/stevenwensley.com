@@ -119,18 +119,56 @@
     .page-hero { padding: 8rem 0 1rem; }
   }
 
-  /* PRINT — a clean one-page profile a broker can save/forward */
+  /* Print-only header (hidden on screen) */
+  .print-only { display: none; }
+
+  /* PRINT — a sharp, designed one-page profile a broker can forward */
   @media print {
-    nav, .hamburger, footer, .no-print, .pitch-actions, .contact-links { display: none !important; }
-    body { background: #fff; color: #111; }
-    .band { background: #fff; border-color: #ccc; }
-    .snap, .fit-col, .ref-box, .pitch-box, .chip, .chip.plain { background: #fff !important; border-color: #bbb !important; color: #111 !important; }
-    .section-label, .snap .k, .page-hero h1 .accent, .fit-col.yes h3 { color: #7a5c1e !important; }
-    .lede, .prose, .snap .v, .fit-col li, .ref-box p, .pitch-box p { color: #222 !important; }
-    .page-hero { padding: 0.5rem 0 1rem; }
-    section { padding: 1rem 0; }
-    a { color: #111 !important; }
+    @page { size: A4; margin: 12mm 13mm; }
+    html, body { background: #fff !important; color: #1a1a1a !important; font-family: var(--sans); font-size: 9.5pt; line-height: 1.4; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    nav, .hamburger, footer, .skip-link, .no-print, .pitch-actions, .cta-band, .page-hero { display: none !important; }
+    main { padding: 0 !important; }
+    .wrap { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+    section, .band { padding: 0 0 7pt !important; margin: 0 !important; background: #fff !important; border: none !important; }
+
+    .print-only { display: block !important; }
+    .print-header { border-bottom: 2px solid #b58a3c; padding-bottom: 9pt; margin-bottom: 11pt; }
+    .print-header .ph-name { font-family: var(--serif); font-size: 20pt; font-weight: 700; color: #111; line-height: 1.1; }
+    .print-header .ph-role { font-size: 10.5pt; color: #333; margin-top: 3pt; font-weight: 500; }
+    .print-header .ph-contact { font-size: 8.3pt; color: #666; margin-top: 5pt; letter-spacing: 0.01em; }
+
+    .section-label { color: #b58a3c !important; font-size: 7.4pt !important; letter-spacing: 0.18em !important; margin: 9pt 0 4pt !important; font-weight: 600; }
+    .section-title { font-family: var(--serif); font-size: 12.5pt !important; color: #111 !important; margin: 0 0 5pt !important; line-height: 1.2 !important; }
+    .prose { font-size: 8.8pt !important; color: #555 !important; margin: 0 0 4pt !important; max-width: 100% !important; }
+
+    .snapshot { display: grid !important; grid-template-columns: 1fr 1fr 1fr !important; gap: 6pt !important; margin: 4pt 0 0 !important; }
+    .snap { background: #faf7f0 !important; border: 1px solid #e2d8c4 !important; border-left: 2px solid #b58a3c !important; padding: 6pt 8pt !important; border-radius: 2px; break-inside: avoid; }
+    .snap .k { color: #b58a3c !important; font-size: 6.6pt !important; margin-bottom: 2pt !important; letter-spacing: 0.12em; }
+    .snap .v { color: #1a1a1a !important; font-size: 8.6pt !important; line-height: 1.3 !important; }
+    .snap .v small { color: #888 !important; font-size: 7.3pt !important; }
+
+    .chips { gap: 4pt !important; margin-top: 5pt !important; }
+    .chip, .chip.plain { background: #f3ecdd !important; border: 1px solid #e2d8c4 !important; color: #3a342a !important; font-size: 7.6pt !important; font-weight: 500; padding: 2pt 7pt !important; border-radius: 10pt; }
+
+    .pitch-box { background: #faf7f0 !important; border: 1px solid #cbb47e !important; padding: 8pt 10pt !important; margin-top: 5pt !important; border-radius: 3px; break-inside: avoid; }
+    .pitch-box p { color: #1a1a1a !important; font-size: 8.7pt !important; line-height: 1.5 !important; }
+
+    .fit-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 8pt !important; margin-top: 5pt !important; }
+    .fit-col { background: #fff !important; border: 1px solid #ddd !important; padding: 7pt 9pt !important; border-radius: 3px; break-inside: avoid; }
+    .fit-col h3 { font-size: 7.2pt !important; margin-bottom: 4pt !important; }
+    .fit-col.yes h3 { color: #2f7a4f !important; }
+    .fit-col.no h3 { color: #999 !important; }
+    .fit-col li { color: #333 !important; font-size: 8.1pt !important; line-height: 1.35 !important; margin-bottom: 3pt !important; padding-left: 12pt !important; }
+    .fit-col.yes li::before { color: #2f7a4f !important; }
+    .fit-col.no li::before { color: #aaa !important; }
+
+    .ref-box { background: #faf7f0 !important; border: 1px solid #e2d8c4 !important; border-left: 2px solid #b58a3c !important; padding: 7pt 10pt !important; margin-top: 5pt !important; border-radius: 3px; break-inside: avoid; }
+    .ref-box p { color: #333 !important; font-size: 8.2pt !important; line-height: 1.45 !important; }
+    a { color: #1a1a1a !important; text-decoration: none !important; }
+    strong, .ref-box p strong, .pitch-box p strong, .prose strong { color: #1a1a1a !important; font-weight: 600 !important; }
+    .screen-only { display: none !important; }
   }
+  @media screen { .print-only { display: none; } }
   .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}
 </style>
 </head>
@@ -148,12 +186,18 @@
 </nav>
 <main id="main" tabindex="-1">
 
+<div class="print-only print-header" aria-hidden="true">
+  <div class="ph-name">Steven Seidenfaden Wensley</div>
+  <div class="ph-role">Senior IT Programme &amp; Transition Manager &middot; turnaround, transition &amp; regulated delivery</div>
+  <div class="ph-contact">Copenhagen &middot; steven.wensley@gmail.com &middot; +45 53 88 60 61 &middot; linkedin.com/in/stevenwensley &middot; Available for interim from August 2026</div>
+</div>
+
 <div class="page-hero">
   <div class="wrap">
     <div class="section-label">For agencies &amp; brokers</div>
     <h1>Everything you need to put me<br>in front of <span class="accent">your client.</span></h1>
     <p class="lede">
-      You place the consultant; I make you look good for it. Below is the profile, the search terms I match, a ready-to-send pitch, and an honest read on what I&rsquo;m a fit for. <strong>Print this page for a clean one-pager to forward.</strong>
+      You place the consultant; I make you look good for it. Below is the profile, the search terms I match, a ready-to-send pitch, and an honest read on what I&rsquo;m a fit for. <strong>Download the one-page profile (PDF) to forward straight to your client.</strong>
     </p>
   </div>
 </div>
@@ -209,14 +253,15 @@
 <!-- PITCH -->
 <section class="band">
   <div class="wrap">
-    <div class="section-label">The 30-second pitch</div>
-    <h2 class="section-title">Copy this straight into your client email.</h2>
-    <p class="prose">Written to forward as-is &mdash; third person, tight, no fluff.</p>
+    <h2 class="section-title print-only">In brief</h2>
+    <div class="section-label screen-only">The 30-second pitch</div>
+    <h2 class="section-title screen-only">Copy this straight into your client email.</h2>
+    <p class="prose screen-only">Written to forward as-is &mdash; third person, tight, no fluff.</p>
     <div class="pitch-box">
       <p id="pitch">Steven Wensley — Senior IT Programme &amp; Transition Manager, 18+ years turning around and delivering complex, regulated IT programmes across pharma (GxP), finance (NIS2/DORA), telecom and the Danish public sector. Specialist in taking over red or stalled programmes: datacenter migration, carve-out and TSA exit, and compliance delivery. Designs the governance and then delivers inside it. PMP, PRINCE2, SAFe. Copenhagen-based, Danish &amp; English. Available for interim from August 2026. References from previous clients on request.</p>
       <div class="pitch-actions no-print">
         <button class="btn btn-solid" id="copyBtn" type="button">Copy pitch</button>
-        <button class="btn btn-ghost" onclick="window.print()" type="button">Save as PDF / print</button>
+        <a class="btn btn-ghost" href="steven-wensley-profile.pdf" download>Download 1-page profile (PDF)</a>
         <span class="copied-note" id="copiedNote">Copied to clipboard ✓</span>
       </div>
     </div>
