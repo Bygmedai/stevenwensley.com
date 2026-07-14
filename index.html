@@ -448,6 +448,26 @@
   }
 
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  /* ── REGULATORY MAP ── */
+  .reg-wrap { display: grid; grid-template-columns: 280px 1fr; gap: 1.5rem; margin-top: 3rem; align-items: start; }
+  .reg-tabs { display: flex; flex-direction: column; gap: 0.5rem; }
+  .reg-tab { text-align: left; background: var(--bg-secondary); border: 1px solid var(--border); border-left: 3px solid transparent; border-radius: 2px; padding: 1rem 1.2rem; cursor: pointer; font-family: var(--sans); transition: color 0.3s, background 0.3s, border-color 0.3s; }
+  .reg-tab:hover { border-color: var(--gold); }
+  .reg-tab .reg-abbr { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--text-primary); display: block; }
+  .reg-tab .reg-full { font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.02em; }
+  .reg-tab[aria-selected="true"] { border-left-color: var(--gold); background: var(--bg-card); }
+  .reg-tab[aria-selected="true"] .reg-abbr { color: var(--gold); }
+  .reg-tab:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .reg-panel { background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px; padding: 2rem; }
+  .reg-panel[hidden] { display: none; }
+  .reg-panel h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.3rem; color: var(--text-primary); }
+  .reg-panel .reg-gov { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem; }
+  .reg-h { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+  .reg-sectors { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.6rem; }
+  .reg-sector { padding: 0.35rem 0.85rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 20px; font-size: 0.76rem; color: var(--text-primary); }
+  .reg-do { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.75; border-left: 2px solid var(--gold); padding-left: 1.1rem; }
+  @media (max-width: 760px) { .reg-wrap { grid-template-columns: 1fr; } .reg-tabs { flex-direction: row; flex-wrap: wrap; } .reg-tab { flex: 1; min-width: 140px; } }
 </style>
 <style id="a11y-skip-link">.skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;font-family:'Space Grotesk',sans-serif;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}</style>
 </head>
@@ -505,6 +525,7 @@
     <p style="font-size: 1.05rem; color: var(--text-secondary); max-width: 700px; line-height: 1.8;">
       Brought in when a programme is red, a compliance date has already passed, a migration has stalled, or a carve-out is bleeding TSA costs. Interim or freelance, typically 6&ndash;12 months. Available via broker or direct. <strong style="color: var(--text-primary); font-weight: 500;">References from previous clients available on request.</strong>
     </p>
+    <a href="for-brokers.html" style="display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1.8rem; padding: 0.85rem 1.8rem; border: 1px solid var(--gold); color: var(--gold); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.3s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--bg-primary)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">Broker or agency? Everything you need &rarr;</a>
   </div>
 </section>
 
@@ -627,6 +648,79 @@
   </div>
 </section>
 
+<!-- REGULATORY MAP -->
+<section id="regulatory" data-reveal style="background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="section-inner">
+    <div class="section-label">The regulatory landscape</div>
+    <h2 class="section-title">The regimes I operate across.</h2>
+    <p class="section-intro">Regulated delivery means the compliance regime <em>is</em> the constraint. Pick one to see what it governs, which sectors it hits, and what I do with it.</p>
+    <div class="reg-wrap">
+      <div class="reg-tabs" role="tablist" aria-label="Regulatory regimes" aria-orientation="vertical">
+        <button class="reg-tab" id="regtab-nis2" role="tab" aria-selected="true" aria-controls="regpanel-nis2" type="button">
+          <span class="reg-abbr">NIS2</span><span class="reg-full">Network &amp; Information Security Directive</span>
+        </button>
+        <button class="reg-tab" id="regtab-dora" role="tab" aria-selected="false" aria-controls="regpanel-dora" type="button" tabindex="-1">
+          <span class="reg-abbr">DORA</span><span class="reg-full">Digital Operational Resilience Act</span>
+        </button>
+        <button class="reg-tab" id="regtab-gxp" role="tab" aria-selected="false" aria-controls="regpanel-gxp" type="button" tabindex="-1">
+          <span class="reg-abbr">GxP / EU GMP</span><span class="reg-full">Good Practice &amp; Annex 11</span>
+        </button>
+        <button class="reg-tab" id="regtab-pci" role="tab" aria-selected="false" aria-controls="regpanel-pci" type="button" tabindex="-1">
+          <span class="reg-abbr">PCI-DSS</span><span class="reg-full">Payment Card Industry Data Security</span>
+        </button>
+        <button class="reg-tab" id="regtab-iso" role="tab" aria-selected="false" aria-controls="regpanel-iso" type="button" tabindex="-1">
+          <span class="reg-abbr">ISO 27001</span><span class="reg-full">Information Security Management</span>
+        </button>
+      </div>
+
+      <div class="reg-panel" id="regpanel-nis2" role="tabpanel" aria-labelledby="regtab-nis2" tabindex="0">
+        <h3>NIS2</h3>
+        <p class="reg-gov">Cybersecurity risk-management measures and incident reporting for Essential and Important Entities &mdash; in force in Denmark since 1 July 2025, with penalties up to &euro;10M or 2% of global turnover.</p>
+        <div class="reg-h">Sectors it hits</div>
+        <div class="reg-sectors"><span class="reg-sector">Energy</span><span class="reg-sector">Transport</span><span class="reg-sector">Health</span><span class="reg-sector">Water</span><span class="reg-sector">Digital infrastructure</span><span class="reg-sector">Public administration</span></div>
+        <div class="reg-h">What I do with it</div>
+        <p class="reg-do">Turn the directive into an operating programme with named owners and evidence a supervisor accepts &mdash; not a binder of policies nobody runs.</p>
+      </div>
+
+      <div class="reg-panel" id="regpanel-dora" role="tabpanel" aria-labelledby="regtab-dora" tabindex="0" hidden>
+        <h3>DORA</h3>
+        <p class="reg-gov">ICT risk management, third-party oversight, incident reporting and resilience testing for financial entities &mdash; applicable across the EU since 17 January 2025.</p>
+        <div class="reg-h">Sectors it hits</div>
+        <div class="reg-sectors"><span class="reg-sector">Banking</span><span class="reg-sector">Insurance</span><span class="reg-sector">Payments</span><span class="reg-sector">Investment</span><span class="reg-sector">Financial infrastructure</span></div>
+        <div class="reg-h">What I do with it</div>
+        <p class="reg-do">Stand up ICT-risk governance and third-party oversight that hold up under a resilience test &mdash; stacked cleanly on top of NIS2 where both apply.</p>
+      </div>
+
+      <div class="reg-panel" id="regpanel-gxp" role="tabpanel" aria-labelledby="regtab-gxp" tabindex="0" hidden>
+        <h3>GxP / EU GMP</h3>
+        <p class="reg-gov">Computerised-system validation and data integrity (ALCOA+) in regulated manufacturing &mdash; governed by EU GMP Annex 11, GAMP 5 and 21 CFR Part 11.</p>
+        <div class="reg-h">Sectors it hits</div>
+        <div class="reg-sectors"><span class="reg-sector">Pharma</span><span class="reg-sector">Life science</span><span class="reg-sector">Medical devices</span><span class="reg-sector">Biotech</span></div>
+        <div class="reg-h">What I do with it</div>
+        <p class="reg-do">Run migrations and transitions that keep validated systems (MES, SCADA, PAS-X) audit-ready &mdash; migration and validation evidence landing together.</p>
+      </div>
+
+      <div class="reg-panel" id="regpanel-pci" role="tabpanel" aria-labelledby="regtab-pci" tabindex="0" hidden>
+        <h3>PCI-DSS</h3>
+        <p class="reg-gov">Security controls protecting cardholder data across people, process and technology &mdash; assessed on a recurring recertification cycle.</p>
+        <div class="reg-h">Sectors it hits</div>
+        <div class="reg-sectors"><span class="reg-sector">Banking</span><span class="reg-sector">Payments</span><span class="reg-sector">Retail</span><span class="reg-sector">Fintech</span></div>
+        <div class="reg-h">What I do with it</div>
+        <p class="reg-do">Bring card-data environments through recertification without stalling delivery &mdash; governance and scope kept tight around the CDE.</p>
+      </div>
+
+      <div class="reg-panel" id="regpanel-iso" role="tabpanel" aria-labelledby="regtab-iso" tabindex="0" hidden>
+        <h3>ISO 27001</h3>
+        <p class="reg-gov">A risk-based information-security management system (ISMS) &mdash; the control backbone that most of the regimes above lean on.</p>
+        <div class="reg-h">Sectors it hits</div>
+        <div class="reg-sectors"><span class="reg-sector">Cross-sector</span><span class="reg-sector">Finance</span><span class="reg-sector">Public sector</span><span class="reg-sector">Critical infrastructure</span></div>
+        <div class="reg-h">What I do with it</div>
+        <p class="reg-do">Use it as the shared control backbone under NIS2 and DORA programmes &mdash; so evidence is produced once and reused, not rebuilt per regime.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact" data-reveal>
   <div class="section-inner">
@@ -701,6 +795,31 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('[data-reveal]').forEach(function(el) { revealObserver.observe(el); });
   } catch(e) { document.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('revealed'); }); }
+
+  /* ── REGULATORY MAP TABS ── */
+  try {
+    var regTabs = Array.prototype.slice.call(document.querySelectorAll('.reg-tab'));
+    function regSelect(tab) {
+      regTabs.forEach(function(t) {
+        var on = t === tab;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        var panel = document.getElementById(t.getAttribute('aria-controls'));
+        if (panel) { if (on) { panel.removeAttribute('hidden'); } else { panel.setAttribute('hidden', ''); } }
+      });
+    }
+    regTabs.forEach(function(tab, i) {
+      tab.addEventListener('click', function() { regSelect(tab); });
+      tab.addEventListener('keydown', function(e) {
+        var idx = null;
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') idx = (i + 1) % regTabs.length;
+        else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') idx = (i - 1 + regTabs.length) % regTabs.length;
+        else if (e.key === 'Home') idx = 0;
+        else if (e.key === 'End') idx = regTabs.length - 1;
+        if (idx !== null) { e.preventDefault(); regSelect(regTabs[idx]); regTabs[idx].focus(); }
+      });
+    });
+  } catch(e) {}
 })();
 </script>
 </body>

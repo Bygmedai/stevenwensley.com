@@ -147,7 +147,24 @@
     html { scroll-behavior: auto; }
     [data-reveal] { opacity: 1; transform: none; transition: none; }
     .phase-panel.active { animation: none; }
+    .traj-line { stroke-dashoffset: 0; animation: none; }
   }
+
+  /* ── TRAJECTORY CHART ── */
+  .traj-wrap { max-width: 800px; margin: 2.5rem auto 0; }
+  .traj-fig { margin: 0; }
+  .traj-fig svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .traj-caption { font-size: 0.82rem; color: var(--text-muted); text-align: center; margin-top: 1.2rem; font-style: italic; }
+  .traj-x-label { fill: var(--text-secondary); font-family: var(--sans); font-size: 14px; font-weight: 500; }
+  .traj-zone-label { font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; fill: var(--text-secondary); }
+  .traj-line { fill: none; stroke: var(--gold); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1500; stroke-dashoffset: 1500; }
+  [data-reveal].revealed .traj-line { animation: traj-draw 1.9s cubic-bezier(0.25,0.46,0.45,0.94) forwards 0.2s; }
+  @keyframes traj-draw { to { stroke-dashoffset: 0; } }
+  .traj-dot { fill: var(--gold); stroke: var(--bg-secondary); stroke-width: 3; }
+  .traj-dot-start { fill: var(--bg-secondary); stroke: var(--gold); stroke-width: 2.5; }
+  .traj-hit { fill: transparent; cursor: pointer; }
+  .traj-hit:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
   .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}
 </style>
 </head>
@@ -316,6 +333,61 @@
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- TRAJECTORY -->
+<section data-reveal>
+  <div class="wrap">
+    <div class="section-label">The trajectory</div>
+    <h2 class="section-title">Bending a red programme back to green.</h2>
+    <p class="prose">Illustrative &mdash; the <em>shape</em> of a turnaround, not figures from any engagement. The decline halts in Control, the line lifts through Stabilise, and Correct carries it into delivery.</p>
+    <div class="traj-wrap">
+      <figure class="traj-fig">
+        <svg viewBox="0 0 780 320" role="img" aria-labelledby="trajTitle trajDesc">
+          <title id="trajTitle">Programme health trajectory across the first 90 days</title>
+          <desc id="trajDesc">An illustrative curve rising from &ldquo;at risk&rdquo; at Day 0, holding through Control, lifting through Stabilise, and reaching &ldquo;delivering&rdquo; by the end of Correct.</desc>
+          <!-- zones -->
+          <rect x="60" y="30" width="700" height="80" fill="#2f9e63" opacity="0.09"></rect>
+          <rect x="60" y="110" width="700" height="80" fill="#c2892f" opacity="0.09"></rect>
+          <rect x="60" y="190" width="700" height="80" fill="#c0563f" opacity="0.09"></rect>
+          <!-- zone dividers -->
+          <line x1="60" y1="110" x2="760" y2="110" stroke="#c9a96e" stroke-opacity="0.12"></line>
+          <line x1="60" y1="190" x2="760" y2="190" stroke="#c9a96e" stroke-opacity="0.12"></line>
+          <line x1="60" y1="270" x2="760" y2="270" stroke="#c9a96e" stroke-opacity="0.2"></line>
+          <!-- zone labels + status dots -->
+          <circle cx="74" cy="66" r="4" fill="#2f9e63"></circle>
+          <text class="traj-zone-label" x="86" y="70">Delivering</text>
+          <circle cx="74" cy="146" r="4" fill="#c2892f"></circle>
+          <text class="traj-zone-label" x="86" y="150">Stabilising</text>
+          <circle cx="74" cy="226" r="4" fill="#c0563f"></circle>
+          <text class="traj-zone-label" x="86" y="230">At risk</text>
+          <!-- trajectory line -->
+          <path class="traj-line" d="M110,246 C 190,243 250,236 300,230 C 380,221 440,182 500,152 C 580,116 640,92 700,72"></path>
+          <!-- start marker -->
+          <circle class="traj-dot-start" cx="110" cy="246" r="6"></circle>
+          <!-- phase dots + hover targets -->
+          <g>
+            <circle class="traj-dot" cx="300" cy="230" r="6.5"></circle>
+            <circle class="traj-hit" cx="300" cy="230" r="18" tabindex="0" role="img" aria-label="Control — truth established, decline halted"><title>Control · Days 1–7 — truth established, decline halted</title></circle>
+          </g>
+          <g>
+            <circle class="traj-dot" cx="500" cy="152" r="6.5"></circle>
+            <circle class="traj-hit" cx="500" cy="152" r="18" tabindex="0" role="img" aria-label="Stabilise — governance reset, recovery plan signed"><title>Stabilise · Weeks 2–4 — governance reset, plan signed</title></circle>
+          </g>
+          <g>
+            <circle class="traj-dot" cx="700" cy="72" r="6.5"></circle>
+            <circle class="traj-hit" cx="700" cy="72" r="18" tabindex="0" role="img" aria-label="Correct — delivering, board trust rebuilt"><title>Correct · Weeks 5–12 — delivering, trust rebuilt</title></circle>
+          </g>
+          <!-- x-axis labels -->
+          <text class="traj-x-label" x="110" y="298" text-anchor="middle">Day 0</text>
+          <text class="traj-x-label" x="300" y="298" text-anchor="middle">Control</text>
+          <text class="traj-x-label" x="500" y="298" text-anchor="middle">Stabilise</text>
+          <text class="traj-x-label" x="700" y="298" text-anchor="middle">Correct</text>
+        </svg>
+        <figcaption class="traj-caption">Illustrative trajectory &mdash; the shape of a recovery, not figures from any engagement. Hover a phase for detail.</figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
