@@ -93,6 +93,19 @@
   .btn-ghost { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.9rem 2rem; background: transparent; color: var(--gold); border: 1px solid var(--gold); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.3s; }
   .btn-ghost:hover { background: var(--gold); color: var(--bg-primary); }
 
+  /* TESTIMONIALS */
+  .tst-grid { columns: 2; column-gap: 1.5rem; margin-top: 2.5rem; }
+  @media (max-width: 720px) { .tst-grid { columns: 1; } }
+  .tst { break-inside: avoid; margin-bottom: 1.5rem; padding: 1.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 3px; }
+  .tst .quote { font-size: 1rem; color: var(--text-primary); line-height: 1.7; margin-bottom: 1.2rem; }
+  .tst .quote::before { content: '\201C'; color: var(--gold); font-family: var(--serif); font-size: 1.4rem; margin-right: 0.15rem; }
+  .tst .who { font-size: 0.9rem; color: var(--gold-light); font-weight: 500; }
+  .tst .role { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+  .tst .rel { display: inline-block; margin-top: 0.5rem; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); border: 1px solid var(--border); border-radius: 20px; padding: 0.2rem 0.7rem; }
+  .tst-verify { margin-top: 1.5rem; font-size: 0.9rem; }
+  .tst-verify a { color: var(--gold); text-decoration: none; }
+  .tst-verify a:hover { text-decoration: underline; }
+
   .cta-band { text-align: center; }
   .cta-band h2 { font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2rem); font-weight: 600; margin-bottom: 1rem; }
   .cta-band p { font-size: 1.05rem; color: var(--text-secondary); max-width: 540px; margin: 0 auto 2rem; }
@@ -252,6 +265,54 @@
       <p><strong style="color:var(--text-primary);font-weight:500;">Full CV and client references available on request.</strong> Happy to share detailed engagement history and referees directly with brokers and prospective clients.</p>
       <a href="/#contact" class="btn-ghost">Request CV &amp; references &rarr;</a>
     </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="band" id="testimonials" data-reveal>
+  <div class="wrap">
+    <div class="section-label">In their words</div>
+    <h2 class="section-title">What the people I&rsquo;ve delivered for say.</h2>
+    <p class="prose">A selection of recommendations from colleagues, sponsors and clients &mdash; all public and verifiable on LinkedIn.</p>
+    <div class="tst-grid">
+      <div class="tst">
+        <p class="quote">Steven joined the project when there were lots of complications and things were not moving in the right direction. In a very short time of six weeks he was able to bring the project on track &mdash; emphasising the project planning and building the knowledge repositories and checklists that helped the whole team.</p>
+        <div class="who">Abhaprakash Praharaj, PMP</div>
+        <div class="role">Project Manager, Tata Consultancy Services</div>
+        <span class="rel">Worked alongside Steven</span>
+      </div>
+      <div class="tst">
+        <p class="quote">His proven experience in programme governance, planning, risk and dependency management was invaluable in helping to establish and grow the function from scratch. He consistently brought significant detailed reporting together in a &lsquo;stakeholder-friendly&rsquo; way.</p>
+        <div class="who">Alan Todd</div>
+        <div class="role">Global Programme Director / Head of Programme Management</div>
+        <span class="rel">Managed Steven directly</span>
+      </div>
+      <div class="tst">
+        <p class="quote">Steven demonstrated a strong strategic understanding of IT, system landscapes and data interfaces &mdash; and not least, the complexity of enabling internal and external teams to work effectively together. I can highly recommend him for large, complex IT projects.</p>
+        <div class="who">Henrik Porsgaard</div>
+        <div class="role">IT Governance &amp; Application Portfolio Manager, NNIT</div>
+        <span class="rel">Reported to Steven on a carve-out programme</span>
+      </div>
+      <div class="tst">
+        <p class="quote">No obstacles will ever stop Steven; his persistent work gets the job done to the satisfaction of his stakeholders. Very business-oriented and excellent at understanding and meeting customer expectations.</p>
+        <div class="who">Per Holt Carlsen</div>
+        <div class="role">Projektleder, JN Data</div>
+        <span class="rel">Worked alongside Steven</span>
+      </div>
+      <div class="tst">
+        <p class="quote">Calm, focussed and well prepared for every meeting. Over six months I was always guided and supported by Steven in taking important decisions on the project. I learned a lot from him and highly recommend him.</p>
+        <div class="who">Neha Singh</div>
+        <div class="role">FX Product Leader &mdash; worked with Steven at Nordea Bank</div>
+        <span class="rel">Reported to Steven</span>
+      </div>
+      <div class="tst">
+        <p class="quote">A professional and skilled project manager who knows both traditional project management and how to combine those tools with agile development. Steven brings enthusiasm and good spirit &mdash; a true pleasure to work with.</p>
+        <div class="who">Oliver Brunchmann</div>
+        <div class="role">Marketing &amp; Go-to-Market Leader</div>
+        <span class="rel">Senior to Steven</span>
+      </div>
+    </div>
+    <p class="tst-verify"><a href="https://www.linkedin.com/in/stevenwensley/details/recommendations/" target="_blank" rel="noopener">See all recommendations on LinkedIn &rarr;</a></p>
   </div>
 </section>
 
