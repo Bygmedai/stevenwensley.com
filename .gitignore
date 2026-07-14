@@ -5,3 +5,7 @@ tests/screenshots/
 # Eleventy builds directly to project root (output: ".") so no separate
 # _site/ exists by default. Defensive ignore in case anyone misconfigures.
 _site/
+
+# Playwright local run artifacts
+test-results/
+playwright-report/
