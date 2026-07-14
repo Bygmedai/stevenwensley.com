@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-17Y98NY34Y"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-17Y98NY34Y');</script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Regulated-IT Glossary — NIS2, DORA, GxP, TSA, Cutover, Explained | Steven Wensley</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="A plain-English glossary of the terms that run regulated IT programmes — NIS2, DORA, GxP, CSV, Annex 11, ALCOA+, TSA, Day 1 readiness, cutover, hypercare, RAG, decision rights and more. What each means, and why it matters for delivery.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stevenwensley.com/glossary.html">
+<meta property="og:title" content="Regulated-IT Glossary — Plain English | Steven Wensley">
+<meta property="og:description" content="The terms that run regulated IT programmes — NIS2, DORA, GxP, CSV, TSA, cutover, hypercare, RAG and more — what each means, and why it matters for delivery.">
+<meta property="og:image" content="https://stevenwensley.com/og-image.png">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Regulated-IT Glossary — Plain English | Steven Wensley">
+<meta name="twitter:description" content="NIS2, DORA, GxP, CSV, TSA, cutover, hypercare, RAG — the terms that run regulated IT programmes, explained.">
+<meta name="twitter:image" content="https://stevenwensley.com/og-image.png">
+<link rel="canonical" href="https://stevenwensley.com/glossary.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #1a1a26;
+    --gold: #c9a96e; --gold-light: #dfc08a; --gold-dim: rgba(201,169,110,0.15);
+    --text-primary: #f0ece4; --text-secondary: #9a9aaa; --text-muted: #6a6a7a;
+    --border: rgba(201,169,110,0.12); --red: #c0563f; --green: #2f9e63;
+    --serif: 'DM Serif Display', Georgia, serif; --sans: 'Space Grotesk', -apple-system, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg-primary); color: var(--text-primary); font-family: var(--sans); font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  nav .logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-decoration: none; }
+  nav .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  nav .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
+  nav .nav-links a:hover, nav .nav-links a.active { color: var(--gold); }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 101; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); margin: 5px 0; transition: all 0.3s; border-radius: 2px; }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  @media (max-width: 680px) {
+    .hamburger { display: block; }
+    nav .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,10,15,0.97); backdrop-filter: blur(20px); flex-direction: column; padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border); }
+    nav .nav-links.open { display: flex; }
+    nav .nav-links a { font-size: 0.9rem; padding: 0.5rem 0; }
+  }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+  .page-hero { padding: 10rem 0 1rem; }
+  .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .page-hero h1 { font-family: var(--serif); font-size: clamp(2.1rem, 4.5vw, 3rem); font-weight: 700; line-height: 1.15; margin-bottom: 1.2rem; }
+  .page-hero h1 .accent { color: var(--gold); }
+  .lede { font-size: 1.12rem; color: var(--text-secondary); line-height: 1.7; max-width: 680px; }
+
+  .controls { padding: 2.5rem 0 0.5rem; position: sticky; top: 68px; background: var(--bg-primary); z-index: 50; }
+  .search { position: relative; margin-bottom: 1.2rem; }
+  .search input { width: 100%; font-family: var(--sans); font-size: 1rem; color: var(--text-primary); background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; padding: 0.9rem 1.1rem 0.9rem 2.6rem; }
+  .search input::placeholder { color: var(--text-muted); }
+  .search input:focus { outline: none; border-color: var(--gold); }
+  .search svg { position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--text-muted); }
+  .filters { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .filter-chip { font-family: var(--sans); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 20px; padding: 0.45rem 1rem; cursor: pointer; transition: all 0.2s; }
+  .filter-chip:hover { border-color: var(--gold); }
+  .filter-chip[aria-pressed="true"] { background: var(--gold); color: var(--bg-primary); border-color: var(--gold); }
+  .filter-chip:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  .glossary { padding: 1.5rem 0 3rem; }
+  .no-results { padding: 3rem 0; color: var(--text-muted); font-size: 1rem; display: none; }
+  .no-results.show { display: block; }
+  .term { padding: 1.8rem 0; border-top: 1px solid var(--border); }
+  .term[hidden] { display: none; }
+  .term-head { display: flex; align-items: baseline; gap: 0.9rem; flex-wrap: wrap; margin-bottom: 0.7rem; }
+  .term h2 { font-family: var(--serif); font-size: 1.4rem; font-weight: 600; color: var(--text-primary); line-height: 1.2; }
+  .term .cat { font-size: 0.64rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--border); border-radius: 20px; padding: 0.2rem 0.7rem; }
+  .term .def { font-size: 1rem; color: var(--text-secondary); line-height: 1.7; max-width: 720px; margin-bottom: 0.8rem; }
+  .term .why { font-size: 0.95rem; color: var(--text-primary); line-height: 1.65; max-width: 720px; border-left: 2px solid var(--gold); padding-left: 1rem; }
+  .term .why b { color: var(--gold-light); font-weight: 600; font-style: normal; }
+  .term .why a { color: var(--gold); text-decoration: none; }
+  .term .why a:hover { text-decoration: underline; }
+
+  .cta-band { padding: 4.5rem 0; text-align: center; border-top: 1px solid var(--border); background: var(--bg-secondary); }
+  .cta-band h2 { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; margin-bottom: 1rem; }
+  .cta-band p { font-size: 1.02rem; color: var(--text-secondary); max-width: 560px; margin: 0 auto 2rem; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 0.6rem; padding: 1rem 2.4rem; background: var(--gold); color: var(--bg-primary); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: opacity 0.3s; }
+  .btn-primary:hover { opacity: 0.9; }
+
+  footer { padding: 3rem; text-align: center; color: var(--text-muted); font-size: 0.78rem; letter-spacing: 0.05em; border-top: 1px solid var(--border); }
+  footer a { color: var(--text-secondary); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+  @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .wrap { padding: 0 1.5rem; } .page-hero { padding: 8rem 0 1rem; } .controls { top: 60px; } }
+  .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<nav aria-label="Primary">
+  <a href="/" class="logo" aria-label="Steven Wensley — home">SSW</a>
+  <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-links">
+    <a href="playbooks.html">Playbooks</a>
+    <a href="notes.html">Notes</a>
+    <a href="about.html">About</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</nav>
+<main id="main" tabindex="-1">
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="section-label">Glossary</div>
+    <h1>Regulated IT,<br><span class="accent">in plain English.</span></h1>
+    <p class="lede">The acronyms and jargon that run regulated IT programmes &mdash; what each one actually means, and why it matters when you&rsquo;re trying to deliver. Search, or filter by area.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="controls">
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="search" id="q" placeholder="Search a term — e.g. TSA, cutover, ALCOA…" aria-label="Search glossary terms">
+    </div>
+    <div class="filters" role="group" aria-label="Filter by area">
+      <button class="filter-chip" data-filter="all" aria-pressed="true" type="button">All</button>
+      <button class="filter-chip" data-filter="regulation" aria-pressed="false" type="button">Regulation</button>
+      <button class="filter-chip" data-filter="transition" aria-pressed="false" type="button">Transition &amp; migration</button>
+      <button class="filter-chip" data-filter="carveout" aria-pressed="false" type="button">Carve-out</button>
+      <button class="filter-chip" data-filter="governance" aria-pressed="false" type="button">Governance</button>
+    </div>
+  </div>
+
+  <div class="glossary" id="glossary">
+
+    <div class="term" data-cat="regulation" data-terms="nis2 network information security directive">
+      <div class="term-head"><h2>NIS2</h2><span class="cat">Regulation</span></div>
+      <p class="def">The EU&rsquo;s second Network &amp; Information Security Directive &mdash; cybersecurity risk-management and incident-reporting obligations for &ldquo;essential&rdquo; and &ldquo;important&rdquo; entities across critical sectors. In force in Denmark since 1 July 2025.</p>
+      <p class="why"><b>Why it matters:</b> it&rsquo;s a delivery programme wearing a legal costume &mdash; the controls have to <em>operate</em>, not just exist on paper. <a href="playbook-nis2-compliance.html">See the NIS2 playbook &rarr;</a></p>
+    </div>
+
+    <div class="term" data-cat="regulation" data-terms="dora digital operational resilience act finance ict">
+      <div class="term-head"><h2>DORA</h2><span class="cat">Regulation</span></div>
+      <p class="def">The Digital Operational Resilience Act &mdash; the EU regulation making financial entities able to withstand and recover from ICT disruption, covering ICT-risk management, third-party oversight, incident reporting and resilience testing. Applicable since 17 January 2025.</p>
+      <p class="why"><b>Why it matters:</b> third-party risk and resilience testing are exactly where paper compliance falls over. <a href="regulatory-deadlines.html">See the deadline tracker &rarr;</a></p>
+    </div>
+
+    <div class="term" data-cat="regulation" data-terms="gxp good practice pharma life science gmp">
+      <div class="term-head"><h2>GxP</h2><span class="cat">Regulation</span></div>
+      <p class="def">The umbrella for &ldquo;good practice&rdquo; regulations in life science &mdash; GMP (manufacturing), GLP (laboratory), GDP (distribution) and more. Governs how regulated products, and the systems that make them, are controlled.</p>
+      <p class="why"><b>Why it matters:</b> in a GxP estate a system isn&rsquo;t &ldquo;done&rdquo; until it&rsquo;s validated and the evidence is audit-ready. <a href="playbook-gxp-migration.html">See the GxP migration playbook &rarr;</a></p>
+    </div>
+
+    <div class="term" data-cat="regulation" data-terms="csv csa computer system validation software assurance">
+      <div class="term-head"><h2>CSV / CSA</h2><span class="cat">Regulation</span></div>
+      <p class="def">Computer System Validation &mdash; documented proof that a computerised system does what it&rsquo;s supposed to &mdash; and its risk-based successor, Computer Software Assurance, which focuses effort on what actually carries patient/product risk.</p>
+      <p class="why"><b>Why it matters:</b> it&rsquo;s the difference between a system that&rsquo;s &ldquo;migrated&rdquo; and one that&rsquo;s signed off.</p>
+    </div>
+
+    <div class="term" data-cat="regulation" data-terms="annex 11 eu gmp gamp 5 computerised systems">
+      <div class="term-head"><h2>EU GMP Annex 11 &amp; GAMP 5</h2><span class="cat">Regulation</span></div>
+      <p class="def">Annex 11 is the EU GMP rule for computerised systems in regulated manufacturing; GAMP 5 is the industry guide for validating automated systems in a risk-based way.</p>
+      <p class="why"><b>Why it matters:</b> together they turn a &ldquo;simple&rdquo; datacenter move into a re-qualification event &mdash; and let you put the validation effort where the risk really is.</p>
+    </div>
+
+    <div class="term" data-cat="regulation" data-terms="alcoa data integrity attributable legible contemporaneous">
+      <div class="term-head"><h2>ALCOA+</h2><span class="cat">Regulation</span></div>
+      <p class="def">The data-integrity principles regulators expect: Attributable, Legible, Contemporaneous, Original, Accurate &mdash; plus Complete, Consistent, Enduring and Available.</p>
+      <p class="why"><b>Why it matters:</b> if the audit trail doesn&rsquo;t survive the migration intact, as far as the regulator is concerned the migration didn&rsquo;t happen.</p>
+    </div>
+
+    <div class="term" data-cat="regulation" data-terms="iso 27001 isms information security management system">
+      <div class="term-head"><h2>ISO 27001 / ISMS</h2><span class="cat">Regulation</span></div>
+      <p class="def">The international standard for an Information Security Management System &mdash; a risk-based set of controls and the governance around them.</p>
+      <p class="why"><b>Why it matters:</b> it&rsquo;s the shared control backbone most other regimes (NIS2, DORA) end up leaning on, so evidence is built once and reused.</p>
+    </div>
+
+    <div class="term" data-cat="regulation" data-terms="pci dss cde cardholder data environment payment card">
+      <div class="term-head"><h2>PCI-DSS / CDE</h2><span class="cat">Regulation</span></div>
+      <p class="def">The Payment Card Industry Data Security Standard, and the Cardholder Data Environment (CDE) it applies to &mdash; the people, processes and systems that store, process or transmit card data.</p>
+      <p class="why"><b>Why it matters:</b> uncontrolled CDE scope is where recertification quietly stalls &mdash; keep the boundary tight.</p>
+    </div>
+
+    <div class="term" data-cat="transition" data-terms="transition management service handover provider">
+      <div class="term-head"><h2>Transition management</h2><span class="cat">Transition &amp; migration</span></div>
+      <p class="def">Moving a service or estate between providers, platforms or teams without breaking it &mdash; the discipline of handing over responsibility, not just kit.</p>
+      <p class="why"><b>Why it matters:</b> the hardware moves in a weekend; the accountability, knowledge and controls are the hard part.</p>
+    </div>
+
+    <div class="term" data-cat="transition" data-terms="cutover switch go-live window migration">
+      <div class="term-head"><h2>Cutover</h2><span class="cat">Transition &amp; migration</span></div>
+      <p class="def">The actual switch from the old system or site to the new one, usually inside a tight, planned window.</p>
+      <p class="why"><b>Why it matters:</b> rehearsed and reversible, or it&rsquo;s a gamble with production on the table.</p>
+    </div>
+
+    <div class="term" data-cat="transition" data-terms="hypercare post go-live support stabilisation">
+      <div class="term-head"><h2>Hypercare</h2><span class="cat">Transition &amp; migration</span></div>
+      <p class="def">The intensive, elevated-support period immediately after go-live, before a service settles into business-as-usual.</p>
+      <p class="why"><b>Why it matters:</b> the cutover isn&rsquo;t done when it&rsquo;s live &mdash; it&rsquo;s done when it&rsquo;s stable.</p>
+    </div>
+
+    <div class="term" data-cat="transition" data-terms="datacenter migration infrastructure cloud mainframe relocation">
+      <div class="term-head"><h2>Datacenter migration</h2><span class="cat">Transition &amp; migration</span></div>
+      <p class="def">Relocating infrastructure and workloads between sites, vendors or cloud &mdash; often alongside a mainframe or legacy estate.</p>
+      <p class="why"><b>Why it matters:</b> it&rsquo;s rarely a server problem; it&rsquo;s a dependency-and-governance problem wearing a technical mask.</p>
+    </div>
+
+    <div class="term" data-cat="transition" data-terms="mes scada pas-x manufacturing execution pharma systems">
+      <div class="term-head"><h2>MES / SCADA / PAS-X</h2><span class="cat">Transition &amp; migration</span></div>
+      <p class="def">The systems that run and control pharma manufacturing &mdash; Manufacturing Execution Systems, supervisory control (SCADA) and PAS-X (a common MES).</p>
+      <p class="why"><b>Why it matters:</b> production-critical and validated &mdash; you don&rsquo;t get to take them down to make your migration convenient.</p>
+    </div>
+
+    <div class="term" data-cat="carveout" data-terms="carve-out divestiture separation spin-off">
+      <div class="term-head"><h2>Carve-out / divestiture</h2><span class="cat">Carve-out</span></div>
+      <p class="def">Separating a part of a business &mdash; and the IT that runs it &mdash; into a standalone entity, whether sold, spun off or split.</p>
+      <p class="why"><b>Why it matters:</b> it&rsquo;s an integration problem in reverse: disentangling shared people, systems, networks and contracts against a fixed date. <a href="playbook-carveout-separation.html">See the carve-out playbook &rarr;</a></p>
+    </div>
+
+    <div class="term" data-cat="carveout" data-terms="tsa transitional service agreement parent">
+      <div class="term-head"><h2>TSA (Transitional Service Agreement)</h2><span class="cat">Carve-out</span></div>
+      <p class="def">The temporary services the parent company keeps providing to a carved-out entity after close, until it can stand on its own.</p>
+      <p class="why"><b>Why it matters:</b> every extra month of TSA is margin bleeding to the parent &mdash; the exit clock <em>is</em> the point. <a href="cost-of-delay.html">See what it&rsquo;s costing &rarr;</a></p>
+    </div>
+
+    <div class="term" data-cat="carveout" data-terms="day 1 readiness minimum viable separation close">
+      <div class="term-head"><h2>Day 1 readiness</h2><span class="cat">Carve-out</span></div>
+      <p class="def">The minimum set of capabilities the separated entity needs to operate independently from the moment the deal closes.</p>
+      <p class="why"><b>Why it matters:</b> over-scope it and the separation quietly becomes a permanent dependency on the parent.</p>
+    </div>
+
+    <div class="term" data-cat="governance" data-terms="programme turnaround recovery red rescue">
+      <div class="term-head"><h2>Programme turnaround / recovery</h2><span class="cat">Governance</span></div>
+      <p class="def">Taking over a programme that&rsquo;s red, stalled or in crisis and getting it back to delivering.</p>
+      <p class="why"><b>Why it matters:</b> it&rsquo;s almost always a governance fix, not a talent one &mdash; the people can build; no one can decide. <a href="playbook-programme-recovery.html">See the turnaround playbook &rarr;</a></p>
+    </div>
+
+    <div class="term" data-cat="governance" data-terms="steerco steering committee governance board">
+      <div class="term-head"><h2>Steering committee (SteerCo)</h2><span class="cat">Governance</span></div>
+      <p class="def">The governance body meant to steer a programme &mdash; set direction, unblock decisions, own the escalations.</p>
+      <p class="why"><b>Why it matters:</b> it&rsquo;s where decisions are supposed to be made &mdash; and, on a troubled programme, often where they&rsquo;re quietly avoided. <a href="note-steerco-truth.html">Read: why your SteerCo is lying to you &rarr;</a></p>
+    </div>
+
+    <div class="term" data-cat="governance" data-terms="rag status red amber green reporting">
+      <div class="term-head"><h2>RAG status</h2><span class="cat">Governance</span></div>
+      <p class="def">Red / Amber / Green health reporting &mdash; the traffic-light summary on every programme dashboard.</p>
+      <p class="why"><b>Why it matters:</b> on a stuck programme, amber is a negotiated colour, not a measurement. Learn to read around it.</p>
+    </div>
+
+    <div class="term" data-cat="governance" data-terms="decision rights raci responsible accountable consulted informed">
+      <div class="term-head"><h2>Decision rights / RACI</h2><span class="cat">Governance</span></div>
+      <p class="def">Who&rsquo;s Responsible, Accountable, Consulted and Informed for each decision and deliverable &mdash; the map of who actually gets to decide.</p>
+      <p class="why"><b>Why it matters:</b> unclear or disputed decision rights are the number-one reason programmes stall.</p>
+    </div>
+
+    <div class="term" data-cat="governance" data-terms="pmo programme project management office controls">
+      <div class="term-head"><h2>PMO</h2><span class="cat">Governance</span></div>
+      <p class="def">The Programme (or Project) Management Office &mdash; the function that owns reporting, controls, planning cadence and governance mechanics.</p>
+      <p class="why"><b>Why it matters:</b> it&rsquo;s the engine room; when it&rsquo;s weak, the programme flies blind.</p>
+    </div>
+
+  </div>
+
+  <p class="no-results" id="noResults">No terms match that search. Try a different word, or clear the filter.</p>
+</div>
+
+<section class="cta-band">
+  <div class="wrap">
+    <div class="section-label" style="text-align:center;">Behind the jargon</div>
+    <h2>The terms are simple. Delivering against them isn&rsquo;t.</h2>
+    <p>That&rsquo;s the gap I work in &mdash; turning the regulation and the acronyms into a programme that actually delivers.</p>
+    <a href="playbooks.html" class="btn-primary">See the playbooks &rarr;</a>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="playbooks.html">Playbooks</a> &middot; <a href="notes.html">Notes</a> &middot; <a href="about.html">About</a> &middot; <a href="/#contact">Contact</a></div>
+  &copy; 2026 Steven Seidenfaden Wensley. All rights reserved.
+</footer>
+<script>
+(function() {
+  'use strict';
+  var q = document.getElementById('q');
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.filter-chip'));
+  var terms = Array.prototype.slice.call(document.querySelectorAll('.term'));
+  var noResults = document.getElementById('noResults');
+  var cat = 'all';
+
+  function apply() {
+    var query = (q.value || '').trim().toLowerCase();
+    var shown = 0;
+    terms.forEach(function(t) {
+      var matchesCat = (cat === 'all') || (t.getAttribute('data-cat') === cat);
+      var hay = (t.getAttribute('data-terms') + ' ' + t.textContent).toLowerCase();
+      var matchesQuery = !query || hay.indexOf(query) !== -1;
+      var show = matchesCat && matchesQuery;
+      if (show) { t.removeAttribute('hidden'); shown++; } else { t.setAttribute('hidden', ''); }
+    });
+    noResults.classList.toggle('show', shown === 0);
+  }
+  q.addEventListener('input', apply);
+  chips.forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      cat = chip.getAttribute('data-filter');
+      chips.forEach(function(c) { c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'); });
+      apply();
+    });
+  });
+})();
+</script>
+</body>
+</html>
