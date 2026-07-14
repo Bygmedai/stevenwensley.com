@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-17Y98NY34Y"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-17Y98NY34Y');</script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>The First 7 Days of a Red Programme | Steven Wensley</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="Before the plan, before the Gantt — what I actually do in week one of a troubled IT programme. Read everything, believe nothing; map who decides, not who's accountable; and make the honest call out loud.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://stevenwensley.com/note-red-programme-first-days.html">
+<meta property="og:title" content="The First 7 Days of a Red Programme">
+<meta property="og:description" content="Before the plan, before the Gantt — what I actually do in week one of a troubled IT programme.">
+<meta property="og:image" content="https://stevenwensley.com/og-image.png">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The First 7 Days of a Red Programme">
+<meta name="twitter:description" content="Before the plan, before the Gantt — what I actually do in week one of a troubled IT programme.">
+<meta name="twitter:image" content="https://stevenwensley.com/og-image.png">
+<link rel="canonical" href="https://stevenwensley.com/note-red-programme-first-days.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #1a1a26;
+    --gold: #c9a96e; --gold-light: #dfc08a; --gold-dim: rgba(201,169,110,0.15);
+    --text-primary: #f0ece4; --text-secondary: #9a9aaa; --text-muted: #6a6a7a;
+    --border: rgba(201,169,110,0.12); --red: #c0563f; --green: #4c9a72;
+    --serif: 'DM Serif Display', Georgia, serif; --sans: 'Space Grotesk', -apple-system, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg-primary); color: var(--text-primary); font-family: var(--sans); font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  nav .logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-decoration: none; }
+  nav .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  nav .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
+  nav .nav-links a:hover, nav .nav-links a.active { color: var(--gold); }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 101; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); margin: 5px 0; transition: all 0.3s; border-radius: 2px; }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  @media (max-width: 680px) {
+    .hamburger { display: block; }
+    nav .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,10,15,0.97); backdrop-filter: blur(20px); flex-direction: column; padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border); }
+    nav .nav-links.open { display: flex; }
+    nav .nav-links a { font-size: 0.9rem; padding: 0.5rem 0; }
+  }
+  .article { max-width: 720px; margin: 0 auto; padding: 10rem 2rem 0; }
+  .article-meta-top { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .article-meta-top a { color: var(--gold); text-decoration: none; }
+  h1.article-title { font-family: var(--serif); font-size: clamp(2.1rem, 4.5vw, 3.1rem); font-weight: 700; line-height: 1.15; margin-bottom: 1.2rem; }
+  .article-dek { font-size: 1.25rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.8rem; font-weight: 300; }
+  .article-byline { font-size: 0.85rem; color: var(--text-muted); padding-bottom: 2rem; border-bottom: 1px solid var(--border); margin-bottom: 2.5rem; letter-spacing: 0.03em; }
+  .article-body p { font-size: 1.12rem; color: var(--text-secondary); line-height: 1.85; margin-bottom: 1.5rem; }
+  .article-body p strong { color: var(--text-primary); font-weight: 500; }
+  .article-body h2 { font-family: var(--serif); font-size: 1.6rem; font-weight: 600; color: var(--text-primary); margin: 3rem 0 1.2rem; line-height: 1.3; }
+  .article-body blockquote { margin: 2.5rem 0; padding-left: 1.6rem; border-left: 3px solid var(--gold); font-family: var(--serif); font-size: 1.5rem; line-height: 1.45; color: var(--text-primary); font-style: italic; }
+  .article-body ul { list-style: none; margin: 0 0 1.5rem; }
+  .article-body li { font-size: 1.08rem; color: var(--text-secondary); line-height: 1.7; padding-left: 1.6rem; position: relative; margin-bottom: 0.9rem; }
+  .article-body li::before { content: '→'; position: absolute; left: 0; color: var(--gold); }
+  .article-cta { margin: 3.5rem 0 0; padding: 2rem 2.2rem; background: var(--bg-card); border: 1px solid var(--gold); border-radius: 4px; }
+  .article-cta p { font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.2rem; }
+  .article-cta a.btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.8rem; background: var(--gold); color: var(--bg-primary); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: opacity 0.3s; }
+  .article-cta a.btn:hover { opacity: 0.9; }
+  .more-notes { max-width: 720px; margin: 4rem auto 0; padding: 0 2rem; }
+  .more-notes .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+  .more-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 600px) { .more-grid { grid-template-columns: 1fr; } }
+  .more-card { display: block; padding: 1.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px; text-decoration: none; color: inherit; transition: border-color 0.3s, transform 0.3s; }
+  .more-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .more-card .mc-tag { font-size: 0.66rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .more-card h3 { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--text-primary); line-height: 1.3; }
+  footer { padding: 3rem; text-align: center; color: var(--text-muted); font-size: 0.78rem; letter-spacing: 0.05em; border-top: 1px solid var(--border); margin-top: 5rem; }
+  footer a { color: var(--text-secondary); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+  @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .article { padding: 8rem 1.5rem 0; } }
+  .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<nav aria-label="Primary">
+  <a href="/" class="logo" aria-label="Steven Wensley — home">SSW</a>
+  <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-links">
+    <a href="playbooks.html">Playbooks</a>
+    <a href="notes.html" class="active">Notes</a>
+    <a href="about.html">About</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</nav>
+<main id="main" tabindex="-1">
+
+<article class="article">
+  <div class="article-meta-top"><a href="notes.html">Field notes</a> &nbsp;/&nbsp; The method</div>
+  <h1 class="article-title">The first 7 days of a red programme</h1>
+  <p class="article-dek">Before the plan, before the Gantt. Week one is not about the schedule &mdash; it&rsquo;s about the truth and the map.</p>
+  <div class="article-byline">Steven Wensley &middot; 14 July 2026 &middot; 4 min read</div>
+
+  <div class="article-body">
+    <p>You&rsquo;ve just been handed a programme that&rsquo;s already red. The board wants a recovery plan by Friday. Every instinct &mdash; yours, and everyone&rsquo;s watching you &mdash; says <em>make a plan</em>. Open the schedule, re-baseline the milestones, produce a Gantt that goes green.</p>
+
+    <p>Don&rsquo;t. Not in week one.</p>
+
+    <p><strong>A plan built on week-one information is a plan built on the fiction everyone has already agreed to.</strong> The reported scope is wrong. The reported status is negotiated. The reported blockers are the safe ones. If you plan against that, you produce a beautiful recovery plan for a programme that doesn&rsquo;t exist &mdash; and you&rsquo;ll be re-planning in six weeks, having spent your credibility. Week one is not for the plan. It&rsquo;s for the truth and the map.</p>
+
+    <h2>Days 1&ndash;2 &mdash; Read everything, believe nothing</h2>
+    <p>Every status report, every risk log, every contract, every SteerCo minute for the last two quarters. Not to trust them &mdash; to triangulate them. The gaps between what three documents say about the same milestone tell you more than any single one. You&rsquo;re not looking for the state of the programme yet. You&rsquo;re looking for where the story stops holding together.</p>
+
+    <h2>Days 3&ndash;4 &mdash; Two org charts</h2>
+    <p>Draw the org chart the programme runs on. Then draw the real one.</p>
+    <ul>
+      <li>The first shows who is <strong>accountable</strong> &mdash; the names in the governance pack.</li>
+      <li>The second shows who actually <strong>decides</strong> &mdash; and they are rarely the same people. The decision-maker is often two boxes to the side and not in any SteerCo.</li>
+    </ul>
+    <p>Then the uncomfortable question, asked quietly: <strong>who benefits from this programme staying stuck?</strong> Someone is protected by the delay &mdash; a team whose next project isn&rsquo;t ready, a vendor billing time-and-materials, a manager who&rsquo;d own the failure the day it&rsquo;s declared. You don&rsquo;t confront them. You just need to know where they are.</p>
+
+    <blockquote>The org chart tells you who&rsquo;s accountable. The car park tells you who decides. Recovery lives in the gap.</blockquote>
+
+    <h2>Days 5&ndash;7 &mdash; The honest call, out loud</h2>
+    <p>By day seven you owe the sponsor one sentence, and it&rsquo;s not a plan. It&rsquo;s a verdict: <em>this is recoverable, and here&rsquo;s roughly what it costs</em> &mdash; or <em>this is not recoverable in its current shape, and continuing is spending good money on a decision no one wants to make.</em></p>
+
+    <p>That second sentence is the one nobody hired before me was brave enough to say. Sometimes the most valuable thing a turnaround manager does in the first week is stop a programme that should never limp into another quarter. It doesn&rsquo;t win you the extension. It wins you the thing that&rsquo;s worth more: the reputation of the person who tells the truth early.</p>
+
+    <p>The plan comes in week two. It&rsquo;s a good plan, because by then it&rsquo;s built on what&rsquo;s real &mdash; not on amber.</p>
+  </div>
+
+  <div class="article-cta">
+    <p>Days 1&ndash;7 are the &ldquo;Control&rdquo; phase. The full turnaround &mdash; Control, Stabilise, Correct &mdash; is an interactive walkthrough, politics and all.</p>
+    <a href="playbook-programme-recovery.html" class="btn">Walk the first 90 days &rarr;</a>
+  </div>
+</article>
+
+<div class="more-notes">
+  <div class="section-label">More field notes</div>
+  <div class="more-grid">
+    <a href="note-steerco-truth.html" class="more-card">
+      <div class="mc-tag">The politics</div>
+      <h3>Why your SteerCo is lying to you</h3>
+    </a>
+    <a href="note-nis2-ownership.html" class="more-card">
+      <div class="mc-tag">Regulatory</div>
+      <h3>NIS2: nobody&rsquo;s neck is on the line</h3>
+    </a>
+  </div>
+</div>
+
+</main>
+<footer>
+  <div style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="playbooks.html">Playbooks</a> &middot; <a href="notes.html">Notes</a> &middot; <a href="about.html">About</a> &middot; <a href="/#contact">Contact</a></div>
+  &copy; 2026 Steven Seidenfaden Wensley. All rights reserved.
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The first 7 days of a red programme",
+  "description": "Before the plan, before the Gantt — what I actually do in week one of a troubled IT programme.",
+  "datePublished": "2026-07-14",
+  "dateModified": "2026-07-14",
+  "author": { "@type": "Person", "name": "Steven Seidenfaden Wensley", "url": "https://stevenwensley.com/about.html" },
+  "publisher": { "@type": "Person", "name": "Steven Seidenfaden Wensley" },
+  "mainEntityOfPage": "https://stevenwensley.com/note-red-programme-first-days.html"
+}
+</script>
+</body>
+</html>

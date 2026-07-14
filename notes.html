@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-17Y98NY34Y"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-17Y98NY34Y');</script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Field Notes — From the War Room | Steven Wensley</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="Short, sharp field notes from 18 years of regulated IT delivery — the politics, the method and the regulatory reality of taking over programmes that have gone red. By Steven Wensley, Copenhagen.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stevenwensley.com/notes.html">
+<meta property="og:title" content="Field Notes — From the War Room | Steven Wensley">
+<meta property="og:description" content="Short, sharp field notes from 18 years of regulated IT delivery — the politics, the method and the regulatory reality of red programmes.">
+<meta property="og:image" content="https://stevenwensley.com/og-image.png">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Field Notes — From the War Room | Steven Wensley">
+<meta name="twitter:description" content="Short, sharp field notes from 18 years of regulated IT delivery.">
+<meta name="twitter:image" content="https://stevenwensley.com/og-image.png">
+<link rel="canonical" href="https://stevenwensley.com/notes.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #1a1a26;
+    --gold: #c9a96e; --gold-light: #dfc08a; --gold-dim: rgba(201,169,110,0.15);
+    --text-primary: #f0ece4; --text-secondary: #9a9aaa; --text-muted: #6a6a7a;
+    --border: rgba(201,169,110,0.12); --red: #c0563f; --green: #4c9a72;
+    --serif: 'DM Serif Display', Georgia, serif; --sans: 'Space Grotesk', -apple-system, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg-primary); color: var(--text-primary); font-family: var(--sans); font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  nav .logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-decoration: none; }
+  nav .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  nav .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
+  nav .nav-links a:hover, nav .nav-links a.active { color: var(--gold); }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 101; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); margin: 5px 0; transition: all 0.3s; border-radius: 2px; }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  @media (max-width: 680px) {
+    .hamburger { display: block; }
+    nav .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,10,15,0.97); backdrop-filter: blur(20px); flex-direction: column; padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border); }
+    nav .nav-links.open { display: flex; }
+    nav .nav-links a { font-size: 0.9rem; padding: 0.5rem 0; }
+  }
+  .wrap { max-width: 800px; margin: 0 auto; padding: 0 2rem; }
+  .page-hero { padding: 10rem 0 1rem; }
+  .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .page-hero h1 { font-family: var(--serif); font-size: clamp(2.2rem, 4.5vw, 3.2rem); font-weight: 700; line-height: 1.15; margin-bottom: 1.2rem; }
+  .lede { font-size: 1.15rem; color: var(--text-secondary); max-width: 660px; line-height: 1.7; }
+  .notes-list { padding: 3rem 0 5rem; }
+  .note-item { display: block; padding: 2rem 0; border-top: 1px solid var(--border); text-decoration: none; color: inherit; transition: padding-left 0.3s; }
+  .note-item:last-child { border-bottom: 1px solid var(--border); }
+  .note-item:hover { padding-left: 0.8rem; }
+  .note-tag { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.7rem; }
+  .note-item h2 { font-family: var(--serif); font-size: clamp(1.4rem, 2.6vw, 1.8rem); font-weight: 600; color: var(--text-primary); line-height: 1.25; margin-bottom: 0.7rem; transition: color 0.3s; }
+  .note-item:hover h2 { color: var(--gold); }
+  .note-item p { font-size: 1rem; color: var(--text-secondary); line-height: 1.65; max-width: 640px; margin-bottom: 0.8rem; }
+  .note-meta { font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.03em; }
+  footer { padding: 3rem; text-align: center; color: var(--text-muted); font-size: 0.78rem; letter-spacing: 0.05em; border-top: 1px solid var(--border); }
+  footer a { color: var(--text-secondary); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+  @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .wrap { padding: 0 1.5rem; } .page-hero { padding: 8rem 0 1rem; } }
+  .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<nav aria-label="Primary">
+  <a href="/" class="logo" aria-label="Steven Wensley — home">SSW</a>
+  <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-links">
+    <a href="playbooks.html">Playbooks</a>
+    <a href="notes.html" class="active">Notes</a>
+    <a href="about.html">About</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</nav>
+<main id="main" tabindex="-1">
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="section-label">Field notes</div>
+    <h1>From the war room.</h1>
+    <p class="lede">Short, sharp notes from 18 years of taking over regulated programmes that have gone red &mdash; the politics, the method, and the regulatory reality nobody writes down. No thought-leadership fluff.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="notes-list">
+    <a href="note-steerco-truth.html" class="note-item">
+      <div class="note-tag">The politics</div>
+      <h2>Why your SteerCo is lying to you</h2>
+      <p>Not maliciously. Structurally. Amber is a negotiated colour &mdash; and you can&rsquo;t recover a programme that&rsquo;s officially fine.</p>
+      <div class="note-meta">14 July 2026 &middot; 4 min read</div>
+    </a>
+    <a href="note-red-programme-first-days.html" class="note-item">
+      <div class="note-tag">The method</div>
+      <h2>The first 7 days of a red programme</h2>
+      <p>Before the plan, before the Gantt. Week one is not about the schedule &mdash; it&rsquo;s about the truth and the map.</p>
+      <div class="note-meta">14 July 2026 &middot; 4 min read</div>
+    </a>
+    <a href="note-nis2-ownership.html" class="note-item">
+      <div class="note-tag">Regulatory</div>
+      <h2>NIS2: nobody&rsquo;s neck is on the line &mdash; and that&rsquo;s the problem</h2>
+      <p>Denmark left personal management liability out of its transposition. Everyone read that as relief. It&rsquo;s actually why the controls stay on paper.</p>
+      <div class="note-meta">14 July 2026 &middot; 4 min read</div>
+    </a>
+  </div>
+</div>
+
+</main>
+<footer>
+  <div style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="playbooks.html">Playbooks</a> &middot; <a href="notes.html">Notes</a> &middot; <a href="about.html">About</a> &middot; <a href="/#contact">Contact</a></div>
+  &copy; 2026 Steven Seidenfaden Wensley. All rights reserved.
+</footer>
+</body>
+</html>
