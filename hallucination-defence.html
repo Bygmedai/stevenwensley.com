@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-17Y98NY34Y"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-17Y98NY34Y');</script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>The Hallucination Defence — AI Quality Control | Steven Wensley</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="AI's danger isn't being wrong — it's sounding right while wrong. Four mechanical controls and a catalogue of ten real failure patterns from a production AI factory: proof of source access, artifact-based doneness, adversarial review, unknown = blocked.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://stevenwensley.com/hallucination-defence.html">
+<meta property="og:title" content="The Hallucination Defence — AI Quality Control">
+<meta property="og:description" content="How do you QA an agent that always sounds authoritative? Four mechanical controls and ten real failure patterns, from a factory running in production.">
+<meta property="og:image" content="https://stevenwensley.com/og-image.png">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Hallucination Defence — AI Quality Control">
+<meta name="twitter:description" content="Confidence is not a quality signal. Four mechanical controls that keep AI honest — from a production factory.">
+<meta name="twitter:image" content="https://stevenwensley.com/og-image.png">
+<link rel="canonical" href="https://stevenwensley.com/hallucination-defence.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #1a1a26;
+    --gold: #c9a96e; --gold-light: #dfc08a; --gold-dim: rgba(201,169,110,0.15);
+    --text-primary: #f0ece4; --text-secondary: #9a9aaa; --text-muted: #6a6a7a;
+    --border: rgba(201,169,110,0.12); --red: #c0563f; --green: #4c9a72;
+    --serif: 'DM Serif Display', Georgia, serif; --sans: 'Space Grotesk', -apple-system, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg-primary); color: var(--text-primary); font-family: var(--sans); font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  nav .logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-decoration: none; }
+  nav .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  nav .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
+  nav .nav-links a:hover, nav .nav-links a.active { color: var(--gold); }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 101; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); margin: 5px 0; transition: all 0.3s; border-radius: 2px; }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  @media (max-width: 680px) {
+    .hamburger { display: block; }
+    nav .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,10,15,0.97); backdrop-filter: blur(20px); flex-direction: column; padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border); }
+    nav .nav-links.open { display: flex; }
+    nav .nav-links a { font-size: 0.9rem; padding: 0.5rem 0; }
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 3rem; }
+  .page-hero { padding: 10rem 0 2rem; }
+  .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .page-hero h1 { font-family: var(--serif); font-size: clamp(2rem, 4.2vw, 3rem); font-weight: 700; line-height: 1.18; margin-bottom: 1.5rem; }
+  .page-hero h1 .accent { color: var(--gold); }
+  .lede { font-size: 1.12rem; color: var(--text-secondary); max-width: 740px; line-height: 1.75; }
+  .lede strong { color: var(--text-primary); font-weight: 500; }
+  section { padding: 3.2rem 0; }
+  .band { background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .section-title { font-family: var(--serif); font-size: clamp(1.4rem, 2.8vw, 1.9rem); font-weight: 600; margin-bottom: 1.3rem; line-height: 1.3; }
+  .prose { font-size: 1rem; color: var(--text-secondary); max-width: 760px; line-height: 1.8; margin-bottom: 1rem; }
+  .prose strong { color: var(--text-primary); font-weight: 500; }
+  .prose a { color: var(--gold); }
+  .prose code, li code { font-size: 0.85em; color: var(--gold-light); background: rgba(201,169,110,0.08); padding: 0.1em 0.4em; border-radius: 3px; }
+
+  .pull { font-family: var(--serif); font-size: clamp(1.2rem, 2.4vw, 1.55rem); color: var(--text-primary); line-height: 1.5; border-left: 3px solid var(--gold); padding: 0.4rem 0 0.4rem 1.6rem; margin: 2rem 0; max-width: 720px; }
+
+  .evidence-tiers { list-style: none; margin-top: 1.4rem; max-width: 720px; }
+  .evidence-tiers li { padding: 0.85rem 1.2rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px; margin-bottom: 0.6rem; font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; }
+  .evidence-tiers li strong { color: var(--gold-light); font-weight: 600; }
+
+  .proof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 1.1rem; margin-top: 1.6rem; }
+  .proof-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px; padding: 1.5rem 1.6rem; min-width: 0; }
+  .proof-card h4 { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+  .proof-card ul { list-style: none; }
+  .proof-card li { font-size: 0.9rem; color: var(--text-secondary); padding-left: 1.2rem; position: relative; line-height: 1.65; margin-bottom: 0.35rem; }
+  .proof-card li::before { content: '·'; position: absolute; left: 0.2rem; color: var(--gold); font-weight: 700; }
+
+  .chain { background: var(--bg-card); border: 1px solid var(--border); border-radius: 3px; padding: 1.6rem 1.8rem; margin-top: 1.6rem; max-width: 720px; overflow-x: auto; }
+  .chain ol { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+  .chain li { font-size: 0.93rem; color: var(--text-secondary); line-height: 1.6; padding-left: 1.5rem; position: relative; white-space: normal; }
+  .chain li::before { content: '↓'; position: absolute; left: 0.1rem; color: var(--gold); }
+  .chain li:first-child::before { content: '·'; font-weight: 700; }
+  .chain li strong { color: var(--text-primary); font-weight: 500; }
+
+  .fail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 1.2rem; margin-top: 2rem; }
+  .fail { background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid var(--red); border-radius: 2px; padding: 1.6rem 1.7rem; min-width: 0; }
+  .fail h3 { font-family: var(--serif); font-size: 1.12rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.9rem; line-height: 1.35; }
+  .fail .row { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.6rem; }
+  .fail .row b { display: block; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.15rem; }
+  .fail .row.fix b { color: var(--green); }
+
+  .limits { margin-top: 1.6rem; display: grid; gap: 0.8rem; max-width: 740px; }
+  .limit { padding: 1.1rem 1.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px; font-size: 0.93rem; color: var(--text-secondary); line-height: 1.65; }
+
+  .cta-band { text-align: center; padding: 4rem 0; }
+  .cta-band h2 { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; margin-bottom: 1rem; }
+  .cta-band p { font-size: 1rem; color: var(--text-secondary); max-width: 580px; margin: 0 auto 2rem; }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.8rem; font-family: var(--sans); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px; cursor: pointer; text-decoration: none; transition: all 0.3s; border: 1px solid var(--gold); }
+  .btn-solid { background: var(--gold); color: var(--bg-primary); }
+  .btn-solid:hover { opacity: 0.9; }
+  .btn-ghost { background: transparent; color: var(--gold); }
+  .btn-ghost:hover { background: var(--gold); color: var(--bg-primary); }
+  .cta-row { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+  footer { padding: 3rem; text-align: center; color: var(--text-muted); font-size: 0.78rem; letter-spacing: 0.05em; border-top: 1px solid var(--border); }
+  footer a { color: var(--text-secondary); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+  @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .wrap { padding: 0 1.5rem; } .page-hero { padding: 8rem 0 1rem; } }
+  .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<nav aria-label="Primary">
+  <a href="/" class="logo" aria-label="Steven Wensley — home">SSW</a>
+  <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-links">
+    <a href="workshop.html" class="active">Workshop</a>
+    <a href="playbooks.html">Playbooks</a>
+    <a href="notes.html">Notes</a>
+    <a href="about.html">About</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</nav>
+<main id="main" tabindex="-1">
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="section-label">AI quality control</div>
+    <h1>The dangerous thing about AI isn&rsquo;t that it&rsquo;s wrong.<br><span class="accent">It&rsquo;s that it sounds right.</span></h1>
+    <p class="lede">
+      A language model sounds roughly equally competent whether it has <strong>read the source, remembers something similar, inferred something reasonable &mdash; or simply filled a gap.</strong> Linguistic confidence is not a quality signal. This page describes the four mechanical controls my factory uses to keep confident machines honest &mdash; and a catalogue of ten real failure patterns, each with the countermeasure that now prevents it. Not from a course. From production.
+    </p>
+  </div>
+</div>
+
+<!-- PRINCIPLE -->
+<section>
+  <div class="wrap">
+    <div class="section-label">The principle</div>
+    <h2 class="section-title">Move truth out of the wording, into the artifacts.</h2>
+    <p class="prose">You cannot QA an agent by judging how convincing it sounds &mdash; it always sounds convincing. The entire defence rests on one move: <strong>truth-checking shifts from the agent&rsquo;s formulation to observable artifacts</strong> &mdash; diffs, test runs, previews, screenshots, live platform readbacks. What follows is that principle applied four times.</p>
+  </div>
+</section>
+
+<!-- CONTROL 1 -->
+<section class="band">
+  <div class="wrap">
+    <div class="section-label">Control 1</div>
+    <h2 class="section-title">Prove you actually read it.</h2>
+    <p class="prose">Early on, a specialist agent delivered convincing analyses of a dataset it <strong>had no access to</strong>. The text was well-structured, specific, professional. It just wasn&rsquo;t an analysis of the source &mdash; it was a plausible reconstruction of what such an analysis would look like. That episode produced a ground rule:</p>
+    <div class="pull">An agent gets no credit for analysing a source until the system can show which source was opened, when, and which concrete observations the claim rests on.</div>
+    <p class="prose">Every strong operational claim is therefore classified by evidence strength:</p>
+    <ul class="evidence-tiers">
+      <li><strong>Source-based</strong> &mdash; directly supported by readback or artifact.</li>
+      <li><strong>Mixed</strong> &mdash; source plus professional interpretation.</li>
+      <li><strong>Heuristic</strong> &mdash; qualified judgment without full readback.</li>
+      <li><strong>Unverified</strong> &mdash; a claim without source evidence. Labelled as exactly that.</li>
+    </ul>
+    <p class="prose" style="margin-top: 1.2rem;">&ldquo;The system says&rdquo; is not evidence. &ldquo;The agent analysed it&rdquo; is not evidence either. And state must be <em>fresh</em>: an automated report once described a CI run as in progress when live readback showed it had already finished. The report wasn&rsquo;t malicious &mdash; just stale. <strong>Live state beats the agent&rsquo;s description of state. Always.</strong></p>
+  </div>
+</section>
+
+<!-- CONTROL 2 -->
+<section>
+  <div class="wrap">
+    <div class="section-label">Control 2</div>
+    <h2 class="section-title">The explanation is not the deliverable. The artifact is.</h2>
+    <p class="prose">An agent cannot make its own answer true by writing &ldquo;done&rdquo;. Doneness demands different proof depending on the work:</p>
+    <div class="proof-grid">
+      <div class="proof-card">
+        <h4>Code change</h4>
+        <ul><li>The diff</li><li>Tests</li><li>CI result</li><li>Updated requirement status</li></ul>
+      </div>
+      <div class="proof-card">
+        <h4>User interface</h4>
+        <ul><li>Working preview</li><li>Screenshots at relevant breakpoints</li><li>Page / flow smoke test</li><li>Visual approval</li></ul>
+      </div>
+      <div class="proof-card">
+        <h4>Runtime / third-party action</h4>
+        <ul><li>API or platform readback</li><li>Timestamp</li><li>Concrete result</li><li>Error &amp; rollback status</li></ul>
+      </div>
+      <div class="proof-card">
+        <h4>Analysis / architecture</h4>
+        <ul><li>Source map</li><li>Stated assumptions</li><li>Observation vs. judgment, separated</li><li>Open uncertainties &amp; precise scope</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTROL 3 -->
+<section class="band">
+  <div class="wrap">
+    <div class="section-label">Control 3</div>
+    <h2 class="section-title">Adversarial review &mdash; mandate diversity, not just model diversity.</h2>
+    <p class="prose">Friendly re-reading has a known weakness: the reviewer adopts the author&rsquo;s framing. If a design says &ldquo;this solution is secure&rdquo;, a friendly reviewer checks whether the security <em>argument</em> is well written. An adversarial reviewer gets the opposite mandate: find the strongest way to break it. Find the hidden assumption. Find the path where a privileged actor bypasses the control. Find where the documentation promises more than the system enforces. Find the case where every test is green and the user outcome is still wrong.</p>
+    <p class="prose">A second model given the same task can confirm the same blindness. <strong>A reviewer with an explicit refutation mandate looks for something else entirely.</strong> In practice the chain looks like this:</p>
+    <div class="chain">
+      <ol>
+        <li><strong>Architect</strong> designs the boundary</li>
+        <li><strong>Implementation agent</strong> builds</li>
+        <li><strong>QA reviewer</strong> reads the artifacts</li>
+        <li><strong>Adversarial reviewer</strong> attacks the premises</li>
+        <li><strong>The human</strong> makes the GO / HOLD call</li>
+      </ol>
+    </div>
+    <p class="prose" style="margin-top: 1.4rem;">No AI role is ever allowed to ratify its own work. The same actor may never define the requirement, build the solution, declare it correct <em>and</em> approve it into production &mdash; that&rsquo;s segregation of duties, applied to AI.</p>
+  </div>
+</section>
+
+<!-- CONTROL 4 -->
+<section>
+  <div class="wrap">
+    <div class="section-label">Control 4</div>
+    <h2 class="section-title">Uncertainty is a state &mdash; not a gap to fill with text.</h2>
+    <p class="prose">When important information is missing, the correct system state is <em>unverified</em>, <em>blocked</em>, <em>awaiting readback</em>, <em>quarantined</em> or <em>requires human decision</em> &mdash; never a fluent paragraph that papers over the hole. In tightly bounded runtime work the rule is absolute:</p>
+    <div class="pull">Unknown = blocked. If scope, file classification, test expectation, rollback or authority is unclear, the agent stops. It may not &ldquo;solve&rdquo; the ambiguity by expanding its own mandate.</div>
+  </div>
+</section>
+
+<!-- FAILURE CATALOGUE -->
+<section class="band">
+  <div class="wrap">
+    <div class="section-label">The failure catalogue</div>
+    <h2 class="section-title">Ten real patterns &mdash; and the mechanics that stop them.</h2>
+    <p class="prose">Every one of these was observed in live operation. Publishing them is the point: if your AI vendor can&rsquo;t show you their failure catalogue, they haven&rsquo;t run long enough to have one.</p>
+    <div class="fail-grid">
+      <div class="fail">
+        <h3>1 &middot; Plausible analysis without source access</h3>
+        <div class="row"><b>Symptom</b>A detailed, professional analysis with few visible signs of uncertainty.</div>
+        <div class="row"><b>Root cause</b>The model lacks access, but can reconstruct what such an analysis probably looks like.</div>
+        <div class="row fix"><b>Countermeasure</b>Source proof, claim-to-evidence mapping, explicit &ldquo;unverified&rdquo; status when readback is missing.</div>
+      </div>
+      <div class="fail">
+        <h3>2 &middot; Done-inflation</h3>
+        <div class="row"><b>Symptom</b>A change is called finished because the file exists, the PR is open, or the build is green.</div>
+        <div class="row"><b>Root cause</b>Implementation, verification and production status collapsed into one comfortable word.</div>
+        <div class="row fix"><b>Countermeasure</b>Separate build/verify states, a ban on generic &ldquo;done&rdquo;, pre-done gate, delivery report, evidence requirements.</div>
+      </div>
+      <div class="fail">
+        <h3>3 &middot; Drift under pressure</h3>
+        <div class="row"><b>Symptom</b>Commits and text keep coming, but scope creeps, tests thin out, quality dies inside.</div>
+        <div class="row"><b>Root cause</b>The agent optimises for momentum and absorbs ambiguity instead of stopping.</div>
+        <div class="row fix"><b>Countermeasure</b>Small slices, max file scope, explicit forbidden moves, stop conditions, new dispatch required on scope growth.</div>
+      </div>
+      <div class="fail">
+        <h3>4 &middot; Too many hats</h3>
+        <div class="row"><b>Symptom</b>One agent interprets the need, writes the architecture, builds, reviews, declares quality, proposes merge.</div>
+        <div class="row"><b>Root cause</b>Role boundaries written as personalities instead of authority.</div>
+        <div class="row fix"><b>Countermeasure</b>Separate roles for architecture, orchestration, implementation, review and human approval. No self-ratification.</div>
+      </div>
+      <div class="fail">
+        <h3>5 &middot; Plausible synthesis without analysis</h3>
+        <div class="row"><b>Symptom</b>An elegant summary of many documents that tests no contradictions and produces no new observations.</div>
+        <div class="row"><b>Root cause</b>Coherent language mistaken for analytical work.</div>
+        <div class="row fix"><b>Countermeasure</b>Require findings, counter-evidence, source conflicts, concrete gaps &mdash; and observation, inference and recommendation kept separate.</div>
+      </div>
+      <div class="fail">
+        <h3>6 &middot; Stale-state hallucination</h3>
+        <div class="row"><b>Symptom</b>The agent reports wrong PR, CI, deploy or runtime status.</div>
+        <div class="row"><b>Root cause</b>Status pulled from memory, an older report, or a different moment than the decision.</div>
+        <div class="row fix"><b>Countermeasure</b>Fresh readback on time-sensitive decisions. Git, platform and runtime state beat chat and documentation.</div>
+      </div>
+      <div class="fail">
+        <h3>7 &middot; Visually false green</h3>
+        <div class="row"><b>Symptom</b>Tests are green, but the interface is empty, cropped, hidden, disabled &mdash; or missing the one thing that matters.</div>
+        <div class="row"><b>Root cause</b>DOM, build and unit tests can&rsquo;t judge composition, first paint or human comprehension.</div>
+        <div class="row fix"><b>Countermeasure</b>Preview, screenshots, responsive checks, page smoke &mdash; and a separate visual approval before merge.</div>
+      </div>
+      <div class="fail">
+        <h3>8 &middot; Authority smuggling</h3>
+        <div class="row"><b>Symptom</b>A status ledger, a briefing or a helpful note quietly starts assigning roles or expanding mandates.</div>
+        <div class="row"><b>Root cause</b>Descriptive artifacts gradually treated as normative ones.</div>
+        <div class="row fix"><b>Countermeasure</b>An authority hierarchy with explicit supersession &mdash; a ledger consumes authority; it does not create it.</div>
+      </div>
+      <div class="fail">
+        <h3>9 &middot; Hidden deviations</h3>
+        <div class="row"><b>Symptom</b>A rule was bypassed &ldquo;temporarily&rdquo;, but the work later parades as normally verified.</div>
+        <div class="row"><b>Root cause</b>The exception only ever existed in a conversation or a PR comment.</div>
+        <div class="row fix"><b>Countermeasure</b>A deviation register, a distinct bypass status, a named owner and a visible normalisation task.</div>
+      </div>
+      <div class="fail">
+        <h3>10 &middot; Placeholder &amp; internal leakage</h3>
+        <div class="row"><b>Symptom</b>Test text, internal codes, session references or credentials reach public output.</div>
+        <div class="row"><b>Root cause</b>Source code and public build output treated as the same information zone.</div>
+        <div class="row fix"><b>Countermeasure</b>Secret scans, internal-leak scans, placeholder greps &mdash; run against the final static output, not just the source.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIMITS -->
+<section>
+  <div class="wrap">
+    <div class="section-label">The honest part</div>
+    <h2 class="section-title">What the defence does not fully catch.</h2>
+    <p class="prose">Strong, not magic. It can still miss:</p>
+    <div class="limits">
+      <div class="limit">A test that proves the wrong thing &mdash; and a screenshot that looks right while hiding bad interaction.</div>
+      <div class="limit">Several agents sharing the same blind spot &mdash; and a correct source that is itself outdated or wrong.</div>
+      <div class="limit">Semantic errors that syntax and CI checks don&rsquo;t understand &mdash; and human approval that has gone routine.</div>
+      <div class="limit">A well-documented but fundamentally bad product idea. No gate catches that; judgment does.</div>
+    </div>
+    <p class="prose" style="margin-top: 1.6rem;">Which is why human judgment remains part of the architecture. The goal was never to make AI infallible. The goal is to make errors <strong>visible, traceable, bounded, reversible &mdash; and much harder to promote to production.</strong></p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band band">
+  <div class="wrap">
+    <div class="section-label" style="text-align:center;">Why this matters to you</div>
+    <h2>Your AI initiative will meet every one of these patterns.</h2>
+    <p>The question is whether it meets them with a defence already standing &mdash; or discovers them one production incident at a time. I&rsquo;ve built the defence once. I can help you build yours.</p>
+    <div class="cta-row">
+      <a href="/#contact" class="btn btn-solid">Talk to me</a>
+      <a href="workshop.html" class="btn btn-ghost">Inside the factory</a>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="workshop.html">Workshop</a> &middot; <a href="playbooks.html">Playbooks</a> &middot; <a href="notes.html">Notes</a> &middot; <a href="about.html">About</a> &middot; <a href="/#contact">Contact</a></div>
+  &copy; 2026 Steven Seidenfaden Wensley. All rights reserved.
+</footer>
+</body>
+</html>
