@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-17Y98NY34Y"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-17Y98NY34Y');</script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Playbook: The AI Initiative Your Board Asked For | Steven Wensley</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="Interactive scenario: the board wants an AI strategy, pilots are multiplying, nobody owns delivery. How I'd take an AI initiative from idea to working production — scoping, honest pilots, hallucination defence, and the politics nobody writes down.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://stevenwensley.com/playbook-ai-initiative.html">
+<meta property="og:title" content="Playbook: The AI Initiative Your Board Asked For">
+<meta property="og:description" content="From pilot purgatory to production: how I'd lead an AI initiative — with the governance most organisations discover one incident too late.">
+<meta property="og:image" content="https://stevenwensley.com/og-image.png">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Playbook: The AI Initiative Your Board Asked For">
+<meta name="twitter:description" content="From pilot purgatory to production — method, tools and the politics nobody writes down.">
+<meta name="twitter:image" content="https://stevenwensley.com/og-image.png">
+<link rel="canonical" href="https://stevenwensley.com/playbook-ai-initiative.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #1a1a26;
+    --gold: #c9a96e; --gold-light: #dfc08a; --gold-dim: rgba(201,169,110,0.15);
+    --text-primary: #f0ece4; --text-secondary: #9a9aaa; --text-muted: #6a6a7a;
+    --border: rgba(201,169,110,0.12); --red: #c0563f; --green: #4c9a72; --amber: #c2892f;
+    --serif: 'DM Serif Display', Georgia, serif; --sans: 'Space Grotesk', -apple-system, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg-primary); color: var(--text-primary); font-family: var(--sans); font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  nav .logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-decoration: none; }
+  nav .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  nav .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
+  nav .nav-links a:hover, nav .nav-links a.active { color: var(--gold); }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 101; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); margin: 5px 0; transition: all 0.3s; border-radius: 2px; }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  @media (max-width: 680px) {
+    .hamburger { display: block; }
+    nav .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,10,15,0.97); backdrop-filter: blur(20px); flex-direction: column; padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border); }
+    nav .nav-links.open { display: flex; }
+    nav .nav-links a { font-size: 0.9rem; padding: 0.5rem 0; }
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 3rem; }
+  .page-hero { padding: 10rem 0 2rem; }
+  .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .page-hero h1 { font-family: var(--serif); font-size: clamp(2rem, 4.2vw, 3rem); font-weight: 700; line-height: 1.18; margin-bottom: 1.5rem; }
+  .page-hero h1 .accent { color: var(--gold); }
+  .lede { font-size: 1.12rem; color: var(--text-secondary); max-width: 740px; line-height: 1.75; }
+  .lede strong { color: var(--text-primary); font-weight: 500; }
+  section { padding: 3.2rem 0; }
+  .band { background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .section-title { font-family: var(--serif); font-size: clamp(1.4rem, 2.8vw, 1.9rem); font-weight: 600; margin-bottom: 1.3rem; line-height: 1.3; }
+  .prose { font-size: 1rem; color: var(--text-secondary); max-width: 760px; line-height: 1.8; margin-bottom: 1rem; }
+  .prose strong { color: var(--text-primary); font-weight: 500; }
+  .prose a { color: var(--gold); }
+  .prose em { color: var(--text-primary); font-style: italic; }
+
+  .sit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 1.2rem; margin-top: 1.8rem; }
+  .sit { background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px; padding: 1.6rem 1.7rem; min-width: 0; }
+  .sit h3 { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.6rem; line-height: 1.35; }
+  .sit p { font-size: 0.93rem; color: var(--text-secondary); line-height: 1.7; }
+
+  .pull { font-family: var(--serif); font-size: clamp(1.2rem, 2.4vw, 1.5rem); color: var(--text-primary); line-height: 1.5; border-left: 3px solid var(--gold); padding: 0.4rem 0 0.4rem 1.6rem; margin: 2rem 0; max-width: 720px; }
+
+  /* PHASES (accessible tabs) */
+  .phase-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 2rem; }
+  .phase-tab { font-family: var(--sans); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.75rem 1.4rem; background: var(--bg-card); color: var(--text-secondary); border: 1px solid var(--border); border-radius: 2px; cursor: pointer; transition: all 0.3s; }
+  .phase-tab:hover { color: var(--gold); border-color: var(--gold); }
+  .phase-tab[aria-selected="true"] { background: var(--gold); color: var(--bg-primary); border-color: var(--gold); }
+  .phase-panel { margin-top: 1.6rem; background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 2px; padding: 2rem 2.2rem; }
+  .phase-panel[hidden] { display: none; }
+  .phase-panel h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.4rem; }
+  .phase-panel .ph-time { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .phase-panel p { font-size: 0.97rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 0.9rem; max-width: 720px; }
+  .phase-panel p strong { color: var(--text-primary); font-weight: 500; }
+  .phase-panel ul { list-style: none; margin: 0.5rem 0 0.9rem; }
+  .phase-panel li { font-size: 0.94rem; color: var(--text-secondary); padding-left: 1.4rem; position: relative; line-height: 1.65; margin-bottom: 0.45rem; max-width: 700px; }
+  .phase-panel li::before { content: '→'; position: absolute; left: 0; color: var(--gold); }
+  .phase-panel a { color: var(--gold); }
+
+  .deliver { margin-top: 1.6rem; display: grid; gap: 0.8rem; max-width: 760px; }
+  .dl { padding: 1.1rem 1.5rem; background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--green); border-radius: 2px; font-size: 0.95rem; color: var(--text-secondary); line-height: 1.65; }
+  .dl strong { color: var(--text-primary); font-weight: 500; }
+
+  .tools { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 1.1rem; margin-top: 1.8rem; }
+  .tool { display: block; background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px; padding: 1.5rem 1.6rem; min-width: 0; text-decoration: none; color: inherit; transition: border-color 0.3s, transform 0.3s; }
+  .tool:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .tool h4 { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem; }
+  .tool p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.65; }
+  .tool .go { display: inline-block; margin-top: 0.7rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
+
+  .cta-band { text-align: center; padding: 4rem 0; }
+  .cta-band h2 { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; margin-bottom: 1rem; }
+  .cta-band p { font-size: 1rem; color: var(--text-secondary); max-width: 580px; margin: 0 auto 2rem; }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.8rem; font-family: var(--sans); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px; cursor: pointer; text-decoration: none; transition: all 0.3s; border: 1px solid var(--gold); }
+  .btn-solid { background: var(--gold); color: var(--bg-primary); }
+  .btn-solid:hover { opacity: 0.9; }
+  .btn-ghost { background: transparent; color: var(--gold); }
+  .btn-ghost:hover { background: var(--gold); color: var(--bg-primary); }
+  .cta-row { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+  .disclaimer { font-size: 0.78rem; color: var(--text-muted); max-width: 640px; margin: 2.5rem auto 0; line-height: 1.6; }
+
+  footer { padding: 3rem; text-align: center; color: var(--text-muted); font-size: 0.78rem; letter-spacing: 0.05em; border-top: 1px solid var(--border); }
+  footer a { color: var(--text-secondary); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+  @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .wrap { padding: 0 1.5rem; } .page-hero { padding: 8rem 0 1rem; } .phase-panel { padding: 1.5rem 1.4rem; } }
+  .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<nav aria-label="Primary">
+  <a href="/" class="logo" aria-label="Steven Wensley — home">SSW</a>
+  <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-links">
+    <a href="workshop.html">Workshop</a>
+    <a href="playbooks.html" class="active">Playbooks</a>
+    <a href="notes.html">Notes</a>
+    <a href="about.html">About</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</nav>
+<main id="main" tabindex="-1">
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="section-label">Playbook &middot; AI transition &middot; cross-sector</div>
+    <h1>The AI initiative<br><span class="accent">your board asked for.</span></h1>
+    <p class="lede">
+      The board wants &ldquo;an AI strategy&rdquo;. There are four pilots running that nobody can name, a vendor promising magic, an impressive demo built by an enthusiast &mdash; and no one who owns getting any of it into production. <strong>This is how I&rsquo;d take it from there to working delivery.</strong> Method, tools, and the political reality nobody writes down. The difference from most advisors: <a href="workshop.html" style="color: var(--gold);">I&rsquo;ve run this transition on myself first</a> &mdash; 4,751 commits of it.
+    </p>
+  </div>
+</div>
+
+<!-- SITUATION -->
+<section class="band">
+  <div class="wrap">
+    <div class="section-label">01 &middot; The situation you&rsquo;ll recognise</div>
+    <h2 class="section-title">Pilot purgatory.</h2>
+    <div class="sit-grid">
+      <div class="sit">
+        <h3>The demo that impressed everyone</h3>
+        <p>Someone built something clever in an afternoon. It was shown to management. Now it&rsquo;s referenced in every meeting as proof that &ldquo;we&rsquo;re doing AI&rdquo; &mdash; and it has never once run in production.</p>
+      </div>
+      <div class="sit">
+        <h3>Pilots multiplying, nothing landing</h3>
+        <p>Marketing has one. Finance has two. IT wasn&rsquo;t told about either. Each pilot proves AI &ldquo;works&rdquo;; none has an owner, a budget line, a risk assessment or a path to operations.</p>
+      </div>
+      <div class="sit">
+        <h3>The vendor with the magic deck</h3>
+        <p>A supplier promises their platform &ldquo;handles the AI part&rdquo;. The price is remarkable in both directions. Nobody in the room can evaluate the claims &mdash; which is precisely what the deck is designed for.</p>
+      </div>
+      <div class="sit">
+        <h3>The quiet compliance dread</h3>
+        <p>Somewhere between GDPR, the EU AI Act and the sector regulator, someone senior suspects the pilots aren&rsquo;t entirely legal. Nobody wants to be the one who asks &mdash; asking might mean stopping.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S BROKEN -->
+<section>
+  <div class="wrap">
+    <div class="section-label">02 &middot; What&rsquo;s actually broken</div>
+    <h2 class="section-title">It&rsquo;s not a technology gap. It&rsquo;s a delivery gap.</h2>
+    <p class="prose">The models are better than your organisation can currently absorb &mdash; that&rsquo;s the honest starting point. What&rsquo;s missing is everything around them: <strong>ownership, verification, and a definition of done.</strong> A demo needs none of those. A production system is nothing but those.</p>
+    <p class="prose">Most stuck AI initiatives share the same underlying condition: <em>accelerated improvisation</em>. Prompts, wrappers, a frontend that looks like a product, a story about velocity on top. No audit trail, no verifiable done-state, no hard limits on what the AI may do, and no mechanism that can stop a bad output once the system is moving. It looks fast. It is, in fact, parked.</p>
+    <div class="pull">The dangerous part isn&rsquo;t that AI makes mistakes. It&rsquo;s that it makes them fluently &mdash; and your organisation has no reflex yet for distrusting confident output.</div>
+    <p class="prose">That reflex &mdash; and the machinery that enforces it &mdash; is what I install. I&rsquo;ve published exactly how it works: <a href="hallucination-defence.html">the four mechanical controls and the ten failure patterns</a> every AI initiative eventually meets.</p>
+  </div>
+</section>
+
+<!-- POLITICAL READ -->
+<section class="band">
+  <div class="wrap">
+    <div class="section-label">03 &middot; The political read</div>
+    <h2 class="section-title">Everyone wants the credit. Nobody wants the ownership.</h2>
+    <p class="prose">AI initiatives are political sugar: innovation credit for the board, conference material for the executives, budget justification for every department that claims one. Which is why pilots multiply &mdash; <strong>a pilot harvests the credit without accepting the operational risk.</strong> Production is where accountability starts, so production is precisely where nothing goes.</p>
+    <p class="prose">Below the surface runs something quieter: middle managers who suspect the technology is aimed at their headcount, and specialists who see their expertise commoditised. They rarely object openly. They express it as thoroughness &mdash; one more risk workshop, one more legal review, one more architecture board. <strong>Treat that as what it is: not obstruction, but fear that hasn&rsquo;t been given an honest answer.</strong> Part of the navigator&rsquo;s job is giving it one &mdash; including where the honest answer is uncomfortable.</p>
+    <p class="prose">And the vendor dynamic: when nobody internally can evaluate AI claims, procurement becomes theatre. The organisation buys confidence, not capability. The single cheapest de-risking move available is having one person in the room who has <em>actually built with this technology</em> and can ask the question the deck was built to avoid.</p>
+  </div>
+</section>
+
+<!-- MOVES: PHASES -->
+<section>
+  <div class="wrap">
+    <div class="section-label">04 &middot; My moves</div>
+    <h2 class="section-title">Four phases, from noise to production.</h2>
+    <div class="phase-tabs" role="tablist" aria-label="Phases">
+      <button class="phase-tab" role="tab" id="tab-1" aria-selected="true" aria-controls="panel-1">1 &middot; Chart</button>
+      <button class="phase-tab" role="tab" id="tab-2" aria-selected="false" aria-controls="panel-2">2 &middot; Pilot honestly</button>
+      <button class="phase-tab" role="tab" id="tab-3" aria-selected="false" aria-controls="panel-3">3 &middot; Harden</button>
+      <button class="phase-tab" role="tab" id="tab-4" aria-selected="false" aria-controls="panel-4">4 &middot; Scale</button>
+    </div>
+    <div class="phase-panel" role="tabpanel" id="panel-1" aria-labelledby="tab-1">
+      <h3>Chart the water</h3>
+      <div class="ph-time">Weeks 1&ndash;3</div>
+      <p>Before anything is built: an honest map. Not a strategy deck &mdash; an inventory with owners&rsquo; names on it.</p>
+      <ul>
+        <li>Every running pilot surfaced, including the unofficial ones &mdash; then <strong>most of them killed, kindly and in writing.</strong> Zombie pilots consume the credibility real delivery will need.</li>
+        <li>Use-cases ranked by one criterion: <em>value if it works, damage if it fails</em>. The first production candidate is high-value, low-blast-radius &mdash; never the flashiest.</li>
+        <li>Data reality checked against ambition: what may legally be used for what (GDPR, AI Act risk class, sector rules) &mdash; answered early, so compliance becomes a design input instead of a late veto.</li>
+        <li>One named owner for the initiative. Not a committee. Committees harvest credit; owners ship.</li>
+      </ul>
+    </div>
+    <div class="phase-panel" role="tabpanel" id="panel-2" aria-labelledby="tab-2" hidden>
+      <h3>One honest pilot</h3>
+      <div class="ph-time">Weeks 3&ndash;8</div>
+      <p>One use-case, built the way production will be built &mdash; not the way demos are built. Small, bounded, and gated from day one.</p>
+      <ul>
+        <li>The <strong>hallucination defence installed before the first output</strong>: evidence requirements, human-in-the-loop, and the rule that uncertainty is a state &mdash; not something the system papers over with fluent text.</li>
+        <li>&ldquo;Done&rdquo; defined in writing before building: which user outcome, verified how, by whom. A green test is not done. A convincing demo is definitely not done.</li>
+        <li>Real users, real data (within the legal map from phase 1), real failure logging. The pilot&rsquo;s job is to <em>find</em> the failure modes cheaply &mdash; not to hide them from the steering committee.</li>
+        <li>Weekly honest reporting: what worked, what hallucinated, what it cost. The first time leadership sees an AI initiative report its own failures candidly is usually the moment trust actually starts.</li>
+      </ul>
+    </div>
+    <div class="phase-panel" role="tabpanel" id="panel-3" aria-labelledby="tab-3" hidden>
+      <h3>Harden what works</h3>
+      <div class="ph-time">Weeks 8&ndash;14</div>
+      <p>The pilot survived contact with reality. Now it earns production &mdash; through gates, not enthusiasm.</p>
+      <ul>
+        <li>The verification regime made mechanical: checks that <strong>block</strong>, not guidelines that recommend. Unknown = blocked.</li>
+        <li>Adversarial review before go-live: someone whose explicit job is to break it &mdash; wrong inputs, malicious inputs, the confident-but-wrong output, the compliance edge case.</li>
+        <li>Operating model settled: who watches it, who answers for it, who can switch it off, and what the rollback is. If it can&rsquo;t be switched off cleanly, it isn&rsquo;t ready.</li>
+        <li>The audit trail a regulator would ask for &mdash; built now, while it&rsquo;s cheap, not reconstructed later under pressure.</li>
+      </ul>
+    </div>
+    <div class="phase-panel" role="tabpanel" id="panel-4" aria-labelledby="tab-4" hidden>
+      <h3>Scale what survived</h3>
+      <div class="ph-time">Month 4 onwards</div>
+      <p>Only now does &ldquo;strategy&rdquo; get written &mdash; from evidence, not hope. One production success converts more sceptics than any roadmap.</p>
+      <ul>
+        <li>The pattern from the first delivery becomes the template: same gates, same evidence bar, same ownership model, next use-case.</li>
+        <li>Competence transferred deliberately: your people run it, I make myself progressively unnecessary. The exit is designed, not drifted into.</li>
+        <li>An honest &ldquo;not with AI&rdquo; list published internally &mdash; the use-cases examined and rejected, with reasons. It builds more credibility than the successes.</li>
+        <li>Governance handed over as a living system &mdash; the failure catalogue, the gates, the review cadence &mdash; so quality survives my departure.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="band">
+  <div class="wrap">
+    <div class="section-label">05 &middot; The tools I reach for</div>
+    <h2 class="section-title">Published, not proprietary.</h2>
+    <div class="tools">
+      <a class="tool" href="hallucination-defence.html">
+        <h4>The Hallucination Defence</h4>
+        <p>Four mechanical controls and ten real failure patterns &mdash; the quality machinery your initiative will need on day one.</p>
+        <span class="go">Read it &rarr;</span>
+      </a>
+      <a class="tool" href="workshop.html">
+        <h4>The Workshop</h4>
+        <p>The one-man factory where all of this was learned under production pressure &mdash; with the receipts on display.</p>
+        <span class="go">Inside the factory &rarr;</span>
+      </a>
+      <a class="tool" href="case-digital-delivery-platform.html">
+        <h4>A technical case</h4>
+        <p>What disciplined AI-era delivery looks like in practice: stack, gates, security-by-tests, measured numbers.</p>
+        <span class="go">Read the case &rarr;</span>
+      </a>
+      <a class="tool" href="method.html">
+        <h4>Control &middot; Stabilise &middot; Correct</h4>
+        <p>The delivery method from 18 years of regulated programmes &mdash; the same discipline the factory runs on.</p>
+        <span class="go">The method &rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERED -->
+<section>
+  <div class="wrap">
+    <div class="section-label">06 &middot; What delivered looks like</div>
+    <h2 class="section-title">Not a strategy. A running system &mdash; and a capable organisation.</h2>
+    <div class="deliver">
+      <div class="dl"><strong>At least one AI capability in production</strong> &mdash; owned, monitored, reversible, and honest about its limits.</div>
+      <div class="dl"><strong>A quality gate AI output cannot bypass</strong> &mdash; the hallucination defence, adapted to your risk profile and enforced mechanically.</div>
+      <div class="dl"><strong>Your own people running it</strong> &mdash; with the judgment to distrust confident output, trained on your real cases.</div>
+      <div class="dl"><strong>A defensible compliance position</strong> &mdash; AI Act risk classification, data-use map and audit trail that exist <em>before</em> anyone asks.</div>
+      <div class="dl"><strong>An honest map of what not to do</strong> &mdash; the rejected use-cases, with reasons. Knowing where AI doesn&rsquo;t belong is half the value.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band band">
+  <div class="wrap">
+    <div class="section-label" style="text-align:center;">Get in touch</div>
+    <h2>Somewhere between the demo and production?</h2>
+    <p>That&rsquo;s exactly the water I navigate. Interim or freelance, via broker or direct. Written, verifiable references on the site; personal referees at offer stage.</p>
+    <div class="cta-row">
+      <a href="/#contact" class="btn btn-solid">Discuss an assignment</a>
+      <a href="hallucination-defence.html" class="btn btn-ghost">Read the defence first</a>
+    </div>
+    <p class="disclaimer">This scenario is an illustrative composite built from public regulation and market practice. It contains no confidential client information &mdash; a deliberate choice, and the same discretion I bring to an engagement.</p>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="workshop.html">Workshop</a> &middot; <a href="playbooks.html">Playbooks</a> &middot; <a href="notes.html">Notes</a> &middot; <a href="about.html">About</a> &middot; <a href="/#contact">Contact</a></div>
+  &copy; 2026 Steven Seidenfaden Wensley. All rights reserved.
+</footer>
+<script>
+(function () {
+  'use strict';
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.phase-tab'));
+  function activate(tab) {
+    tabs.forEach(function (t) {
+      var selected = t === tab;
+      t.setAttribute('aria-selected', selected ? 'true' : 'false');
+      var panel = document.getElementById(t.getAttribute('aria-controls'));
+      if (panel) { panel.hidden = !selected; }
+    });
+    tab.focus();
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { activate(t); });
+    t.addEventListener('keydown', function (e) {
+      var next = null;
+      if (e.key === 'ArrowRight') next = tabs[(i + 1) % tabs.length];
+      if (e.key === 'ArrowLeft') next = tabs[(i - 1 + tabs.length) % tabs.length];
+      if (e.key === 'Home') next = tabs[0];
+      if (e.key === 'End') next = tabs[tabs.length - 1];
+      if (next) { e.preventDefault(); activate(next); }
+    });
+  });
+})();
+</script>
+</body>
+</html>
