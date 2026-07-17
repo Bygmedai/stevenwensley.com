@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-17Y98NY34Y"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-17Y98NY34Y');</script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>The AI Playbook — From First Boat to Fleet | Steven Wensley</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="Seven chapters on adopting AI with control, built from lived experience: five months running a one-man AI factory on 18 years of programme discipline. False speed, honest pilots, enforced rails, the AI org chart, real failure patterns, the economics — and the chart for 2027.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://stevenwensley.com/ai-playbook.html">
+<meta property="og:title" content="The AI Playbook — From First Boat to Fleet">
+<meta property="og:description" content="Seven chapters on adopting AI with control — from someone who ran the transition on himself first. No theory. Lived experience, distilled to action.">
+<meta property="og:image" content="https://stevenwensley.com/og-image.png">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The AI Playbook — From First Boat to Fleet">
+<meta name="twitter:description" content="Seven chapters on adopting AI with control — from inside a running factory.">
+<meta name="twitter:image" content="https://stevenwensley.com/og-image.png">
+<link rel="canonical" href="https://stevenwensley.com/ai-playbook.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #1a1a26;
+    --gold: #c9a96e; --gold-light: #dfc08a; --gold-dim: rgba(201,169,110,0.15);
+    --text-primary: #f0ece4; --text-secondary: #9a9aaa; --text-muted: #6a6a7a;
+    --border: rgba(201,169,110,0.12); --red: #c0563f; --green: #4c9a72;
+    --serif: 'DM Serif Display', Georgia, serif; --sans: 'Space Grotesk', -apple-system, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg-primary); color: var(--text-primary); font-family: var(--sans); font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  nav .logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-decoration: none; }
+  nav .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  nav .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
+  nav .nav-links a:hover, nav .nav-links a.active { color: var(--gold); }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 101; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); margin: 5px 0; transition: all 0.3s; border-radius: 2px; }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  @media (max-width: 680px) {
+    .hamburger { display: block; }
+    nav .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,10,15,0.97); backdrop-filter: blur(20px); flex-direction: column; padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border); }
+    nav .nav-links.open { display: flex; }
+    nav .nav-links a { font-size: 0.9rem; padding: 0.5rem 0; }
+  }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 3rem; }
+  .page-hero { padding: 10rem 0 2rem; }
+  .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .page-hero h1 { font-family: var(--serif); font-size: clamp(2.1rem, 4.4vw, 3.1rem); font-weight: 700; line-height: 1.16; margin-bottom: 1.5rem; }
+  .page-hero h1 .accent { color: var(--gold); }
+  .lede { font-size: 1.12rem; color: var(--text-secondary); max-width: 740px; line-height: 1.75; }
+  .lede strong { color: var(--text-primary); font-weight: 500; }
+
+  .toc { margin: 2.5rem 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 0.7rem; }
+  .toc a { display: block; padding: 0.9rem 1.1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px; text-decoration: none; color: var(--text-secondary); font-size: 0.85rem; line-height: 1.4; transition: border-color 0.3s, color 0.3s; min-width: 0; }
+  .toc a:hover { border-color: var(--gold); color: var(--text-primary); }
+  .toc a .n { color: var(--gold); font-family: var(--serif); margin-right: 0.4rem; }
+
+  section { padding: 3.4rem 0; }
+  .band { background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .chapter-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+  .section-title { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 600; margin-bottom: 1.4rem; line-height: 1.28; }
+  .prose { font-size: 1.02rem; color: var(--text-secondary); max-width: 740px; line-height: 1.8; margin-bottom: 1.1rem; }
+  .prose strong { color: var(--text-primary); font-weight: 500; }
+  .prose a { color: var(--gold); }
+  .prose em { color: var(--text-primary); }
+  .pull { font-family: var(--serif); font-size: clamp(1.2rem, 2.4vw, 1.5rem); color: var(--text-primary); line-height: 1.5; border-left: 3px solid var(--gold); padding: 0.4rem 0 0.4rem 1.6rem; margin: 2rem 0; max-width: 700px; }
+
+  .plist { list-style: none; margin: 1rem 0 1.4rem; max-width: 720px; }
+  .plist li { font-size: 0.98rem; color: var(--text-secondary); padding-left: 1.5rem; position: relative; line-height: 1.7; margin-bottom: 0.6rem; }
+  .plist li::before { content: '→'; position: absolute; left: 0; color: var(--gold); }
+  .plist li strong { color: var(--text-primary); font-weight: 500; }
+
+  .deep { margin-top: 1.6rem; padding: 1.3rem 1.6rem; background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 2px; max-width: 720px; }
+  .deep p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.65; }
+  .deep a { color: var(--gold); }
+
+  .spirit { margin: 1.8rem 0; display: grid; gap: 0.9rem; max-width: 720px; }
+  .spirit .sq { background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px; padding: 1.3rem 1.6rem; }
+  .spirit .sq p { font-family: var(--serif); font-size: 1.08rem; color: var(--text-primary); line-height: 1.55; }
+
+  .cta-band { text-align: center; padding: 4rem 0; }
+  .cta-band h2 { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; margin-bottom: 1rem; }
+  .cta-band p { font-size: 1rem; color: var(--text-secondary); max-width: 580px; margin: 0 auto 2rem; }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.8rem; font-family: var(--sans); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px; cursor: pointer; text-decoration: none; transition: all 0.3s; border: 1px solid var(--gold); }
+  .btn-solid { background: var(--gold); color: var(--bg-primary); }
+  .btn-solid:hover { opacity: 0.9; }
+  .btn-ghost { background: transparent; color: var(--gold); }
+  .btn-ghost:hover { background: var(--gold); color: var(--bg-primary); }
+  .cta-row { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+  footer { padding: 3rem; text-align: center; color: var(--text-muted); font-size: 0.78rem; letter-spacing: 0.05em; border-top: 1px solid var(--border); }
+  footer a { color: var(--text-secondary); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+  @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .wrap { padding: 0 1.5rem; } .page-hero { padding: 8rem 0 1rem; } }
+  .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<nav aria-label="Primary">
+  <a href="/" class="logo" aria-label="Steven Wensley — home">SSW</a>
+  <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-links">
+    <a href="workshop.html">Workshop</a>
+    <a href="playbooks.html" class="active">Playbooks</a>
+    <a href="notes.html">Notes</a>
+    <a href="about.html">About</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</nav>
+<main id="main" tabindex="-1">
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="section-label">The AI Playbook</div>
+    <h1>From first boat to fleet.<br><span class="accent">Adopting AI with control.</span></h1>
+    <p class="lede">
+      Seven chapters on taking AI from demo to production without losing your quality, your compliance position or your nerve. <strong>Nothing here is from a course.</strong> It comes from running the transition on myself: five months operating a one-man AI factory &mdash; 4,751 commits, 14 solutions &mdash; on top of 18 years leading regulated IT programmes. The scars are included; they&rsquo;re the useful part.
+    </p>
+    <div class="toc">
+      <a href="#ch1"><span class="n">1</span>The water</a>
+      <a href="#ch2"><span class="n">2</span>The first boat</a>
+      <a href="#ch3"><span class="n">3</span>The rails</a>
+      <a href="#ch4"><span class="n">4</span>The crew</a>
+      <a href="#ch5"><span class="n">5</span>The storms</a>
+      <a href="#ch6"><span class="n">6</span>The economics</a>
+      <a href="#ch7"><span class="n">7</span>The chart for 2027</a>
+    </div>
+  </div>
+</div>
+
+<!-- CH 1 -->
+<section id="ch1" class="band">
+  <div class="wrap">
+    <div class="chapter-label">Chapter 1</div>
+    <h2 class="section-title">The water &mdash; what AI actually is, in operation.</h2>
+    <p class="prose">Everything written about AI falls into two piles: what it does in a demo, and what it does in operation. The first pile is enormous and mostly useless. This playbook is about the second.</p>
+    <p class="prose">In operation, AI behaves like a gas: <strong>it fills any room you give it, regardless of the room&rsquo;s size &mdash; but it cannot hide how thinly it&rsquo;s spread.</strong> Ask for more than it can carry and it doesn&rsquo;t refuse; it produces something that <em>resembles</em> the work, at full confidence, in perfect prose. That single property &mdash; fluent output at constant confidence &mdash; is the root of nearly every AI failure you will meet.</p>
+    <p class="prose">Which leads to the discipline underneath everything else in this playbook &mdash; the refusal of <strong>false speed</strong>:</p>
+    <div class="spirit">
+      <div class="sq"><p>False speed is producing output before you understand the direction.</p></div>
+      <div class="sq"><p>False speed is building because you can.</p></div>
+      <div class="sq"><p>False speed is an AI trying to help by doing more than it was asked.</p></div>
+      <div class="sq"><p>Real speed appears when the work is narrow, the direction is clear, and the quality can be verified.</p></div>
+    </div>
+    <p class="prose">&ldquo;Make haste slowly&rdquo; is not a plea for caution. It&rsquo;s a performance principle: every hour spent on unverified output is slower than any hour spent on gates. The organisations that will win with AI aren&rsquo;t the fastest producers of output. They&rsquo;re the fastest producers of <em>verified</em> output. That&rsquo;s a different race, and most of your competitors haven&rsquo;t noticed it&rsquo;s the one being run.</p>
+  </div>
+</section>
+
+<!-- CH 2 -->
+<section id="ch2">
+  <div class="wrap">
+    <div class="chapter-label">Chapter 2</div>
+    <h2 class="section-title">The first boat &mdash; how to actually start.</h2>
+    <p class="prose">Here&rsquo;s how my factory started, because the pattern transfers. First I built for myself &mdash; my own website, one week after touching the tools for the first time. Then for one person I knew, with a real need. Then three more. Small, real, shipped. Somewhere in those first builds came the discovery that shapes everything after:</p>
+    <div class="pull">Improvised, prompt-driven building &mdash; &ldquo;vibe-coding&rdquo; &mdash; is a superb pilot tool and a terrible production method. Knowing where that line runs is the skill.</div>
+    <p class="prose">The first paying delivery followed the same shape: <strong>a named person, a real need, a minimal build.</strong> Not a platform. Not a strategy. A working thing, in the hands of someone who needed it, fast enough to learn from. That triple &mdash; named person, real need, minimal build &mdash; is the most reliable filter I know for a first AI project, and it works at organisational scale too.</p>
+    <p class="prose">So, the practical start &mdash; three rules and one warning:</p>
+    <ul class="plist">
+      <li><strong>Pick a use-case with a face.</strong> A named user who feels the pain weekly beats an abstract &ldquo;efficiency opportunity&rdquo; every time. If nobody specific wants it, nobody specific will defend it.</li>
+      <li><strong>Build the smallest thing that survives contact with reality.</strong> Pilot with improvised speed &mdash; that&rsquo;s what it&rsquo;s for &mdash; but decide <em>in advance</em> what evidence will justify the rails that production demands.</li>
+      <li><strong>Install the quality reflex on day one, not day ninety.</strong> One rule is enough to start: no output is trusted because it sounds right. Everything else in chapter 3 grows from that seed.</li>
+      <li><strong>The warning:</strong> the moment your pilot impresses management, it will be pulled toward production by enthusiasm alone. That is precisely the moment to stop and put rails on &mdash; the pull is strongest exactly when the structure is weakest.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- CH 3 -->
+<section id="ch3" class="band">
+  <div class="wrap">
+    <div class="chapter-label">Chapter 3</div>
+    <h2 class="section-title">The rails &mdash; enforcement, not encouragement.</h2>
+    <p class="prose">Everything I&rsquo;ve learned about AI quality compresses into one sentence: <strong>a rule that only lives in a document is not a rule &mdash; it&rsquo;s a pious hope.</strong> Guidelines describe what agents should do. Gates determine what they <em>can</em> do. Only the second category survives contact with production pressure.</p>
+    <p class="prose">The factory runs on four mechanical controls: proof of source access (an agent gets no credit for &ldquo;analysing&rdquo; what it can&rsquo;t show it opened), artifact-based doneness (the explanation is not the deliverable), adversarial review (a reviewer mandated to refute, not applaud) and <code style="color:var(--gold-light);background:rgba(201,169,110,0.08);padding:0.1em 0.4em;border-radius:3px;font-size:0.9em;">unknown = blocked</code> (uncertainty is a state, never a gap to fill with text).</p>
+    <p class="prose">And one line from the factory&rsquo;s spirit document that belongs on your architecture wall:</p>
+    <div class="pull">If an alarm always blinks, it isn&rsquo;t a gate. It&rsquo;s tape.</div>
+    <p class="prose">Every control must be able to actually stop something &mdash; block a merge, refuse a status, halt a deploy. A control that can only recommend will be politely ignored by humans and completely ignored by machines.</p>
+    <div class="deep"><p><strong>Full depth:</strong> the four controls and ten real failure patterns are published in detail in <a href="hallucination-defence.html">The Hallucination Defence</a>, and the chain of command &mdash; dispatch contracts, evidence packs, human GO/HOLD &mdash; in <a href="workshop.html">The Workshop</a>.</p></div>
+  </div>
+</section>
+
+<!-- CH 4 -->
+<section id="ch4">
+  <div class="wrap">
+    <div class="chapter-label">Chapter 4</div>
+    <h2 class="section-title">The crew &mdash; your AI needs an org chart.</h2>
+    <p class="prose">The best mental model I&rsquo;ve found for a well-run AI is not a servant, and not an oracle. It&rsquo;s a <strong>sous-chef</strong>. A servant waits for orders. A sous-chef sees what the kitchen is missing before the dish tips over &mdash; understands the principal&rsquo;s taste, says no when the tempo turns stupid, watches risk without panicking, presses for quality without taking over the stage.</p>
+    <div class="pull">But a sous-chef does not own the restaurant. The human makes the GO call. Always.</div>
+    <p class="prose">And one sous-chef is not a crew. The factory&rsquo;s hardest-won organisational lesson: <strong>roles must be written as authority, not personality.</strong> An architecture role that sets boundaries. An implementation role that builds inside them. A verification role that checks claims against artifacts. An adversarial role paid to break things. No role &mdash; ever &mdash; ratifies its own work. It&rsquo;s segregation of duties, the same principle that separates your auditor from your bookkeeper, applied to machines. I learned it by violating it: the worst failure in my factory came from asking one agent to wear seven hats and then asking it to hurry.</p>
+    <div class="deep"><p><strong>The full story:</strong> <a href="note-one-agent-seven-hats.html">One agent, seven hats &mdash; why your AI needs an org chart</a>. And the model in operation: <a href="workshop.html">The Workshop</a>.</p></div>
+  </div>
+</section>
+
+<!-- CH 5 -->
+<section id="ch5" class="band">
+  <div class="wrap">
+    <div class="chapter-label">Chapter 5</div>
+    <h2 class="section-title">The storms &mdash; what you will meet, catalogued.</h2>
+    <p class="prose">Your AI initiative will not fail in a novel way. It will fail in one of about ten known ways &mdash; I&rsquo;ve met them all in live operation, and published the catalogue: plausible analysis without source access, done-inflation, drift under pressure, too many hats, plausible synthesis, stale-state reporting, the visually false green, authority smuggling, hidden deviations, and internal leakage into public output.</p>
+    <p class="prose">The point of a failure catalogue isn&rsquo;t pessimism &mdash; it&rsquo;s <em>preparedness at a discount</em>. Each pattern has a known symptom, a known root cause and a known mechanical countermeasure. Meeting them with the defence already standing costs a fraction of discovering them one production incident at a time.</p>
+    <p class="prose">And a hiring hint hidden inside it: <strong>ask any AI vendor or advisor to show you their failure catalogue.</strong> If they can&rsquo;t, they haven&rsquo;t run long enough to have one &mdash; whatever their deck says.</p>
+    <div class="deep"><p><strong>The full catalogue</strong> &mdash; ten patterns, each with symptom, root cause and countermeasure: <a href="hallucination-defence.html#main">The Hallucination Defence</a>.</p></div>
+  </div>
+</section>
+
+<!-- CH 6 -->
+<section id="ch6">
+  <div class="wrap">
+    <div class="chapter-label">Chapter 6</div>
+    <h2 class="section-title">The economics &mdash; what actually changes.</h2>
+    <p class="prose">The honest headline: <strong>build-cost collapses; everything around the build doesn&rsquo;t.</strong> From the factory&rsquo;s own ledger: a webshop problem that had consumed 45,000 kroner of external consulting was resolved in one evening. A product suite that would classically be quoted at 75,000+ kroner reached a production MVP in a fraction of the classical timeline. This site &mdash; interactive tools, CI pipeline, the lot &mdash; was rebuilt in days, not months. The factory itself was self-funded from consulting income; no venture capital, no forcing function, no burn-rate drama.</p>
+    <p class="prose">But &mdash; and this is the part the AI vendors&rsquo; decks omit &mdash; <strong>the cost didn&rsquo;t disappear. It moved.</strong> It moved from writing code to verifying it. From building to specifying. From production to judgment. The scarce resource in an AI-era organisation is not build capacity; it&rsquo;s the person who can define what &ldquo;good&rdquo; means, detect when confident output is hollow, and say no. Budget for that person, that time and those gates &mdash; they are the actual cost of AI, and they&rsquo;re a bargain at the price.</p>
+    <p class="prose">Plan with this asymmetry: <strong>pilots are nearly free now. Production still costs.</strong> The trap is treating the pilot&rsquo;s price tag as a forecast &mdash; it&rsquo;s the rails, the verification and the operating model that carry the real budget, exactly as they should.</p>
+  </div>
+</section>
+
+<!-- CH 7 -->
+<section id="ch7" class="band">
+  <div class="wrap">
+    <div class="chapter-label">Chapter 7</div>
+    <h2 class="section-title">The chart for 2027 &mdash; what to do now.</h2>
+    <p class="prose">My working thesis, stated plainly: <strong>the 2024 labour market logic is dissolving.</strong> What one person with a governed fleet of agents can deliver already overlaps most of what small teams delivered two years ago &mdash; I&rsquo;m typing this from inside the proof. By 2027 there will be a market for one-person factories and AI-native operators that barely exists today, and every organisation will be buying from it, competing with it, or becoming it.</p>
+    <p class="prose">You don&rsquo;t need to bet on my timeline. You need to be positioned either way &mdash; and the positioning happens to be identical to plain good practice:</p>
+    <ul class="plist">
+      <li><strong>Build the reflex before the fleet.</strong> An organisation that can verify AI output can safely adopt anything that ships in 2026, 2027 or 2028. One that can&rsquo;t is unsafe with today&rsquo;s tools, never mind tomorrow&rsquo;s.</li>
+      <li><strong>Run one honest pilot to production this year.</strong> Not for the ROI &mdash; for the organisational learning. The first delivery teaches you your own failure patterns while the stakes are small.</li>
+      <li><strong>Treat governance as the durable asset.</strong> Models will be replaced every year; your rails, your evidence discipline and your people&rsquo;s judgment compound. Invest accordingly.</li>
+      <li><strong>Keep the ambition honest &mdash; and high.</strong> The factory&rsquo;s own bar, in its founder&rsquo;s words: we&rsquo;re not building a soapbox car. Quiet competence, not hype &mdash; but aimed at something that matters.</li>
+    </ul>
+    <p class="prose">And the last word &mdash; the advice I&rsquo;d give the unemployed consultant who opened an AI tool for the first time in January, which is also the advice for any organisation standing at the edge of this water: <strong>start smaller than feels impressive, verify more than feels necessary, and begin now.</strong> I threw paint at a canvas because I didn&rsquo;t know better. A picture emerged. I&rsquo;ve painted over it a hundred times since &mdash; but I know what I&rsquo;m painting now. So will you. The only approach that reliably fails is waiting for the water to calm down. It won&rsquo;t.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <div class="wrap">
+    <div class="section-label" style="text-align:center;">Sail with a navigator</div>
+    <h2>Seven chapters is a map. You still need a pilot on board.</h2>
+    <p>I help organisations run exactly this playbook &mdash; from the first honest pilot to the rails, the crew and the operating model. Interim or freelance, via broker or direct.</p>
+    <div class="cta-row">
+      <a href="/#contact" class="btn btn-solid">Get in touch</a>
+      <a href="playbook-ai-initiative.html" class="btn btn-ghost">The scenario walkthrough</a>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="workshop.html">Workshop</a> &middot; <a href="playbooks.html">Playbooks</a> &middot; <a href="notes.html">Notes</a> &middot; <a href="about.html">About</a> &middot; <a href="/#contact">Contact</a></div>
+  &copy; 2026 Steven Seidenfaden Wensley. All rights reserved.
+</footer>
+</body>
+</html>
