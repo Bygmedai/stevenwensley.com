@@ -193,6 +193,10 @@
         <p>Rules live in enforcement, not prose: hooks that <em>block</em> merge and deploy, leak-scans, smoke tests, evidence requirements on every &ldquo;done&rdquo;. If the system can&rsquo;t determine status, the principle is <code>unknown = blocked</code>. A gate that only exists in a document is a pious hope.</p>
       </div>
     </div>
+    <div style="margin-top: 2.5rem; max-width: 800px;">
+      <p class="prose">A change travels an explicit chain of command: need &rarr; requirement and expected user outcome &rarr; bounded dispatch &rarr; implementation on a branch &rarr; mechanical checks &rarr; evidence pack &rarr; separate or adversarial review &rarr; human GO/HOLD &rarr; merge &rarr; deploy verification. A dispatch isn&rsquo;t a prompt &mdash; it&rsquo;s a <strong>machine-readable work contract</strong>: which requirement, which files may be touched, which actions are forbidden, what evidence is required, who may act and who may approve. A task missing its goal, authority, evidence bar or out-of-scope isn&rsquo;t ready for an agent. It&rsquo;s just ambiguity with a send button.</p>
+      <p class="prose"><strong>Prompts influence behaviour. Enforcement constrains action.</strong> That&rsquo;s the difference between a helpful chatbot and a delivery model &mdash; and it&rsquo;s why the most interesting page on this site is the one about failure: <a href="hallucination-defence.html">The Hallucination Defence &mdash; four mechanical controls and ten real failure patterns &rarr;</a></p>
+    </div>
   </div>
 </section>
 
