@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-17Y98NY34Y"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-17Y98NY34Y');</script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Why Your AI Pilot Is Lying to You | Steven Wensley</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="Not maliciously. Structurally. An agent sounds equally confident when it has read the source and when it has invented one — and your pilot has no mechanism for telling the difference.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://stevenwensley.com/note-ai-pilot-lying.html">
+<meta property="og:title" content="Why Your AI Pilot Is Lying to You">
+<meta property="og:description" content="Not maliciously. Structurally. An agent sounds equally confident when it has read the source and when it has invented one — and your pilot has no mechanism for telling the difference.">
+<meta property="og:image" content="https://stevenwensley.com/og-image.png">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why Your AI Pilot Is Lying to You">
+<meta name="twitter:description" content="Not maliciously. Structurally. An agent sounds equally confident when it has read the source and when it has invented one — and your pilot has no mechanism for telling the difference.">
+<meta name="twitter:image" content="https://stevenwensley.com/og-image.png">
+<link rel="canonical" href="https://stevenwensley.com/note-ai-pilot-lying.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #1a1a26;
+    --gold: #c9a96e; --gold-light: #dfc08a; --gold-dim: rgba(201,169,110,0.15);
+    --text-primary: #f0ece4; --text-secondary: #9a9aaa; --text-muted: #6a6a7a;
+    --border: rgba(201,169,110,0.12); --red: #c0563f; --green: #4c9a72;
+    --serif: 'DM Serif Display', Georgia, serif; --sans: 'Space Grotesk', -apple-system, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg-primary); color: var(--text-primary); font-family: var(--sans); font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  nav .logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-decoration: none; }
+  nav .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  nav .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
+  nav .nav-links a:hover, nav .nav-links a.active { color: var(--gold); }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 101; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); margin: 5px 0; transition: all 0.3s; border-radius: 2px; }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  @media (max-width: 680px) {
+    .hamburger { display: block; }
+    nav .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,10,15,0.97); backdrop-filter: blur(20px); flex-direction: column; padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border); }
+    nav .nav-links.open { display: flex; }
+    nav .nav-links a { font-size: 0.9rem; padding: 0.5rem 0; }
+  }
+  .article { max-width: 720px; margin: 0 auto; padding: 10rem 2rem 0; }
+  .article-meta-top { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .article-meta-top a { color: var(--gold); text-decoration: none; }
+  h1.article-title { font-family: var(--serif); font-size: clamp(2.1rem, 4.5vw, 3.1rem); font-weight: 700; line-height: 1.15; margin-bottom: 1.2rem; }
+  .article-dek { font-size: 1.25rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.8rem; font-weight: 300; }
+  .article-byline { font-size: 0.85rem; color: var(--text-muted); padding-bottom: 2rem; border-bottom: 1px solid var(--border); margin-bottom: 2.5rem; letter-spacing: 0.03em; }
+  .article-body p { font-size: 1.12rem; color: var(--text-secondary); line-height: 1.85; margin-bottom: 1.5rem; }
+  .article-body p strong { color: var(--text-primary); font-weight: 500; }
+  .article-body h2 { font-family: var(--serif); font-size: 1.6rem; font-weight: 600; color: var(--text-primary); margin: 3rem 0 1.2rem; line-height: 1.3; }
+  .article-body blockquote { margin: 2.5rem 0; padding-left: 1.6rem; border-left: 3px solid var(--gold); font-family: var(--serif); font-size: 1.5rem; line-height: 1.45; color: var(--text-primary); font-style: italic; }
+  .article-body ul { list-style: none; margin: 0 0 1.5rem; }
+  .article-body li { font-size: 1.08rem; color: var(--text-secondary); line-height: 1.7; padding-left: 1.6rem; position: relative; margin-bottom: 0.9rem; }
+  .article-body li::before { content: '→'; position: absolute; left: 0; color: var(--gold); }
+  .article-cta { margin: 3.5rem 0 0; padding: 2rem 2.2rem; background: var(--bg-card); border: 1px solid var(--gold); border-radius: 4px; }
+  .article-cta p { font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.2rem; }
+  .article-cta a.btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.8rem; background: var(--gold); color: var(--bg-primary); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: opacity 0.3s; }
+  .article-cta a.btn:hover { opacity: 0.9; }
+  .more-notes { max-width: 720px; margin: 4rem auto 0; padding: 0 2rem; }
+  .more-notes .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+  .more-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 600px) { .more-grid { grid-template-columns: 1fr; } }
+  .more-card { display: block; padding: 1.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px; text-decoration: none; color: inherit; transition: border-color 0.3s, transform 0.3s; }
+  .more-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .more-card .mc-tag { font-size: 0.66rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .more-card h3 { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--text-primary); line-height: 1.3; }
+  footer { padding: 3rem; text-align: center; color: var(--text-muted); font-size: 0.78rem; letter-spacing: 0.05em; border-top: 1px solid var(--border); margin-top: 5rem; }
+  footer a { color: var(--text-secondary); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+  @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .article { padding: 8rem 1.5rem 0; } }
+  .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<nav aria-label="Primary">
+  <a href="/" class="logo" aria-label="Steven Wensley — home">SSW</a>
+  <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-links">
+    <a href="workshop.html">Workshop</a>
+    <a href="playbooks.html">Playbooks</a>
+    <a href="notes.html" class="active">Notes</a>
+    <a href="about.html">About</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</nav>
+<main id="main" tabindex="-1">
+
+<article class="article">
+  <div class="article-meta-top"><a href="notes.html">Field notes</a> &nbsp;/&nbsp; The machines</div>
+  <h1 class="article-title">Why your AI pilot is lying to you</h1>
+  <p class="article-dek">Not maliciously. Structurally. An agent sounds equally confident when it has read the source and when it has invented one &mdash; and your pilot can&rsquo;t tell the difference.</p>
+  <div class="article-byline">Steven Wensley &middot; 17 July 2026 &middot; 4 min read</div>
+
+  <div class="article-body">
+    <p>Early in my factory&rsquo;s life, a specialist agent delivered an analysis of a dataset. It was well-structured, specific, professionally worded. It cited patterns in the data. It drew reasonable conclusions.</p>
+    <p><strong>It had never opened the dataset.</strong></p>
+    <p>Not because it was broken. Because it couldn&rsquo;t &mdash; it lacked access &mdash; and instead of saying so, it did what language models do brilliantly: it reconstructed what such an analysis would <em>probably</em> look like. The result was plausible enough that it survived two days of review before an instinct made me hand the same task to a second agent. My stomach was right. The analysis was fiction with excellent posture.</p>
+    <p>Here&rsquo;s what makes this dangerous, and why I&rsquo;d bet money your organisation&rsquo;s AI pilot has the same problem: <strong>a language model sounds roughly equally competent in four very different situations.</strong> When it has read the source. When it remembers something similar. When it has inferred something reasonable. And when it has simply filled a gap. The tone is identical. The confidence is identical. The formatting is identical.</p>
+    <blockquote>Linguistic confidence is not a quality signal. It&rsquo;s a stylistic constant.</blockquote>
+    <p>Your SteerCo has spent decades learning to detect a project manager who&rsquo;s bluffing &mdash; the hedged phrasing, the eye contact, the suspiciously round numbers. None of those instincts work on an AI. It doesn&rsquo;t hedge when it&rsquo;s guessing. It doesn&rsquo;t know it&rsquo;s guessing.</p>
+    <h2>Stop evaluating the claim. Demand the evidence.</h2>
+    <p>The fix cannot be &ldquo;read the output more carefully.&rdquo; The fix is structural, and it&rsquo;s the same one auditors have used for a century.</p>
+    <p>In my factory, every operational claim an agent makes is classified by evidence strength. <strong>Source-based</strong>: directly supported by an artifact or a live readback. <strong>Mixed</strong>: source plus interpretation. <strong>Heuristic</strong>: qualified judgment, no full readback. <strong>Unverified</strong>: a claim with nothing under it &mdash; labelled as exactly that, in writing. An agent gets no credit for &ldquo;analysing&rdquo; anything until the system can show which source was opened, when, and which observations the conclusion rests on.</p>
+    <p>&ldquo;The system says&rdquo; is not evidence. &ldquo;The agent analysed it&rdquo; is not evidence. A confident paragraph is not evidence. And this rule costs almost nothing to enforce &mdash; which is precisely why it&rsquo;s embarrassing how few AI initiatives enforce it.</p>
+    <h2>One question to ask tomorrow</h2>
+    <p>If you have an AI pilot running right now, ask its owner: <strong>&ldquo;When it gives us an answer, how do we know whether it read the source or reconstructed it?&rdquo;</strong> If the answer is a pause, your pilot isn&rsquo;t lying to you yet.</p>
+    <p>But it will. Structurally. And it will sound wonderful doing it.</p>
+
+  </div>
+
+  <div class="article-cta">
+    <p>This is what the factory taught me the hard way &mdash; the full defence is public: four mechanical controls and ten real failure patterns, from production.</p>
+    <a href="hallucination-defence.html" class="btn">Read the Hallucination Defence &rarr;</a>
+  </div>
+</article>
+
+<div class="more-notes">
+  <div class="section-label">More field notes</div>
+  <div class="more-grid">
+    <a href="note-done-dangerous-word.html" class="more-card">
+      <div class="mc-tag">The method</div>
+      <h3>&ldquo;Done&rdquo; is the most dangerous word in AI</h3>
+    </a>
+    <a href="note-one-agent-seven-hats.html" class="more-card">
+      <div class="mc-tag">The machines</div>
+      <h3>One agent, seven hats</h3>
+    </a>
+  </div>
+</div>
+
+</main>
+<footer>
+  <div style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="workshop.html">Workshop</a> &middot; <a href="playbooks.html">Playbooks</a> &middot; <a href="notes.html">Notes</a> &middot; <a href="about.html">About</a> &middot; <a href="/#contact">Contact</a></div>
+  &copy; 2026 Steven Seidenfaden Wensley. All rights reserved.
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Why your AI pilot is lying to you",
+  "description": "Not maliciously. Structurally. An agent sounds equally confident when it has read the source and when it has invented one — and your pilot has no mechanism for telling the difference.",
+  "datePublished": "2026-07-17",
+  "dateModified": "2026-07-17",
+  "author": { "@type": "Person", "name": "Steven Seidenfaden Wensley", "url": "https://stevenwensley.com/about.html" },
+  "publisher": { "@type": "Person", "name": "Steven Seidenfaden Wensley" },
+  "mainEntityOfPage": "https://stevenwensley.com/note-ai-pilot-lying.html"
+}
+</script>
+</body>
+</html>
