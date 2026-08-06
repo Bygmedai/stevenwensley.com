@@ -1,0 +1,20 @@
+# Dependabot auto-merge (caller, S549 org-udrulning — Steven GO 2026-08-06)
+#
+# Kalder reusable workflow fra Bygmedai/.github @v1 (envelope v2a, Sirius RULING S502):
+# auto-approve + auto-merge KUN for semver-patch (alle), dev-minor/patch og
+# actions-minor/patch. Majors og runtime-minors forbliver menneske-review.
+#
+# secrets: inherit er PÅKRÆVET — reusable workflows arver ikke secrets (GitHub docs);
+# uden den falder approval tilbage til github-actions[bot] (målt S549, Ads-orchestrator #288).
+
+name: Dependabot auto-merge
+on: pull_request_target
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    uses: Bygmedai/.github/.github/workflows/dependabot-auto-merge.yml@v1
+    secrets: inherit

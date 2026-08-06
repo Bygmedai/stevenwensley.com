@@ -1,0 +1,57 @@
+# Dependabot config — S549 org-standard (Steven GO 2026-08-06).
+# Foer denne fil koerte repoet paa defaults: ingen version-updates-styring og
+# security-PRs enkeltvis. Design jf. governance
+# 06-quality-and-ops/dependencies/DEPENDENCY-PR-PIPELINE-POLICY-v0.1.md:
+# security-PRs grupperes pr. oekosystem · minor+patch grupperes (prod/dev adskilt)
+# · majors kommer enkeltvis (migration-slice, policy §5) · cooldown 7/30 dage
+# (gaelder aldrig security-updates og ikke github-actions).
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "07:00"
+      timezone: "Europe/Copenhagen"
+    open-pull-requests-limit: 5
+    cooldown:
+      default-days: 7
+      semver-major-days: 30
+    groups:
+      npm-security:
+        applies-to: security-updates
+        patterns: ["*"]
+      prod-minor-patch:
+        applies-to: version-updates
+        dependency-type: "production"
+        update-types: ["minor", "patch"]
+      dev-minor-patch:
+        applies-to: version-updates
+        dependency-type: "development"
+        update-types: ["minor", "patch"]
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "automated"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 3
+    groups:
+      actions-security:
+        applies-to: security-updates
+        patterns: ["*"]
+      github-actions:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+    commit-message:
+      prefix: "chore(actions)"
+    labels:
+      - "github-actions"
+      - "automated"
