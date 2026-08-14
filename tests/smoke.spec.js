@@ -68,6 +68,7 @@ test.describe('Console Error Check', () => {
         !e.includes('fonts.googleapis') &&
         !e.includes('Failed to load resource') && // External CDN
         !e.includes('net::ERR_') && // Network errors (external)
+        !e.includes('cloudflareinsights.com') && // CF analytics beacon CORS-blocked on localhost test origin
         !e.includes('sandboxed') && // iframe sandbox (portfolio browser previews)
         !e.includes('Blocked script execution') // Same — sandboxed iframes
       );
