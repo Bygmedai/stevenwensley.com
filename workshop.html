@@ -74,6 +74,27 @@
   .stats-note { font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem; }
   .stats-note a { color: var(--text-secondary); }
 
+  /* VIZ */
+  .viz-block { margin-top: 2.2rem; max-width: 780px; }
+  .viz-block h3 { font-family: var(--serif); font-size: 1.25rem; font-weight: 600; margin-bottom: 0.4rem; }
+  .viz-sub { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.2rem; }
+  .viz-svg { width: 100%; height: auto; display: block; }
+  .viz-notes { list-style: none; margin-top: 1rem; display: grid; gap: 0.5rem; }
+  .viz-notes li { font-size: 0.86rem; color: var(--text-secondary); line-height: 1.6; padding-left: 2rem; position: relative; }
+  .viz-notes li .dot { position: absolute; left: 0; top: 0.1rem; width: 1.35rem; height: 1.35rem; border-radius: 50%; background: var(--gold-dim); border: 1px solid var(--gold); color: var(--gold); display: inline-flex; align-items: center; justify-content: center; font-size: 0.66rem; font-weight: 700; }
+  .viz-notes li strong { color: var(--text-primary); font-weight: 500; }
+  .trail-bars { display: grid; gap: 1.1rem; margin: 1.4rem 0; }
+  .trail-row .tr-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 0.4rem; flex-wrap: wrap; }
+  .trail-row .tr-name { font-size: 0.85rem; color: var(--text-primary); font-weight: 500; }
+  .trail-row .tr-pct { font-family: var(--serif); font-size: 1.05rem; color: var(--gold-light); }
+  .trail-track { height: 22px; background: rgba(154,154,170,0.14); border-radius: 3px; overflow: hidden; display: flex; }
+  .trail-fill { background: linear-gradient(90deg, var(--gold), var(--gold-light)); height: 100%; }
+  .trail-legend { display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.78rem; color: var(--text-muted); margin-top: 0.3rem; }
+  .trail-legend .sw { display: inline-block; width: 0.75rem; height: 0.75rem; border-radius: 2px; vertical-align: -1px; margin-right: 0.4rem; }
+  .artifact-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+  .artifact-chips span { padding: 0.4rem 0.9rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; font-size: 0.78rem; color: var(--text-secondary); }
+  .viz-method { font-size: 0.75rem; color: var(--text-muted); margin-top: 1rem; line-height: 1.6; }
+
   /* MODEL CARDS */
   .model-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 1.2rem; margin-top: 2rem; }
   .model-card { padding: 1.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px; min-width: 0; }
@@ -162,6 +183,94 @@
       <div class="stat"><div class="n">8 mo</div><div class="l">hands-on with every frontier lab&rsquo;s models &mdash; Anthropic, OpenAI, Google, xAI &mdash; daily, in production, not in a sandbox</div></div>
     </div>
     <p class="stats-note">February: 44 commits. May: 1,529. From zero to a running factory in one quarter. Counts verified via the GitHub API (July 2026), method reproducible; the repository count is a lower bound. The source code is private by design &mdash; client work stays confidential. The proof lives where it should: in production, with real customers, and in a <a href="https://github.com/stevenwensley-a11y" target="_blank" rel="noopener">contribution graph</a> you can inspect right now.</p>
+  </div>
+</section>
+
+<!-- THE SHAPE OF THE WORK -->
+<section>
+  <div class="wrap">
+    <div class="section-label">The shape of the work</div>
+    <h2 class="section-title">Two pictures the numbers make.</h2>
+
+    <div class="viz-block">
+      <h3>From zero to a running factory in one quarter.</h3>
+      <div class="viz-sub">Commits per month across the factory, February &ndash; July 2026 (July counted to the 17th). GitHub API, method reproducible.</div>
+      <svg class="viz-svg" viewBox="0 0 720 275" role="img" aria-label="Bar chart of monthly commits: February 44, March 694, April 1267, May 1529, June 730, July to the 17th 487">
+        <g font-family="'Space Grotesk',sans-serif">
+          <!-- bars: scale 1529 -> 170px, baseline y=210 -->
+          <g fill="#c9a96e">
+            <rect x="30"  y="205.1" width="80" height="4.9"  rx="2"/>
+            <rect x="145" y="132.8" width="80" height="77.2" rx="2"/>
+            <rect x="260" y="69.1"  width="80" height="140.9" rx="2"/>
+            <rect x="375" y="40"    width="80" height="170" rx="2"/>
+            <rect x="490" y="128.8" width="80" height="81.2" rx="2"/>
+            <rect x="605" y="155.9" width="80" height="54.1" rx="2" fill="#8f7a52"/>
+          </g>
+          <!-- value labels -->
+          <g fill="#dfc08a" font-size="17" text-anchor="middle" font-weight="600">
+            <text x="70"  y="196">44</text>
+            <text x="185" y="124">694</text>
+            <text x="300" y="60">1,267</text>
+            <text x="415" y="31">1,529</text>
+            <text x="530" y="120">730</text>
+            <text x="645" y="147" fill="#9a9aaa">487*</text>
+          </g>
+          <!-- month labels -->
+          <g fill="#9a9aaa" font-size="15" text-anchor="middle">
+            <text x="70"  y="234">Feb</text>
+            <text x="185" y="234">Mar</text>
+            <text x="300" y="234">Apr</text>
+            <text x="415" y="234">May</text>
+            <text x="530" y="234">Jun</text>
+            <text x="645" y="234">Jul*</text>
+          </g>
+          <line x1="20" y1="210" x2="700" y2="210" stroke="rgba(201,169,110,0.25)" stroke-width="1"/>
+          <!-- milestone dots under the axis -->
+          <g>
+            <circle cx="70" cy="254" r="11" fill="#0a0a0f" stroke="#c9a96e"/>
+            <text x="70" y="258.5" fill="#c9a96e" font-size="11" font-weight="700" text-anchor="middle">1</text>
+            <circle cx="185" cy="254" r="11" fill="#0a0a0f" stroke="#c9a96e"/>
+            <text x="185" y="258.5" fill="#c9a96e" font-size="11" font-weight="700" text-anchor="middle">2</text>
+            <circle cx="415" cy="254" r="11" fill="#0a0a0f" stroke="#c9a96e"/>
+            <text x="415" y="258.5" fill="#c9a96e" font-size="11" font-weight="700" text-anchor="middle">3</text>
+          </g>
+        </g>
+      </svg>
+      <ul class="viz-notes">
+        <li><span class="dot">1</span><strong>February:</strong> the factory is founded mid-month &mdash; the first website ships within a week of touching the tools.</li>
+        <li><span class="dot">2</span><strong>March:</strong> the infrastructure pivot &mdash; governance and the agent fleet are built <em>before</em> scaling output, not after.</li>
+        <li><span class="dot">3</span><strong>May:</strong> peak build &mdash; and the production failures that forged the hardest gates. The curve dips after by design: quality over velocity.</li>
+      </ul>
+      <div class="viz-method">*July counted to the 17th. Monthly counts via the GitHub search API per calendar month, verified July 2026.</div>
+    </div>
+
+    <div class="viz-block" style="margin-top: 3.5rem;">
+      <h3>A third of the factory is paper trail. On purpose.</h3>
+      <div class="viz-sub">Share of tracked files that are governance &amp; documentation artifacts &mdash; measured in two live product repositories, August 2026.</div>
+      <div class="trail-bars">
+        <div class="trail-row">
+          <div class="tr-head"><span class="tr-name">Intelligence-analysis platform (Geopol Radar)</span><span class="tr-pct">36%</span></div>
+          <div class="trail-track"><div class="trail-fill" style="width: 36%;"></div></div>
+        </div>
+        <div class="trail-row">
+          <div class="tr-head"><span class="tr-name">Outplacement platform (in build)</span><span class="tr-pct">32%</span></div>
+          <div class="trail-track"><div class="trail-fill" style="width: 32%;"></div></div>
+        </div>
+      </div>
+      <div class="trail-legend"><span><span class="sw" style="background: linear-gradient(90deg,#c9a96e,#dfc08a);"></span>Governance &amp; documentation artifacts</span><span><span class="sw" style="background: rgba(154,154,170,0.25);"></span>Product code &amp; assets</span></div>
+      <p class="prose" style="margin-top: 1.4rem;">What lives in that third, in one repo alone:</p>
+      <div class="artifact-chips">
+        <span>3 dispatch contracts</span>
+        <span>6 QA dispatches</span>
+        <span>9 QA reports</span>
+        <span>2 golden sets</span>
+        <span>Readback logs</span>
+        <span>Decision records</span>
+        <span>Architecture &amp; roadmap docs</span>
+      </div>
+      <p class="prose" style="margin-top: 1.4rem;"><strong>A bunch of prompts leaves no paper trail. A factory is mostly paper trail</strong> &mdash; dispatches that bound the work, reviews that attacked it, evidence that proved it. That third is why the other two thirds can be trusted. <a href="factory-journey.html">Scroll through one real change&rsquo;s journey to see the trail in use &rarr;</a></p>
+      <div class="viz-method">Measured via git file listings against each repository&rsquo;s main branch: 92 of 249 tracked files (36%) and 186 of 565 (32%) are markdown governance/documentation artifacts.</div>
+    </div>
   </div>
 </section>
 
