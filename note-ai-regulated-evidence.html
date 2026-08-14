@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-17Y98NY34Y"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-17Y98NY34Y');</script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>When AI Fabricates Your Control Evidence | Steven Wensley</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="In a GxP, NIS2 or DORA environment, a hallucination isn't a wrong answer — it's an audit finding with a delay on it. What evidence discipline for AI looks like, from inside a running factory.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://stevenwensley.com/note-ai-regulated-evidence.html">
+<meta property="og:title" content="When AI Fabricates Your Control Evidence">
+<meta property="og:description" content="In a GxP, NIS2 or DORA environment, a hallucination isn't a wrong answer — it's an audit finding with a delay on it. What evidence discipline for AI looks like, from inside a running factory.">
+<meta property="og:image" content="https://stevenwensley.com/og-image.png">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="When AI Fabricates Your Control Evidence">
+<meta name="twitter:description" content="A hallucination in a regulated environment is an audit finding with a delay on it.">
+<meta name="twitter:image" content="https://stevenwensley.com/og-image.png">
+<link rel="canonical" href="https://stevenwensley.com/note-ai-regulated-evidence.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #1a1a26;
+    --gold: #c9a96e; --gold-light: #dfc08a; --gold-dim: rgba(201,169,110,0.15);
+    --text-primary: #f0ece4; --text-secondary: #9a9aaa; --text-muted: #6a6a7a;
+    --border: rgba(201,169,110,0.12); --red: #c0563f; --green: #4c9a72;
+    --serif: 'DM Serif Display', Georgia, serif; --sans: 'Space Grotesk', -apple-system, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg-primary); color: var(--text-primary); font-family: var(--sans); font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  nav .logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-decoration: none; }
+  nav .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  nav .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
+  nav .nav-links a:hover, nav .nav-links a.active { color: var(--gold); }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 101; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); margin: 5px 0; transition: all 0.3s; border-radius: 2px; }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  @media (max-width: 680px) {
+    .hamburger { display: block; }
+    nav .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,10,15,0.97); backdrop-filter: blur(20px); flex-direction: column; padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border); }
+    nav .nav-links.open { display: flex; }
+    nav .nav-links a { font-size: 0.9rem; padding: 0.5rem 0; }
+  }
+  .article { max-width: 720px; margin: 0 auto; padding: 10rem 2rem 0; }
+  .article-meta-top { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .article-meta-top a { color: var(--gold); text-decoration: none; }
+  h1.article-title { font-family: var(--serif); font-size: clamp(2.1rem, 4.5vw, 3.1rem); font-weight: 700; line-height: 1.15; margin-bottom: 1.2rem; }
+  .article-dek { font-size: 1.25rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.8rem; font-weight: 300; }
+  .article-byline { font-size: 0.85rem; color: var(--text-muted); padding-bottom: 2rem; border-bottom: 1px solid var(--border); margin-bottom: 2.5rem; letter-spacing: 0.03em; }
+  .article-body p { font-size: 1.12rem; color: var(--text-secondary); line-height: 1.85; margin-bottom: 1.5rem; }
+  .article-body p strong { color: var(--text-primary); font-weight: 500; }
+  .article-body h2 { font-family: var(--serif); font-size: 1.6rem; font-weight: 600; color: var(--text-primary); margin: 3rem 0 1.2rem; line-height: 1.3; }
+  .article-body blockquote { margin: 2.5rem 0; padding-left: 1.6rem; border-left: 3px solid var(--gold); font-family: var(--serif); font-size: 1.5rem; line-height: 1.45; color: var(--text-primary); font-style: italic; }
+  .article-body ul { list-style: none; margin: 0 0 1.5rem; }
+  .article-body li { font-size: 1.08rem; color: var(--text-secondary); line-height: 1.7; padding-left: 1.6rem; position: relative; margin-bottom: 0.9rem; }
+  .article-body li::before { content: '→'; position: absolute; left: 0; color: var(--gold); }
+  .article-cta { margin: 3.5rem 0 0; padding: 2rem 2.2rem; background: var(--bg-card); border: 1px solid var(--gold); border-radius: 4px; }
+  .article-cta p { font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.2rem; }
+  .article-cta a.btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.8rem; background: var(--gold); color: var(--bg-primary); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: opacity 0.3s; }
+  .article-cta a.btn:hover { opacity: 0.9; }
+  .more-notes { max-width: 720px; margin: 4rem auto 0; padding: 0 2rem; }
+  .more-notes .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+  .more-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 600px) { .more-grid { grid-template-columns: 1fr; } }
+  .more-card { display: block; padding: 1.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px; text-decoration: none; color: inherit; transition: border-color 0.3s, transform 0.3s; }
+  .more-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .more-card .mc-tag { font-size: 0.66rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .more-card h3 { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--text-primary); line-height: 1.3; }
+  footer { padding: 3rem; text-align: center; color: var(--text-muted); font-size: 0.78rem; letter-spacing: 0.05em; border-top: 1px solid var(--border); margin-top: 5rem; }
+  footer a { color: var(--text-secondary); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+  @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .article { padding: 8rem 1.5rem 0; } }
+  .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<nav aria-label="Primary">
+  <a href="/" class="logo" aria-label="Steven Wensley — home">SSW</a>
+  <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-links">
+    <a href="workshop.html">Workshop</a>
+    <a href="playbooks.html">Playbooks</a>
+    <a href="notes.html" class="active">Notes</a>
+    <a href="about.html">About</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</nav>
+<main id="main" tabindex="-1">
+
+<article class="article">
+  <div class="article-meta-top"><a href="notes.html">Field notes</a> &nbsp;/&nbsp; Regulatory</div>
+  <h1 class="article-title">When AI fabricates your control evidence</h1>
+  <p class="article-dek">In a regulated environment, a hallucination isn&rsquo;t a wrong answer. It&rsquo;s an audit finding with a delay on it &mdash; and most organisations deploying AI can&rsquo;t answer the auditor&rsquo;s first question.</p>
+  <div class="article-byline">Steven Wensley &middot; 18 July 2026 &middot; 4 min read</div>
+
+  <div class="article-body">
+    <p>Somewhere in Denmark right now, an AI pilot is summarising compliance documentation. Drafting control descriptions. Answering an auditor&rsquo;s pre-questions. And it sounds excellent doing it &mdash; because it always sounds excellent. That&rsquo;s the property nobody in the room has fully priced in.</p>
+    <p>In an unregulated context, an AI that invents a plausible answer is a quality problem. Annoying, costly, fixable. <strong>In a GxP, NIS2 or DORA environment, the same behaviour is something else entirely: it&rsquo;s fabricated evidence.</strong> A control description that reads beautifully but doesn&rsquo;t describe the actual control. A summary of a validation document the model never opened. A status that was reconstructed from patterns rather than read from the system.</p>
+    <blockquote>A hallucination in a regulated environment isn&rsquo;t a wrong answer. It&rsquo;s an audit finding with a delay on it.</blockquote>
+    <p>I run an AI factory, and I&rsquo;ve watched this failure mode from the inside: early on, an agent delivered a polished analysis of a dataset it had never had access to. Well-structured, specific, professional &mdash; and fiction. It survived two days of review, because linguistic confidence in a language model is not a quality signal. It&rsquo;s a stylistic constant. The model sounds the same whether it read the source or invented it.</p>
+    <p>Now put that behaviour in front of a regulator.</p>
+    <h2>The question an auditor will eventually ask</h2>
+    <p>Regulated organisations have spent decades building evidence discipline for human work: signatures, audit trails, data integrity principles &mdash; who did what, when, based on which records. Then an AI arrives, gets wired into the compliance workflow, and produces output <em>that carries none of that lineage</em>. The auditor&rsquo;s question is entirely predictable: <strong>&ldquo;How do you know the AI read the source?&rdquo;</strong> Most organisations currently deploying AI cannot answer it.</p>
+    <p>The answer that works is the same one that works for human evidence &mdash; provenance, made mechanical:</p>
+    <ul>
+      <li><strong>Every operational claim carries an evidence classification</strong> &mdash; source-based, mixed, heuristic or unverified. In writing, attached to the output.</li>
+      <li><strong>Source access is logged, not assumed.</strong> Which document was opened, when, and which observations the conclusion rests on. No readback, no credit.</li>
+      <li><strong>&ldquo;Unverified&rdquo; is a legitimate, visible state</strong> &mdash; not something fluent text is allowed to paper over. In my factory the rule is mechanical: unknown = blocked.</li>
+      <li><strong>Live state beats the model&rsquo;s description of state.</strong> An AI&rsquo;s account of a system status is a claim, not a record. The system itself is the record.</li>
+    </ul>
+    <p>None of this is exotic. It&rsquo;s ALCOA-era thinking &mdash; attributable, legible, contemporaneous, original, accurate &mdash; applied to a new kind of worker. The organisations that already live by those principles for human work are, ironically, best placed to govern AI well. They just haven&rsquo;t connected the two yet.</p>
+    <h2>One procurement question worth stealing</h2>
+    <p>If a vendor is selling you AI for anything compliance-adjacent, skip the capability deck and ask for their <strong>failure catalogue</strong>: the actual ways their system has failed, and the mechanical countermeasure for each. I publish mine &mdash; ten patterns, from live operation. A vendor who can&rsquo;t show you one hasn&rsquo;t run long enough to have one, or won&rsquo;t admit what&rsquo;s in it. Either answer tells you what you need to know.</p>
+    <p>Speed is not the enemy here &mdash; false speed is. Every hour spent on unverified output is slower than any hour spent on gates. In regulated environments, that sentence isn&rsquo;t philosophy. It&rsquo;s the difference between an AI capability and a finding.</p>
+    <p style="font-size: 0.9rem; color: var(--text-muted);"><em>Adapted from a post first published on <a href="https://www.linkedin.com/feed/update/urn:li:activity:7493943896775970816/" style="color: var(--gold);">LinkedIn</a>.</em></p>
+
+  </div>
+
+  <div class="article-cta">
+    <p>The full defence &mdash; four mechanical controls and the published ten-pattern failure catalogue, from production &mdash; is public.</p>
+    <a href="hallucination-defence.html" class="btn">Read the Hallucination Defence &rarr;</a>
+  </div>
+</article>
+
+<div class="more-notes">
+  <div class="section-label">More field notes</div>
+  <div class="more-grid">
+    <a href="note-ai-pilot-lying.html" class="more-card">
+      <div class="mc-tag">The machines</div>
+      <h3>Why your AI pilot is lying to you</h3>
+    </a>
+    <a href="note-nis2-ownership.html" class="more-card">
+      <div class="mc-tag">Regulatory</div>
+      <h3>NIS2: nobody&rsquo;s neck is on the line</h3>
+    </a>
+  </div>
+</div>
+
+</main>
+<footer>
+  <div style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="workshop.html">Workshop</a> &middot; <a href="playbooks.html">Playbooks</a> &middot; <a href="notes.html">Notes</a> &middot; <a href="about.html">About</a> &middot; <a href="/#contact">Contact</a></div>
+  &copy; 2026 Steven Seidenfaden Wensley. All rights reserved.
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "When AI fabricates your control evidence",
+  "description": "In a GxP, NIS2 or DORA environment, a hallucination isn't a wrong answer — it's an audit finding with a delay on it. What evidence discipline for AI looks like, from inside a running factory.",
+  "datePublished": "2026-07-18",
+  "dateModified": "2026-07-18",
+  "author": { "@type": "Person", "name": "Steven Seidenfaden Wensley", "url": "https://stevenwensley.com/about.html" },
+  "publisher": { "@type": "Person", "name": "Steven Seidenfaden Wensley" },
+  "mainEntityOfPage": "https://stevenwensley.com/note-ai-regulated-evidence.html"
+}
+</script>
+</body>
+</html>
