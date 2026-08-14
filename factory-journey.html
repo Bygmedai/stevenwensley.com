@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-17Y98NY34Y"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-17Y98NY34Y');</script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Follow One Change Through the Factory | Steven Wensley</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="A real feature's journey through a one-man AI factory — the actual dispatch contract, the adversarial review with 11 findings, the gates, and the human GO. Real artifacts, lightly sanitised. This happened 2,863 times.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://stevenwensley.com/factory-journey.html">
+<meta property="og:title" content="Follow One Change Through the Factory">
+<meta property="og:description" content="Everyone says they have a process. Here you can scroll through a real one — actual dispatch, actual adversarial review, actual gates.">
+<meta property="og:image" content="https://stevenwensley.com/og-image.png">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Follow One Change Through the Factory">
+<meta name="twitter:description" content="A real feature's journey through an AI factory — real artifacts, lightly sanitised.">
+<meta name="twitter:image" content="https://stevenwensley.com/og-image.png">
+<link rel="canonical" href="https://stevenwensley.com/factory-journey.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #1a1a26;
+    --gold: #c9a96e; --gold-light: #dfc08a; --gold-dim: rgba(201,169,110,0.15);
+    --text-primary: #f0ece4; --text-secondary: #9a9aaa; --text-muted: #6a6a7a;
+    --border: rgba(201,169,110,0.12); --red: #c0563f; --green: #4c9a72; --amber: #c2892f;
+    --serif: 'DM Serif Display', Georgia, serif; --sans: 'Space Grotesk', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg-primary); color: var(--text-primary); font-family: var(--sans); font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  nav .logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-decoration: none; }
+  nav .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  nav .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
+  nav .nav-links a:hover, nav .nav-links a.active { color: var(--gold); }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 101; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); margin: 5px 0; transition: all 0.3s; border-radius: 2px; }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  @media (max-width: 680px) {
+    .hamburger { display: block; }
+    nav .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,10,15,0.97); backdrop-filter: blur(20px); flex-direction: column; padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border); }
+    nav .nav-links.open { display: flex; }
+    nav .nav-links a { font-size: 0.9rem; padding: 0.5rem 0; }
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 3rem; }
+  .page-hero { padding: 10rem 0 3rem; }
+  .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .page-hero h1 { font-family: var(--serif); font-size: clamp(2.1rem, 4.4vw, 3.1rem); font-weight: 700; line-height: 1.16; margin-bottom: 1.5rem; }
+  .page-hero h1 .accent { color: var(--gold); }
+  .lede { font-size: 1.12rem; color: var(--text-secondary); max-width: 720px; line-height: 1.75; }
+  .lede strong { color: var(--text-primary); font-weight: 500; }
+
+  /* JOURNEY RAIL */
+  .journey { position: relative; padding-left: 2.2rem; }
+  .journey::before { content: ''; position: absolute; left: 0.55rem; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--gold) 0%, rgba(201,169,110,0.15) 100%); }
+  .stage { position: relative; padding: 2.6rem 0; }
+  .stage::before { content: ''; position: absolute; left: -2.2rem; top: 3.35rem; width: 1.2rem; height: 1.2rem; border-radius: 50%; background: var(--bg-primary); border: 2px solid var(--gold); margin-left: 0; }
+  .stage-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+  .stage h2 { font-family: var(--serif); font-size: clamp(1.45rem, 2.9vw, 1.95rem); font-weight: 600; margin-bottom: 1.1rem; line-height: 1.3; }
+  .stage .prose { font-size: 1rem; color: var(--text-secondary); max-width: 700px; line-height: 1.8; margin-bottom: 1rem; }
+  .stage .prose strong { color: var(--text-primary); font-weight: 500; }
+  .stage .prose a { color: var(--gold); }
+
+  /* reveal animation */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+  }
+
+  /* ARTIFACT PANELS */
+  .artifact { margin: 1.5rem 0; background: #0e0e15; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; max-width: 720px; }
+  .artifact-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.6rem 1.1rem; background: var(--bg-card); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  .artifact-bar .fname { font-family: var(--mono); font-size: 0.76rem; color: var(--gold-light); }
+  .artifact-bar .stamp { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); }
+  .artifact pre { padding: 1.1rem 1.3rem; font-family: var(--mono); font-size: 0.78rem; line-height: 1.7; color: var(--text-secondary); overflow-x: auto; white-space: pre; }
+  .artifact pre .hl { color: var(--gold-light); }
+  .artifact pre .neg { color: var(--red); }
+  .artifact pre .pos { color: var(--green); }
+  .anno { display: flex; gap: 0.7rem; align-items: flex-start; margin: 0.9rem 0; max-width: 700px; }
+  .anno .tick { flex-shrink: 0; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--gold-dim); border: 1px solid var(--gold); color: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; margin-top: 0.15rem; }
+  .anno p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+  .anno p strong { color: var(--text-primary); font-weight: 500; }
+
+  /* findings table */
+  .table-scroll { overflow-x: auto; margin: 1.5rem 0; border: 1px solid var(--border); border-radius: 4px; max-width: 720px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.82rem; min-width: 520px; }
+  th { text-align: left; font-size: 0.64rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); padding: 0.7rem 0.9rem; background: var(--bg-card); border-bottom: 1px solid var(--border); }
+  td { padding: 0.7rem 0.9rem; color: var(--text-secondary); border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.55; }
+  tr:last-child td { border-bottom: none; }
+  .sev { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.15rem 0.5rem; border-radius: 2px; white-space: nowrap; }
+  .sev.crit { background: rgba(192,86,63,0.15); color: var(--red); border: 1px solid rgba(192,86,63,0.4); }
+  .sev.imp { background: rgba(194,137,47,0.12); color: var(--amber); border: 1px solid rgba(194,137,47,0.35); }
+
+  .pull { font-family: var(--serif); font-size: clamp(1.15rem, 2.3vw, 1.45rem); color: var(--text-primary); line-height: 1.5; border-left: 3px solid var(--gold); padding: 0.3rem 0 0.3rem 1.5rem; margin: 1.8rem 0; max-width: 680px; }
+
+  .stats-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); gap: 1rem; margin: 2rem 0; max-width: 720px; }
+  .ss { padding: 1.3rem 1.4rem; background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 2px; min-width: 0; }
+  .ss .n { font-family: var(--serif); font-size: 1.7rem; font-weight: 700; color: var(--gold-light); line-height: 1.1; }
+  .ss .l { font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.4rem; line-height: 1.5; }
+
+  .cta-band { text-align: center; padding: 4.5rem 0; background: var(--bg-secondary); border-top: 1px solid var(--border); }
+  .cta-band h2 { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; margin-bottom: 1rem; }
+  .cta-band p { font-size: 1rem; color: var(--text-secondary); max-width: 580px; margin: 0 auto 2rem; }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.8rem; font-family: var(--sans); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px; cursor: pointer; text-decoration: none; transition: all 0.3s; border: 1px solid var(--gold); }
+  .btn-solid { background: var(--gold); color: var(--bg-primary); }
+  .btn-solid:hover { opacity: 0.9; }
+  .btn-ghost { background: transparent; color: var(--gold); }
+  .btn-ghost:hover { background: var(--gold); color: var(--bg-primary); }
+  .cta-row { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+  .foot-note { font-size: 0.78rem; color: var(--text-muted); max-width: 680px; margin: 2.5rem 0 0; line-height: 1.65; }
+
+  footer { padding: 3rem; text-align: center; color: var(--text-muted); font-size: 0.78rem; letter-spacing: 0.05em; border-top: 1px solid var(--border); }
+  footer a { color: var(--text-secondary); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+  @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .wrap { padding: 0 1.5rem; } .page-hero { padding: 8rem 0 2rem; } .journey { padding-left: 1.7rem; } .stage::before { left: -1.7rem; } }
+  .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<nav aria-label="Primary">
+  <a href="/" class="logo" aria-label="Steven Wensley — home">SSW</a>
+  <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-links">
+    <a href="workshop.html" class="active">Workshop</a>
+    <a href="playbooks.html">Playbooks</a>
+    <a href="notes.html">Notes</a>
+    <a href="about.html">About</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</nav>
+<main id="main" tabindex="-1">
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="section-label">From the factory floor</div>
+    <h1>Everyone says they have a process.<br><span class="accent">Here, you can scroll through a real one.</span></h1>
+    <p class="lede">
+      This is the journey of <strong>one real feature</strong> &mdash; a read/save/archive system for Geopol Radar, an intelligence-analysis platform the factory built and runs. Real artifacts, lightly sanitised: internal names, identifiers and rule-codes removed, nothing else changed. The original documents are in Danish &mdash; the factory&rsquo;s working language &mdash; with the load-bearing parts annotated in English. <strong>What you&rsquo;re about to scroll through happened 2,863 times.</strong>
+    </p>
+  </div>
+</div>
+
+<div class="wrap">
+<div class="journey">
+
+  <!-- STAGE 1 -->
+  <div class="stage reveal">
+    <div class="stage-label">Stage 1 &middot; The need</div>
+    <h2>A named person wants something real.</h2>
+    <p class="prose">The client &mdash; Lars, a senior analyst &mdash; wants to track which articles he has read, save important ones for later, and archive the finished ones. That&rsquo;s it. No epic, no workshop series, no requirements phase. One person, one need, written in one sentence at the top of the work order:</p>
+    <div class="artifact">
+      <div class="artifact-bar"><span class="fname">DISPATCH-2-READ-STATUS.md</span><span class="stamp">Real artifact &middot; excerpt &middot; sanitised</span></div>
+      <pre># DISPATCH 2 (P2): Læsestatus-system
+
+<span class="hl">**Max ændrede filer:** 3</span>
+**Prioritet:** P2 (middel kompleksitet)
+
+## Kontekst
+Lars vil kunne tracke hvilke artikler han har læst,
+gemme vigtige til senere, og arkivere færdige.</pre>
+    </div>
+    <div class="anno"><div class="tick">1</div><p><strong>&ldquo;Max ændrede filer: 3.&rdquo;</strong> The agent&rsquo;s blast radius is capped before a single line is written. Scope creep isn&rsquo;t discouraged &mdash; it&rsquo;s impossible without a new work order.</p></div>
+  </div>
+
+  <!-- STAGE 2 -->
+  <div class="stage reveal">
+    <div class="stage-label">Stage 2 &middot; The dispatch</div>
+    <h2>Not a prompt. A contract.</h2>
+    <p class="prose">The dispatch hands the agent everything it needs &mdash; the database schema (already created and locked), the exact files to touch, code-level guidance &mdash; and everything it <em>may not</em> do. Note who&rsquo;s allowed to do what:</p>
+    <div class="artifact">
+      <div class="artifact-bar"><span class="fname">DISPATCH-2-READ-STATUS.md</span><span class="stamp">Real artifact &middot; excerpt &middot; sanitised</span></div>
+      <pre>### Database er KLAR
+Tabellen `item_read_status` eksisterer allerede.
+**Logik:** INGEN row = ulæst. Row med status='read' = læst.
+<span class="neg">**RLS:** Agenten skal IKKE ændre database/RLS.</span>
+
+## Accept-kriterier
+- [ ] Klik på "Marker som læst" gemmer status via backend
+- [ ] Tabs fungerer: Aktive / Gemte / Arkiverede
+- [ ] Toggling virker (klik igen = fjern status)
+- [ ] Preview build OK (ingen TS-fejl)
+<span class="hl">- [ ] grep -rn 'TODO|FIXME|PLACEHOLDER' src/ = 0 nye hits</span>
+
+## Regler
+- Push branch, levér branch-navn + commit-SHA
+<span class="neg">- Opret ALDRIG PR eller merge til main</span>
+<span class="neg">- Kald ALDRIG dit arbejde "done"</span>
+  &mdash; sig: <span class="pos">"Branch klar til review"</span></pre>
+    </div>
+    <div class="anno"><div class="tick">2</div><p><strong>&ldquo;The agent must NOT change the database.&rdquo;</strong> Authority boundaries, in writing. The data layer was designed and locked by a different role &mdash; segregation of duties, applied to machines.</p></div>
+    <div class="anno"><div class="tick">3</div><p><strong>The placeholder-grep is an accept criterion.</strong> Zero TODO/FIXME/PLACEHOLDER hits &mdash; checked mechanically, not on trust.</p></div>
+    <div class="anno"><div class="tick">4</div><p><strong>&ldquo;NEVER call your work &lsquo;done&rsquo;.&rdquo;</strong> The most abused word in AI is banned by contract. The permitted phrase &mdash; <em>&ldquo;branch ready for review&rdquo;</em> &mdash; describes a verifiable state instead of a feeling.</p></div>
+  </div>
+
+  <!-- STAGE 3 -->
+  <div class="stage reveal">
+    <div class="stage-label">Stage 3 &middot; The build</div>
+    <h2>The agent builds &mdash; inside the fence.</h2>
+    <p class="prose">A React hook for status state, changes to the article card, a third tab in the overview. Three files, exactly as contracted. The agent pushes a branch and reports it &mdash; in the contracted language: <em>branch ready for review</em>. It cannot open a pull request. It cannot merge. It cannot promote its own work one millimetre past the fence.</p>
+    <div class="pull">Prompts influence behaviour. Enforcement constrains action. This is what the difference looks like on an ordinary Tuesday.</div>
+  </div>
+
+  <!-- STAGE 4 -->
+  <div class="stage reveal">
+    <div class="stage-label">Stage 4 &middot; The adversarial review</div>
+    <h2>A second agent is paid to attack it.</h2>
+    <p class="prose">Now a different agent &mdash; with a different mandate &mdash; reads the work. Not to summarise it. To break it. Here are four of the <strong>eleven real findings</strong> from one such review, verbatim from the QA report:</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>File</th><th>Severity</th><th>Finding</th></tr></thead>
+        <tbody>
+          <tr><td>Sources.tsx</td><td><span class="sev crit">Critical</span></td><td>Type-cast bypasses the database types for calibration fields &mdash; a misspelled column name would fail at runtime, not compile-time.</td></tr>
+          <tr><td>KildeVisning.tsx</td><td><span class="sev crit">Critical</span></td><td><code style="font-family:var(--mono);font-size:0.9em;">any</code>-cast removes all type safety on query results &mdash; hides the known column-rename migration.</td></tr>
+          <tr><td>KildeVisning.tsx</td><td><span class="sev imp">Important</span></td><td>No error handling on two backend calls &mdash; on failure the user sees nothing, not even an error.</td></tr>
+          <tr><td>SourceForm.tsx</td><td><span class="sev imp">Important</span></td><td><code style="font-family:var(--mono);font-size:0.9em;">catch (err: any)</code> &mdash; accessing <code style="font-family:var(--mono);font-size:0.9em;">.message</code> can crash on non-Error throws.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="anno"><div class="tick">5</div><p><strong>Every finding names the file, the line, the consequence and the fix.</strong> Not &ldquo;looks good with minor comments&rdquo; &mdash; a claim-by-claim attack. A friendly re-read catches none of this, because a friendly reader adopts the author&rsquo;s framing.</p></div>
+  </div>
+
+  <!-- STAGE 5 -->
+  <div class="stage reveal">
+    <div class="stage-label">Stage 5 &middot; The gates</div>
+    <h2>Machines check what machines produced.</h2>
+    <p class="prose">Findings fixed, the change faces the mechanical layer: the build must compile with zero type errors, the preview must deploy, the placeholder-grep must return zero hits, the accept criteria get walked one by one. None of these gates recommends. <strong>They block.</strong> If any state can&rsquo;t be determined &mdash; unknown = blocked.</p>
+  </div>
+
+  <!-- STAGE 6 -->
+  <div class="stage reveal">
+    <div class="stage-label">Stage 6 &middot; The human GO</div>
+    <h2>One person decides. On evidence, not eloquence.</h2>
+    <p class="prose">Everything lands on a human desk: the branch, the review findings and their fixes, the green gates, the preview. The human &mdash; who never wrote a line of it &mdash; makes the GO/HOLD call and performs the merge personally. No agent in the chain <em>could</em> have merged it; the authority simply doesn&rsquo;t exist on their side of the fence.</p>
+    <p class="prose">Then the deploy is verified against the live system &mdash; because a merge is not done, a deploy is not done, and the feature exists when a named analyst in front of a screen can mark an article as read. He can. It&rsquo;s in production.</p>
+  </div>
+
+</div><!-- /journey -->
+
+<div class="reveal" style="padding: 1rem 0 3rem;">
+  <div class="section-label">Zoom out</div>
+  <h2 style="font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; margin-bottom: 1.2rem;">Now multiply by the whole factory.</h2>
+  <div class="stats-strip">
+    <div class="ss"><div class="n">2,863</div><div class="l">pull requests opened this way since February 2026</div></div>
+    <div class="ss"><div class="n">92</div><div class="l">governance documents in this one product repo &mdash; dispatches, QA reports, golden sets, readbacks</div></div>
+    <div class="ss"><div class="n">11</div><div class="l">findings in the review you just read &mdash; caught before production, not after</div></div>
+    <div class="ss"><div class="n">1</div><div class="l">human. Every GO decision, every merge.</div></div>
+  </div>
+  <p class="foot-note">Provenance: the excerpts above are from real working documents in the Geopol Radar repository (client named with permission), lightly sanitised per the factory&rsquo;s publication ruling &mdash; internal agent names, session identifiers, infrastructure IDs and internal rule-codes removed; structure and content otherwise unchanged. The original working language is Danish.</p>
+</div>
+
+</div><!-- /wrap -->
+
+<section class="cta-band">
+  <div class="wrap">
+    <div class="section-label" style="text-align:center;">The takeaway</div>
+    <h2>This is what &ldquo;AI with governance&rdquo; actually looks like.</h2>
+    <p>Not a policy document. A working machine with fences, attackers and a human hand on the merge button. I build this discipline into organisations &mdash; and I&rsquo;ve run it on myself first.</p>
+    <div class="cta-row">
+      <a href="/#contact" class="btn btn-solid">Talk to me</a>
+      <a href="workshop.html" class="btn btn-ghost">Inside the factory</a>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="workshop.html">Workshop</a> &middot; <a href="playbooks.html">Playbooks</a> &middot; <a href="notes.html">Notes</a> &middot; <a href="about.html">About</a> &middot; <a href="/#contact">Contact</a></div>
+  &copy; 2026 Steven Seidenfaden Wensley. All rights reserved.
+</footer>
+<script>
+(function () {
+  'use strict';
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+})();
+</script>
+</body>
+</html>
