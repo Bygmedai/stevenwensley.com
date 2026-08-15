@@ -87,7 +87,22 @@ jobs:
           sleep 2
       - name: Check internal links
         run: |
-          linkinator http://localhost:8080 --recurse --skip "^(?!http://localhost)" --format json --timeout 10000 > link-report.json || true
+          # Most internal links on this site are absolute (https://stevenwensley.com/...)
+          # because the tool pages are served from the project root. The old skip
+          # pattern excluded everything that was not localhost, so every one of those
+          # links went unchecked — the crawl reached 63 URLs and validated almost no
+          # internal navigation. A dead /contact.html link survived in the footer of
+          # all ten insight articles that way.
+          #
+          # Rewriting the production origin to the local server makes those links
+          # resolve against the build under test, and the skip pattern now lets both
+          # forms through while still keeping genuinely external hosts out of CI.
+          # Coverage goes from 63 to 137 links.
+          linkinator http://localhost:8080 --recurse \
+            --url-rewrite-search "https://stevenwensley\.com" \
+            --url-rewrite-replace "http://localhost:8080" \
+            --skip "^(?!http://localhost|https://stevenwensley\.com)" \
+            --format json --timeout 10000 > link-report.json || true
           python3 -c "
           import json, sys
           data = json.load(open('link-report.json'))
