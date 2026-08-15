@@ -71,6 +71,22 @@ async function resolve(pathname) {
 
 createServer(async (req, res) => {
   const { pathname } = new URL(req.url, 'http://localhost');
+
+  // Cloudflare Pages 308-redirects /about/ to /about when the directory has no
+  // index. Mirroring that matters for more than fidelity: without it the link
+  // checker treats /about/ as a live base and resolves the page's own relative
+  // links against it — /about/notes, /about/services — then descends into those
+  // and never stops. Measured 458 phantom failures before this rule, and 40,483
+  // before the 404 page's links were made root-relative.
+  if (pathname.length > 1 && pathname.endsWith('/')) {
+    const trimmed = pathname.replace(/\/+$/, '');
+    if (!(await resolve(pathname)) && (await resolve(trimmed))) {
+      res.writeHead(308, { location: trimmed });
+      res.end();
+      return;
+    }
+  }
+
   const file = await resolve(pathname);
 
   if (!file) {
