@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "build": "eleventy",
+    "build:publish": "node scripts/build-publish.mjs",
     "build:watch": "eleventy --watch",
     "serve": "eleventy --serve --port=8080",
     "test": "npx playwright test tests/ --reporter=list",
