@@ -36,7 +36,7 @@
   <main id="main" tabindex="-1">
     <article>
       <div class="article-header">
-        <a href="../insights.html" class="back-link">← All Insights</a>
+        <a href="../insights" class="back-link">← All Insights</a>
         <div class="article-meta">
           <span class="tag">{{ tag }}</span>
           <span>{{ displayDate }}</span>
@@ -62,7 +62,7 @@
       <h3>Related Articles</h3>
       <div class="related-list">
         {%- for r in related %}
-        <a href="{{ r.slug }}.html" class="related-item">
+        <a href="{{ r.slug }}" class="related-item">
           <h4>{{ r.title }}</h4>
           <p>{{ r.description }}</p>
         </a>

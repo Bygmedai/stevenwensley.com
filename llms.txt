@@ -3,34 +3,34 @@
 > Senior IT programme leader (18 years, regulated industries: pharma/GxP, finance/NIS2/DORA, telecom, public sector) who runs his own AI software factory — 4,751 commits and 14 client-facing solutions in its first five months (Feb–Jul 2026). Based in Copenhagen, Denmark. Works in Danish and English. Helps organisations take AI initiatives from pilot to production with enforced governance. Available now, via broker or direct.
 
 ## Core pages
-- [The Factory](https://stevenwensley.com/workshop.html): How the one-man AI factory works — multi-agent orchestration, human-in-the-loop, enforced quality gates, measured output statistics.
-- [The Hallucination Defence](https://stevenwensley.com/hallucination-defence.html): Four mechanical controls for AI quality and a catalogue of ten real failure patterns with countermeasures.
-- [The AI Playbook](https://stevenwensley.com/ai-playbook.html): Seven chapters on adopting AI with control, from lived experience.
-- [Factory Journey](https://stevenwensley.com/factory-journey.html): One real change's path through the pipeline — actual dispatch contract, adversarial review, gates, human GO.
-- [Services](https://stevenwensley.com/services.html): AI governance services — assessment to implementation. Danish version: https://stevenwensley.com/services-da.html
-- [Book a session](https://stevenwensley.com/book-session.html): Free AI governance discovery day.
+- [The Factory](https://stevenwensley.com/workshop): How the one-man AI factory works — multi-agent orchestration, human-in-the-loop, enforced quality gates, measured output statistics.
+- [The Hallucination Defence](https://stevenwensley.com/hallucination-defence): Four mechanical controls for AI quality and a catalogue of ten real failure patterns with countermeasures.
+- [The AI Playbook](https://stevenwensley.com/ai-playbook): Seven chapters on adopting AI with control, from lived experience.
+- [Factory Journey](https://stevenwensley.com/factory-journey): One real change's path through the pipeline — actual dispatch contract, adversarial review, gates, human GO.
+- [Services](https://stevenwensley.com/services): AI governance services — assessment to implementation. Danish version: https://stevenwensley.com/services-da
+- [Book a session](https://stevenwensley.com/book-session): Free AI governance discovery day.
 
 ## Scenario playbooks
-- [The AI initiative your board asked for](https://stevenwensley.com/playbook-ai-initiative.html)
-- [Red programme recovery](https://stevenwensley.com/playbook-programme-recovery.html)
-- [Stalled GxP datacenter migration](https://stevenwensley.com/playbook-gxp-migration.html)
-- [NIS2 compliance delivery](https://stevenwensley.com/playbook-nis2-compliance.html)
-- [IT carve-out separation](https://stevenwensley.com/playbook-carveout-separation.html)
+- [The AI initiative your board asked for](https://stevenwensley.com/playbook-ai-initiative)
+- [Red programme recovery](https://stevenwensley.com/playbook-programme-recovery)
+- [Stalled GxP datacenter migration](https://stevenwensley.com/playbook-gxp-migration)
+- [NIS2 compliance delivery](https://stevenwensley.com/playbook-nis2-compliance)
+- [IT carve-out separation](https://stevenwensley.com/playbook-carveout-separation)
 
-## Tools (free, in-browser — index: https://stevenwensley.com/tools.html)
-- [EU AI Act Classifier](https://stevenwensley.com/eu-ai-act-classifier.html): Risk-classify an AI system under the EU AI Act (August 2026 deadline).
-- [AI Governance Readiness Assessment](https://stevenwensley.com/ai-governance-assessment.html)
-- [Cost of Inaction Calculator](https://stevenwensley.com/cost-of-inaction.html)
-- [Programme Health Check](https://stevenwensley.com/programme-health-check.html)
+## Tools (free, in-browser — index: https://stevenwensley.com/tools)
+- [EU AI Act Classifier](https://stevenwensley.com/eu-ai-act-classifier): Risk-classify an AI system under the EU AI Act (August 2026 deadline).
+- [AI Governance Readiness Assessment](https://stevenwensley.com/ai-governance-assessment)
+- [Cost of Inaction Calculator](https://stevenwensley.com/cost-of-inaction)
+- [Programme Health Check](https://stevenwensley.com/programme-health-check)
 
 ## Field notes
 - Feed: https://stevenwensley.com/feed.xml
-- [Notes index](https://stevenwensley.com/notes.html): Short practitioner notes on AI quality, programme politics and regulatory delivery — including "Why your AI pilot is lying to you" and "When AI fabricates your control evidence".
+- [Notes index](https://stevenwensley.com/notes): Short practitioner notes on AI quality, programme politics and regulatory delivery — including "Why your AI pilot is lying to you" and "When AI fabricates your control evidence".
 
 ## Background
-- [About](https://stevenwensley.com/about.html): Career, certifications (PMP, PRINCE2, SAFe), ten written recommendations.
-- [For agencies & brokers](https://stevenwensley.com/for-brokers.html): Presentation-ready profile, role keywords, one-page PDF.
-- [Technical case](https://stevenwensley.com/case-digital-delivery-platform.html): Token-authorised e-commerce platform, production in seven weeks, measured numbers.
+- [About](https://stevenwensley.com/about): Career, certifications (PMP, PRINCE2, SAFe), ten written recommendations.
+- [For agencies & brokers](https://stevenwensley.com/for-brokers): Presentation-ready profile, role keywords, one-page PDF.
+- [Technical case](https://stevenwensley.com/case-digital-delivery-platform): Token-authorised e-commerce platform, production in seven weeks, measured numbers.
 
 ## Contact
 - Email: steven.wensley@gmail.com · LinkedIn: https://www.linkedin.com/in/stevenwensley/ · GitHub: https://github.com/stevenwensley-a11y

@@ -9,7 +9,7 @@
     "build:watch": "eleventy --watch",
     "serve": "eleventy --serve --port=8080",
     "test": "npx playwright test tests/ --reporter=list",
-    "test:serve": "npx http-server . -p 8080 -s &",
+    "test:serve": "node scripts/serve-static.mjs . 8080 &",
     "test:screenshots": "npx playwright test tests/ --reporter=list --grep='Screenshots'",
     "verify": "npm run build && diff -r _site/insights/ insights/"
   },

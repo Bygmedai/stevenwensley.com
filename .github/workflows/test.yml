@@ -82,8 +82,12 @@ jobs:
           node-version: 20
       - run: npm install -g linkinator
       - name: Start local server
+        # Not http-server: it resolves /insights to the insights/ directory and
+        # 404s, while GitHub Pages and Cloudflare Pages both resolve it to
+        # insights.html. serve-static.mjs applies production's resolution order,
+        # so the link checker tests the URLs the site actually serves.
         run: |
-          npx http-server . -p 8080 -s &
+          node scripts/serve-static.mjs . 8080 &
           sleep 2
       - name: Check internal links
         run: |
@@ -127,12 +131,10 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 20
-      - run: |
-          npm install -g @lhci/cli
-          npm install -g http-server
+      - run: npm install -g @lhci/cli
       - name: Start local server
         run: |
-          http-server . -p 8080 -s &
+          node scripts/serve-static.mjs . 8080 &
           sleep 2
       - name: Run Lighthouse on key pages
         run: |
@@ -193,7 +195,7 @@ jobs:
           npx playwright install chromium --with-deps
       - name: Start local server
         run: |
-          npx http-server . -p 8080 -s &
+          node scripts/serve-static.mjs . 8080 &
           sleep 2
       - name: Run smoke tests
         run: npx playwright test tests/ --reporter=list
