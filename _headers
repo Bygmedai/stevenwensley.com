@@ -1,0 +1,16 @@
+# Cloudflare Pages headers file.
+#
+# Inactive today: the live site is served by GitHub Pages, which cannot read
+# this file at all (and Jekyll excludes underscore-prefixed files from its
+# output anyway). It takes effect the moment Cloudflare Pages serves the site.
+#
+# Deliberately conservative — nothing here changes what a visitor sees or how
+# the pages behave. No CSP yet: the site loads GA4 and the Cloudflare Analytics
+# beacon from third-party origins, so a CSP needs its own change with its own
+# verification pass, not a line smuggled into a hosting migration.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
+  X-Frame-Options: SAMEORIGIN
