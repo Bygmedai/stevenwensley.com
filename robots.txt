@@ -1,5 +1,60 @@
+# stevenwensley.com — crawler policy
+# Last reviewed: 2026-08-15
+
+# ── Default: open to search engines ──
 User-agent: *
 Allow: /
 Disallow: /templates/
+
+# ── AI assistants answering a user's question, live ──
+# These fetch the site when someone asks an assistant a question.
+# They are a discovery channel and are explicitly welcome.
+# See also: /llms.txt
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# ── Bulk scrapers with no discovery value ──
+# Wholesale corpus extraction; nothing flows back to the site.
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: Meta-ExternalAgent
+Disallow: /
+
+# ── Model-training crawlers: deliberately allowed ──
+# Being known to the models buyers ask is worth more here than
+# withholding public marketing copy. Flip Allow to Disallow to reverse.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
 
 Sitemap: https://stevenwensley.com/sitemap.xml
