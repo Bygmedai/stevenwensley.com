@@ -31,6 +31,21 @@ jobs:
             exit 1
           fi
 
+  publish-verify:
+    name: Publish Directory Verify
+    # Cloudflare Pages deploys ./_site, assembled by scripts/build-publish.mjs.
+    # The script fails if a required file is missing from the output, or if
+    # source/tooling that must never ship reappears in it. This job runs it so
+    # a new root-level tool cannot leak into the published site unnoticed.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+      - name: Assemble publish directory
+        run: node scripts/build-publish.mjs
+
   html-validate:
     name: HTML Validation
     runs-on: ubuntu-latest
