@@ -3,7 +3,7 @@
 > Senior IT programme leader (18 years, regulated industries: pharma/GxP, finance/NIS2/DORA, telecom, public sector) who runs his own AI software factory — 4,751 commits and 14 client-facing solutions in its first five months (Feb–Jul 2026). Based in Copenhagen, Denmark. Works in Danish and English. Helps organisations take AI initiatives from pilot to production with enforced governance. Available now, via broker or direct.
 
 ## Core pages
-- [The Workshop](https://stevenwensley.com/workshop.html): How the one-man AI factory works — multi-agent orchestration, human-in-the-loop, enforced quality gates, measured output statistics.
+- [The Factory](https://stevenwensley.com/workshop.html): How the one-man AI factory works — multi-agent orchestration, human-in-the-loop, enforced quality gates, measured output statistics.
 - [The Hallucination Defence](https://stevenwensley.com/hallucination-defence.html): Four mechanical controls for AI quality and a catalogue of ten real failure patterns with countermeasures.
 - [The AI Playbook](https://stevenwensley.com/ai-playbook.html): Seven chapters on adopting AI with control, from lived experience.
 - [Factory Journey](https://stevenwensley.com/factory-journey.html): One real change's path through the pipeline — actual dispatch contract, adversarial review, gates, human GO.
@@ -17,7 +17,7 @@
 - [NIS2 compliance delivery](https://stevenwensley.com/playbook-nis2-compliance.html)
 - [IT carve-out separation](https://stevenwensley.com/playbook-carveout-separation.html)
 
-## Tools (free, in-browser)
+## Tools (free, in-browser — index: https://stevenwensley.com/tools.html)
 - [EU AI Act Classifier](https://stevenwensley.com/eu-ai-act-classifier.html): Risk-classify an AI system under the EU AI Act (August 2026 deadline).
 - [AI Governance Readiness Assessment](https://stevenwensley.com/ai-governance-assessment.html)
 - [Cost of Inaction Calculator](https://stevenwensley.com/cost-of-inaction.html)
