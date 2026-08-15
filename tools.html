@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-17Y98NY34Y"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-17Y98NY34Y');</script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Free Tools — Diagnostics &amp; Calculators | Steven Wensley</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="Eight free, in-browser tools for AI governance, EU AI Act classification, NIS2 gap analysis and programme delivery. No email required, nothing stored — answer, get a result, leave.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stevenwensley.com/tools.html">
+<meta property="og:title" content="Free Tools — Diagnostics &amp; Calculators">
+<meta property="og:description" content="Eight free, in-browser tools: EU AI Act classification, AI governance readiness, NIS2 gap analysis, cost calculators. No email, nothing stored.">
+<meta property="og:image" content="https://stevenwensley.com/og/tools.png">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Tools — Diagnostics &amp; Calculators">
+<meta name="twitter:description" content="Eight free, in-browser tools. No email, nothing stored.">
+<meta name="twitter:image" content="https://stevenwensley.com/og/tools.png">
+<link rel="canonical" href="https://stevenwensley.com/tools.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #1a1a26;
+    --gold: #c9a96e; --gold-light: #dfc08a; --gold-dim: rgba(201,169,110,0.15);
+    --text-primary: #f0ece4; --text-secondary: #9a9aaa; --text-muted: #6a6a7a;
+    --border: rgba(201,169,110,0.12); --red: #c0563f; --green: #4c9a72;
+    --serif: 'DM Serif Display', Georgia, serif; --sans: 'Space Grotesk', -apple-system, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg-primary); color: var(--text-primary); font-family: var(--sans); font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  nav .logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-decoration: none; }
+  nav .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  nav .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
+  nav .nav-links a:hover, nav .nav-links a.active { color: var(--gold); }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 101; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); margin: 5px 0; transition: all 0.3s; border-radius: 2px; }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  @media (max-width: 680px) {
+    .hamburger { display: block; }
+    nav .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,10,15,0.97); backdrop-filter: blur(20px); flex-direction: column; padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border); }
+    nav .nav-links.open { display: flex; }
+    nav .nav-links a { font-size: 0.9rem; padding: 0.5rem 0; }
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 3rem; }
+  .page-hero { padding: 10rem 0 2rem; }
+  .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .page-hero h1 { font-family: var(--serif); font-size: clamp(2.1rem, 4.4vw, 3.1rem); font-weight: 700; line-height: 1.16; margin-bottom: 1.5rem; }
+  .page-hero h1 .accent { color: var(--gold); }
+  .lede { font-size: 1.12rem; color: var(--text-secondary); max-width: 740px; line-height: 1.75; }
+  .lede strong { color: var(--text-primary); font-weight: 500; }
+  section { padding: 3rem 0; }
+  .band { background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .group-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+  .tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 1.2rem; margin-bottom: 2.8rem; }
+  .tool { display: block; background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px; padding: 1.7rem 1.8rem; text-decoration: none; color: inherit; transition: border-color 0.3s, transform 0.3s; min-width: 0; }
+  .tool:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .tool .meta { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; margin-bottom: 0.7rem; }
+  .tool .time { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+  .tool .lang { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; padding: 0.15rem 0.45rem; border: 1px solid var(--border); border-radius: 2px; color: var(--text-muted); }
+  .tool h3 { font-family: var(--serif); font-size: 1.18rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem; line-height: 1.35; }
+  .tool p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.65; }
+  .tool .go { display: inline-block; margin-top: 0.8rem; font-size: 0.76rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
+  .prose { font-size: 1rem; color: var(--text-secondary); max-width: 740px; line-height: 1.8; margin-bottom: 1rem; }
+  .prose strong { color: var(--text-primary); font-weight: 500; }
+  .prose a { color: var(--gold); }
+  .cta-band { text-align: center; padding: 4rem 0; }
+  .cta-band h2 { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; margin-bottom: 1rem; }
+  .cta-band p { font-size: 1rem; color: var(--text-secondary); max-width: 580px; margin: 0 auto 2rem; }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.8rem; font-family: var(--sans); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px; text-decoration: none; transition: all 0.3s; border: 1px solid var(--gold); }
+  .btn-solid { background: var(--gold); color: var(--bg-primary); }
+  .btn-solid:hover { opacity: 0.9; }
+  .btn-ghost { background: transparent; color: var(--gold); }
+  .btn-ghost:hover { background: var(--gold); color: var(--bg-primary); }
+  .cta-row { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+  footer { padding: 3rem; text-align: center; color: var(--text-muted); font-size: 0.78rem; letter-spacing: 0.05em; border-top: 1px solid var(--border); }
+  footer a { color: var(--text-secondary); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+  @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .wrap { padding: 0 1.5rem; } .page-hero { padding: 8rem 0 1rem; } }
+  .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<nav aria-label="Primary">
+  <a href="/" class="logo" aria-label="Steven Wensley — home">SSW</a>
+  <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-links">
+    <a href="workshop.html">The Factory</a>
+    <a href="playbooks.html">Playbooks</a>
+    <a href="services.html">Services</a>
+    <a href="tools.html" class="active">Tools</a>
+    <a href="notes.html">Notes</a>
+    <a href="about.html">About</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</nav>
+<main id="main" tabindex="-1">
+
+<div class="page-hero">
+  <div class="wrap">
+    <div class="section-label">Free tools</div>
+    <h1>Answer honestly.<br><span class="accent">Get a real answer back.</span></h1>
+    <p class="lede">
+      Eight diagnostics and calculators, built the same way as everything else here. <strong>No email required, nothing stored, no follow-up sequence</strong> &mdash; they run entirely in your browser. Use one, take the result, leave. If it turns out you want a conversation afterwards, you know where to find me.
+    </p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="group-label">AI &amp; the EU AI Act</div>
+    <div class="tool-grid">
+      <a class="tool" href="eu-ai-act-classifier.html">
+        <div class="meta"><span class="time">3 minutes</span><span class="lang">DA / EN</span></div>
+        <h3>EU AI Act Classifier</h3>
+        <p>Classify an AI system under the EU AI Act: risk category, the obligations that follow, and where the August 2026 deadline lands for you.</p>
+        <span class="go">Classify a system &rarr;</span>
+      </a>
+      <a class="tool" href="ai-governance-assessment.html">
+        <div class="meta"><span class="time">5 minutes</span><span class="lang">DA / EN</span></div>
+        <h3>AI Governance Readiness Assessment</h3>
+        <p>Thirty questions across six dimensions. The thorough one &mdash; for organisations that already know AI is coming and need to see where the gaps sit.</p>
+        <span class="go">Assess readiness &rarr;</span>
+      </a>
+      <a class="tool" href="ai-readiness-scan.html">
+        <div class="meta"><span class="time">5 minutes</span><span class="lang">DA</span></div>
+        <h3>AI Readiness Quick Scan</h3>
+        <p>Ten questions, traffic-light result. The fast one &mdash; start here if you want a temperature reading before the deep assessment.</p>
+        <span class="go">Take the scan &rarr;</span>
+      </a>
+      <a class="tool" href="cost-of-inaction.html">
+        <div class="meta"><span class="time">3 minutes</span><span class="lang">DA / EN</span></div>
+        <h3>Cost of Inaction Calculator</h3>
+        <p>What does it cost <em>not</em> to act on AI and the EU AI Act? Exposure, in numbers you can put in front of a board.</p>
+        <span class="go">Calculate exposure &rarr;</span>
+      </a>
+      <a class="tool" href="roi-calculator.html">
+        <div class="meta"><span class="time">5 minutes</span><span class="lang">DA</span></div>
+        <h3>AI ROI &amp; Business Case Generator</h3>
+        <p>Estimated return, payback period and savings &mdash; assembled into a business case you can actually present.</p>
+        <span class="go">Build the case &rarr;</span>
+      </a>
+    </div>
+
+    <div class="group-label">NIS2 &amp; regulated delivery</div>
+    <div class="tool-grid">
+      <a class="tool" href="nis2-gap-assessment.html">
+        <div class="meta"><span class="time">10 minutes</span><span class="lang">DA / EN</span></div>
+        <h3>NIS2 Compliance Gap Assessment</h3>
+        <p>Ten domains, thirty-three questions, tuned for food manufacturing and critical infrastructure. Where you actually stand against the directive.</p>
+        <span class="go">Find the gaps &rarr;</span>
+      </a>
+      <a class="tool" href="nis2-implementation-roadmap.html">
+        <div class="meta"><span class="time">Reference</span><span class="lang">DA / EN</span></div>
+        <h3>NIS2 Implementation Roadmap</h3>
+        <p>What implementation looks like in sequence &mdash; phases, dependencies and the order that keeps the regulator satisfied.</p>
+        <span class="go">See the roadmap &rarr;</span>
+      </a>
+      <a class="tool" href="regulatory-deadlines.html">
+        <div class="meta"><span class="time">Reference</span><span class="lang">EN</span></div>
+        <h3>Regulatory Deadline Tracker</h3>
+        <p>NIS2, DORA, the EU AI Act and the rest &mdash; what is already in force, what lands next, and how long you have.</p>
+        <span class="go">Check the dates &rarr;</span>
+      </a>
+    </div>
+
+    <div class="group-label">Programme delivery</div>
+    <div class="tool-grid">
+      <a class="tool" href="programme-health-check.html">
+        <div class="meta"><span class="time">2 minutes</span><span class="lang">EN</span></div>
+        <h3>Programme Health Check</h3>
+        <p>Seven honest questions that tell you whether your programme is actually red &mdash; regardless of what the status report says.</p>
+        <span class="go">Take the check &rarr;</span>
+      </a>
+      <a class="tool" href="cost-of-delay.html">
+        <div class="meta"><span class="time">30 seconds</span><span class="lang">EN</span></div>
+        <h3>Cost-of-Delay Calculator</h3>
+        <p>The direct carrying cost of a stalled programme, per week. The number that ends the &ldquo;let's revisit next quarter&rdquo; conversation.</p>
+        <span class="go">Calculate the cost &rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="section-label">Why these are free</div>
+    <p class="prose">Because a tool that demands your email before it tells you anything isn't a tool &mdash; it's a form with a costume on. These give you the answer first. <strong>Nothing is stored, nothing is sent, no sequence starts.</strong></p>
+    <p class="prose">They're also built the way I build everything: quickly, but with gates. If you want to see how, <a href="factory-journey.html">follow one real change through the factory</a> &mdash; or read <a href="ai-playbook.html">the AI Playbook</a>.</p>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <div class="section-label" style="text-align:center;">After the result</div>
+    <h2>A number is a start. A plan is the job.</h2>
+    <p>If a tool told you something uncomfortable, that's what the first conversation is for. No deck, no pitch &mdash; just what I'd do about it.</p>
+    <div class="cta-row">
+      <a href="book-session.html" class="btn btn-solid">Book a discovery day</a>
+      <a href="services.html" class="btn btn-ghost">See services</a>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="workshop.html">The Factory</a> &middot; <a href="playbooks.html">Playbooks</a> &middot; <a href="services.html">Services</a> &middot; <a href="tools.html">Tools</a> &middot; <a href="notes.html">Notes</a> &middot; <a href="about.html">About</a> &middot; <a href="index.html#contact">Contact</a></div>
+  &copy; 2026 Steven Seidenfaden Wensley. All rights reserved.
+</footer>
+</body>
+</html>
