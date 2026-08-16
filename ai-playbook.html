@@ -10,7 +10,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="description" content="Seven chapters on adopting AI with control, built from lived experience: five months running a one-man AI factory on 18 years of programme discipline. False speed, honest pilots, enforced rails, the AI org chart, real failure patterns, the economics — and the chart for 2027.">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://stevenwensley.com/ai-playbook.html">
+<meta property="og:url" content="https://stevenwensley.com/ai-playbook">
 <meta property="og:title" content="The AI Playbook — From First Boat to Fleet">
 <meta property="og:description" content="Seven chapters on adopting AI with control — from someone who ran the transition on himself first. No theory. Lived experience, distilled to action.">
 <meta property="og:image" content="https://stevenwensley.com/og/ai-playbook.png">
@@ -19,7 +19,7 @@
 <meta name="twitter:title" content="The AI Playbook — From First Boat to Fleet">
 <meta name="twitter:description" content="Seven chapters on adopting AI with control — from inside a running factory.">
 <meta name="twitter:image" content="https://stevenwensley.com/og/ai-playbook.png">
-<link rel="canonical" href="https://stevenwensley.com/ai-playbook.html">
+<link rel="canonical" href="https://stevenwensley.com/ai-playbook">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -110,13 +110,13 @@
   <a href="/" class="logo" aria-label="Steven Wensley — home">SSW</a>
   <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
   <div class="nav-links">
-    <a href="workshop.html">The Factory</a>
-    <a href="playbooks.html" class="active">Playbooks</a>
-    <a href="services.html">Services</a>
-    <a href="tools.html">Tools</a>
-    <a href="notes.html">Notes</a>
-    <a href="about.html">About</a>
-    <a href="index.html#contact">Contact</a>
+    <a href="/workshop">The Factory</a>
+    <a href="/playbooks" class="active">Playbooks</a>
+    <a href="/services">Services</a>
+    <a href="/tools">Tools</a>
+    <a href="/notes">Notes</a>
+    <a href="/about">About</a>
+    <a href="/#contact">Contact</a>
   </div>
 </nav>
 <main id="main" tabindex="-1">
@@ -186,7 +186,7 @@
     <p class="prose">And one line from the factory&rsquo;s spirit document that belongs on your architecture wall:</p>
     <div class="pull">If an alarm always blinks, it isn&rsquo;t a gate. It&rsquo;s tape.</div>
     <p class="prose">Every control must be able to actually stop something &mdash; block a merge, refuse a status, halt a deploy. A control that can only recommend will be politely ignored by humans and completely ignored by machines.</p>
-    <div class="deep"><p><strong>Full depth:</strong> the four controls and ten real failure patterns are published in detail in <a href="hallucination-defence.html">The Hallucination Defence</a>, and the chain of command &mdash; dispatch contracts, evidence packs, human GO/HOLD &mdash; in <a href="workshop.html">The Workshop</a>.</p></div>
+    <div class="deep"><p><strong>Full depth:</strong> the four controls and ten real failure patterns are published in detail in <a href="/hallucination-defence">The Hallucination Defence</a>, and the chain of command &mdash; dispatch contracts, evidence packs, human GO/HOLD &mdash; in <a href="/workshop">The Workshop</a>.</p></div>
   </div>
 </section>
 
@@ -198,7 +198,7 @@
     <p class="prose">The best mental model I&rsquo;ve found for a well-run AI is not a servant, and not an oracle. It&rsquo;s a <strong>sous-chef</strong>. A servant waits for orders. A sous-chef sees what the kitchen is missing before the dish tips over &mdash; understands the principal&rsquo;s taste, says no when the tempo turns stupid, watches risk without panicking, presses for quality without taking over the stage.</p>
     <div class="pull">But a sous-chef does not own the restaurant. The human makes the GO call. Always.</div>
     <p class="prose">And one sous-chef is not a crew. The factory&rsquo;s hardest-won organisational lesson: <strong>roles must be written as authority, not personality.</strong> An architecture role that sets boundaries. An implementation role that builds inside them. A verification role that checks claims against artifacts. An adversarial role paid to break things. No role &mdash; ever &mdash; ratifies its own work. It&rsquo;s segregation of duties, the same principle that separates your auditor from your bookkeeper, applied to machines. I learned it by violating it: the worst failure in my factory came from asking one agent to wear seven hats and then asking it to hurry.</p>
-    <div class="deep"><p><strong>The full story:</strong> <a href="note-one-agent-seven-hats.html">One agent, seven hats &mdash; why your AI needs an org chart</a>. And the model in operation: <a href="workshop.html">The Workshop</a>.</p></div>
+    <div class="deep"><p><strong>The full story:</strong> <a href="/note-one-agent-seven-hats">One agent, seven hats &mdash; why your AI needs an org chart</a>. And the model in operation: <a href="/workshop">The Workshop</a>.</p></div>
   </div>
 </section>
 
@@ -210,7 +210,7 @@
     <p class="prose">Your AI initiative will not fail in a novel way. It will fail in one of about ten known ways &mdash; I&rsquo;ve met them all in live operation, and published the catalogue: plausible analysis without source access, done-inflation, drift under pressure, too many hats, plausible synthesis, stale-state reporting, the visually false green, authority smuggling, hidden deviations, and internal leakage into public output.</p>
     <p class="prose">The point of a failure catalogue isn&rsquo;t pessimism &mdash; it&rsquo;s <em>preparedness at a discount</em>. Each pattern has a known symptom, a known root cause and a known mechanical countermeasure. Meeting them with the defence already standing costs a fraction of discovering them one production incident at a time.</p>
     <p class="prose">And a hiring hint hidden inside it: <strong>ask any AI vendor or advisor to show you their failure catalogue.</strong> If they can&rsquo;t, they haven&rsquo;t run long enough to have one &mdash; whatever their deck says.</p>
-    <div class="deep"><p><strong>The full catalogue</strong> &mdash; ten patterns, each with symptom, root cause and countermeasure: <a href="hallucination-defence.html#main">The Hallucination Defence</a>.</p></div>
+    <div class="deep"><p><strong>The full catalogue</strong> &mdash; ten patterns, each with symptom, root cause and countermeasure: <a href="/hallucination-defence#main">The Hallucination Defence</a>.</p></div>
   </div>
 </section>
 
@@ -250,14 +250,14 @@
     <p>I help organisations run exactly this playbook &mdash; from the first honest pilot to the rails, the crew and the operating model. Interim or freelance, via broker or direct.</p>
     <div class="cta-row">
       <a href="/#contact" class="btn btn-solid">Get in touch</a>
-      <a href="playbook-ai-initiative.html" class="btn btn-ghost">The scenario walkthrough</a>
+      <a href="/playbook-ai-initiative" class="btn btn-ghost">The scenario walkthrough</a>
     </div>
   </div>
 </section>
 
 </main>
 <footer>
-  <div style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="workshop.html">The Factory</a> &middot; <a href="playbooks.html">Playbooks</a> &middot; <a href="services.html">Services</a> &middot; <a href="tools.html">Tools</a> &middot; <a href="notes.html">Notes</a> &middot; <a href="about.html">About</a> &middot; <a href="index.html#contact">Contact</a></div>
+  <div style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="/workshop">The Factory</a> &middot; <a href="/playbooks">Playbooks</a> &middot; <a href="/services">Services</a> &middot; <a href="/tools">Tools</a> &middot; <a href="/notes">Notes</a> &middot; <a href="/about">About</a> &middot; <a href="/#contact">Contact</a></div>
   &copy; 2026 Steven Seidenfaden Wensley. All rights reserved.
 </footer>
 </body>

@@ -10,7 +10,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="description" content="How a one-man AI software factory works: multi-agent orchestration, human-in-the-loop, enforced quality gates. 4,751 commits, 2,863 pull requests and 14 client-facing solutions in five months — with receipts. By Steven Wensley, Copenhagen.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://stevenwensley.com/workshop.html">
+<meta property="og:url" content="https://stevenwensley.com/workshop">
 <meta property="og:title" content="The Workshop — One Man, a Fleet of AI Agents | Steven Wensley">
 <meta property="og:description" content="Multi-agent orchestration, human-in-the-loop, enforced gates. 4,751 commits and 14 client solutions in five months — with receipts.">
 <meta property="og:image" content="https://stevenwensley.com/og/workshop.png">
@@ -19,7 +19,7 @@
 <meta name="twitter:title" content="The Workshop — One Man, a Fleet of AI Agents | Steven Wensley">
 <meta name="twitter:description" content="How a one-man AI software factory actually works — with receipts.">
 <meta name="twitter:image" content="https://stevenwensley.com/og/workshop.png">
-<link rel="canonical" href="https://stevenwensley.com/workshop.html">
+<link rel="canonical" href="https://stevenwensley.com/workshop">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -151,13 +151,13 @@
   <a href="/" class="logo" aria-label="Steven Wensley — home">SSW</a>
   <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
   <div class="nav-links">
-    <a href="workshop.html" class="active">The Factory</a>
-    <a href="playbooks.html">Playbooks</a>
-    <a href="services.html">Services</a>
-    <a href="tools.html">Tools</a>
-    <a href="notes.html">Notes</a>
-    <a href="about.html">About</a>
-    <a href="index.html#contact">Contact</a>
+    <a href="/workshop" class="active">The Factory</a>
+    <a href="/playbooks">Playbooks</a>
+    <a href="/services">Services</a>
+    <a href="/tools">Tools</a>
+    <a href="/notes">Notes</a>
+    <a href="/about">About</a>
+    <a href="/#contact">Contact</a>
   </div>
 </nav>
 <main id="main" tabindex="-1">
@@ -167,7 +167,7 @@
     <div class="section-label">The workshop</div>
     <h1>One man. A fleet of AI agents.<br><span class="accent">Everything shipped with receipts.</span></h1>
     <p class="lede">
-      Since February 2026 I&rsquo;ve been running a one-man software factory (it trades as <a href="https://bygmedai.dk" target="_blank" rel="noopener" style="color: var(--gold);">BygMedAI</a>): me, directing a fleet of AI agents through multi-agent orchestration, adversarial review and enforced quality gates. Not a demo, not a deck &mdash; <strong>a production system with 14 client-facing solutions to its name &mdash; live webshops and platforms in production, and new products in active build.</strong> This page is why you can trust me to navigate your AI initiative: I&rsquo;m not repeating what I&rsquo;ve read. I&rsquo;m reporting from the water. <a href="factory-journey.html" style="color: var(--gold);">Or skip straight to one real change&rsquo;s journey through the whole pipeline &rarr;</a>
+      Since February 2026 I&rsquo;ve been running a one-man software factory (it trades as <a href="https://bygmedai.dk" target="_blank" rel="noopener" style="color: var(--gold);">BygMedAI</a>): me, directing a fleet of AI agents through multi-agent orchestration, adversarial review and enforced quality gates. Not a demo, not a deck &mdash; <strong>a production system with 14 client-facing solutions to its name &mdash; live webshops and platforms in production, and new products in active build.</strong> This page is why you can trust me to navigate your AI initiative: I&rsquo;m not repeating what I&rsquo;ve read. I&rsquo;m reporting from the water. <a href="/factory-journey" style="color: var(--gold);">Or skip straight to one real change&rsquo;s journey through the whole pipeline &rarr;</a>
     </p>
   </div>
 </div>
@@ -271,7 +271,7 @@
         <span>Decision records</span>
         <span>Architecture &amp; roadmap docs</span>
       </div>
-      <p class="prose" style="margin-top: 1.4rem;"><strong>A bunch of prompts leaves no paper trail. A factory is mostly paper trail</strong> &mdash; dispatches that bound the work, reviews that attacked it, evidence that proved it. That third is why the other two thirds can be trusted. <a href="factory-journey.html">Scroll through one real change&rsquo;s journey to see the trail in use &rarr;</a></p>
+      <p class="prose" style="margin-top: 1.4rem;"><strong>A bunch of prompts leaves no paper trail. A factory is mostly paper trail</strong> &mdash; dispatches that bound the work, reviews that attacked it, evidence that proved it. That third is why the other two thirds can be trusted. <a href="/factory-journey">Scroll through one real change&rsquo;s journey to see the trail in use &rarr;</a></p>
       <div class="viz-method">Measured via git file listings against each repository&rsquo;s main branch: 92 of 249 tracked files (36%) and 186 of 565 (32%) are markdown governance/documentation artifacts.</div>
     </div>
   </div>
@@ -307,7 +307,7 @@
     </div>
     <div style="margin-top: 2.5rem; max-width: 800px;">
       <p class="prose">A change travels an explicit chain of command: need &rarr; requirement and expected user outcome &rarr; bounded dispatch &rarr; implementation on a branch &rarr; mechanical checks &rarr; evidence pack &rarr; separate or adversarial review &rarr; human GO/HOLD &rarr; merge &rarr; deploy verification. A dispatch isn&rsquo;t a prompt &mdash; it&rsquo;s a <strong>machine-readable work contract</strong>: which requirement, which files may be touched, which actions are forbidden, what evidence is required, who may act and who may approve. A task missing its goal, authority, evidence bar or out-of-scope isn&rsquo;t ready for an agent. It&rsquo;s just ambiguity with a send button.</p>
-      <p class="prose"><strong>Prompts influence behaviour. Enforcement constrains action.</strong> That&rsquo;s the difference between a helpful chatbot and a delivery model &mdash; and it&rsquo;s why the most interesting page on this site is the one about failure: <a href="hallucination-defence.html">The Hallucination Defence &mdash; four mechanical controls and ten real failure patterns &rarr;</a> And for the whole method as a guide your organisation can follow: <a href="ai-playbook.html">The AI Playbook &mdash; seven chapters, from first boat to fleet &rarr;</a></p>
+      <p class="prose"><strong>Prompts influence behaviour. Enforcement constrains action.</strong> That&rsquo;s the difference between a helpful chatbot and a delivery model &mdash; and it&rsquo;s why the most interesting page on this site is the one about failure: <a href="/hallucination-defence">The Hallucination Defence &mdash; four mechanical controls and ten real failure patterns &rarr;</a> And for the whole method as a guide your organisation can follow: <a href="/ai-playbook">The AI Playbook &mdash; seven chapters, from first boat to fleet &rarr;</a></p>
     </div>
   </div>
 </section>
@@ -327,7 +327,7 @@
         <li>Secret- and leak-scans before anything goes public</li>
         <li>Human review on every merge &mdash; no agent ships alone</li>
       </ul>
-      <p style="margin-top: 1.2rem;">The same factory built all three digital surfaces for <a href="https://inkandart.dk" target="_blank" rel="noopener" style="color: var(--gold);">Ink &amp; Art Copenhagen</a>, a tattoo studio established in 1996: the hub site, a custom React storefront on a Shopify commerce backbone, and a companion app &mdash; <strong>371 commits and 200+ pull requests across two repositories since May</strong>, now being matured from MVP into one connected ecosystem. The owner&rsquo;s verdict on the quality: he made me a partner. And for the engineers in the room: <a href="case-digital-delivery-platform.html" style="color: var(--gold);">read the full technical case</a> on a token-authorised e-commerce &amp; digital-delivery platform &mdash; stack, trade-offs, security model and measured numbers, method stated per figure. Or better: <a href="factory-journey.html" style="color: var(--gold);">scroll through one real change&rsquo;s journey</a> &mdash; the actual dispatch, the adversarial review with 11 findings, the gates and the human GO.</p>
+      <p style="margin-top: 1.2rem;">The same factory built all three digital surfaces for <a href="https://inkandart.dk" target="_blank" rel="noopener" style="color: var(--gold);">Ink &amp; Art Copenhagen</a>, a tattoo studio established in 1996: the hub site, a custom React storefront on a Shopify commerce backbone, and a companion app &mdash; <strong>371 commits and 200+ pull requests across two repositories since May</strong>, now being matured from MVP into one connected ecosystem. The owner&rsquo;s verdict on the quality: he made me a partner. And for the engineers in the room: <a href="/case-digital-delivery-platform" style="color: var(--gold);">read the full technical case</a> on a token-authorised e-commerce &amp; digital-delivery platform &mdash; stack, trade-offs, security model and measured numbers, method stated per figure. Or better: <a href="/factory-journey" style="color: var(--gold);">scroll through one real change&rsquo;s journey</a> &mdash; the actual dispatch, the adversarial review with 11 findings, the gates and the human GO.</p>
     </div>
   </div>
 </section>
@@ -398,7 +398,7 @@
 
 </main>
 <footer>
-  <div style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="workshop.html">The Factory</a> &middot; <a href="playbooks.html">Playbooks</a> &middot; <a href="services.html">Services</a> &middot; <a href="tools.html">Tools</a> &middot; <a href="notes.html">Notes</a> &middot; <a href="about.html">About</a> &middot; <a href="index.html#contact">Contact</a></div>
+  <div style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="/workshop">The Factory</a> &middot; <a href="/playbooks">Playbooks</a> &middot; <a href="/services">Services</a> &middot; <a href="/tools">Tools</a> &middot; <a href="/notes">Notes</a> &middot; <a href="/about">About</a> &middot; <a href="/#contact">Contact</a></div>
   &copy; 2026 Steven Seidenfaden Wensley. All rights reserved.
 </footer>
 </body>

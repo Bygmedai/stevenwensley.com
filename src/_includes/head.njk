@@ -26,7 +26,7 @@
 
 <!-- Open Graph -->
 <meta property="og:type" content="{{ ogType or 'website' }}">
-<meta property="og:url" content="{{ canonical or (site.url + permalink) }}">
+<meta property="og:url" content="{{ canonical or (site.url + permalink | replace(".html", "")) }}">
 <meta property="og:title" content="{{ ogTitle or title }}">
 <meta property="og:description" content="{{ ogDescription or description }}">
 <meta property="og:image" content="{{ site.ogImage }}">
@@ -38,7 +38,7 @@
 <meta name="twitter:description" content="{{ twitterDescription or ogDescription or description }}">
 <meta name="twitter:image" content="{{ site.ogImage }}">
 
-<link rel="canonical" href="{{ canonical or (site.url + permalink) }}">
+<link rel="canonical" href="{{ canonical or (site.url + permalink | replace(".html", "")) }}">
 {% for alt in hreflang %}<link rel="alternate" hreflang="{{ alt.lang }}" href="{{ alt.href }}">
 {% endfor %}
 
