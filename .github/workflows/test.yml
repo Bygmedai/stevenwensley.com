@@ -45,6 +45,14 @@ jobs:
           node-version: 20
       - name: Assemble publish directory
         run: node scripts/build-publish.mjs
+      # sitemap.xml is generated from the same inventory build-publish uses.
+      # Asserting the committed file matches a fresh generation is the same
+      # shape as the Eleventy check above: it fails on something true or
+      # false, not on something that merely looks right. Seven articles were
+      # indexable, linked and absent from the hand-maintained sitemap before
+      # this gate existed.
+      - name: Verify committed sitemap.xml matches a fresh generation
+        run: node scripts/build-sitemap.mjs --check
 
   html-validate:
     name: HTML Validation
