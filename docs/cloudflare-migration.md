@@ -281,6 +281,21 @@ og gjort den samme sætning falsk igen, tre uger senere, af en anden grund. Mål
 egne to proxede zoner (bygmedai.dk, tkbars.dk): ingen `set-cookie`. Vejen er ren så
 længe knappen bliver liggende.
 
+**Challenge-handlinger sætter også en cookie.** Bot Fight Mode er den ene knap; den
+anden er WAF-regler med **Managed Challenge** eller **JS Challenge**, som sætter
+`cf_clearance`. Blokerings-listen fra `robots.txt` skal derfor køres med **block**, ikke
+challenge — en challenge på en scraper-regel køber os ingenting og koster en cookie.
+
+Begge er sikkerhedscookies, og privatlivspolitikkens §6 er skrevet så den tåler en
+strengt nødvendig botdetektionscookie. Men den er skrevet *defensivt*, ikke som en
+tilladelse: slås en af knapperne til, læses §6 igennem i samme arbejdsgang, ikke bagefter.
+
+Verifikation efter enhver ændring her — forventet resultat er tomt:
+
+```
+curl -sSI https://stevenwensley.com | grep -i set-cookie
+```
+
 **DNS-hygiejne.**
 - ~~DMARC~~ **gjort 16/8** — `p=none`. Mindst 4 uger, læs `rua`-rapporterne, stram
   derefter til `p=quarantine`. Aldrig direkte til `p=reject`
