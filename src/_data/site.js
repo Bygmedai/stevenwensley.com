@@ -8,7 +8,6 @@ module.exports = {
   tagline: "AI Governance & Transformation",
   description:
     "Senior programme manager for regulated environments. AI governance, NIS2, GxP. 20+ years. Copenhagen.",
-  ga4Id: "G-17Y98NY34Y",
   ogImage: "https://stevenwensley.com/og-image.png",
   author: {
     name: "Steven Seidenfaden Wensley",

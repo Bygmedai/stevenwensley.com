@@ -63,8 +63,6 @@ test.describe('Console Error Check', () => {
 
       // Filter out known non-critical errors
       const criticalErrors = errors.filter(e =>
-        !e.includes('googletagmanager') &&
-        !e.includes('google-analytics') &&
         !e.includes('fonts.googleapis') &&
         !e.includes('Failed to load resource') && // External CDN
         !e.includes('net::ERR_') && // Network errors (external)
