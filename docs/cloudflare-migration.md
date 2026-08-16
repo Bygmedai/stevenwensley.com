@@ -1,8 +1,9 @@
 # Cloudflare-migration · stevenwensley.com
 
 **Oprindelig plan:** Vilde, 15. august 2026
-**Denne udgave:** Haruki, 15. august 2026 — efter Etape 1 er kørt og verificeret
-**Status:** Etape 1 færdig. Etape 2 ikke påbegyndt. Ingen DNS rørt.
+**Denne udgave:** Haruki, 16. august 2026 — efter Etape 1–3 er kørt og verificeret
+**Status:** Etape 1, 2 og 3 færdige. Sitet ligger på Cloudflare Pages. Etape 4 venter
+på syv stabile dage.
 
 Dette dokument erstatter den oprindelige plan. Tre af dens antagelser holdt ikke,
 og to gates manglede. Alt herunder er målt, ikke gættet — måledato står ved hvert punkt.
@@ -16,13 +17,15 @@ og to gates manglede. Alt herunder er målt, ikke gættet — måledato står ve
 | 1 | Pages-projekt + preview | **Færdig og verificeret** |
 | — | Publiceringsmappe, så kilde og værktøj ikke udgives | **Færdig** (PR #47) |
 | — | URL-formen afklaret og landet på live | **Færdig** (PR #49) |
-| 2 | Zone til Cloudflare, records identiske | Ikke påbegyndt |
-| 3 | Cutover: sitet til Pages | Blokeret af gates, se §3 |
-| 4 | Hærdning og oprydning | Efter 7 stabile dage |
+| 2 | Zone til Cloudflare, records identiske | **Færdig** — nul afvigelser |
+| 3 | Cutover: sitet til Pages | **Færdig og verificeret 16/8** |
+| — | Mail: fra død M365-opsætning til en adresse der virker | **Færdig**, se §3.5 |
+| 4 | Hærdning og oprydning | Efter 7 stabile dage — §4 |
 
 **Projekt:** `stevenwensley-com` · account `e91b41e7…0544c2`
 **Build command:** `node scripts/build-publish.mjs` · **output:** `_site`
-**Preview:** `stevenwensley-com.pages.dev` · ingen custom domains
+**Live:** `stevenwensley.com` (apex, proxied) · `www` → apex via Single Redirect
+**Registrar:** Porkbun. Nameservere: Cloudflare. Registrar er *ikke* flyttet.
 
 ---
 
@@ -133,12 +136,20 @@ Post 4–7 er mail. De rører vi ikke. Ingen CAA-record findes.
 - `curl -sSI https://stevenwensley.com` viser **stadig** `server: GitHub.com` og **intet** `cf-ray`
 - MX returnerer outlook-værdien med prioritet 1
 - TXT returnerer SPF ordret
-- Testmail udefra ind i Outlook
-- Testmail fra M365 ud til en ekstern adresse — og ikke i spam
-- Outlook på desktop og mobil forbinder uden at bede om ny opsætning
 
-**Vent 48 timer.** Mailproblemer viser sig som «jeg fik ikke den mail» en dag senere,
-ikke som en fejlbesked.
+**Mail-verifikationen bortfaldt — og det er selve fundet.** Planen forudsatte en
+fungerende Microsoft 365-postkasse og byggede sin største risiko på den. Målt 15/8:
+MX-målet `stevenwensley-com.mail.protection.outlook.com` gav **NXDOMAIN** fra fire
+uafhængige resolvere, og Microsofts eget realm-opslag svarede `NameSpaceType: Unknown`
+— der er ingen tenant. Sitet oplyste allerede en gmail-adresse på 12 sider.
+
+**Der var altså ingen mail at miste.** Risikoen i planen var reel som ræsonnement og
+tom som faktum. Se §3.5 for hvad der står i stedet.
+
+**Faktisk gennemført:** zonen oprettet, ti kontrolopslag mod Porkbun, nul afvigelser.
+To ting rettet under importen: Cloudflare importerede *alle* poster som proxied (sat
+til DNS only, så cutover kun ændrede én ting ad gangen), og Cloudflares scan sprang
+`autodiscover` over (lagt ind igen manuelt).
 
 **Rollback:** nameservere tilbage til de fire Porkbun-servere. Porkbun-zonen ligger urørt.
 
@@ -190,11 +201,66 @@ verificér med `dig` umiddelbart efter.
 - `/package.json`, `/.github/…`, `/CNAME`, `/_v.mjs`, `/src/…` svarer 404
 - `robots.txt` uændret
 - `sitemap.xml` nåbar fra Google Search Console og Bing
-- GA4 og Cloudflare Web Analytics registrerer besøg
-- Mail virker stadig — samme to testmails
+
+**Målt efter cutover 16/8:** `server: cloudflare` og `cf-ray` til stede, gyldigt
+certifikat, `www` → apex, alle sider fra sitemap 200, kilde og værktøj 404.
+
+En note om måleværktøjet, fordi den koster tid hvis man ikke kender den: sandkassens
+TLS-proxy gensignerer certifikater og kan svare med forældede headers — den viste
+`server: GitHub.com` længe efter flippet. Verifikationen blev derfor gentaget gennem
+en rigtig browser. **Mål aldrig cutover gennem en proxy du ikke selv har set indeni.**
 
 **Rollback (minutter):** A/AAAA og `www` CNAME tilbage til GitHub-værdierne fra
 paritetslisten, grå sky.
+
+---
+
+## 3.5 · Mail — hvad der faktisk var der, og hvad der står nu
+
+Målt 15.–16. august, ikke antaget:
+
+| Spørgsmål | Måling |
+|---|---|
+| Svarede MX-målet? | **NXDOMAIN** fra 1.1.1.1, 8.8.8.8, 9.9.9.9 og Porkbuns egen zone |
+| Fandtes der en M365-tenant? | Nej — `getuserrealm.srf` → `NameSpaceType: Unknown` |
+| Havde Steven en adresse på domænet? | Nej. Domænet var købt gennem en broker; Porkbun-kontoen var ukendt for ham |
+| Hvad stod der på sitet? | En gmail-adresse, på 12 sider |
+
+Konklusionen er ubehagelig og nyttig: **mail på `stevenwensley.com` har aldrig virket.**
+De fire «mailposter» i paritetslisten var en tom skal fra en tidligere ejer, og de
+pegede alle sammen ingen steder hen.
+
+### Hvad der står nu
+
+Cloudflare Email Routing, gratis, oprettet 16/8:
+
+| Post | Værdi |
+|---|---|
+| MX ×3 | `route1/2/3.mx.cloudflare.net` (63 / 9 / 22) |
+| SPF | `v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all` |
+| DKIM | `cf2024-1._domainkey` |
+| DMARC | `_dmarc` → `v=DMARC1; p=none; rua=mailto:…` |
+| Regel | `steven@stevenwensley.com` → Stevens Gmail |
+
+Slettet i samme omgang, fordi de var døde og aktivt skadelige: `autodiscover`, M365-MX,
+M365-SPF, begge Teams/Lync-SRV — og **wildcarden** `*` → `uixie.porkbun.com`, som lod
+`autodiscover`, `_sip._tls` og `_dmarc` besvare *alt* med en parkeringsside. Email
+Routing nægtede i øvrigt at oprette sig, indtil den fremmede MX var væk.
+
+**Verificeret end-to-end 16/8:** alle poster resolver ens fra tre resolvere, og en
+testmail til `steven@stevenwensley.com` fremgår af Cloudflares Activity Log med
+resultatet **Forwarded**.
+
+### Den ene ting adressen ikke kan
+
+Email Routing kan **modtage**, ikke **sende**. Gmails «send mail as» kræver SMTP-
+legitimation for en fremmed adresse, og den findes ikke gratis her: Cloudflares Email
+Sending kræver Workers Paid. Indtil der er reelt behov svares der fra Gmail som hidtil.
+Skal det ændres, er valget en SMTP-relay (fx Brevos gratis niveau) eller en rigtig
+postkasse hos en udbyder — en beslutning om penge, ikke om teknik.
+
+`include:_spf.google.com` står allerede i SPF'en, så den dag afsendelse sættes op
+gennem Google, er posten på plads.
 
 ---
 
@@ -208,15 +274,29 @@ assistenter. Brug WAF Custom Rules og blokér kun den liste `robots.txt` allered
 erklærer uønsket — `CCBot`, `Bytespider`, `Amazonbot`, `Meta-ExternalAgent`. Muren skal
 håndhæve præcis det, seddelen på døren siger.
 
+**Bot Fight Mode skal forblive slukket — og grunden er ikke botsene.** Den sætter en
+`__cf_bm`-cookie på proxede zoner. Privatlivspolitikken blev i august gjort sand ved at
+fjerne GA4; slår vi Bot Fight Mode til, har vi byttet Googles cookie ud med Cloudflares
+og gjort den samme sætning falsk igen, tre uger senere, af en anden grund. Målt på vores
+egne to proxede zoner (bygmedai.dk, tkbars.dk): ingen `set-cookie`. Vejen er ren så
+længe knappen bliver liggende.
+
 **DNS-hygiejne.**
-- DMARC: `_dmarc` TXT → `v=DMARC1; p=none; rua=mailto:…`. Mindst 4 uger på `p=none`,
-  læs rapporterne, stram derefter til `p=quarantine`. Aldrig direkte til `p=reject`
-- M365 DKIM slås til i Admin Center, og de to CNAME-selectors tilføjes
-- Slet wildcard-recorden `*` → `uixie.porkbun.com`
+- ~~DMARC~~ **gjort 16/8** — `p=none`. Mindst 4 uger, læs `rua`-rapporterne, stram
+  derefter til `p=quarantine`. Aldrig direkte til `p=reject`
+- ~~Slet wildcard-recorden `*` → `uixie.porkbun.com`~~ **gjort 16/8**
+- ~~M365 DKIM~~ **bortfaldet** — der er ingen M365-tenant, se §3.5. DKIM leveres nu af
+  Cloudflare (`cf2024-1._domainkey`)
 - Overvej CAA. Tilføjes den, **skal** Cloudflares udstedere med
+- Fjern den forældede URL-videresendelse hos Porkbun; den er uden virkning nu, men
+  vildledende for den næste der kigger
 
 **Repo.** Fjern `CNAME`-filen og deaktivér custom domain hos GitHub Pages — først nu.
 Overvej `Cache-Control` i `_headers`: HTML kort, `/og/`, `/img/` og PDF'er langt.
+
+**Uden for Cloudflare.** Porkbun-kontoen har ingen 2FA og dens mailadresse optræder i
+et kendt læk. Registrar-kontoen kontrollerer både domænet og nu også mailen — den er
+det svageste led i hele kæden. Slå 2FA til.
 
 ---
 
@@ -242,3 +322,8 @@ Overvej `Cache-Control` i `_headers`: HTML kort, `/og/`, `/img/` og PDF'er langt
 | 4 | Slå den enkelte regel fra | sekunder |
 
 Intet punkt efterlader os et sted hvor rollback kræver at noget genopbygges.
+
+**Én undtagelse, som er værd at kende:** mailen kan ikke rulles tilbage, fordi der ikke
+er noget at rulle tilbage *til*. De slettede M365-poster pegede på en tenant der ikke
+findes. Rollback af Etape 3 rører kun A/AAAA og `www` — mailposterne bliver stående og
+virker uafhængigt af hvor sitet ligger.
