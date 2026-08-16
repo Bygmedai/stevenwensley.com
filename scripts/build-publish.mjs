@@ -102,39 +102,59 @@ const FORBIDDEN = [
   'ARCHITECTURE.md',
 ];
 
-const kept = [];
-const skipped = [];
+// The inventory walk, with no side effects. Exported so that anything else
+// needing to know "which files does this site publish?" — build-sitemap.mjs,
+// for one — asks the same question of the same code, rather than growing a
+// second, quietly diverging answer.
+export async function collectPublishedFiles() {
+  const kept = [];
+  const skipped = [];
 
-async function walk(dir) {
-  const entries = await readdir(dir, { withFileTypes: true });
-  for (const e of entries) {
-    const abs = join(dir, e.name);
-    const rel = relative(ROOT, abs);
-    const isRoot = !rel.includes(sep);
+  async function walk(dir) {
+    const entries = await readdir(dir, { withFileTypes: true });
+    for (const e of entries) {
+      const abs = join(dir, e.name);
+      const rel = relative(ROOT, abs);
+      const isRoot = !rel.includes(sep);
 
-    if (e.isDirectory()) {
-      if (denyByName(e.name) || (isRoot && DENY_DIRS.has(e.name))) {
-        skipped.push(rel + '/');
+      if (e.isDirectory()) {
+        if (denyByName(e.name) || (isRoot && DENY_DIRS.has(e.name))) {
+          skipped.push(rel + '/');
+          continue;
+        }
+        await walk(abs);
         continue;
       }
-      await walk(abs);
-      continue;
-    }
 
-    if (denyByName(e.name) || (isRoot && DENY_FILES.has(e.name))) {
-      skipped.push(rel);
-      continue;
-    }
+      if (denyByName(e.name) || (isRoot && DENY_FILES.has(e.name))) {
+        skipped.push(rel);
+        continue;
+      }
 
-    await mkdir(join(OUT, relative(ROOT, dir)), { recursive: true });
-    await cp(abs, join(OUT, rel));
-    kept.push(rel);
+      kept.push(rel);
+    }
   }
+
+  await walk(ROOT);
+  kept.skipped = skipped;
+  return kept;
 }
+
+// Importing this module must not build anything — build-sitemap.mjs imports
+// it purely for the inventory.
+const invokedDirectly = process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1];
+if (invokedDirectly) await build();
+
+async function build() {
+const kept = await collectPublishedFiles();
+const skipped = kept.skipped;
 
 await rm(OUT, { recursive: true, force: true });
 await mkdir(OUT, { recursive: true });
-await walk(ROOT);
+for (const rel of kept) {
+  await mkdir(join(OUT, rel.split(sep).slice(0, -1).join(sep)), { recursive: true });
+  await cp(join(ROOT, rel), join(OUT, rel));
+}
 
 let bytes = 0;
 for (const f of kept) bytes += (await stat(join(OUT, f))).size;
@@ -171,3 +191,4 @@ if (missing.length || leaked.length) {
 }
 
 console.log('build-publish: kontrolfiler til stede, ingen kilde eller vaerktoej laekket');
+}

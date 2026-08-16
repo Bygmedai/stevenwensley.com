@@ -1,0 +1,232 @@
+{
+  "/": {
+    "changefreq": "weekly",
+    "lastmod": "2026-07-13",
+    "priority": "1.0"
+  },
+  "/about": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-13",
+    "priority": "0.8"
+  },
+  "/ai-governance-assessment": {
+    "changefreq": "monthly",
+    "lastmod": "2026-08-14",
+    "priority": "0.8"
+  },
+  "/ai-playbook": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-17",
+    "priority": "0.9"
+  },
+  "/ai-readiness-scan": {
+    "changefreq": "monthly",
+    "lastmod": "2026-08-14",
+    "priority": "0.8"
+  },
+  "/book-session": {
+    "changefreq": "monthly",
+    "lastmod": "2026-08-14",
+    "priority": "0.8"
+  },
+  "/case-digital-delivery-platform": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-17",
+    "priority": "0.8"
+  },
+  "/cost-of-delay": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-14",
+    "priority": "0.8"
+  },
+  "/cost-of-inaction": {
+    "changefreq": "monthly",
+    "lastmod": "2026-08-14",
+    "priority": "0.8"
+  },
+  "/eu-ai-act-classifier": {
+    "changefreq": "monthly",
+    "lastmod": "2026-08-14",
+    "priority": "0.8"
+  },
+  "/factory-journey": {
+    "changefreq": "monthly",
+    "lastmod": "2026-08-14",
+    "priority": "0.9"
+  },
+  "/for-brokers": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-14",
+    "priority": "0.9"
+  },
+  "/glossary": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-14",
+    "priority": "0.7"
+  },
+  "/hallucination-defence": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-17",
+    "priority": "0.9"
+  },
+  "/index-da": {
+    "changefreq": "monthly",
+    "lastmod": "2026-08-14",
+    "priority": "0.6"
+  },
+  "/insights": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-13",
+    "priority": "0.6"
+  },
+  "/insights/ai-governance-starter-kit": {
+    "changefreq": "monthly",
+    "lastmod": "2026-02-15",
+    "priority": "0.5"
+  },
+  "/insights/danish-public-sector-ai-governance": {
+    "changefreq": "monthly",
+    "lastmod": "2026-04-19",
+    "priority": "0.5"
+  },
+  "/insights/pharma-lessons-for-ai-act": {
+    "changefreq": "monthly",
+    "lastmod": "2026-04-12",
+    "priority": "0.5"
+  },
+  "/method": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-14",
+    "priority": "0.8"
+  },
+  "/nis2-gap-assessment": {
+    "changefreq": "monthly",
+    "lastmod": "2026-08-14",
+    "priority": "0.7"
+  },
+  "/nis2-implementation-roadmap": {
+    "changefreq": "monthly",
+    "lastmod": "2026-08-14",
+    "priority": "0.7"
+  },
+  "/note-ai-pilot-lying": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-17",
+    "priority": "0.7"
+  },
+  "/note-ai-regulated-evidence": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-18",
+    "priority": "0.7"
+  },
+  "/note-clever-children": {
+    "changefreq": "monthly",
+    "lastmod": "2026-08-14",
+    "priority": "0.7"
+  },
+  "/note-done-dangerous-word": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-17",
+    "priority": "0.7"
+  },
+  "/note-nis2-ownership": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-14",
+    "priority": "0.7"
+  },
+  "/note-one-agent-seven-hats": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-17",
+    "priority": "0.7"
+  },
+  "/note-red-programme-first-days": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-14",
+    "priority": "0.7"
+  },
+  "/note-steerco-truth": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-14",
+    "priority": "0.7"
+  },
+  "/notes": {
+    "changefreq": "weekly",
+    "lastmod": "2026-07-14",
+    "priority": "0.7"
+  },
+  "/playbook-ai-initiative": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-17",
+    "priority": "0.9"
+  },
+  "/playbook-carveout-separation": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-13",
+    "priority": "0.9"
+  },
+  "/playbook-gxp-migration": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-13",
+    "priority": "0.9"
+  },
+  "/playbook-nis2-compliance": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-13",
+    "priority": "0.9"
+  },
+  "/playbook-programme-recovery": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-13",
+    "priority": "0.9"
+  },
+  "/playbooks": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-13",
+    "priority": "0.9"
+  },
+  "/privacy": {
+    "changefreq": "yearly",
+    "lastmod": "2026-07-13",
+    "priority": "0.2"
+  },
+  "/programme-health-check": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-14",
+    "priority": "0.8"
+  },
+  "/regulatory-deadlines": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-14",
+    "priority": "0.8"
+  },
+  "/roi-calculator": {
+    "changefreq": "monthly",
+    "lastmod": "2026-08-14",
+    "priority": "0.7"
+  },
+  "/services": {
+    "changefreq": "monthly",
+    "lastmod": "2026-08-14",
+    "priority": "0.9"
+  },
+  "/services-da": {
+    "changefreq": "monthly",
+    "lastmod": "2026-08-14",
+    "priority": "0.9"
+  },
+  "/templates": {
+    "changefreq": "monthly",
+    "lastmod": "2026-08-14",
+    "priority": "0.6"
+  },
+  "/tools": {
+    "changefreq": "monthly",
+    "lastmod": "2026-08-15",
+    "priority": "0.9"
+  },
+  "/workshop": {
+    "changefreq": "monthly",
+    "lastmod": "2026-07-15",
+    "priority": "0.9"
+  }
+}
