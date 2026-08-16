@@ -25,7 +25,9 @@
 
 ## Field notes
 - Feed: https://stevenwensley.com/feed.xml
-- [Notes index](https://stevenwensley.com/notes): Short practitioner notes on AI quality, programme politics and regulatory delivery — including "Why your AI pilot is lying to you" and "When AI fabricates your control evidence".
+- [Notes index](https://stevenwensley.com/notes): Short practitioner notes on AI quality, programme politics and regulatory delivery.
+- [Fallible in both directions](https://stevenwensley.com/note-fallible-both-directions): Why an AI agent's refusal is no more trustworthy than its agreement — the Asch conformity paradigm run on language models, and what "functional mimicry" means for anyone managing agents.
+- [Leading extremely clever children with enormous power](https://stevenwensley.com/note-clever-children): Over-caution, the median human, and the manager as moral infrastructure.
 
 ## Background
 - [About](https://stevenwensley.com/about): Career, certifications (PMP, PRINCE2, SAFe), ten written recommendations.

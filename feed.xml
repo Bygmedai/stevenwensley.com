@@ -5,8 +5,15 @@
   <link href="https://stevenwensley.com/feed.xml" rel="self"/>
   <link href="https://stevenwensley.com/notes"/>
   <id>https://stevenwensley.com/notes</id>
-  <updated>2026-08-14T09:00:00Z</updated>
+  <updated>2026-08-16T09:00:00Z</updated>
   <author><name>Steven Seidenfaden Wensley</name></author>
+  <entry>
+    <title>Fallible in both directions</title>
+    <link href="https://stevenwensley.com/note-fallible-both-directions"/>
+    <id>https://stevenwensley.com/note-fallible-both-directions</id>
+    <updated>2026-08-16T09:00:00Z</updated>
+    <summary>We keep treating AI as a machine to be optimised toward perfection. It is a mirror — of the people it was trained on and the people it works with. Which means the refusal is no more trustworthy than the agreement.</summary>
+  </entry>
   <entry>
     <title>Leading extremely clever children with enormous power</title>
     <link href="https://stevenwensley.com/note-clever-children"/>

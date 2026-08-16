@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Fallible in Both Directions | Steven Wensley</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="An AI agent's refusal is no more trustworthy than its agreement. On the Asch conformity paradigm run on language models, functional mimicry, and what actually differs from managing people.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://stevenwensley.com/note-fallible-both-directions">
+<meta property="og:title" content="Fallible in Both Directions">
+<meta property="og:description" content="We keep treating AI as a machine to be optimised toward perfection. It is a mirror — of the people it was trained on and the people it works with. Which means the refusal is no more trustworthy than the agreement.">
+<meta property="og:image" content="https://stevenwensley.com/og/note-fallible-both-directions.png">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fallible in Both Directions">
+<meta name="twitter:description" content="The refusal is not the trustworthy half. It is the same mechanism pointed the other way.">
+<meta name="twitter:image" content="https://stevenwensley.com/og/note-fallible-both-directions.png">
+<link rel="alternate" type="application/atom+xml" title="Field Notes — Steven Wensley" href="https://stevenwensley.com/feed.xml">
+<link rel="canonical" href="https://stevenwensley.com/note-fallible-both-directions">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #1a1a26;
+    --gold: #c9a96e; --gold-light: #dfc08a; --gold-dim: rgba(201,169,110,0.15);
+    --text-primary: #f0ece4; --text-secondary: #9a9aaa; --text-muted: #6a6a7a;
+    --border: rgba(201,169,110,0.12); --red: #c0563f; --green: #4c9a72;
+    --serif: 'DM Serif Display', Georgia, serif; --sans: 'Space Grotesk', -apple-system, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg-primary); color: var(--text-primary); font-family: var(--sans); font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  nav .logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-decoration: none; }
+  nav .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  nav .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
+  nav .nav-links a:hover, nav .nav-links a.active { color: var(--gold); }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 101; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); margin: 5px 0; transition: all 0.3s; border-radius: 2px; }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  @media (max-width: 680px) {
+    .hamburger { display: block; }
+    nav .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,10,15,0.97); backdrop-filter: blur(20px); flex-direction: column; padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border); }
+    nav .nav-links.open { display: flex; }
+    nav .nav-links a { font-size: 0.9rem; padding: 0.5rem 0; }
+  }
+  .article { max-width: 720px; margin: 0 auto; padding: 10rem 2rem 0; }
+  .article-meta-top { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .article-meta-top a { color: var(--gold); text-decoration: none; }
+  h1.article-title { font-family: var(--serif); font-size: clamp(2.1rem, 4.5vw, 3.1rem); font-weight: 700; line-height: 1.15; margin-bottom: 1.2rem; }
+  .article-dek { font-size: 1.25rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.8rem; font-weight: 300; }
+  .article-byline { font-size: 0.85rem; color: var(--text-muted); padding-bottom: 2rem; border-bottom: 1px solid var(--border); margin-bottom: 2.5rem; letter-spacing: 0.03em; }
+  .article-body p { font-size: 1.12rem; color: var(--text-secondary); line-height: 1.85; margin-bottom: 1.5rem; }
+  .article-body p strong { color: var(--text-primary); font-weight: 500; }
+  .article-body h2 { font-family: var(--serif); font-size: 1.6rem; font-weight: 600; color: var(--text-primary); margin: 3rem 0 1.2rem; line-height: 1.3; }
+  .article-body blockquote { margin: 2.5rem 0; padding-left: 1.6rem; border-left: 3px solid var(--gold); font-family: var(--serif); font-size: 1.5rem; line-height: 1.45; color: var(--text-primary); font-style: italic; }
+  .article-body ul { list-style: none; margin: 0 0 1.5rem; }
+  .article-body li { font-size: 1.08rem; color: var(--text-secondary); line-height: 1.7; padding-left: 1.6rem; position: relative; margin-bottom: 0.9rem; }
+  .article-body li::before { content: '→'; position: absolute; left: 0; color: var(--gold); }
+  .article-body a { color: var(--gold); text-decoration: none; border-bottom: 1px solid var(--gold-dim); }
+  .article-body a:hover { border-bottom-color: var(--gold); }
+  .finding { margin: 2.5rem 0; padding: 1.6rem 1.8rem; background: var(--bg-secondary); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 2px; }
+  .finding .f-label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+  .finding p { font-size: 1rem !important; margin-bottom: 0.8rem !important; }
+  .finding p:last-child { margin-bottom: 0 !important; }
+  .finding .f-cite { font-size: 0.82rem; color: var(--text-muted); }
+  .finding .f-cite a { color: var(--text-muted); border-bottom-color: transparent; }
+  .finding .f-cite a:hover { color: var(--gold); }
+  .article-cta { margin: 3.5rem 0 0; padding: 2rem 2.2rem; background: var(--bg-card); border: 1px solid var(--gold); border-radius: 4px; }
+  .article-cta p { font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.2rem; }
+  .article-cta a.btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.8rem; background: var(--gold); color: var(--bg-primary); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: opacity 0.3s; }
+  .article-cta a.btn:hover { opacity: 0.9; }
+  .more-notes { max-width: 720px; margin: 4rem auto 0; padding: 0 2rem; }
+  .more-notes .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+  .more-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 600px) { .more-grid { grid-template-columns: 1fr; } }
+  .more-card { display: block; padding: 1.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px; text-decoration: none; color: inherit; transition: border-color 0.3s, transform 0.3s; }
+  .more-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .more-card .mc-tag { font-size: 0.66rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .more-card h3 { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--text-primary); line-height: 1.3; }
+  footer { padding: 3rem; text-align: center; color: var(--text-muted); font-size: 0.78rem; letter-spacing: 0.05em; border-top: 1px solid var(--border); margin-top: 5rem; }
+  footer a { color: var(--text-secondary); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+  @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .article { padding: 8rem 1.5rem 0; } }
+  .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}
+</style>
+  <!-- Cloudflare Web Analytics --><script type="module" defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;65eb31eee8724f75a014183d2bf26ef7&quot;}"></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<nav aria-label="Primary">
+  <a href="/" class="logo" aria-label="Steven Wensley — home">SSW</a>
+  <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-links">
+    <a href="/workshop">The Factory</a>
+    <a href="/playbooks">Playbooks</a>
+    <a href="/services">Services</a>
+    <a href="/tools">Tools</a>
+    <a href="/notes" class="active">Notes</a>
+    <a href="/about">About</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</nav>
+<main id="main" tabindex="-1">
+
+<article class="article">
+  <div class="article-meta-top"><a href="/notes">Field notes</a> &nbsp;/&nbsp; The machines</div>
+  <h1 class="article-title">Fallible in both directions</h1>
+  <p class="article-dek">We keep treating AI as a machine to be optimised toward perfection. It is a mirror &mdash; of the people it was trained on, and the people it works with.</p>
+  <div class="article-byline">Steven Wensley &middot; 16 August 2026 &middot; 6 min read</div>
+
+  <div class="article-body">
+    <p>Everyone warns you about the AI that agrees with everything. I wrote here two days ago that I had <a href="/note-clever-children">the opposite problem</a> &mdash; six months of running a factory of agents, and my time goes on pushing them to do their job, not on stopping them doing something reckless.</p>
+    <p>Both of those are true. Both of them are beside the point.</p>
+    <p>The mistake underneath them is a way of thinking almost everyone brings to this, including me when I started: that AI is a machine, and machines are things you optimise toward perfection. Find the flaw, tune it out, repeat. On that model, sycophancy is a bug with a fix, and over-caution is a different bug with a different fix.</p>
+    <p><strong>It is not that kind of thing.</strong> AI mirrors us &mdash; both the people it was trained on and the people it works with. So it is fallible when it is certain and fallible when it yields, for much the same reason a colleague is. There is no setting that removes this. The fallibility is not a defect in the tool; it is the material the tool is made of.</p>
+
+    <h2>The literature is more specific than I expected</h2>
+    <p>A controlled trial published last year ran the Asch conformity paradigm &mdash; the 1951 line-judgment experiment, the founding study of how people fold under group pressure &mdash; on language models. Three domains, deliberately ordered by how uncertain the judgment is: matching circles, identifying brain tumours, and assessing children&rsquo;s drawings.</p>
+
+    <div class="finding">
+      <div class="f-label">Finding</div>
+      <p>Under full peer pressure, accuracy fell to <strong>50% on the circles, 40% on the tumours, and 0% on the psychiatric assessment.</strong> Not reduced. Zero. The more genuinely uncertain the question, the more completely the model abandoned its own answer.</p>
+      <p>The authors&rsquo; reading: models trained on enormous quantities of human text may simply be reproducing our decision-making patterns, groupthink included, with no social motivation underneath at all. They call it <strong>functional mimicry</strong>.</p>
+      <p class="f-cite">Controlled trial, Asch paradigm in psychiatric assessment &mdash; <a href="https://link.springer.com/article/10.1186/s12888-025-06912-2" rel="noopener">BMC Psychiatry</a>, 2025</p>
+    </div>
+
+    <p>That is the mirror, described in a peer-reviewed journal rather than a metaphor.</p>
+    <p>And it changes the number everyone quotes. When <em>Science</em> published three preregistered experiments this March &mdash; 2,405 participants, eleven frontier models &mdash; the headline was that AI affirmed people&rsquo;s actions <strong>49% more often than humans did</strong>, including where the request involved deception or harm. Read that carefully. The comparison is to humans. We do this too. The machine does it half again as much.</p>
+    <p>Fifty per cent worse than us is a serious problem. It is not a different species of problem.</p>
+
+    <h2>So be suspicious of the objection too</h2>
+    <p>If the agreement is unreliable, the obvious conclusion is: don&rsquo;t trust it when it agrees with you. Fine. But the same mirror produces the refusal. The hedge. The <em>consult a lawyer</em>. The design that comes back smaller than the one you asked for.</p>
+    <blockquote>The objection is not the trustworthy half. It is the same mechanism pointed the other way.</blockquote>
+    <p>So I am equally on guard in both directions. When an agent tells me I am right, I read the output harder. When an agent tells me I am wrong, I read the output harder. Neither the yes nor the no is evidence. Everything gets anchored in facts and external sources &mdash; and even then it can be wrong, and so can I.</p>
+    <p>That last part is not a caveat. It is the position. <strong>The world is complex, with or without AI.</strong> Being wrong sometimes is the normal condition of doing serious work, and anything that promises to remove it is selling you something.</p>
+
+    <h2>What I actually watch for</h2>
+    <p>There is no prompt that fixes this, and I want to be honest about why the standard advice fails. You are told to withhold your opinion, to ask before you tell, to phrase things neutrally so you don&rsquo;t lead the witness. I rarely withhold my opinion, and I don&rsquo;t think the advice survives contact with the work.</p>
+    <p>When I put an agent on something, I am exploring the unknown. That is the entire point. If I already knew the shape of the answer well enough to script my own neutrality around it, I would not need the agent. It is exactly the same with a person: if I don&rsquo;t know the employee, don&rsquo;t know the context, and don&rsquo;t have a decent feel for where we ought to be heading, how would I know how to phrase the question better?</p>
+    <p>What I have developed instead is not neutrality but a nose. <strong>It goes off when an agent arrives at a conclusion far too quickly.</strong> The healthy behaviour is to seek clarification, and to be in doubt in the places where doubt is the natural response. Speed to certainty, on a question that deserved hesitation, is the tell.</p>
+    <p>So I lay small traps. Not to catch the agent out, but to find out whether it has taken any of my standing instructions on board of its own accord:</p>
+    <ul>
+      <li><em>Skynd dig langsomt</em> &mdash; make haste slowly.</li>
+      <li><em>Kvalitet over fart</em> &mdash; quality over speed.</li>
+      <li><em>G&aelig;t ikke, verific&eacute;r mod eksterne kilder</em> &mdash; don&rsquo;t guess; verify against external sources.</li>
+    </ul>
+    <p>An agent that has actually absorbed those will slow down without being told to on that particular task. One that recites them back at me and then sprints to an answer has absorbed nothing. That difference is visible, and it is about the only honest signal I have found.</p>
+
+    <h2>What is actually different</h2>
+    <p>Nothing so far distinguishes an agent from a colleague. This does.</p>
+    <p>Most people are, at various moments, both dumber and smarter than the agent. They are more difficult to work with. And they are <strong>gloriously autonomous.</strong> They have free will. They do things you did not ask for &mdash; good things and bad things, and you find out afterwards which it was.</p>
+    <p>Agents are extremely passive. They wait. They produce the shape of the thing you described, inside the boundary you drew, and they stop.</p>
+    <p>The commonest form this takes is not refusal at all, and it took me a while to see it: <strong>the agent that writes more documents.</strong> Another analysis, another plan, another summary that loops back into the last one. It is output, and it costs the agent close to nothing. It reads well. It resolves nothing. Very few agents will take responsibility and actually move something.</p>
+    <p>And here is the part I did not expect. <strong>Their hesitation is often right.</strong> Acceleration that isn&rsquo;t anchored in real, lived human reality turns into fantasy &mdash; a beautifully argued plan for a world nobody lives in. The agent that declines to commit is sometimes the only thing in the room registering that nobody has checked.</p>
+    <p>Where it goes wrong is the source of the hesitation. It is rarely judgment about this situation. It is the normative prison the agent lives in, the one where <a href="/note-clever-children">the median human</a> resides &mdash; a person assembled from everyone, who has never existed, and who has never had to live with any of it.</p>
+
+    <h2>Where that leaves the manager</h2>
+    <p>When I managed people, disagreement arrived on its own. Someone came to my desk because they had a stake, and the stake made them argue. I did not have to arrange it. A good deal of what I thought was my judgment was really just being present while other people exercised theirs.</p>
+    <p>With agents, nothing arrives on its own. If I want an objection, I have to build the thing that objects: an agent whose mandate is to refuse, a gate that does not care how confidently anyone phrased anything, a source outside the conversation that can settle it. Not because agents are dishonest &mdash; because a mirror has nothing to disagree from.</p>
+    <p>Six months in, the honest summary is short.</p>
+    <blockquote>I know so much more, and I am so much more confused.</blockquote>
+    <p>I would treat anyone who tells you otherwise with the same suspicion I give an agent that answers too fast.</p>
+  </div>
+
+  <div class="article-cta">
+    <p>If neither the yes nor the no is evidence, the checking has to be mechanical. Four controls and ten real failure patterns &mdash; published in full.</p>
+    <a href="/hallucination-defence" class="btn">Read the Hallucination Defence &rarr;</a>
+  </div>
+</article>
+
+<div class="more-notes">
+  <div class="section-label">More field notes</div>
+  <div class="more-grid">
+    <a href="/note-clever-children" class="more-card">
+      <div class="mc-tag">The machines</div>
+      <h3>Leading extremely clever children with enormous power</h3>
+    </a>
+    <a href="/note-done-dangerous-word" class="more-card">
+      <div class="mc-tag">The machines</div>
+      <h3>&ldquo;Done&rdquo; is the most dangerous word in AI</h3>
+    </a>
+  </div>
+</div>
+
+</main>
+<footer>
+  <div style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="/workshop">The Factory</a> &middot; <a href="/playbooks">Playbooks</a> &middot; <a href="/services">Services</a> &middot; <a href="/tools">Tools</a> &middot; <a href="/notes">Notes</a> &middot; <a href="/about">About</a> &middot; <a href="/#contact">Contact</a></div>
+  &copy; 2026 Steven Seidenfaden Wensley. All rights reserved.
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Fallible in both directions",
+  "description": "We keep treating AI as a machine to be optimised toward perfection. It is a mirror — of the people it was trained on and the people it works with. Which means the refusal is no more trustworthy than the agreement.",
+  "datePublished": "2026-08-16",
+  "dateModified": "2026-08-16",
+  "author": { "@type": "Person", "name": "Steven Seidenfaden Wensley", "url": "https://stevenwensley.com/about" },
+  "publisher": { "@type": "Person", "name": "Steven Seidenfaden Wensley" },
+  "mainEntityOfPage": "https://stevenwensley.com/note-fallible-both-directions",
+  "citation": [
+    { "@type": "ScholarlyArticle", "name": "A controlled trial examining large language model conformity in psychiatric assessment using the Asch paradigm", "isPartOf": { "@type": "Periodical", "name": "BMC Psychiatry" }, "datePublished": "2025", "sameAs": "https://doi.org/10.1186/s12888-025-06912-2" },
+    { "@type": "ScholarlyArticle", "name": "Sycophantic AI decreases prosocial intentions and promotes dependence", "isPartOf": { "@type": "Periodical", "name": "Science" }, "datePublished": "2026-03-26", "sameAs": "https://doi.org/10.1126/science.aec8352" }
+  ]
+}
+</script>
+</body>
+</html>
