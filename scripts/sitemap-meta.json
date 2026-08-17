@@ -26,17 +26,17 @@
   },
   "/book-session": {
     "changefreq": "monthly",
-    "lastmod": "2026-08-14",
+    "lastmod": "2026-08-17",
     "priority": "0.8"
   },
   "/case-digital-delivery-platform": {
     "changefreq": "monthly",
-    "lastmod": "2026-07-17",
+    "lastmod": "2026-08-17",
     "priority": "0.8"
   },
   "/cost-of-delay": {
     "changefreq": "monthly",
-    "lastmod": "2026-07-14",
+    "lastmod": "2026-08-17",
     "priority": "0.8"
   },
   "/cost-of-inaction": {
@@ -61,7 +61,7 @@
   },
   "/glossary": {
     "changefreq": "monthly",
-    "lastmod": "2026-07-14",
+    "lastmod": "2026-08-17",
     "priority": "0.7"
   },
   "/hallucination-defence": {
@@ -71,7 +71,7 @@
   },
   "/index-da": {
     "changefreq": "monthly",
-    "lastmod": "2026-08-14",
+    "lastmod": "2026-08-17",
     "priority": "0.6"
   },
   "/insights": {
@@ -101,17 +101,17 @@
   },
   "/method": {
     "changefreq": "monthly",
-    "lastmod": "2026-07-14",
+    "lastmod": "2026-08-17",
     "priority": "0.8"
   },
   "/nis2-gap-assessment": {
     "changefreq": "monthly",
-    "lastmod": "2026-08-14",
+    "lastmod": "2026-08-17",
     "priority": "0.7"
   },
   "/nis2-implementation-roadmap": {
     "changefreq": "monthly",
-    "lastmod": "2026-08-14",
+    "lastmod": "2026-08-17",
     "priority": "0.7"
   },
   "/note-ai-pilot-lying": {
@@ -126,12 +126,12 @@
   },
   "/note-clever-children": {
     "changefreq": "monthly",
-    "lastmod": "2026-08-14",
+    "lastmod": "2026-08-17",
     "priority": "0.7"
   },
   "/note-done-dangerous-word": {
     "changefreq": "monthly",
-    "lastmod": "2026-07-17",
+    "lastmod": "2026-08-17",
     "priority": "0.7"
   },
   "/note-fallible-both-directions": {
@@ -141,12 +141,12 @@
   },
   "/note-nis2-ownership": {
     "changefreq": "monthly",
-    "lastmod": "2026-07-14",
+    "lastmod": "2026-08-17",
     "priority": "0.7"
   },
   "/note-one-agent-seven-hats": {
     "changefreq": "monthly",
-    "lastmod": "2026-07-17",
+    "lastmod": "2026-08-17",
     "priority": "0.7"
   },
   "/note-red-programme-first-days": {
@@ -161,7 +161,7 @@
   },
   "/notes": {
     "changefreq": "weekly",
-    "lastmod": "2026-07-14",
+    "lastmod": "2026-08-17",
     "priority": "0.7"
   },
   "/playbook-ai-initiative": {
