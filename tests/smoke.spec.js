@@ -10,12 +10,23 @@ const BASE_URL = process.env.BASE_URL || 'http://localhost:8080';
 // Fælles test-suite til alle BygMedAI-managed sites
 // ============================================================
 
+// Directories that hold generated copies of the site rather than the site
+// itself. _site is the publish directory assembled by scripts/build-publish.mjs;
+// without it here, anyone who ran that script before the tests got every page
+// discovered twice — once as `about.html` and once as `_site/about.html` — and
+// the second copy is requested at a URL the server does not serve. The run then
+// fails for reasons that have nothing to do with the site. CI never hit this
+// because _site is git-ignored and no CI job builds it before the smoke job,
+// which is exactly what made it a trap locally.
+const GENERATED_DIRS = new Set(['_site', 'test-results', 'playwright-report']);
+
 // Discover all HTML files in repo (skip backups and redirects)
 function discoverPages(dir, prefix = '') {
   const pages = [];
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   for (const entry of entries) {
     if (entry.name.startsWith('.') || entry.name === 'node_modules' || entry.name === 'src') continue;
+    if (prefix === '' && GENERATED_DIRS.has(entry.name)) continue;
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
       pages.push(...discoverPages(fullPath, prefix + entry.name + '/'));
