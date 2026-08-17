@@ -34,9 +34,10 @@
 //
 // Curated metadata (lastmod, changefreq, priority) lives in
 // scripts/sitemap-meta.json and is owned by a human. A page with no entry
-// still gets published to the sitemap — with defaults derived from its path
-// and its last git commit date — because a missing priority must never be
-// the reason a page goes unindexed.
+// still gets published to the sitemap — with defaults derived from its path,
+// and no lastmod at all — because a missing priority must never be the reason
+// a page goes unindexed. The output depends only on the working tree, never
+// on git history or the current date; see the note above urlFor().
 //
 // Usage:  node scripts/build-sitemap.mjs [--check]
 //         --check exits non-zero if the committed sitemap.xml differs from a
@@ -45,7 +46,6 @@
 //         rather than something that merely looks right.
 
 import { readFile, writeFile } from 'node:fs/promises';
-import { execFileSync } from 'node:child_process';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -60,19 +60,24 @@ const meta = JSON.parse(await readFile(join(ROOT, 'scripts/sitemap-meta.json'), 
 // Public URL for a published file. Extensionless — see note 1 above.
 const urlFor = (file) => (file === 'index.html' ? '/' : '/' + file.replace(/\.html$/, ''));
 
-// Last commit that touched the file. Falls back to today for anything not yet
-// committed, which only happens while authoring.
-const gitDate = (file) => {
-  try {
-    const out = execFileSync('git', ['log', '-1', '--format=%cs', '--', file], {
-      cwd: ROOT,
-      encoding: 'utf8',
-    }).trim();
-    return out || null;
-  } catch {
-    return null;
-  }
-};
+// There is deliberately no lastmod fallback. Two were tried and both were
+// wrong:
+//
+//   git log -1 -- <file>   Non-deterministic. GitHub Actions checks out with
+//                          fetch-depth 1, so the file's last commit is usually
+//                          not in the clone and the lookup returns nothing.
+//                          The gate then failed in CI while passing locally.
+//                          It was also dishonest: a site-wide sweep that
+//                          touched every file would restamp every article as
+//                          modified that day.
+//   new Date()             Makes the generator's output depend on the day it
+//                          runs, so a committed, gate-checked file disagrees
+//                          with itself tomorrow.
+//
+// lastmod is optional in the sitemap protocol. A page nobody has curated is
+// published without one rather than with an invented one — the articles carry
+// no publication date anywhere in the source, so there is nothing honest to
+// put there.
 
 // Defaults for a page nobody has curated. Deliberately unambitious: the point
 // is that the page is listed at all.
@@ -99,7 +104,7 @@ for (const file of files) {
   const d = defaultsFor(url);
   entries.push({
     loc: ORIGIN + url,
-    lastmod: curated?.lastmod ?? gitDate(file) ?? new Date().toISOString().slice(0, 10),
+    lastmod: curated?.lastmod ?? null,
     changefreq: curated?.changefreq ?? d.changefreq,
     priority: curated?.priority ?? d.priority,
   });
@@ -115,7 +120,7 @@ const xml =
       (e) =>
         '  <url>\n' +
         `    <loc>${e.loc}</loc>\n` +
-        `    <lastmod>${e.lastmod}</lastmod>\n` +
+        (e.lastmod ? `    <lastmod>${e.lastmod}</lastmod>\n` : '') +
         `    <changefreq>${e.changefreq}</changefreq>\n` +
         `    <priority>${e.priority}</priority>\n` +
         '  </url>\n'
