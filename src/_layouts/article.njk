@@ -76,7 +76,7 @@
       <p>{{ cta.body | safe }}</p>
       <div class="cta-buttons">
         {%- for btn in cta.buttons %}
-        <a href="{{ btn.href }}" class="{{ btn.class }}" onclick="{{ btn.onclick | safe }}">{{ btn.label | safe }}</a>
+        <a href="{{ btn.href }}" class="{{ btn.class }}">{{ btn.label | safe }}</a>
         {%- endfor %}
       </div>
       {%- if cta.divider %}

@@ -547,7 +547,6 @@
           }).catch(() => {});
           setShowPdfGate(false);
           downloadPDF();
-          if (typeof gtag !== 'undefined') gtag('event', 'tool_pdf_lead_captured', { event_category: 'lead', event_label: document.title });
         }
       };
 

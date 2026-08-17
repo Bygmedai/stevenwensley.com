@@ -438,7 +438,7 @@
 <div class="cta-section">
   <h2>Ready to assess your AI governance?</h2>
   <p>Take the free 30-question assessment and get a personalised radar chart of your organisation's readiness.</p>
-  <a href="/ai-governance-assessment" class="cta-btn" onclick="gtag('event','insights_cta_click')">
+  <a href="/ai-governance-assessment" class="cta-btn">
     Free Assessment
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
   </a>
@@ -460,7 +460,6 @@ function filterArticles(tag) {
       card.style.display = 'none';
     }
   });
-  gtag('event', 'insights_filter', { filter: tag });
 }
 </script>
 

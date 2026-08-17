@@ -476,7 +476,6 @@
         if (email && email.includes('@')) {
           // Already have email from earlier prompt
           generatePDF();
-          gtag('event', 'assessment_pdf_download', { event_category: 'lead' });
         } else {
           setShowPdfGate(true);
         }
@@ -498,7 +497,6 @@
           setEmail(pdfEmail);
           setShowPdfGate(false);
           generatePDF();
-          gtag('event', 'assessment_pdf_lead_captured', { event_category: 'lead' });
         }
       };
 
@@ -518,7 +516,6 @@
               ...dimScores
             })
           }).catch(() => {});
-          gtag('event', 'assessment_lead_captured', { event_category: 'lead', event_label: industry || 'unknown' });
         }
         setShowEmailPrompt(false);
         setShowResults(true);
