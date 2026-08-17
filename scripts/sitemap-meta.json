@@ -1,12 +1,12 @@
 {
   "/": {
     "changefreq": "weekly",
-    "lastmod": "2026-07-13",
+    "lastmod": "2026-08-17",
     "priority": "1.0"
   },
   "/about": {
     "changefreq": "monthly",
-    "lastmod": "2026-07-13",
+    "lastmod": "2026-08-17",
     "priority": "0.8"
   },
   "/ai-governance-assessment": {
@@ -16,7 +16,7 @@
   },
   "/ai-playbook": {
     "changefreq": "monthly",
-    "lastmod": "2026-07-17",
+    "lastmod": "2026-08-17",
     "priority": "0.9"
   },
   "/ai-readiness-scan": {
@@ -51,12 +51,12 @@
   },
   "/factory-journey": {
     "changefreq": "monthly",
-    "lastmod": "2026-08-14",
+    "lastmod": "2026-08-17",
     "priority": "0.9"
   },
   "/for-brokers": {
     "changefreq": "monthly",
-    "lastmod": "2026-07-14",
+    "lastmod": "2026-08-17",
     "priority": "0.9"
   },
   "/glossary": {
@@ -88,6 +88,11 @@
     "changefreq": "monthly",
     "lastmod": "2026-04-19",
     "priority": "0.5"
+  },
+  "/insights/five-signs-not-ready": {
+    "changefreq": "monthly",
+    "lastmod": "2026-08-17",
+    "priority": "0.7"
   },
   "/insights/pharma-lessons-for-ai-act": {
     "changefreq": "monthly",
@@ -161,7 +166,7 @@
   },
   "/playbook-ai-initiative": {
     "changefreq": "monthly",
-    "lastmod": "2026-07-17",
+    "lastmod": "2026-08-17",
     "priority": "0.9"
   },
   "/playbook-carveout-separation": {
@@ -186,12 +191,12 @@
   },
   "/playbooks": {
     "changefreq": "monthly",
-    "lastmod": "2026-07-13",
+    "lastmod": "2026-08-17",
     "priority": "0.9"
   },
   "/privacy": {
     "changefreq": "yearly",
-    "lastmod": "2026-07-13",
+    "lastmod": "2026-08-17",
     "priority": "0.2"
   },
   "/programme-health-check": {
@@ -201,7 +206,7 @@
   },
   "/regulatory-deadlines": {
     "changefreq": "monthly",
-    "lastmod": "2026-07-14",
+    "lastmod": "2026-08-17",
     "priority": "0.8"
   },
   "/roi-calculator": {
@@ -211,17 +216,17 @@
   },
   "/services": {
     "changefreq": "monthly",
-    "lastmod": "2026-08-14",
+    "lastmod": "2026-08-17",
     "priority": "0.9"
   },
   "/services-da": {
     "changefreq": "monthly",
-    "lastmod": "2026-08-14",
+    "lastmod": "2026-08-17",
     "priority": "0.9"
   },
   "/templates": {
     "changefreq": "monthly",
-    "lastmod": "2026-08-14",
+    "lastmod": "2026-08-17",
     "priority": "0.6"
   },
   "/tools": {
@@ -231,7 +236,7 @@
   },
   "/workshop": {
     "changefreq": "monthly",
-    "lastmod": "2026-07-15",
+    "lastmod": "2026-08-17",
     "priority": "0.9"
   }
 }

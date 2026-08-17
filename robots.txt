@@ -1,10 +1,9 @@
 # stevenwensley.com — crawler policy
-# Last reviewed: 2026-08-15
+# Last reviewed: 2026-08-17
 
 # ── Default: open to search engines ──
 User-agent: *
 Allow: /
-Disallow: /templates/
 
 # ── AI assistants answering a user's question, live ──
 # These fetch the site when someone asks an assistant a question.

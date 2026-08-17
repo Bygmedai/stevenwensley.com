@@ -296,7 +296,7 @@
   <div class="cta-section" id="cta-section" style="display:none;">
     <h3>Need help implementing NIS2?</h3>
     <p>18+ years managing compliance programmes in regulated environments. From gap assessment to board-level governance.</p>
-    <a href="/book-session" class="btn btn-gold gradient-animated" onclick="gtag('event','nis2_cta_click',{event_category:'NIS2 Assessment'})">Book a Free Session &rarr;</a>
+    <a href="/book-session" class="btn btn-gold gradient-animated">Book a Free Session &rarr;</a>
   </div>
 
 </div>
@@ -454,7 +454,6 @@ function init() {
   });
 
   updateProgress();
-  gtag('event', 'tool_start', { event_category: 'NIS2 Assessment', event_label: 'page_load' });
 }
 
 function selectOption(key, value, el) {
@@ -525,7 +524,6 @@ function showResults() {
     : overallPct < 75 ? 'Defined \u2014 Good progress, focused improvements needed'
     : 'Managed \u2014 Strong posture, continuous improvement recommended';
 
-  gtag('event', 'tool_complete', { event_category: 'NIS2 Assessment', event_label: maturity.split(' ')[0], value: overallPct });
 
   let html = `
     <div class="results-header">

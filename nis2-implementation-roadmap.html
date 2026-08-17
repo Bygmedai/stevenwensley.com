@@ -464,8 +464,6 @@ const sObs = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.phases-grid, .article-grid, .risks-grid').forEach(el => sObs.observe(el));
 
-// GA4 tracking
-gtag('event', 'roadmap_view', { event_category: 'NIS2', event_label: 'governance_roadmap' });
 </script>
 </body>
 </html>
