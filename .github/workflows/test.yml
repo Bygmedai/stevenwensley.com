@@ -79,6 +79,40 @@ jobs:
       - name: Verify the meta descriptions
         run: node scripts/build-meta.mjs --check
 
+  csp-report:
+    name: CSP Violation Report
+    # Non-blocking on purpose. The policy in _headers is report-only: it
+    # enforces nothing, so a violation here breaks no user's page today. What
+    # this job exists for is drift — someone adds a script from a new CDN, the
+    # policy silently starts reporting against it, and nobody finds out until
+    # the day the policy is switched to enforcing. This surfaces it that day
+    # instead.
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Assemble publish directory
+        run: node scripts/build-publish.mjs
+      - name: Prove the harness detects violations before trusting a clean run
+        # A run that reports zero violations means nothing unless a run against
+        # a policy that must fail reports some. Without this, "clean" and
+        # "broken detector" are the same output.
+        env:
+          CSP_OVERRIDE: "default-src 'none'"
+        run: |
+          if node scripts/csp-report.mjs --page /workshop; then
+            echo "::error::csp-report reported no violations against default-src 'none'. The detector is broken."
+            exit 1
+          fi
+          echo "Detector works: it fails against a policy that must fail."
+      - name: Report what the real policy would block
+        run: node scripts/csp-report.mjs
+
   html-validate:
     name: HTML Validation
     runs-on: ubuntu-latest
