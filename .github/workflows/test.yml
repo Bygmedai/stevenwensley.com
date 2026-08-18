@@ -53,6 +53,11 @@ jobs:
       # this gate existed.
       - name: Verify committed sitemap.xml matches a fresh generation
         run: node scripts/build-sitemap.mjs --check
+      # The factory numbers appear on nine pages. They are propagated from
+      # scripts/metrics.json by a script, so a hand-edit that touches one page
+      # and forgets the rest cannot pass silently.
+      - name: Verify the site matches scripts/metrics.json
+        run: node scripts/update-metrics.mjs --check
 
   html-validate:
     name: HTML Validation

@@ -1,0 +1,25 @@
+{
+  "_comment": "Factory metrics rendered on the site. Owned by scripts/update-metrics.mjs — edit through that, not by hand. `rendered` is the literal text currently present in the HTML; the updater uses it to find and replace, then rewrites it. If you hand-edit a number in a page, update `rendered` in the same commit or the next run will not find it.",
+  "measuredAt": "2026-08-18",
+  "window": {
+    "from": "2026-02-01",
+    "label": "since February 2026"
+  },
+  "method": "GitHub search API, org:Bygmedai, default branches only, private repositories included. Commits and pull requests counted from 2026-02-01; a search for commits before that date returns zero, which is what fixes February as the factory's start.",
+  "values": {
+    "commits": 5722,
+    "pullRequests": 3442,
+    "repositories": 48,
+    "solutions": 14
+  },
+  "rendered": {
+    "commits": "5,722",
+    "pullRequests": "3,442",
+    "repositories": "48",
+    "solutions": "14"
+  },
+  "notes": {
+    "solutions": "Not derivable from the API — it is a judgement about what counts as a client-facing delivery. Steven has said a 15th exists; it stays at 14 until someone enumerates them. Never auto-updated.",
+    "repositories": "48 is the exact count of repositories in the organisation. The site previously said 30+ as a deliberate lower bound."
+  }
+}
