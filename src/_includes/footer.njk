@@ -31,7 +31,16 @@
       </ul>
     </div>
   </div>
+  {# The canonical hub row. Every page on the site carries the same one — the
+     root pages get it from scripts/build-footer-nav.mjs, these ten templated
+     articles get it from here. It is deliberately the full list, including the
+     four hubs the columns above never mentioned: /workshop, /playbooks,
+     /tools, /notes and /glossary. Before this row existed, exactly one page in
+     the site linked to /insights and one to /glossary, and a crawler that
+     followed links found neither. Keep it in sync with LINKS in that script —
+     build-footer-nav.mjs --check reads these pages and fails if it drifts. -#}
   <div class="footer-bottom">
+    <div data-footer-nav style="margin-bottom: 1rem;"><a href="{{ site.url }}/">Home</a> &middot; <a href="{{ site.url }}/workshop">The Factory</a> &middot; <a href="{{ site.url }}/playbooks">Playbooks</a> &middot; <a href="{{ site.url }}/services">Services</a> &middot; <a href="{{ site.url }}/tools">Tools</a> &middot; <a href="{{ site.url }}/insights">Insights</a> &middot; <a href="{{ site.url }}/notes">Notes</a> &middot; <a href="{{ site.url }}/glossary">Glossary</a> &middot; <a href="{{ site.url }}/about">About</a> &middot; <a href="{{ site.url }}/#contact">Contact</a></div>
     <p>&copy; 2026 {{ site.name }}. All rights reserved.</p>
   </div>
 </footer>

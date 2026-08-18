@@ -1,16 +1,34 @@
 # Cloudflare Pages headers file.
 #
-# Inactive today: the live site is served by GitHub Pages, which cannot read
-# this file at all (and Jekyll excludes underscore-prefixed files from its
-# output anyway). It takes effect the moment Cloudflare Pages serves the site.
-#
-# Deliberately conservative — nothing here changes what a visitor sees or how
-# the pages behave. No CSP yet: the site loads GA4 and the Cloudflare Analytics
-# beacon from third-party origins, so a CSP needs its own change with its own
-# verification pass, not a line smuggled into a hosting migration.
+# Takes effect only when Cloudflare Pages serves the site. GitHub Pages could
+# not read this file at all, which is why it sat inert until the migration.
 
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
   X-Frame-Options: SAMEORIGIN
+  # Report-only on purpose. A Content-Security-Policy that is wrong takes the
+  # site down silently — scripts stop running, nobody sees an error page. In
+  # report-only mode the browser enforces nothing and logs violations to its
+  # console instead, so the policy can be proven against the real deployment
+  # before it is allowed to block anything. Flip the header name to
+  # Content-Security-Policy once a pass through the pages shows a clean console.
+  #
+  # Every origin below was measured against the assembled publish directory,
+  # not assumed:
+  #   fonts.googleapis.com     stylesheet
+  #   fonts.gstatic.com        font files
+  #   cdn.jsdelivr.net         gsap, ScrollTrigger, lenis, chart.js, jspdf
+  #   unpkg.com                react, react-dom, @babel/standalone
+  #   static.cloudflareinsights.com  analytics beacon
+  #   formspree.io             form submissions
+  #   calendly.com             booking embed
+  #
+  # 'unsafe-inline' is required and worth being honest about: the pages carry
+  # inline <style> blocks and 53 onclick attributes, and the tool pages compile
+  # JSX in the browser, which needs 'unsafe-eval' too. So this policy does not
+  # defend against injected inline script. What it does defend against is an
+  # attacker pointing the page at an origin that is not on this list — which is
+  # the realistic failure for a static site with third-party dependencies.
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://formspree.io https://cloudflareinsights.com https://static.cloudflareinsights.com; frame-src https://calendly.com; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; frame-ancestors 'self'
