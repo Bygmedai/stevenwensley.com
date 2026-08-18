@@ -1,25 +1,28 @@
 {
   "_comment": "Factory metrics rendered on the site. Owned by scripts/update-metrics.mjs — edit through that, not by hand. `rendered` is the literal text currently present in the HTML; the updater uses it to find and replace, then rewrites it. If you hand-edit a number in a page, update `rendered` in the same commit or the next run will not find it.",
   "measuredAt": "2026-08-18",
-  "window": {
-    "from": "2026-02-01",
-    "label": "since February 2026"
-  },
   "method": "GitHub search API, org:Bygmedai, default branches only, private repositories included. Commits and pull requests counted from 2026-02-01; a search for commits before that date returns zero, which is what fixes February as the factory's start.",
-  "values": {
-    "commits": 5722,
-    "pullRequests": 3442,
-    "repositories": 48,
-    "solutions": 14
+  "notes": {
+    "copyrightYear": "Appears in the footer of 49 pages. Not a metric, but the same problem: a value quoted everywhere that becomes wrong on a fixed date. The rendered string deliberately includes the name — the bare year appears 278 times across the site in article dates, JSON-LD and body copy, and replacing that would rewrite history rather than a footer.",
+    "repositories": "48 is the exact count of repositories in the organisation. The site previously said 30+ as a deliberate lower bound.",
+    "solutions": "Not derivable from the API — it is a judgement about what counts as a client-facing delivery. Steven has said a 15th exists; it stays at 14 until someone enumerates them. Never auto-updated."
   },
   "rendered": {
     "commits": "5,722",
+    "copyrightYear": "&copy; 2026 Steven Seidenfaden Wensley",
     "pullRequests": "3,442",
     "repositories": "48",
     "solutions": "14"
   },
-  "notes": {
-    "solutions": "Not derivable from the API — it is a judgement about what counts as a client-facing delivery. Steven has said a 15th exists; it stays at 14 until someone enumerates them. Never auto-updated.",
-    "repositories": "48 is the exact count of repositories in the organisation. The site previously said 30+ as a deliberate lower bound."
+  "values": {
+    "commits": 5722,
+    "copyrightYear": 2026,
+    "pullRequests": 3442,
+    "repositories": 48,
+    "solutions": 14
+  },
+  "window": {
+    "from": "2026-02-01",
+    "label": "since February 2026"
   }
 }

@@ -1,4 +1,4 @@
-name: Refresh factory metrics
+name: Refresh dated content
 
 # The commit and pull-request counts on the site went a month stale because
 # keeping them current depended on someone remembering. This measures the
@@ -16,7 +16,7 @@ name: Refresh factory metrics
 
 on:
   schedule:
-    - cron: '0 6 * * 1' # Mondays 06:00 UTC
+    - cron: '0 6 * * *' # Daily 06:00 UTC
   workflow_dispatch:
   # Runs when this workflow file itself lands on main, so merging a change to
   # it is the test of that change. No loop risk: the branch this workflow
@@ -61,6 +61,12 @@ jobs:
       - name: Propagate the numbers into the pages
         run: node scripts/update-metrics.mjs | tee -a "$GITHUB_STEP_SUMMARY"
 
+      # Statuses are arithmetic on dates, so they can go wrong on any morning,
+      # not just when someone edits the page. Daily is the point: a regulatory
+      # date passes on a Sunday and the tracker is right by Monday breakfast.
+      - name: Recompute the deadline tracker
+        run: node scripts/build-deadlines.mjs | tee -a "$GITHUB_STEP_SUMMARY"
+
       # The sitemap carries lastmod dates; if pages changed, it has to follow,
       # or the committed sitemap stops matching a fresh generation and the
       # Quality Gate fails on the next pull request instead of here.
@@ -90,6 +96,7 @@ jobs:
           git diff --exit-code --stat insights/
           node scripts/build-sitemap.mjs --check
           node scripts/update-metrics.mjs --check
+          node scripts/build-deadlines.mjs --check
           node scripts/build-publish.mjs
           npx html-validate "*.html" "insights/*.html"
 

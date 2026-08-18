@@ -11,10 +11,10 @@
     "test": "npx playwright test tests/ --reporter=list",
     "test:serve": "node scripts/serve-static.mjs . 8080 &",
     "test:screenshots": "npx playwright test tests/ --reporter=list --grep='Screenshots'",
-    "verify": "npm run build && git diff --exit-code insights/ && node scripts/build-sitemap.mjs --check && node scripts/build-publish.mjs && node scripts/update-metrics.mjs --check",
+    "verify": "npm run build && git diff --exit-code insights/ && node scripts/build-sitemap.mjs --check && node scripts/build-publish.mjs && node scripts/update-metrics.mjs --check && node scripts/build-deadlines.mjs --check",
     "build:sitemap": "node scripts/build-sitemap.mjs",
     "qa": "node scripts/build-publish.mjs && node scripts/qa-audit.mjs",
-    "metrics": "node scripts/fetch-metrics.mjs && node scripts/update-metrics.mjs && node scripts/build-sitemap.mjs"
+    "metrics": "node scripts/fetch-metrics.mjs && node scripts/update-metrics.mjs && node scripts/build-deadlines.mjs && node scripts/build-sitemap.mjs"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6",
