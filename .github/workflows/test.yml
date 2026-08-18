@@ -70,6 +70,14 @@ jobs:
       # carries the same row.
       - name: Verify every page carries the canonical footer navigation
         run: node scripts/build-footer-nav.mjs --check
+      # Google cuts the snippet around 155 characters. Twenty-nine
+      # descriptions were longer, and what got cut was the voice: workshop
+      # lost "with receipts", index lost "I navigate organisations through the
+      # AI transition". This fails on a description that is over the limit, on
+      # a page missing from the list, and on a page in the list that no longer
+      # exists.
+      - name: Verify the meta descriptions
+        run: node scripts/build-meta.mjs --check
 
   html-validate:
     name: HTML Validation
