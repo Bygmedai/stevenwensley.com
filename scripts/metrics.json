@@ -1,25 +1,56 @@
 {
   "_comment": "Factory metrics rendered on the site. Owned by scripts/update-metrics.mjs — edit through that, not by hand. `rendered` is the literal text currently present in the HTML; the updater uses it to find and replace, then rewrites it. If you hand-edit a number in a page, update `rendered` in the same commit or the next run will not find it.",
-  "measuredAt": "2026-08-18",
-  "window": {
-    "from": "2026-02-01",
-    "label": "since February 2026"
+  "expectedHits": {
+    "commits": 14,
+    "copyrightYear": 46,
+    "inkandartCommits": 1,
+    "inkandartPullRequests": 1,
+    "pullRequests": 6,
+    "repositories": 1
   },
+  "measuredAt": "2026-08-18",
   "method": "GitHub search API, org:Bygmedai, default branches only, private repositories included. Commits and pull requests counted from 2026-02-01; a search for commits before that date returns zero, which is what fixes February as the factory's start.",
-  "values": {
-    "commits": 5722,
-    "pullRequests": 3442,
-    "repositories": 48,
-    "solutions": 14
+  "neverSeparate": [
+    "copyrightYear"
+  ],
+  "notes": {
+    "copyrightYear": "Appears in the footer of 49 pages. Not a metric, but the same problem: a value quoted everywhere that becomes wrong on a fixed date. The rendered string deliberately includes the name — the bare year appears 278 times across the site in article dates, JSON-LD and body copy, and replacing that would rewrite history rather than a footer.",
+    "inkandartCommits": "Bygmedai/inkandart.dk + Bygmedai/inkandart-webshop, committer-date >= 2026-05-01.",
+    "inkandartPullRequests": "Same two repositories. Replaces a hedged '200+' with the counted figure — the page beside it says 'counted, not rounded'.",
+    "neverSeparate": "A year is not a quantity. Without this, 2026 rendered as '2,026' in 46 footers.",
+    "rendered": "Every entry must be unique enough to identify exactly one claim. A bare number is not: replacing '48' rewrote 196 unrelated numbers across 25 files — dates, colour values — before expectedHits existed to stop it.",
+    "repositories": "Counted with archived:false. The site says 'in active development', and 27 of the organisation's 48 repositories are archived — so 48 was the wrong number for that sentence. Changing 30+ to 48 made the claim less true, not more.",
+    "solutions": "15 as of 18 August 2026, confirmed by Steven, who also archived one. Still never auto-updated: what counts as a client-facing delivery is a judgement, not a query."
   },
   "rendered": {
     "commits": "5,722",
+    "copyrightYear": "&copy; 2026 Steven Seidenfaden Wensley",
+    "inkandartCommits": "379 commits",
+    "inkandartPullRequests": "252 pull requests",
     "pullRequests": "3,442",
-    "repositories": "48",
-    "solutions": "14"
+    "repositories": "21</div><div class=\"l\">repositories in active development",
+    "solutions": "15"
   },
-  "notes": {
-    "solutions": "Not derivable from the API — it is a judgement about what counts as a client-facing delivery. Steven has said a 15th exists; it stays at 14 until someone enumerates them. Never auto-updated.",
-    "repositories": "48 is the exact count of repositories in the organisation. The site previously said 30+ as a deliberate lower bound."
+  "templates": {
+    "commits": "{}",
+    "copyrightYear": "&copy; {} Steven Seidenfaden Wensley",
+    "inkandartCommits": "{} commits",
+    "inkandartPullRequests": "{} pull requests",
+    "pullRequests": "{}",
+    "repositories": "{}</div><div class=\"l\">repositories in active development"
+  },
+  "values": {
+    "commits": 5722,
+    "copyrightYear": 2026,
+    "inkandartCommits": 379,
+    "inkandartPullRequests": 252,
+    "pullRequests": 3442,
+    "repositories": 21,
+    "solutions": 15
+  },
+  "window": {
+    "from": "2026-02-01",
+    "inkandartFrom": "2026-05-01",
+    "label": "since February 2026"
   }
 }

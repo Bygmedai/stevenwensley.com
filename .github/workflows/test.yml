@@ -58,6 +58,11 @@ jobs:
       # and forgets the rest cannot pass silently.
       - name: Verify the site matches scripts/metrics.json
         run: node scripts/update-metrics.mjs --check
+      # The deadline tracker's statuses are computed from the dates in its own
+      # rows. On 17 August a row still said "Upcoming" for a date that passed
+      # on 2 August — on the one page whose entire job is knowing that.
+      - name: Verify the deadline tracker is current
+        run: node scripts/build-deadlines.mjs --check
 
   html-validate:
     name: HTML Validation

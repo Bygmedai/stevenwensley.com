@@ -51,27 +51,44 @@ const q = (s) => encodeURIComponent(s);
 const metrics = JSON.parse(await readFile(METRICS, 'utf8'));
 const from = metrics.window.from;
 
-const [commits, prs, repos] = await Promise.all([
+// Ink & Art is the one client build the site names, so its figures sit beside
+// the factory's and drift the same way.
+const INKANDART = 'repo:Bygmedai/inkandart.dk repo:Bygmedai/inkandart-webshop';
+const inkFrom = metrics.window.inkandartFrom;
+
+const [commits, prs, repos, inkCommits, inkPrs] = await Promise.all([
   api(`/search/commits?q=${q(`org:${ORG} committer-date:>=${from}`)}&per_page=1`),
   api(`/search/issues?q=${q(`org:${ORG} is:pr created:>=${from}`)}&per_page=1`),
-  api(`/search/repositories?q=${q(`org:${ORG}`)}&per_page=1`),
+  // archived:false, not the bare org query. The site says "repositories in
+  // active development", and 27 of the 48 repositories are archived — so the
+  // total was the wrong number for that sentence.
+  api(`/search/repositories?q=${q(`org:${ORG} archived:false`)}&per_page=1`),
+  api(`/search/commits?q=${q(`${INKANDART} committer-date:>=${inkFrom}`)}&per_page=1`),
+  api(`/search/issues?q=${q(`${INKANDART} is:pr created:>=${inkFrom}`)}&per_page=1`),
 ]);
 
 const next = {
   commits: commits.total_count,
   pullRequests: prs.total_count,
   repositories: repos.total_count,
+  inkandartCommits: inkCommits.total_count,
+  inkandartPullRequests: inkPrs.total_count,
+  // Never measured: what counts as a client-facing delivery is a judgement.
+  // Steven confirmed 15 on 18 August, having archived one.
   solutions: metrics.values.solutions,
+  copyrightYear: metrics.values.copyrightYear,
 };
 
 // A measurement that goes backwards means the token lost visibility of some
 // repositories, not that work was deleted. Publishing a lower number would
 // quietly understate the site's central claim, so refuse instead.
-for (const k of ['commits', 'pullRequests']) {
+for (const k of ['commits', 'pullRequests', 'inkandartCommits', 'inkandartPullRequests']) {
   if (next[k] < metrics.values[k]) {
     console.error(
       `fetch-metrics: FEJL — ${k} faldt fra ${metrics.values[k]} til ${next[k]}.\n` +
-        '  Det sker ikke af sig selv. Tjek at token stadig kan se alle repoer.'
+        '  Commits og pull requests går ikke ned af sig selv. Tjek at token\n' +
+        '  stadig kan se alle repoer. (repositories er med vilje undtaget:\n' +
+        '  det tal falder helt legitimt, når noget bliver arkiveret.)'
     );
     process.exit(1);
   }

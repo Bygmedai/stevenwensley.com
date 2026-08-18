@@ -1,6 +1,6 @@
 # Steven Wensley — stevenwensley.com
 
-> Senior IT programme leader (18 years, regulated industries: pharma/GxP, finance/NIS2/DORA, telecom, public sector) who runs his own AI software factory — 5,722 commits and 14 client-facing solutions since February 2026. Based in Copenhagen, Denmark. Works in Danish and English. Helps organisations take AI initiatives from pilot to production with enforced governance. Available now, via broker or direct.
+> Senior IT programme leader (18 years, regulated industries: pharma/GxP, finance/NIS2/DORA, telecom, public sector) who runs his own AI software factory — 5,722 commits and 15 client-facing solutions since February 2026. Based in Copenhagen, Denmark. Works in Danish and English. Helps organisations take AI initiatives from pilot to production with enforced governance. Available now, via broker or direct.
 
 ## Core pages
 - [The Factory](https://stevenwensley.com/workshop): How the one-man AI factory works — multi-agent orchestration, human-in-the-loop, enforced quality gates, measured output statistics.
