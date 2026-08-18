@@ -1,37 +1,40 @@
 name: Refresh factory metrics
 
 # The commit and pull-request counts on the site went a month stale because
-# keeping them current depended on someone remembering. This runs weekly,
-# measures the org, writes the numbers into the pages and commits the result —
-# which redeploys the site through Cloudflare Pages like any other push.
+# keeping them current depended on someone remembering. This measures the
+# organisation, writes the numbers into the pages, and opens a pull request
+# with the result.
+#
+# It opens a pull request rather than pushing, because main is protected and
+# the repository's own rule is that everything lands through review. The first
+# version of this workflow pushed straight to main and was rejected on the
+# first run — by exactly the gate that is supposed to reject it.
 #
 # Requires the FACTORY_METRICS_TOKEN secret: a fine-grained PAT with read-only
 # access to the Bygmedai organisation including private repositories. Without
-# it the fetch step exits cleanly and nothing changes, so the workflow is safe
-# to merge before the secret exists.
+# it the fetch step exits cleanly and nothing changes.
 
 on:
   schedule:
     - cron: '0 6 * * 1' # Mondays 06:00 UTC
   workflow_dispatch:
-  # Runs when this workflow file itself lands on main. That makes merging the
-  # change the test of the change: the token, the scopes, the API calls and the
-  # commit step all get exercised immediately, instead of the first real
-  # evidence arriving on a Monday six days later.
-  #
-  # No loop risk. The commit this workflow makes touches metrics.json, the
-  # pages and sitemap.xml — never this file — so it cannot retrigger itself.
+  # Runs when this workflow file itself lands on main, so merging a change to
+  # it is the test of that change. No loop risk: the branch this workflow
+  # pushes never contains this file.
   push:
     branches: [main]
     paths: ['.github/workflows/metrics.yml']
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   refresh:
-    name: Measure and propagate
+    name: Measure and propose
     runs-on: ubuntu-latest
+    env:
+      BRANCH: metrics/auto-refresh
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
@@ -56,7 +59,7 @@ jobs:
         run: node scripts/fetch-metrics.mjs | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: Propagate the numbers into the pages
-        run: node scripts/update-metrics.mjs
+        run: node scripts/update-metrics.mjs | tee -a "$GITHUB_STEP_SUMMARY"
 
       # The sitemap carries lastmod dates; if pages changed, it has to follow,
       # or the committed sitemap stops matching a fresh generation and the
@@ -64,17 +67,59 @@ jobs:
       - name: Regenerate sitemap
         run: node scripts/build-sitemap.mjs
 
-      - name: Commit if anything moved
+      - name: Stop here if nothing moved
+        id: diff
         run: |
           if git diff --quiet; then
             echo "Nothing changed."
-            exit 0
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+
+      # A pull request created with GITHUB_TOKEN does not trigger the Quality
+      # Gate — GitHub refuses to start workflows from workflow-created events,
+      # to stop runaway loops. So the gate's own checks run here instead, and
+      # the pull request says so. Without this the change would arrive with no
+      # verification at all, which is worse than an unusual place to run it.
+      - name: Run the same checks the Quality Gate would
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          npm ci
+          npm run build
+          git diff --exit-code --stat insights/
+          node scripts/build-sitemap.mjs --check
+          node scripts/update-metrics.mjs --check
+          node scripts/build-publish.mjs
+          npx html-validate "*.html" "insights/*.html"
+
+      - name: Open or update the pull request
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$BRANCH"
           git add -A
           git commit -m "Refresh factory metrics
 
-          Automated weekly measurement via scripts/fetch-metrics.mjs.
+          Automated measurement via scripts/fetch-metrics.mjs.
           Method: GitHub search API, org-scoped, default branches only."
-          git push
+          git push --force-with-lease -u origin "$BRANCH"
+
+          if [ -z "$(gh pr list --head "$BRANCH" --state open --json number --jq '.[].number')" ]; then
+            gh pr create \
+              --base main --head "$BRANCH" \
+              --title "Refresh factory metrics" \
+              --body "Automated measurement of the Bygmedai organisation, propagated into every page that quotes the figures.
+
+          Method: GitHub search API, org-scoped, default branches only, private repositories included — identical to the measurement the site documents.
+
+          The Quality Gate does not run on this pull request: GitHub does not start workflows from events created by \`GITHUB_TOKEN\`. Its checks were run inside the metrics workflow instead — Eleventy build, committed \`/insights/\` match, sitemap \`--check\`, metrics \`--check\`, publish directory, and \`html-validate\`. See the run linked from this branch.
+
+          Numbers only. No copy, structure or layout changes."
+          else
+            echo "Pull request already open for $BRANCH — updated it."
+          fi
+          gh pr list --head "$BRANCH" --state open --json number,url --jq '.[] | "PR #\(.number): \(.url)"' >> "$GITHUB_STEP_SUMMARY"
