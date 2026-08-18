@@ -47,9 +47,19 @@ const METRICS = join(ROOT, 'scripts/metrics.json');
 // Metrics that are safe to propagate automatically. `solutions` is deliberately
 // absent: it is a judgement about what counts as a client-facing delivery, not
 // something the API can answer.
-const AUTO = ['commits', 'pullRequests', 'repositories'];
+const AUTO = [
+  'commits',
+  'pullRequests',
+  'repositories',
+  'inkandartCommits',
+  'inkandartPullRequests',
+  'copyrightYear',
+];
 
-const fmt = (n) => n.toLocaleString('en-GB'); // 5722 -> "5,722"
+// Counts over a thousand read better separated. Years never do — 2026 as
+// "2,026" got into 46 footers before neverSeparate existed.
+const sep = (key, n) =>
+  n >= 1000 && !metrics.neverSeparate.includes(key) ? n.toLocaleString('en-GB') : String(n);
 
 const SKIP_DIRS = new Set(['node_modules', '_site', 'src', 'tests', 'scripts', '.git', '.github']);
 
@@ -71,7 +81,7 @@ const files = await collectFiles();
 const plan = [];
 for (const key of AUTO) {
   const from = metrics.rendered[key];
-  const to = key === 'repositories' ? String(metrics.values[key]) : fmt(metrics.values[key]);
+  const to = metrics.templates[key].replace('{}', sep(key, metrics.values[key]));
   if (from !== to) plan.push({ key, from, to });
 }
 
@@ -98,13 +108,22 @@ for (const f of files) {
   if (text !== original) touched.set(f, text);
 }
 
-// A metric that matches nothing means the site no longer says what
-// metrics.json thinks it says. Stop rather than drift further apart.
-const missing = plan.filter((p) => perMetric[p.key] === 0);
-if (missing.length) {
-  console.error('update-metrics: FEJL — disse værdier findes ikke i nogen fil:');
-  for (const m of missing) console.error(`  ${m.key}: forventede at finde "${m.from}"`);
-  console.error('  Ret "rendered" i scripts/metrics.json til det siden faktisk siger.');
+// Two ways this goes wrong, both stopped before anything is written. Matching
+// nothing means the site no longer says what metrics.json thinks it says.
+// Matching more than expected means the search string was not unique —
+// replacing a bare "48" once rewrote 196 unrelated numbers across 25 files,
+// including dates and colour values, because 48 is just a number that turns up
+// in a lot of places.
+const wrong = plan.filter((p) => perMetric[p.key] !== metrics.expectedHits[p.key]);
+if (wrong.length) {
+  console.error('update-metrics: FEJL — uventet antal forekomster, intet skrevet:');
+  for (const w of wrong) {
+    console.error(
+      `  ${w.key}: fandt ${perMetric[w.key]}, forventede ${metrics.expectedHits[w.key]}` +
+        ` — søgte efter "${String(w.from).slice(0, 60)}"`
+    );
+  }
+  console.error('  Ret rendered/expectedHits i scripts/metrics.json, eller gør strengen entydig.');
   process.exit(1);
 }
 
