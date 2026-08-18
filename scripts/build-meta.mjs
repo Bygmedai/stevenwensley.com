@@ -37,11 +37,45 @@ import { fileURLToPath } from 'node:url';
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const CHECK = process.argv.includes('--check');
 
+// Figures come from scripts/metrics.json, written as {commits} and resolved
+// here — never typed into meta-descriptions.json as literals.
+//
+// The first version of this script did type them as literals, and that was a
+// bug with no gate to catch it. update-metrics.mjs replaces "5,722" wherever
+// it appears, including inside a meta description; this script then wrote the
+// literal back from its own file. Running both, in the order the daily
+// workflow runs them, left index.html saying 5,999 in its body and 5,722 in
+// its description — and BOTH --check modes passed, because update-metrics
+// compares metrics.json against itself and this script compared the page
+// against a stale literal. A page that contradicted itself was the one thing
+// neither gate could see.
+const metrics = JSON.parse(await readFile(join(ROOT, 'scripts/metrics.json'), 'utf8'));
+
+// Identical formatting to update-metrics.mjs, or the two would resolve the
+// same figure to different text and fight forever.
+const fmt = (key, n) =>
+  n >= 1000 && !metrics.neverSeparate.includes(key) ? n.toLocaleString('en-GB') : String(n);
+
+const resolve = (s) =>
+  s.replace(/\{(\w+)\}/g, (whole, key) => {
+    if (!(key in metrics.values)) {
+      console.error(`build-meta: FEJL — ukendt tal "${whole}" i meta-descriptions.json.`);
+      console.error(`  Kendte: ${Object.keys(metrics.values).join(', ')}`);
+      process.exit(1);
+    }
+    return fmt(key, metrics.values[key]);
+  });
+
 // The working limit. Not a law — Google measures width, not characters — but
 // a description under this is one whose ending is never a guess.
 const CUT = 155;
 
-const wanted = JSON.parse(await readFile(join(ROOT, 'scripts/meta-descriptions.json'), 'utf8'));
+const authored = JSON.parse(await readFile(join(ROOT, 'scripts/meta-descriptions.json'), 'utf8'));
+
+// Resolve placeholders once. Everything downstream — the length check, the
+// comparison against the page, what gets written — works on the resolved
+// text, because that is what a reader and a crawler actually see.
+const wanted = Object.fromEntries(Object.entries(authored).map(([f, d]) => [f, resolve(d)]));
 
 // Entities are how the character count lies. "&#39;" is one apostrophe on
 // screen and five characters in the file, so length has to be measured after

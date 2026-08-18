@@ -54,6 +54,8 @@ const AUTO = [
   'inkandartCommits',
   'inkandartPullRequests',
   'copyrightYear',
+  'yearsExperience',
+  'yearsExperienceDa',
 ];
 
 // Counts over a thousand read better separated. Years never do — 2026 as
@@ -76,6 +78,27 @@ async function collectFiles(dir = ROOT, rel = '') {
 
 const check = process.argv.includes('--check');
 const metrics = JSON.parse(await readFile(METRICS, 'utf8'));
+
+// Two values here are not measured, they are arithmetic on today's date, and
+// both were previously typed by hand.
+//
+// copyrightYear sat in metrics.json as a literal 2026 that nothing
+// recomputed. It was correct, and would have become wrong in every footer on
+// the site at midnight on 1 January with no gate noticing — the same failure
+// as the availability date, just eleven weeks further out.
+//
+// yearsExperience is worse, because the site had four answers to one
+// question: "18 years" in 21 places, "18+ years" in 17, "20+ års erfaring" on
+// the Danish page and "20+ years of experience" on book-session. Steven
+// started in 2006, so the true figure is a subtraction. Writing 20 by hand
+// would only have moved the wrongness to next January.
+//
+// METRICS_YEAR overrides the year so the behaviour on a future 1 January can
+// be tested today rather than believed.
+const YEAR = Number(process.env.METRICS_YEAR) || new Date().getUTCFullYear();
+metrics.values.copyrightYear = YEAR;
+metrics.values.yearsExperience = YEAR - metrics.careerStart;
+metrics.values.yearsExperienceDa = YEAR - metrics.careerStart;
 const files = await collectFiles();
 
 const plan = [];
@@ -85,8 +108,36 @@ for (const key of AUTO) {
   if (from !== to) plan.push({ key, from, to });
 }
 
+// When nothing needs replacing, the old version stopped here and reported
+// success. That was a check of metrics.json against itself: it never looked
+// at a page. So the site could drift arbitrarily far from `rendered` and this
+// would keep saying "HTML matcher metrics.json" — which it had not verified.
+//
+// It hid a real one. Giving eight tool pages a footer took copyrightYear from
+// 46 occurrences to 54 while expectedHits still said 46, and nothing noticed,
+// because a count is only taken when a value changes. The first time it would
+// have mattered was 1 January, when every footer on the site needed rewriting
+// and this script would have refused the whole batch over the mismatch.
 if (plan.length === 0) {
-  console.log('update-metrics: intet at opdatere — HTML matcher metrics.json');
+  const stale = [];
+  for (const key of AUTO) {
+    let found = 0;
+    for (const f of files) found += (await readFile(join(ROOT, f), 'utf8')).split(metrics.rendered[key]).length - 1;
+    if (found !== metrics.expectedHits[key]) stale.push({ key, found });
+  }
+  if (stale.length) {
+    console.error('update-metrics: FEJL — metrics.json beskriver ikke siden længere:');
+    for (const s of stale) {
+      console.error(
+        `  ${s.key}: fandt ${s.found} forekomst(er), expectedHits siger ${metrics.expectedHits[s.key]}` +
+          ` — søgte efter "${String(metrics.rendered[s.key]).slice(0, 60)}"`
+      );
+    }
+    console.error('\n  Tallene er ikke forkerte endnu. Men næste gang en værdi ændrer sig,');
+    console.error('  afviser scriptet hele batchen — og det sker typisk 1. januar.');
+    process.exit(1);
+  }
+  console.log(`update-metrics: intet at opdatere — ${AUTO.length} tal verificeret mod ${files.length} filer`);
   process.exit(0);
 }
 
