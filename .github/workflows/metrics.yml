@@ -109,6 +109,7 @@ jobs:
           node scripts/build-deadlines.mjs --check
           node scripts/build-footer-nav.mjs --check
           node scripts/build-meta.mjs --check
+          node scripts/check-no-stale-dates.mjs
           node scripts/build-publish.mjs
           npx html-validate "*.html" "insights/*.html"
 

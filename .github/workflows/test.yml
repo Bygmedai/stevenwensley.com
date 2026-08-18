@@ -78,6 +78,13 @@ jobs:
       # exists.
       - name: Verify the meta descriptions
         run: node scripts/build-meta.mjs --check
+      # The Danish front page said "Ledig fra 15. juli 2026" for a month after
+      # that date passed — in six places, including a green pulsing "available"
+      # badge — and carried a freshness stamp two months out of date. Both were
+      # true when written. That is the failure mode: correct on the day it is
+      # typed, silently wrong every day after, and nothing in a build notices.
+      - name: Verify no page states availability or freshness as a fixed date
+        run: node scripts/check-no-stale-dates.mjs
 
   csp-report:
     name: CSP Violation Report
