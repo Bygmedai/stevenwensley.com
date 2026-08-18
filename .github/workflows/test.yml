@@ -63,6 +63,13 @@ jobs:
       # on 2 August — on the one page whose entire job is knowing that.
       - name: Verify the deadline tracker is current
         run: node scripts/build-deadlines.mjs --check
+      # A crawler finds pages by following links. Before the canonical footer
+      # row, one page in the whole site linked to /insights and one to
+      # /glossary, and eight tool pages — the likeliest first landing from a
+      # search result — had no footer at all. This asserts every page still
+      # carries the same row.
+      - name: Verify every page carries the canonical footer navigation
+        run: node scripts/build-footer-nav.mjs --check
 
   html-validate:
     name: HTML Validation

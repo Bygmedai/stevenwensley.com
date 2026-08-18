@@ -67,6 +67,13 @@ jobs:
       - name: Recompute the deadline tracker
         run: node scripts/build-deadlines.mjs | tee -a "$GITHUB_STEP_SUMMARY"
 
+      # Nothing above adds pages, so this is normally a no-op. It runs here so
+      # a page added by hand between refreshes gets the row without waiting for
+      # someone to notice — and so the check below cannot fail on something
+      # this job could have fixed itself.
+      - name: Ensure every page carries the canonical footer navigation
+        run: node scripts/build-footer-nav.mjs | tee -a "$GITHUB_STEP_SUMMARY"
+
       # The sitemap carries lastmod dates; if pages changed, it has to follow,
       # or the committed sitemap stops matching a fresh generation and the
       # Quality Gate fails on the next pull request instead of here.
@@ -97,6 +104,7 @@ jobs:
           node scripts/build-sitemap.mjs --check
           node scripts/update-metrics.mjs --check
           node scripts/build-deadlines.mjs --check
+          node scripts/build-footer-nav.mjs --check
           node scripts/build-publish.mjs
           npx html-validate "*.html" "insights/*.html"
 
