@@ -74,6 +74,9 @@ jobs:
       - name: Ensure every page carries the canonical footer navigation
         run: node scripts/build-footer-nav.mjs | tee -a "$GITHUB_STEP_SUMMARY"
 
+      - name: Ensure the meta descriptions are the canonical ones
+        run: node scripts/build-meta.mjs | tee -a "$GITHUB_STEP_SUMMARY"
+
       # The sitemap carries lastmod dates; if pages changed, it has to follow,
       # or the committed sitemap stops matching a fresh generation and the
       # Quality Gate fails on the next pull request instead of here.
@@ -105,6 +108,7 @@ jobs:
           node scripts/update-metrics.mjs --check
           node scripts/build-deadlines.mjs --check
           node scripts/build-footer-nav.mjs --check
+          node scripts/build-meta.mjs --check
           node scripts/build-publish.mjs
           npx html-validate "*.html" "insights/*.html"
 
@@ -131,7 +135,7 @@ jobs:
 
           Method: GitHub search API, org-scoped, default branches only, private repositories included — identical to the measurement the site documents.
 
-          The Quality Gate does not run on this pull request: GitHub does not start workflows from events created by \`GITHUB_TOKEN\`. Its checks were run inside the metrics workflow instead — Eleventy build, committed \`/insights/\` match, sitemap \`--check\`, metrics \`--check\`, publish directory, and \`html-validate\`. See the run linked from this branch.
+          The Quality Gate does not run on this pull request: GitHub does not start workflows from events created by \`GITHUB_TOKEN\`. Its checks were run inside the metrics workflow instead — Eleventy build, committed \`/insights/\` match, and \`--check\` on sitemap, metrics, deadlines, footer navigation and meta descriptions, plus the publish directory and \`html-validate\`. See the run linked from this branch.
 
           Numbers only. No copy, structure or layout changes."
           else
