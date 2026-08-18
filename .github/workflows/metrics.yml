@@ -14,6 +14,16 @@ on:
   schedule:
     - cron: '0 6 * * 1' # Mondays 06:00 UTC
   workflow_dispatch:
+  # Runs when this workflow file itself lands on main. That makes merging the
+  # change the test of the change: the token, the scopes, the API calls and the
+  # commit step all get exercised immediately, instead of the first real
+  # evidence arriving on a Monday six days later.
+  #
+  # No loop risk. The commit this workflow makes touches metrics.json, the
+  # pages and sitemap.xml — never this file — so it cannot retrigger itself.
+  push:
+    branches: [main]
+    paths: ['.github/workflows/metrics.yml']
 
 permissions:
   contents: write
@@ -28,10 +38,22 @@ jobs:
         with:
           node-version: 20
 
+      - name: Check the secret is present
+        # Named separately so the answer to "is the token wired up?" is visible
+        # in the job list without opening a log.
+        run: |
+          if [ -z "${{ secrets.FACTORY_METRICS_TOKEN }}" ]; then
+            echo "::warning::FACTORY_METRICS_TOKEN is not set — the run will change nothing."
+            echo "secret=absent" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "FACTORY_METRICS_TOKEN is set."
+            echo "secret=present" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - name: Measure the organisation
         env:
           FACTORY_METRICS_TOKEN: ${{ secrets.FACTORY_METRICS_TOKEN }}
-        run: node scripts/fetch-metrics.mjs
+        run: node scripts/fetch-metrics.mjs | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: Propagate the numbers into the pages
         run: node scripts/update-metrics.mjs
