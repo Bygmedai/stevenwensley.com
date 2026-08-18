@@ -1,0 +1,58 @@
+name: Refresh factory metrics
+
+# The commit and pull-request counts on the site went a month stale because
+# keeping them current depended on someone remembering. This runs weekly,
+# measures the org, writes the numbers into the pages and commits the result —
+# which redeploys the site through Cloudflare Pages like any other push.
+#
+# Requires the GITHUB_METRICS_TOKEN secret: a fine-grained PAT with read-only
+# access to the Bygmedai organisation including private repositories. Without
+# it the fetch step exits cleanly and nothing changes, so the workflow is safe
+# to merge before the secret exists.
+
+on:
+  schedule:
+    - cron: '0 6 * * 1' # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    name: Measure and propagate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+
+      - name: Measure the organisation
+        env:
+          GITHUB_METRICS_TOKEN: ${{ secrets.GITHUB_METRICS_TOKEN }}
+        run: node scripts/fetch-metrics.mjs
+
+      - name: Propagate the numbers into the pages
+        run: node scripts/update-metrics.mjs
+
+      # The sitemap carries lastmod dates; if pages changed, it has to follow,
+      # or the committed sitemap stops matching a fresh generation and the
+      # Quality Gate fails on the next pull request instead of here.
+      - name: Regenerate sitemap
+        run: node scripts/build-sitemap.mjs
+
+      - name: Commit if anything moved
+        run: |
+          if git diff --quiet; then
+            echo "Nothing changed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Refresh factory metrics
+
+          Automated weekly measurement via scripts/fetch-metrics.mjs.
+          Method: GitHub search API, org-scoped, default branches only."
+          git push
