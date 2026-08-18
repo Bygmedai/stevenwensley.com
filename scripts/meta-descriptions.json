@@ -1,6 +1,6 @@
 {
   "404.html": "That page does not exist. Nothing dramatic — here is the way back to the rest of the site.",
-  "about.html": "Steven Seidenfaden Wensley, senior IT programme and transition manager in Copenhagen. 18+ years across pharma, finance, telecom and Danish public sector.",
+  "about.html": "Steven Seidenfaden Wensley, senior IT programme and transition manager in Copenhagen. {yearsExperience} years across pharma, finance, telecom and Danish public sector.",
   "ai-governance-assessment.html": "Er I klar til EU AI Act — eller tror I bare, I er? 30 spørgsmål, 6 dimensioner, 5 minutter. Gratis, ingen mail, intet gemmes.",
   "ai-playbook.html": "Seven chapters on adopting AI with control: false speed, honest pilots, enforced rails, the AI org chart, real failure patterns. Written from running one.",
   "ai-readiness-scan.html": "Er I klar til AI? Ti spørgsmål, fem minutter, et ærligt trafiklys til sidst. Gratis, ingen mail, intet gemmes.",
@@ -14,7 +14,7 @@
   "glossary.html": "Plain English for the terms that run regulated IT programmes: NIS2, DORA, GxP, Annex 11, ALCOA+, TSA, Day 1, cutover, hypercare, decision rights.",
   "hallucination-defence.html": "AI’s danger is not being wrong. It is sounding right while wrong. Four mechanical controls and ten real failure patterns from a production AI factory.",
   "index-da.html": "Senior IT projekt- og transition manager. Jeg overtager komplekse, strandede programmer i regulerede miljøer og leverer dem. NIS2, GxP, DORA. København.",
-  "index.html": "I navigate organisations through the AI transition. 18 years in regulated IT, plus a one-man AI factory with 5,722 commits. Copenhagen.",
+  "index.html": "I navigate organisations through the AI transition. {yearsExperience} years in regulated IT, plus a one-man AI factory with {commits} commits. Copenhagen.",
   "insights.html": "Longer pieces on AI governance, the EU AI Act and running programmes in regulated environments. Written from delivery, not from the sidelines.",
   "method.html": "Control, Stabilise, Correct — the turnaround method behind every red programme I take over. Truth before plan, decision rights before delivery.",
   "nis2-gap-assessment.html": "Where you actually stand on NIS2: 33 questions, 10 domains, a radar chart at the end. Free, no email, nothing stored. Art. 20–24.",
@@ -28,7 +28,7 @@
   "note-one-agent-seven-hats.html": "The biggest AI failure in my factory was not a hallucination. It was an organisational design error — mine. Segregation of duties, applied to machines.",
   "note-red-programme-first-days.html": "Before the plan, before the Gantt — what I actually do in week one of a troubled programme. Read everything, believe nothing.",
   "note-steerco-truth.html": "The status report says amber. Amber is a negotiated colour. How to read what your steering committee will not say out loud.",
-  "notes.html": "Short field notes from 18 years of regulated IT delivery: the politics, the method, and what it is actually like when a programme goes red.",
+  "notes.html": "Short field notes from {yearsExperience} years of regulated IT delivery: the politics, the method, and what it is actually like when a programme goes red.",
   "playbook-ai-initiative.html": "The board wants an AI strategy, pilots are multiplying, nobody owns delivery. How I would take it from idea to production — including the politics.",
   "playbook-carveout-separation.html": "How I run an IT carve-out to a clean Day 1 and an on-schedule TSA exit. 1,500+ interdependent decisions, sequenced and governed.",
   "playbook-gxp-migration.html": "How I unstick a stalled GxP datacenter migration: assess and freeze, split the tracks, migrate and prove. GAMP 5, Annex 11, data integrity.",
@@ -43,5 +43,5 @@
   "services.html": "AI governance that survives an audit, not a slide deck. Readiness assessment, gap analysis, implementation — for scale-ups and the public sector.",
   "templates.html": "Fire gratis Excel-skabeloner til AI governance: systemregister, risikovurdering, RACI og EU AI Act-tjekliste. Klar til brug, ikke til pynt.",
   "tools.html": "Eight free in-browser tools for AI governance, EU AI Act classification and NIS2 gap analysis. No email, nothing stored. Answer, get a result, leave.",
-  "workshop.html": "How a one-man AI software factory works, with receipts: 5,722 commits, 3,442 pull requests and 15 client-facing solutions. Copenhagen."
+  "workshop.html": "How a one-man AI software factory works, with receipts: {commits} commits, {pullRequests} pull requests and {solutions} client-facing solutions. Copenhagen."
 }
