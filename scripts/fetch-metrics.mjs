@@ -3,9 +3,11 @@
 // scripts/metrics.json. Run by .github/workflows/metrics.yml on a schedule;
 // scripts/update-metrics.mjs then propagates the numbers into the pages.
 //
-// Requires GITHUB_METRICS_TOKEN: a fine-grained personal access token with
+// Requires FACTORY_METRICS_TOKEN: a fine-grained personal access token with
 // read-only access to the Bygmedai organisation, including private
-// repositories. The default GITHUB_TOKEN in Actions is scoped to one
+// repositories. The name deliberately avoids the GITHUB_ prefix — GitHub
+// reserves it and refuses to create a secret that uses it, so the obvious
+// name for this variable is the one name it cannot have. The default GITHUB_TOKEN in Actions is scoped to one
 // repository and cannot see the rest of the org, which is the whole point of
 // the measurement — so without the secret this exits without changing
 // anything rather than writing a wrong, smaller number.
@@ -25,10 +27,10 @@ import { fileURLToPath } from 'node:url';
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const METRICS = join(ROOT, 'scripts/metrics.json');
 const ORG = 'Bygmedai';
-const token = process.env.GITHUB_METRICS_TOKEN;
+const token = process.env.FACTORY_METRICS_TOKEN;
 
 if (!token) {
-  console.log('fetch-metrics: GITHUB_METRICS_TOKEN mangler — springer over, intet ændret.');
+  console.log('fetch-metrics: FACTORY_METRICS_TOKEN mangler — springer over, intet ændret.');
   process.exit(0);
 }
 

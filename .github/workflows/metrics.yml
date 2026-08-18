@@ -5,7 +5,7 @@ name: Refresh factory metrics
 # measures the org, writes the numbers into the pages and commits the result —
 # which redeploys the site through Cloudflare Pages like any other push.
 #
-# Requires the GITHUB_METRICS_TOKEN secret: a fine-grained PAT with read-only
+# Requires the FACTORY_METRICS_TOKEN secret: a fine-grained PAT with read-only
 # access to the Bygmedai organisation including private repositories. Without
 # it the fetch step exits cleanly and nothing changes, so the workflow is safe
 # to merge before the secret exists.
@@ -30,7 +30,7 @@ jobs:
 
       - name: Measure the organisation
         env:
-          GITHUB_METRICS_TOKEN: ${{ secrets.GITHUB_METRICS_TOKEN }}
+          FACTORY_METRICS_TOKEN: ${{ secrets.FACTORY_METRICS_TOKEN }}
         run: node scripts/fetch-metrics.mjs
 
       - name: Propagate the numbers into the pages
