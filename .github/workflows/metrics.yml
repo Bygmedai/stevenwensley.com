@@ -126,6 +126,12 @@ jobs:
 
           Automated measurement via scripts/fetch-metrics.mjs.
           Method: GitHub search API, org-scoped, default branches only."
+          # --force-with-lease needs to know the remote branch's current tip.
+          # A fresh checkout (fetch-depth 1) does not have it, so every push
+          # since 18/8 was rejected with "stale info". Fetch the branch first;
+          # if it does not exist yet, the fetch fails harmlessly and the push
+          # creates it.
+          git fetch origin "$BRANCH" || true
           git push --force-with-lease -u origin "$BRANCH"
 
           if [ -z "$(gh pr list --head "$BRANCH" --state open --json number --jq '.[].number')" ]; then
