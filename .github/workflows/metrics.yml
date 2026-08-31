@@ -39,7 +39,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Check the secret is present
         # Named separately so the answer to "is the token wired up?" is visible
