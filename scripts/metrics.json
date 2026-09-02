@@ -11,7 +11,7 @@
     "yearsExperience": 39,
     "yearsExperienceDa": 6
   },
-  "measuredAt": "2026-08-31",
+  "measuredAt": "2026-09-02",
   "method": "GitHub search API, org:Bygmedai, default branches only, private repositories included. Commits and pull requests counted from 2026-02-01; a search for commits before that date returns zero, which is what fixes February as the factory's start.",
   "neverSeparate": [
     "copyrightYear",
@@ -31,11 +31,11 @@
     "expectedHits": "Counted against the site, not guessed. Two entries were wrong before the no-op path started verifying them: pullRequests claimed 6 where the site had 5, and copyrightYear claimed 46 after eight tool pages gained a footer and made it 54. Neither was visible until a value changed, which for a year is 1 January."
   },
   "rendered": {
-    "commits": "6,289",
+    "commits": "6,338",
     "copyrightYear": "&copy; 2026 Steven Seidenfaden Wensley",
-    "inkandartCommits": "533 commits",
-    "inkandartPullRequests": "401 pull requests",
-    "pullRequests": "3,841",
+    "inkandartCommits": "570 commits",
+    "inkandartPullRequests": "436 pull requests",
+    "pullRequests": "3,882",
     "repositories": "24</div><div class=\"l\">repositories in active development",
     "solutions": "15",
     "yearsExperience": "20 years",
@@ -52,11 +52,11 @@
     "yearsExperienceDa": "{} års erfaring"
   },
   "values": {
-    "commits": 6289,
-    "pullRequests": 3841,
+    "commits": 6338,
+    "pullRequests": 3882,
     "repositories": 24,
-    "inkandartCommits": 533,
-    "inkandartPullRequests": 401,
+    "inkandartCommits": 570,
+    "inkandartPullRequests": 436,
     "solutions": 15,
     "copyrightYear": 2026,
     "yearsExperience": 20,
