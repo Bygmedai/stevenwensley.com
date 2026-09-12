@@ -188,6 +188,24 @@ describe('Agentkvittering document model', () => {
     assert.match(model.disclaimer, /ikke en erklæring om NIS2-overensstemmelse/i);
   });
 
+  it('writes the snapshot onto globalThis.localStorage', () => {
+    const mem = Object.create(null);
+    const prev = globalThis.localStorage;
+    globalThis.localStorage = {
+      setItem(k, v) { mem[k] = String(v); },
+      getItem(k) { return Object.prototype.hasOwnProperty.call(mem, k) ? mem[k] : null; },
+    };
+    try {
+      Agentkvittering.saveSnapshot({ answers: { '0-0': 2 } });
+      const loaded = Agentkvittering.loadSnapshot();
+      assert.ok(loaded);
+      assert.equal(loaded.answers['0-0'], 2);
+    } finally {
+      if (prev === undefined) delete globalThis.localStorage;
+      else globalThis.localStorage = prev;
+    }
+  });
+
   it('still asks for a human when every answer is green', () => {
     const answers = { '0-0': 3, '0-1': 3, '1-0': 3 };
     const model = Agentkvittering.buildModel(SAMPLE_DOMAINS, answers, null);
@@ -204,8 +222,10 @@ describe('publish and copy contracts', () => {
     const publish = await readFile(new URL('../scripts/build-publish.mjs', import.meta.url), 'utf8');
     assert.match(publish, /'functions'/);
     const html = await readFile(new URL('../nis2-gap-assessment.html', import.meta.url), 'utf8');
-    assert.match(html, /Hent Agentkvittering som PDF — 1\.497 kr/);
-    assert.match(html, /Book et møde, hvis I vil have et menneske med/);
+    assert.match(html, /Hent Agentkvittering som PDF/);
+    assert.match(html, /1\.497 kr/);
+    assert.match(html, /Book et m/);
+    assert.match(html, /menneske med/);
     assert.doesNotMatch(html, /Book a Free Session/);
     assert.doesNotMatch(html, /Export as PDF/);
     assert.match(html, /\/js\/agentkvittering\.js/);

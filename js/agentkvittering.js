@@ -56,39 +56,65 @@
     return `AK-NIS2-${day}-${shortHash(JSON.stringify(answers || {}))}`;
   }
 
+  function storageHost() {
+    if (typeof globalThis !== 'undefined') return globalThis;
+    if (typeof window !== 'undefined') return window;
+    return {};
+  }
+
+  function storageOf(kind) {
+    const host = storageHost();
+    try {
+      if (kind === 'local' && host.localStorage) return host.localStorage;
+      if (kind === 'session' && host.sessionStorage) return host.sessionStorage;
+    } catch (_) { /* blocked */ }
+    return null;
+  }
+
+  function writeStore(key, value) {
+    const raw = JSON.stringify(value);
+    const local = storageOf('local');
+    const session = storageOf('session');
+    // localStorage survives Stripe leaving the tab; sessionStorage is the
+    // same-tab fallback when localStorage is blocked.
+    if (local) {
+      try { local.setItem(key, raw); } catch (_) { /* quota */ }
+    }
+    if (session) {
+      try { session.setItem(key, raw); } catch (_) { /* quota */ }
+    }
+  }
+
+  function readStore(key) {
+    for (const kind of ['local', 'session']) {
+      const store = storageOf(kind);
+      if (!store) continue;
+      try {
+        const raw = store.getItem(key);
+        if (raw) return JSON.parse(raw);
+      } catch (_) { /* ignore bad JSON */ }
+    }
+    return null;
+  }
+
   function saveSnapshot(snapshot) {
     const payload = Object.assign({ tool: TOOL_ID, version: VERSION, savedAt: new Date().toISOString() }, snapshot);
-    try {
-      root.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-    } catch (_) { /* private mode / quota — payment return then asks them to scan again */ }
+    writeStore(STORAGE_KEY, payload);
     return payload;
   }
 
   function loadSnapshot() {
-    try {
-      const raw = root.sessionStorage.getItem(STORAGE_KEY);
-      if (!raw) return null;
-      const parsed = JSON.parse(raw);
-      if (!parsed || !parsed.answers) return null;
-      return parsed;
-    } catch (_) {
-      return null;
-    }
+    const parsed = readStore(STORAGE_KEY);
+    if (!parsed || !parsed.answers) return null;
+    return parsed;
   }
 
   function savePaidSession(payment) {
-    try {
-      root.sessionStorage.setItem(PAID_KEY, JSON.stringify(payment));
-    } catch (_) { /* ignore */ }
+    writeStore(PAID_KEY, payment);
   }
 
   function loadPaidSession() {
-    try {
-      const raw = root.sessionStorage.getItem(PAID_KEY);
-      return raw ? JSON.parse(raw) : null;
-    } catch (_) {
-      return null;
-    }
+    return readStore(PAID_KEY);
   }
 
   function buildModel(domains, answers, payment) {

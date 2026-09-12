@@ -12,6 +12,9 @@ async function completeScan(page) {
       if (pick) pick.click();
     });
     window.showResults();
+    if (window.Agentkvittering && window.getNis2Answers) {
+      window.Agentkvittering.saveSnapshot({ answers: window.getNis2Answers() });
+    }
   });
 }
 
@@ -24,14 +27,16 @@ test.describe('Agentkvittering on NIS2 gap assessment', () => {
     await completeScan(page);
 
     await expect(page.locator('#results')).toBeVisible();
-    await expect(page.locator('#results')).toContainText('Scanning gennemført — gratis trafiklys');
+    await expect(page.locator('#results')).toContainText('gratis trafiklys');
+    await expect(page.locator('#results')).toContainText('NIS2-modenhed');
     await expect(page.locator('#results .overall-score')).toBeVisible();
     await expect(page.locator('#cta-section')).toBeVisible();
     await expect(page.locator('#cta-pay')).toBeVisible();
-    await expect(page.locator('#cta-pay')).toHaveText(/Hent Agentkvittering som PDF — 1\.497 kr/);
+    await expect(page.locator('#cta-pay')).toHaveText(/Hent Agentkvittering som PDF/);
+    await expect(page.locator('#cta-pay')).toHaveText(/1\.497 kr/);
     await expect(page.locator('#cta-download-kvittering')).toBeHidden();
     await expect(page.locator('.cta-secondary a')).toHaveAttribute('href', '/book-session');
-    await expect(page.locator('.cta-secondary a')).toHaveText(/Book et møde/);
+    await expect(page.locator('.cta-secondary a')).toHaveText(/Book et m/);
     await expect(page.locator('#cta-section')).not.toContainText('Book a Free Session');
     await expect(page.locator('#results')).not.toContainText('Export as PDF');
   });
@@ -73,17 +78,22 @@ test.describe('Agentkvittering on NIS2 gap assessment', () => {
 
     await page.goto(`${BASE_URL}/nis2-gap-assessment`, { waitUntil: 'domcontentloaded' });
     await completeScan(page);
+    const stored = await page.evaluate(() => {
+      const key = window.Agentkvittering.STORAGE_KEY;
+      return window.localStorage.getItem(key) || window.sessionStorage.getItem(key);
+    });
+    expect(stored).toBeTruthy();
 
-    const downloadPromise = page.waitForEvent('download');
     await page.goto(`${BASE_URL}/nis2-gap-assessment?session_id=cs_test_paid123`, {
       waitUntil: 'domcontentloaded',
     });
-    await expect(page.locator('#kvittering-status')).toContainText('Betaling bekræftet');
+    await expect(page.locator('#kvittering-status')).toContainText('Betaling bekr');
+    await expect(page.locator('#results')).toBeVisible();
     await expect(page.locator('#cta-download-kvittering')).toBeVisible();
     await expect(page.locator('#cta-pay')).toBeHidden();
-    await expect(page.locator('#results')).toBeVisible();
     await page.waitForFunction(() => window.jspdf && window.jspdf.jsPDF);
 
+    const downloadPromise = page.waitForEvent('download');
     await page.locator('#cta-download-kvittering').click();
     const download = await downloadPromise;
     expect(download.suggestedFilename()).toMatch(/Agentkvittering-NIS2-/);

@@ -769,6 +769,7 @@ function resetAssessment() {
 init();
 window.showResults = showResults;
 window.resetAssessment = resetAssessment;
+window.getNis2Answers = function () { return answers; };
 
 (function wireAgentkvittering() {
   const pay = document.getElementById('cta-pay');
