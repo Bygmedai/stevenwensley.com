@@ -25,6 +25,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0" integrity="sha384-e6nUZLBkQ86NJ6TVVKAeSaK8jWa3NhkYWZFomE39AvDbQWeie9PlQqM3pmYW5d1g" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js" integrity="sha384-en/ztfPSRkGfME4KIm05joYXynqzUgbsG5nMrj/xEFAHXkeZfO3yMK8QQ+mP7p1/" crossorigin="anonymous"></script>
+  <script src="/js/agentkvittering.js"></script>
   <style>
     :root {
       --bg: #0C0C12; --surface: #16161E; --surface-2: #1E1E28;
@@ -189,7 +191,17 @@
     /* CTA section */
     .cta-section { text-align: center; margin: 48px 0 0; padding: 40px 24px; background: linear-gradient(135deg, rgba(43,122,111,0.08), rgba(201,169,110,0.06)); border: 1px solid var(--border); border-radius: 12px; }
     .cta-section h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.4rem; color: var(--gold); margin-bottom: 8px; }
-    .cta-section p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .cta-section p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; max-width: 520px; margin-left: auto; margin-right: auto; }
+    .cta-section .cta-pay-note { font-size: 0.78rem; margin: 12px auto 0; max-width: 440px; }
+    .cta-secondary { margin-top: 18px; font-size: 0.82rem; }
+    .cta-secondary a { color: var(--text-secondary); text-decoration: underline; text-underline-offset: 3px; }
+    .cta-secondary a:hover { color: var(--gold); }
+    .kvittering-status { display: none; margin: 20px auto 0; max-width: 520px; padding: 16px 18px; border-radius: 8px; text-align: left; font-size: 0.88rem; color: var(--text-secondary); }
+    .kvittering-status.visible { display: block; }
+    .kvittering-status.ok { border: 1px solid rgba(39,174,96,0.45); background: rgba(39,174,96,0.08); }
+    .kvittering-status.warn { border: 1px solid rgba(230,126,34,0.45); background: rgba(230,126,34,0.08); }
+    .kvittering-status.err { border: 1px solid rgba(192,57,43,0.45); background: rgba(192,57,43,0.08); }
+    .kvittering-status strong { color: var(--text-primary); display: block; margin-bottom: 4px; }
 
     /* Actions */
     .action-bar { display: flex; gap: 12px; justify-content: center; margin: 32px 0; flex-wrap: wrap; }
@@ -292,11 +304,15 @@
   <!-- Results -->
   <div id="results"></div>
 
-  <!-- CTA -->
+  <!-- CTA: paid Agentkvittering first; free meeting is secondary -->
   <div class="cta-section" id="cta-section" style="display:none;">
-    <h3>Need help implementing NIS2?</h3>
-    <p>20 years managing compliance programmes in regulated environments. From gap assessment to board-level governance.</p>
-    <a href="/book-session" class="btn btn-gold gradient-animated">Book a Free Session &rarr;</a>
+    <h3>Agentkvittering</h3>
+    <p>På skærmen: kort trafiklys — det er gratis. PDF-kvitteringen er til mappen: hvad der blev gennemgået, fund, hvad der kræver et menneske, tidsstempel og versionsstempel. Ikke et dashboard. En fil.</p>
+    <a id="cta-pay" class="btn btn-gold gradient-animated" href="https://buy.stripe.com/test_REPLACE_AGENTKVITTERING">Hent Agentkvittering som PDF — 1.497 kr</a>
+    <button type="button" id="cta-download-kvittering" class="btn btn-gold gradient-animated" style="display:none;">Download Agentkvittering (PDF)</button>
+    <p class="cta-pay-note">1.497 kr pr. kørsel. Betaling via Stripe. Scanningen gemmes kun i denne fane, indtil filen er hentet.</p>
+    <p class="cta-secondary"><a href="/book-session">Book et møde, hvis I vil have et menneske med</a></p>
+    <div class="kvittering-status" id="kvittering-status" role="status" aria-live="polite"></div>
   </div>
 
 </div>
@@ -463,6 +479,7 @@ function selectOption(key, value, el) {
   el.parentElement.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   updateProgress();
+  persistScan();
 }
 
 function goToDomain(idx) {
@@ -521,22 +538,26 @@ function showResults() {
   const overallMax = domainScores.reduce((s, d) => s + d.max, 0);
   const overallPct = Math.round((overallScore / overallMax) * 100);
   const colorClass = overallPct < 30 ? 'red' : overallPct < 55 ? 'orange' : overallPct < 75 ? 'gold' : 'green';
-  const maturity = overallPct < 30 ? 'Initial \u2014 Significant gaps require immediate attention'
-    : overallPct < 55 ? 'Developing \u2014 Foundation exists but critical gaps remain'
-    : overallPct < 75 ? 'Defined \u2014 Good progress, focused improvements needed'
-    : 'Managed \u2014 Strong posture, continuous improvement recommended';
+  const maturity = (typeof Agentkvittering !== 'undefined')
+    ? Agentkvittering.maturityCopy(overallPct)
+    : (overallPct < 30 ? 'Initial \u2014 Significant gaps require immediate attention'
+      : overallPct < 55 ? 'Developing \u2014 Foundation exists but critical gaps remain'
+      : overallPct < 75 ? 'Defined \u2014 Good progress, focused improvements needed'
+      : 'Managed \u2014 Strong posture, continuous improvement recommended');
 
+
+  persistScan();
 
   let html = `
     <div class="results-header">
-      <div class="badge">Assessment Complete</div>
-      <h2>NIS2 Compliance Maturity</h2>
+      <div class="badge">Scanning gennemført — gratis trafiklys</div>
+      <h2>NIS2-modenhed</h2>
       <div class="overall-score ${colorClass}">${overallPct}%</div>
       <div class="maturity-label">${maturity}</div>
     </div>
     <div class="results-body">
       <div class="radar-container"><canvas id="radar-chart"></canvas></div>
-      <h3 style="font-family:'DM Serif Display',Georgia,serif;font-size:1.3rem;color:var(--gold);margin-bottom:16px">Domain Scores</h3>
+      <h3 style="font-family:'DM Serif Display',Georgia,serif;font-size:1.3rem;color:var(--gold);margin-bottom:16px">Domæner</h3>
       <div class="domain-results">`;
 
   domainScores.forEach(d => {
@@ -550,13 +571,13 @@ function showResults() {
   domains.forEach((d, di) => { d.questions.forEach((q, qi) => { const val = answers[`${di}-${qi}`]; if (val !== undefined && val <= 1) gaps.push({ domain: d.name, ref: d.ref, question: q.text, score: val, option: q.options[val] }); }); });
 
   if (gaps.length > 0) {
-    html += `<div class="critical-gaps"><h3>Critical Gaps Identified (${gaps.length})</h3>`;
-    gaps.forEach(g => { html += `<div class="gap-item"><div class="gap-icon">${g.score === 0 ? '\ud83d\udd34' : '\ud83d\udfe0'}</div><div class="gap-text"><strong>${g.domain} (${g.ref})</strong>${g.question}<br><em style="color:var(--text-muted)">Current: ${g.option}</em></div></div>`; });
+    html += `<div class="critical-gaps"><h3>Kritiske huller (${gaps.length})</h3>`;
+    gaps.forEach(g => { html += `<div class="gap-item"><div class="gap-icon">${g.score === 0 ? '\ud83d\udd34' : '\ud83d\udfe0'}</div><div class="gap-text"><strong>${g.domain} (${g.ref})</strong>${g.question}<br><em style="color:var(--text-muted)">Nu: ${g.option}</em></div></div>`; });
     html += '</div>';
   }
 
   // Recommendations
-  html += `<div class="reco-section"><h3>Priority Recommendations</h3>`;
+  html += `<div class="reco-section"><h3>Kort anbefaling på skærmen</h3>`;
   const recos = [
     { cond: () => domainScores[0].pct < 50, text: 'Establish Board-Level Governance', desc: 'Secure board approval for cybersecurity policy. Schedule quarterly security briefings. Appoint or empower a CISO with direct board reporting.' },
     { cond: () => domainScores[2].pct < 50, text: 'Implement NIS2 Incident Reporting', desc: 'Document 24h/72h/30-day reporting procedures. Register with national CSIRT. Conduct tabletop exercise within 30 days.' },
@@ -571,7 +592,7 @@ function showResults() {
   recos.forEach(r => { if (r.cond() && recoCount < 6) { recoCount++; html += `<div class="reco-item"><div class="reco-num">${recoCount}</div><div class="reco-text"><strong>${r.text}</strong>${r.desc}</div></div>`; } });
   html += '</div>';
 
-  html += `<div class="action-bar"><button class="btn btn-gold gradient-animated" onclick="window.print()">Export as PDF</button><button class="btn btn-secondary" onclick="resetAssessment()">Retake Assessment</button></div>`;
+  html += `<div class="action-bar"><button type="button" class="btn btn-secondary" onclick="resetAssessment()">Start forfra</button></div>`;
   html += '</div>';
   results.innerHTML = html;
 
@@ -601,6 +622,133 @@ function showResults() {
   }, 100);
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  const paid = typeof Agentkvittering !== 'undefined' && Agentkvittering.loadPaidSession();
+  if (paid && paid.paid) showPaidDownload(paid);
+}
+
+function persistScan() {
+  if (typeof Agentkvittering === 'undefined') return;
+  Agentkvittering.saveSnapshot({ answers: answers });
+}
+
+function setKvitteringStatus(kind, title, body) {
+  const el = document.getElementById('kvittering-status');
+  if (!el) return;
+  el.className = 'kvittering-status visible ' + kind;
+  el.innerHTML = '<strong>' + title + '</strong>' + body;
+}
+
+function showPaidDownload(payment) {
+  const pay = document.getElementById('cta-pay');
+  const dl = document.getElementById('cta-download-kvittering');
+  const hasScan = Object.keys(answers).length > 0;
+  if (pay) pay.style.display = hasScan ? 'none' : 'none';
+  if (dl) dl.style.display = hasScan ? 'inline-block' : 'none';
+  const sid = payment && payment.session_id ? payment.session_id : '';
+  if (hasScan) {
+    setKvitteringStatus(
+      'ok',
+      'Betaling bekræftet',
+      'Stripe har registreret 1.497 kr. Hent filen til mappen — den er kvitteringen for denne kørsel.' +
+        (sid ? ' Session: ' + sid + '.' : '')
+    );
+  } else {
+    setKvitteringStatus(
+      'ok',
+      'Betaling bekræftet',
+      'Scanningen blev ikke fundet i denne fane. Gennemfør den her — du bliver ikke opkrævet igen.'
+    );
+  }
+}
+
+function downloadAgentkvittering() {
+  if (typeof Agentkvittering === 'undefined') {
+    setKvitteringStatus('err', 'PDF kunne ikke dannes', 'Agentkvittering-modulet mangler.');
+    return;
+  }
+  const paid = Agentkvittering.loadPaidSession();
+  if (!paid || !paid.paid) {
+    setKvitteringStatus('err', 'Ikke låst op', 'Betalingen er ikke bekræftet endnu.');
+    return;
+  }
+  try {
+    const model = Agentkvittering.buildModel(domains, answers, paid);
+    Agentkvittering.generatePdf(model);
+  } catch (err) {
+    setKvitteringStatus('err', 'PDF kunne ikke dannes', (err && err.message) || 'Ukendt fejl.');
+  }
+}
+
+function goToCheckout(ev) {
+  if (typeof Agentkvittering === 'undefined') return;
+  persistScan();
+  if (Agentkvittering.isPlaceholderLink()) {
+    if (ev) ev.preventDefault();
+    setKvitteringStatus(
+      'warn',
+      'Stripe Payment Link er stadig en pladsholder',
+      'Steven: opret linket i Stripe Dashboard (1.497 kr DKK) og sæt URL\'en i js/agentkvittering.js. Success-URL skal ende med session_id={CHECKOUT_SESSION_ID}. Se docs/agentkvittering-stripe.md.'
+    );
+    return;
+  }
+  const href = Agentkvittering.checkoutUrl();
+  const pay = document.getElementById('cta-pay');
+  if (pay) pay.href = href;
+}
+
+async function verifyReturningSession(sessionId) {
+  if (typeof Agentkvittering === 'undefined') return;
+  setKvitteringStatus('warn', 'Bekræfter betaling…', 'Tjekker Stripe Checkout-sessionen.');
+  try {
+    const payment = await Agentkvittering.verifySession(sessionId);
+    showPaidDownload(payment);
+  } catch (err) {
+    const code = err && err.body && err.body.error;
+    const messages = {
+      ugyldig_session: 'Session-id\'et er ugyldigt.',
+      stripe_ikke_konfigureret: 'STRIPE_SECRET_KEY mangler på Cloudflare Pages. Se docs/agentkvittering-stripe.md.',
+      session_ikke_fundet: 'Stripe kender ikke denne session.',
+      ikke_betalt: 'Sessionen er ikke betalt endnu.',
+      forkert_beloeb: 'Beløbet matcher ikke 1.497 kr. Tjek Payment Link-prisen.',
+      stripe_fejl: 'Stripe svarede ikke. Prøv at genindlæse siden.'
+    };
+    if (err && err.status === 404) {
+      setKvitteringStatus(
+        'err',
+        'Betalingsgate findes ikke her',
+        'GET /api/agentkvittering kræver Cloudflare Pages Functions. GitHub Pages som rollback kan ikke låse PDF\'en op.'
+      );
+      return;
+    }
+    setKvitteringStatus('err', 'Betaling ikke bekræftet', messages[code] || 'Prøv igen, eller skriv til Steven.');
+  }
+}
+
+function restoreFromReturn() {
+  const params = new URLSearchParams(window.location.search);
+  const sessionId = params.get('session_id');
+  const cancelled = params.get('cancelled');
+  if (typeof Agentkvittering !== 'undefined') {
+    const snap = Agentkvittering.loadSnapshot();
+    if (snap && snap.answers && Object.keys(answers).length === 0) {
+      answers = snap.answers;
+    }
+    const paid = Agentkvittering.loadPaidSession();
+    if (Object.keys(answers).length) {
+      showResults();
+    }
+    if (paid && paid.paid && Object.keys(answers).length) {
+      showPaidDownload(paid);
+    }
+  }
+  if (cancelled) {
+    document.getElementById('cta-section').style.display = 'block';
+    setKvitteringStatus('warn', 'Betaling afbrudt', 'Trafiklyset på skærmen er stadig gratis. PDF-kvitteringen kræver betaling.');
+  }
+  if (sessionId) {
+    document.getElementById('cta-section').style.display = 'block';
+    verifyReturningSession(sessionId);
+  }
 }
 
 function resetAssessment() {
@@ -619,6 +767,20 @@ function resetAssessment() {
 }
 
 init();
+window.showResults = showResults;
+window.resetAssessment = resetAssessment;
+window.getNis2Answers = function () { return answers; };
+
+(function wireAgentkvittering() {
+  const pay = document.getElementById('cta-pay');
+  const dl = document.getElementById('cta-download-kvittering');
+  if (pay) {
+    if (typeof Agentkvittering !== 'undefined') pay.href = Agentkvittering.checkoutUrl();
+    pay.addEventListener('click', goToCheckout);
+  }
+  if (dl) dl.addEventListener('click', downloadAgentkvittering);
+  restoreFromReturn();
+})();
 </script>
 
 <!-- DS2: Design System v2 -->
