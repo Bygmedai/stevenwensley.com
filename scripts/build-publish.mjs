@@ -42,6 +42,8 @@ const DENY_DIRS = new Set([
   'src',
   'tests',
   'scripts',
+  'docs',
+  'functions',
   'node_modules',
   '_site',
   'test-results',
@@ -76,6 +78,7 @@ const REQUIRED = [
   'llms.txt',
   'insights/five-signs-not-ready.html',
   'og/index.png',
+  'js/agentkvittering.js',
 ];
 
 // The inverse assertion. A deny list without a test rots: someone adds a tool
@@ -87,6 +90,9 @@ const FORBIDDEN = [
   'src/insights/five-signs-not-ready.html',
   'tests',
   'scripts',
+  'docs',
+  'functions',
+  'functions/api/agentkvittering.js',
   '.github',
   '.github/workflows/test.yml',
   '.gitignore',

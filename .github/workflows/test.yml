@@ -85,6 +85,8 @@ jobs:
       # typed, silently wrong every day after, and nothing in a build notices.
       - name: Verify no page states availability or freshness as a fixed date
         run: node scripts/check-no-stale-dates.mjs
+      - name: Agentkvittering unit tests
+        run: node --test tests/*.test.mjs
 
   csp-report:
     name: CSP Violation Report

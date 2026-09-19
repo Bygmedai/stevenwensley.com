@@ -76,6 +76,11 @@ committed `/insights/*.html` from main. See `MIGRATION.md` Phase 4.
 │   └── insights/
 │       └── <slug>.html        ← frontmatter + body, one per article
 │
+├── /js/                       ← hand-maintained browser modules (published)
+│   └── agentkvittering.js     ← NIS2 paid PDF snapshot + jsPDF receipt
+├── /functions/                ← Cloudflare Pages Functions (NOT copied into _site)
+│   ├── api/agentkvittering.js ← Stripe Checkout session gate
+│   └── _lib/                  ← private helpers (underscore = not a route)
 ├── /scripts/
 │   └── extract-insights.py    ← one-shot: legacy /insights/*.html → /src/
 │
@@ -129,3 +134,12 @@ npm run verify        # build + diff against committed /insights/
 
 Everything outside `/insights/` is still hand-edited HTML at project root.
 See `MIGRATION.md` for the planned phasing and rationale.
+
+## Agentkvittering (paid PDF)
+
+The NIS2 tool keeps a free on-screen traffic-light. The paid SKU is a
+receipt PDF (`js/agentkvittering.js`) unlocked only after
+`GET /api/agentkvittering?session_id=` confirms a Stripe Checkout session
+with `payment_status=paid` and amount 1.497 kr. Pages Functions live in
+`/functions` at the repo root — they are not copied into `_site`. Stripe
+Dashboard steps: `docs/agentkvittering-stripe.md`.
