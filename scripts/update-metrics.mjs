@@ -99,7 +99,18 @@ const YEAR = Number(process.env.METRICS_YEAR) || new Date().getUTCFullYear();
 metrics.values.copyrightYear = YEAR;
 metrics.values.yearsExperience = YEAR - metrics.careerStart;
 metrics.values.yearsExperienceDa = YEAR - metrics.careerStart;
-const files = await collectFiles();
+// The tools' JSX is source that renders straight onto a page, so the figures in
+// it are public claims like any other. When it moved out of the HTML into
+// src/tools/ — which the walk above skips with the rest of src/ — two "20
+// years" went with it, and they would have stayed 20 on 1 January while the
+// other 37 became 21. The verification pass below noticed the count drop from
+// 39; nothing else would have. The compiled js/tools/*.js is deliberately not
+// read: it is regenerated from these files by build-tools.mjs, which must run
+// after this script.
+const TOOL_SOURCES = (await readdir(join(ROOT, 'src/tools')).catch(() => []))
+  .filter((f) => f.endsWith('.jsx'))
+  .map((f) => `src/tools/${f}`);
+const files = [...(await collectFiles()), ...TOOL_SOURCES];
 
 const plan = [];
 for (const key of AUTO) {
