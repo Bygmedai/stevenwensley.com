@@ -35,6 +35,18 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BRANCH: metrics/auto-refresh
+    # `shell: bash` makes GitHub run every step as `bash -eo pipefail`. Without
+    # it the default is `bash -e`, where `node x.mjs | tee` takes its exit code
+    # from tee — which always succeeds. That hid a dead token for nine days:
+    # from 17 September fetch-metrics threw 401 Unauthorized on every run, and
+    # every run was green, while the site's figures stayed frozen at the 16
+    # September measurement. It also disarmed every other script in this job
+    # that is built to fail loudly, including the 1 January checks. Scoped to
+    # this job on purpose: the Quality Gate's pipes are deliberately tolerant
+    # (`ls … | head -1`), and pipefail would change what they mean.
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
@@ -42,18 +54,20 @@ jobs:
           node-version: 22
 
       - name: Check the secret is present
-        # Named separately so the answer to "is the token wired up?" is visible
-        # in the job list without opening a log.
+        # Present, not valid. This step said "is set" on every one of the nine
+        # days the token was dead. Whether it works is answered by the next
+        # step, which now fails the run when it does not.
         run: |
           if [ -z "${{ secrets.FACTORY_METRICS_TOKEN }}" ]; then
             echo "::warning::FACTORY_METRICS_TOKEN is not set — the run will change nothing."
             echo "secret=absent" >> "$GITHUB_STEP_SUMMARY"
           else
-            echo "FACTORY_METRICS_TOKEN is set."
+            echo "FACTORY_METRICS_TOKEN is present (validity is checked by the next step)."
             echo "secret=present" >> "$GITHUB_STEP_SUMMARY"
           fi
 
       - name: Measure the organisation
+        id: measure
         env:
           FACTORY_METRICS_TOKEN: ${{ secrets.FACTORY_METRICS_TOKEN }}
         run: node scripts/fetch-metrics.mjs | tee -a "$GITHUB_STEP_SUMMARY"
@@ -157,3 +171,17 @@ jobs:
             echo "Pull request already open for $BRANCH — updated it."
           fi
           gh pr list --head "$BRANCH" --state open --json number,url --jq '.[] | "PR #\(.number): \(.url)"' >> "$GITHUB_STEP_SUMMARY"
+
+      # GitHub emails the owner when a scheduled run fails, and that email is
+      # the only alarm this workflow has. So the run goes red seven days
+      # before the token expires — after the refresh above has already been
+      # proposed, so the figures still move that day — instead of the day it
+      # stops working, which is how the numbers froze for nine days in
+      # September without anyone knowing.
+      - name: Fail a week before the token expires
+        # `|| '9999'`: an empty output (a token without expiry) must read as far
+        # away, not reach fromJSON as an empty string and error.
+        if: fromJSON(steps.measure.outputs.token_days_left || '9999') <= 7
+        run: |
+          echo "::error::FACTORY_METRICS_TOKEN udløber om ${{ steps.measure.outputs.token_days_left }} dag(e). Forny det nu, ellers fryser tallene på sitet."
+          exit 1
