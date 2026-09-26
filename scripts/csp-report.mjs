@@ -14,9 +14,20 @@
 // one definition and no way for the test to pass against a policy the site
 // does not actually serve.
 //
-// A violation fires when the browser evaluates the policy, before the
-// request goes out — so this reports correctly even on a machine that
-// cannot reach the third-party origins at all.
+// Third-party scripts are loaded and RUN. The first version aborted every
+// third-party request for speed, on the reasoning that a violation for a
+// disallowed origin fires before the request goes out. That part was true. But
+// it made the scan blind to everything a library does once it runs — an eval,
+// an injected inline script, a fetch to an origin not on the list — because
+// the library never ran. It was found when this scan, asked whether Babel
+// needed 'unsafe-eval', could not have answered either way.
+//
+// So by default the libraries come from the network, as in production. On a
+// machine without that network, CSP_CACHE_DIR serves them from local files
+// instead (named by the first 16 hex characters of the URL's SHA-256); and a
+// library that could not be fetched either way is counted and reported, loudly,
+// rather than silently leaving the page half-checked. --offline restores the
+// old abort-everything behaviour, and says on every run what it cannot see.
 //
 // What this does NOT cover
 // ------------------------
@@ -31,22 +42,31 @@
 // tests the first step of it. Exercise the export and the booking widget
 // against --enforce before flipping the header.
 //
-// Usage:  node scripts/csp-report.mjs [--enforce] [--page /path]
+// Usage:  node scripts/csp-report.mjs [--enforce] [--offline] [--page /path]
 //         --enforce  serves the policy as Content-Security-Policy instead of
 //                    report-only, to see what a flip would actually do.
+//         --offline  aborts third-party requests: origin checks only, no
+//                    library behaviour. Printed as a warning on every run.
+//         CSP_CACHE_DIR=<dir>  serves third-party files from <dir>.
 //
-// Exits non-zero if any page reports a violation.
+// Exit codes: 0 clean with every library running · 1 violations found ·
+// 2 no violations, but some third-party script never ran, so the result is
+// incomplete and must not be read as clean.
 
 import { readFile, readdir, stat } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import { join, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const SITE = join(ROOT, '_site');
 const PORT = 8123;
 
 const enforce = process.argv.includes('--enforce');
+const offline = process.argv.includes('--offline');
+const cacheDir = process.env.CSP_CACHE_DIR || null;
+const cacheKey = (url) => createHash('sha256').update(url).digest('hex').slice(0, 16);
 const onlyIdx = process.argv.indexOf('--page');
 const only = onlyIdx !== -1 ? process.argv[onlyIdx + 1] : null;
 
@@ -131,17 +151,36 @@ const urls = only
 
 const findings = new Map();
 let clean = 0;
+const unfetched = new Map();
+// How many times, not just whether: two inline violations where one is expected
+// is the difference between the page's own script and a library injecting one.
+const occurrences = new Map();
 
 for (const u of urls) {
   const page = await browser.newPage();
-  // Fail third-party requests immediately instead of waiting for them. The
-  // browser checks the policy in the renderer before a request is dispatched,
-  // so a violation still fires — but a machine with no route to jsdelivr no
-  // longer spends fifteen seconds per page discovering that. The CSP_OVERRIDE
-  // run proves this does not swallow the violations it is meant to catch.
-  await page.route('**/*', (route) => {
-    const url = route.request().url();
-    return url.startsWith(`http://localhost:${PORT}`) ? route.continue() : route.abort();
+  // Third-party requests: run them (see the header). A script that cannot be
+  // fetched is recorded, because a page whose libraries never ran has only
+  // been half-checked, and a clean result must not hide that.
+  await page.route('**/*', async (route) => {
+    const req = route.request();
+    const url = req.url();
+    if (url.startsWith(`http://localhost:${PORT}`)) return route.continue();
+    if (offline) return route.abort();
+    if (cacheDir) {
+      try {
+        const body = await readFile(join(cacheDir, cacheKey(url)));
+        return route.fulfill({ body, contentType: 'text/javascript', headers: { 'access-control-allow-origin': '*' } });
+      } catch {
+        /* not cached — fall through to the network */
+      }
+    }
+    return route.continue();
+  });
+  page.on('requestfailed', (req) => {
+    if (req.resourceType() === 'script' && !req.url().startsWith(`http://localhost:${PORT}`)) {
+      if (!unfetched.has(req.url())) unfetched.set(req.url(), new Set());
+      unfetched.get(req.url()).add(u);
+    }
   });
   // The structured event, not console text: console formatting varies between
   // Chromium builds and would make this test's result depend on the browser
@@ -168,6 +207,7 @@ for (const u of urls) {
     const key = `${x.directive}  ←  ${x.blocked}`;
     if (!findings.has(key)) findings.set(key, new Set());
     findings.get(key).add(u);
+    occurrences.set(key, (occurrences.get(key) ?? 0) + 1);
   }
   await page.close();
 }
@@ -176,16 +216,37 @@ await browser.close();
 server.close();
 
 console.log(`csp-report: ${urls.length} sider indlæst i ${enforce ? 'ENFORCE' : 'report-only'}-tilstand`);
+if (offline) {
+  console.log('csp-report: ADVARSEL — --offline: tredjepartsscripts er IKKE kørt. Kun domæner er');
+  console.log('  kontrolleret, ikke hvad bibliotekerne gør (eval, injicerede scripts, fetch).\n');
+} else if (unfetched.size) {
+  console.log(`csp-report: ADVARSEL — ${unfetched.size} tredjepartsscript(s) kunne ikke hentes, så deres`);
+  console.log('  adfærd er IKKE kontrolleret på de sider, der bruger dem:');
+  for (const [url, pages] of unfetched) console.log(`    ${url.slice(0, 90)}  (${pages.size} side(r))`);
+  console.log('  Kør med netværk, eller med CSP_CACHE_DIR, før resultatet bruges til noget.\n');
+}
 console.log(`csp-report: ${clean} rene, ${urls.length - clean} med overtrædelser\n`);
 
+// The old message here said the policy "can be set to enforce". It never
+// could say that: this scan loads pages and clicks nothing, which the header
+// above already admits. A result is reported as exactly what it is.
 if (!findings.size) {
-  console.log('csp-report: ingen overtrædelser — politikken kan sættes til at håndhæve.');
+  if (offline || unfetched.size) {
+    console.log('csp-report: ingen overtrædelser fundet — men resultatet er UFULDSTÆNDIGT (se advarslen).');
+    if (process.env.GITHUB_ACTIONS) console.log('::warning::csp-report: resultatet er ufuldstændigt — tredjepartsscripts kørte ikke.');
+    // Not 0. An incomplete check that exits like a clean one is the exact
+    // failure this change exists to remove.
+    process.exit(2);
+  } else {
+    console.log('csp-report: ingen overtrædelser ved sideindlæsning, med alle biblioteker kørende.');
+    console.log('  Før politikken håndhæves: test PDF-eksport og booking-widget mod --enforce.');
+  }
   process.exit(0);
 }
 
 for (const [key, pages] of [...findings].sort((a, b) => b[1].size - a[1].size)) {
   const list = [...pages].sort();
-  console.log(`  ${key}`);
+  console.log(`  ${key}   ×${occurrences.get(key)}`);
   console.log(`    på ${list.length} side(r): ${list.slice(0, 4).join(', ')}${list.length > 4 ? ` … +${list.length - 4}` : ''}\n`);
 }
 

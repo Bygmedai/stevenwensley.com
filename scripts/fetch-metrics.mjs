@@ -34,16 +34,58 @@ if (!token) {
   process.exit(0);
 }
 
+// METRICS_API_BASE exists so every branch below can be exercised against a
+// local stand-in — a dead token, a token a week from expiry — without anyone
+// handing a real token to a test.
+const API = process.env.METRICS_API_BASE || 'https://api.github.com';
+
+// GitHub states a token's expiry on every response it authenticates, in this
+// header. Read once, from the first response that carries it.
+let expiresHeader = null;
+
 const api = async (path) => {
-  const r = await fetch('https://api.github.com' + path, {
+  const r = await fetch(API + path, {
     headers: {
       accept: 'application/vnd.github+json',
       authorization: `Bearer ${token}`,
       'user-agent': 'stevenwensley.com-metrics',
     },
   });
+  expiresHeader ??= r.headers.get('github-authentication-token-expiration');
+  // 401 means the token itself is refused — expired or revoked. That is the
+  // one failure with a single, known remedy, so it gets said plainly. From 17
+  // to 25 September it surfaced only as a stack trace in a log nobody opened.
+  if (r.status === 401) {
+    console.error('fetch-metrics: FEJL — GitHub afviser FACTORY_METRICS_TOKEN (401).');
+    console.error('  Tokenet er udløbet eller tilbagekaldt. Tallene på sitet opdateres ikke,');
+    console.error('  før det er fornyet: GitHub → Settings → Developer settings → Fine-grained');
+    console.error('  tokens → Regenerate, og derefter repoets secret FACTORY_METRICS_TOKEN.');
+    process.exit(1);
+  }
   if (!r.ok) throw new Error(`${path} → ${r.status} ${r.statusText}`);
   return r.json();
+};
+
+// Whole days until expiry, or null when the token does not expire.
+const daysLeft = (header, now = new Date()) => {
+  if (!header) return null;
+  // Documented format: "2026-10-18 12:00:00 UTC". Some responses omit " UTC".
+  const at = new Date(header.replace(' UTC', 'Z').replace(' ', 'T'));
+  if (Number.isNaN(at.getTime())) return null;
+  return Math.floor((at - now) / 86_400_000);
+};
+
+const reportExpiry = async () => {
+  const left = daysLeft(expiresHeader, process.env.METRICS_NOW ? new Date(process.env.METRICS_NOW) : new Date());
+  if (left === null) return;
+  console.log(`fetch-metrics: tokenet udløber om ${left} dag(e) (${expiresHeader})`);
+  if (left <= 14) console.log(`::warning::FACTORY_METRICS_TOKEN udløber om ${left} dag(e).`);
+  // The workflow turns this into a red run at seven days, after the refresh
+  // has been proposed — see "Fail a week before the token expires".
+  if (process.env.GITHUB_OUTPUT) {
+    const { appendFile } = await import('node:fs/promises');
+    await appendFile(process.env.GITHUB_OUTPUT, `token_days_left=${left}\n`);
+  }
 };
 
 const q = (s) => encodeURIComponent(s);
@@ -66,6 +108,9 @@ const [commits, prs, repos, inkCommits, inkPrs] = await Promise.all([
   api(`/search/commits?q=${q(`${INKANDART} committer-date:>=${inkFrom}`)}&per_page=1`),
   api(`/search/issues?q=${q(`${INKANDART} is:pr created:>=${inkFrom}`)}&per_page=1`),
 ]);
+
+// Before any exit below: an unchanged measurement is still a moment to warn.
+await reportExpiry();
 
 const next = {
   commits: commits.total_count,

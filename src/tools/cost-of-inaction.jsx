@@ -1,0 +1,805 @@
+    const { useState, useEffect, useMemo, useRef } = React;
+
+    // ─── i18n ───
+    const T = {
+      da: {
+        title: "Hvad koster det IKKE at handle?",
+        subtitle: "Beregn din organisations risiko ved at vente med AI governance og EU AI Act-compliance",
+        time: "3 minutter",
+        freeLabel: "Gratis",
+        startBtn: "Start beregning",
+        nextBtn: "Næste",
+        prevBtn: "Tilbage",
+        calcBtn: "Beregn min risiko",
+        step: "Trin",
+        of: "af",
+
+        // Questions
+        q1_title: "Branche",
+        q1_sub: "Hvilken branche opererer din organisation primært i?",
+        q1_options: ["Finans & Forsikring", "Sundhed & Pharma", "Offentlig sektor", "Produktion & Industri", "IT & Tech", "Retail & E-commerce", "Transport & Logistik", "Andet"],
+
+        q2_title: "Årlig omsætning",
+        q2_sub: "Hvad er din organisations omtrentlige årlige omsætning?",
+        q2_options: ["< 10 mio. DKK", "10-50 mio. DKK", "50-200 mio. DKK", "200-500 mio. DKK", "500 mio. - 1 mia. DKK", "> 1 mia. DKK"],
+
+        q3_title: "Antal medarbejdere",
+        q3_sub: "Hvor mange medarbejdere har organisationen?",
+        q3_options: ["1-49", "50-249", "250-999", "1.000-4.999", "5.000+"],
+
+        q4_title: "AI-systemer i brug",
+        q4_sub: "Hvor mange AI-systemer bruger I i dag? (inkl. ChatGPT, Copilot, automationer)",
+        q4_options: ["0 — vi bruger ikke AI endnu", "1-5 systemer", "6-15 systemer", "16-50 systemer", "50+ systemer"],
+
+        q5_title: "AI governance-niveau",
+        q5_sub: "Hvordan vil du beskrive jeres nuværende AI governance?",
+        q5_options: ["Ingen — vi har ikke taget stilling", "Ad hoc — enkelte initiativer, ingen struktur", "Delvis — nogle politikker, men ikke dækkende", "Moden — systematisk governance, men ikke EU AI Act-klar"],
+
+        q6_title: "Konkurrenternes AI-adoption",
+        q6_sub: "I hvor høj grad bruger jeres konkurrenter AI?",
+        q6_options: ["Ingen vi kender til", "Nogle få eksperimenterer", "De fleste er i gang", "Alle — vi er bagud"],
+
+        // Results
+        resTitle: "Din organisations risikoprofil",
+        resSubtitle: "Estimeret årlig cost of inaction",
+        fineSectionTitle: "Regulatorisk eksponering",
+        fineDesc: "Potentiel bøde under EU AI Act (op til 7% af global omsætning eller €35M)",
+        prodSectionTitle: "Produktivitetstab",
+        prodDesc: "Tabt effektivitet vs. AI-adopterende konkurrenter",
+        compSectionTitle: "Compliance-omkostning ved forsinkelse",
+        compDesc: "Prisen stiger jo tættere på august 2026-deadline",
+        riskSectionTitle: "Risiko for AI-incident",
+        riskDesc: "Potentielt tab ved ukontrolleret AI (fejl, bias, dataleaks)",
+        totalLabel: "Samlet estimeret årlig risiko",
+        timelineTitle: "Tidspres",
+        timelineDesc: "måneder til EU AI Act high-risk deadline",
+        timelineSub: "August 2026 — forberedelse bør starte NU",
+        urgencyHigh: "KRITISK: Ingen governance + mange AI-systemer = høj eksponering",
+        urgencyMed: "ADVARSEL: Delvis governance dækker ikke EU AI Act-krav",
+        urgencyLow: "OPMÆRKSOMHED: Selv med moden governance kræver EU AI Act specifik forberedelse",
+        ctaTitle: "Hvad nu?",
+        ctaText: "Få en gratis gennemgang af din specifikke situation. Ingen binding.",
+        ctaBtn: "Book et gratis 30-min møde",
+        downloadBtn: "Download PDF-rapport",
+        assessBtn: "Tag den fulde AI Governance Assessment",
+        disclaimer: "Alle tal er estimater baseret på markedsdata og EU AI Act-rammeværk. Faktiske beløb afhænger af specifikke omstændigheder.",
+
+        // Lead capture
+        leadTitle: "Få din rapport tilsendt",
+        leadSub: "Indtast din email for at modtage rapporten og en personlig opfølgning.",
+        emailPlaceholder: "din@email.dk",
+        companyPlaceholder: "Virksomhedsnavn (valgfrit)",
+        sendBtn: "Send mig rapporten",
+        skipBtn: "Spring over — download direkte",
+        thankYou: "Tak! Rapporten er sendt.",
+
+        // Nav
+        langToggle: "EN",
+        byLine: "Steven Wensley — AI Advisory & EU AI Act Compliance",
+        privacy: "Ingen data gemmes i browseren. ",
+        privacyLink: "Privatlivspolitik",
+      },
+      en: {
+        title: "What does inaction cost you?",
+        subtitle: "Calculate your organisation's risk of delaying AI governance and EU AI Act compliance",
+        time: "3 minutes",
+        freeLabel: "Free",
+        startBtn: "Start calculation",
+        nextBtn: "Next",
+        prevBtn: "Back",
+        calcBtn: "Calculate my risk",
+        step: "Step",
+        of: "of",
+
+        q1_title: "Industry",
+        q1_sub: "Which industry does your organisation primarily operate in?",
+        q1_options: ["Finance & Insurance", "Healthcare & Pharma", "Public Sector", "Manufacturing & Industry", "IT & Tech", "Retail & E-commerce", "Transport & Logistics", "Other"],
+
+        q2_title: "Annual revenue",
+        q2_sub: "What is your organisation's approximate annual revenue?",
+        q2_options: ["< €1.3M", "€1.3M - €6.7M", "€6.7M - €27M", "€27M - €67M", "€67M - €134M", "> €134M"],
+
+        q3_title: "Number of employees",
+        q3_sub: "How many employees does the organisation have?",
+        q3_options: ["1-49", "50-249", "250-999", "1,000-4,999", "5,000+"],
+
+        q4_title: "AI systems in use",
+        q4_sub: "How many AI systems do you use today? (incl. ChatGPT, Copilot, automations)",
+        q4_options: ["0 — we don't use AI yet", "1-5 systems", "6-15 systems", "16-50 systems", "50+ systems"],
+
+        q5_title: "AI governance level",
+        q5_sub: "How would you describe your current AI governance?",
+        q5_options: ["None — we haven't addressed it", "Ad hoc — isolated initiatives, no structure", "Partial — some policies, but not comprehensive", "Mature — systematic governance, but not EU AI Act-ready"],
+
+        q6_title: "Competitor AI adoption",
+        q6_sub: "To what extent are your competitors using AI?",
+        q6_options: ["None that we know of", "A few are experimenting", "Most are underway", "All of them — we're behind"],
+
+        resTitle: "Your organisation's risk profile",
+        resSubtitle: "Estimated annual cost of inaction",
+        fineSectionTitle: "Regulatory exposure",
+        fineDesc: "Potential fine under EU AI Act (up to 7% of global turnover or €35M)",
+        prodSectionTitle: "Productivity loss",
+        prodDesc: "Lost efficiency vs. AI-adopting competitors",
+        compSectionTitle: "Compliance cost of delay",
+        compDesc: "Cost increases the closer to the August 2026 deadline",
+        riskSectionTitle: "AI incident risk",
+        riskDesc: "Potential loss from uncontrolled AI (errors, bias, data leaks)",
+        totalLabel: "Total estimated annual risk",
+        timelineTitle: "Time pressure",
+        timelineDesc: "months until EU AI Act high-risk deadline",
+        timelineSub: "August 2026 — preparation should start NOW",
+        urgencyHigh: "CRITICAL: No governance + many AI systems = high exposure",
+        urgencyMed: "WARNING: Partial governance does not meet EU AI Act requirements",
+        urgencyLow: "ATTENTION: Even with mature governance, EU AI Act requires specific preparation",
+        ctaTitle: "What now?",
+        ctaText: "Get a free walkthrough of your specific situation. No commitment.",
+        ctaBtn: "Book a free 30-min meeting",
+        downloadBtn: "Download PDF report",
+        assessBtn: "Take the full AI Governance Assessment",
+        disclaimer: "All figures are estimates based on market data and the EU AI Act framework. Actual amounts depend on specific circumstances.",
+
+        leadTitle: "Get your report emailed",
+        leadSub: "Enter your email to receive the report and a personal follow-up.",
+        emailPlaceholder: "you@company.com",
+        companyPlaceholder: "Company name (optional)",
+        sendBtn: "Send me the report",
+        skipBtn: "Skip — download directly",
+        thankYou: "Thanks! Report sent.",
+
+        langToggle: "DA",
+        byLine: "Steven Wensley — AI Advisory & EU AI Act Compliance",
+        privacy: "No data stored in browser. ",
+        privacyLink: "Privacy policy",
+      },
+    };
+
+    // ─── Calculation engine ───
+    const REVENUE_VALUES_DKK = [5000000, 30000000, 125000000, 350000000, 750000000, 1500000000];
+    const REVENUE_VALUES_EUR = [670000, 4000000, 16700000, 47000000, 100000000, 200000000];
+    const EMPLOYEE_MID = [25, 150, 625, 3000, 7500];
+    const AI_SYSTEMS_MID = [0, 3, 10, 33, 75];
+
+    const INDUSTRY_RISK = {
+      0: 1.4,   // Finance
+      1: 1.3,   // Healthcare
+      2: 1.2,   // Public
+      3: 1.1,   // Manufacturing
+      4: 1.0,   // IT
+      5: 0.9,   // Retail
+      6: 1.0,   // Transport
+      7: 0.8,   // Other
+    };
+
+    const GOVERNANCE_MULT = [1.0, 0.7, 0.4, 0.15];
+    const COMPETITOR_PROD = [0.02, 0.05, 0.10, 0.18];
+
+    function calcResults(answers, lang) {
+      const revIdx = answers[1] || 0;
+      const empIdx = answers[2] || 0;
+      const aiIdx = answers[3] || 0;
+      const govIdx = answers[4] || 0;
+      const compIdx = answers[5] || 0;
+      const indIdx = answers[0] || 0;
+
+      const isEUR = lang === "en";
+      const rev = isEUR ? REVENUE_VALUES_EUR[revIdx] : REVENUE_VALUES_DKK[revIdx];
+      const employees = EMPLOYEE_MID[empIdx];
+      const aiSystems = AI_SYSTEMS_MID[aiIdx];
+      const industryMult = INDUSTRY_RISK[indIdx];
+      const govMult = GOVERNANCE_MULT[govIdx];
+      const compProdLoss = COMPETITOR_PROD[compIdx];
+
+      // 1. Regulatory fine exposure (EU AI Act: up to 7% of turnover or €35M)
+      const maxFine = Math.min(rev * 0.07, isEUR ? 35000000 : 260000000);
+      // Probability-weighted: depends on governance level and number of AI systems
+      const fineProbability = Math.min(0.35, (aiSystems > 0 ? 0.08 : 0.02) * industryMult * (govMult + 0.1));
+      const fineExposure = Math.round(maxFine * fineProbability);
+
+      // 2. Productivity loss vs. competitors
+      const avgSalary = isEUR ? 65000 : 480000;
+      const prodLoss = Math.round(employees * avgSalary * compProdLoss * (govMult * 0.5 + 0.5));
+
+      // 3. Compliance cost of delay (increases as deadline approaches)
+      const now = new Date();
+      const deadline = new Date(2026, 7, 2); // Aug 2 2026
+      const monthsLeft = Math.max(1, Math.round((deadline - now) / (30.44 * 24 * 60 * 60 * 1000)));
+      const urgencyMult = Math.max(1, 2.5 - (monthsLeft / 24));
+      const baseCost = isEUR ? (employees * 120) : (employees * 900);
+      const complianceCost = Math.round(baseCost * govMult * urgencyMult);
+
+      // 4. AI incident risk (ungoverned AI errors, bias, data leaks)
+      const incidentBase = aiSystems > 0 ? (rev * 0.005 * industryMult) : 0;
+      const incidentRisk = Math.round(incidentBase * govMult);
+
+      const total = fineExposure + prodLoss + complianceCost + incidentRisk;
+
+      return {
+        fineExposure,
+        prodLoss,
+        complianceCost,
+        incidentRisk,
+        total,
+        monthsLeft,
+        maxFine,
+        urgencyLevel: govIdx === 0 && aiSystems > 0 ? "high" : govIdx <= 1 ? "med" : "low",
+        currency: isEUR ? "€" : "DKK",
+      };
+    }
+
+    function formatNum(n, currency) {
+      if (currency === "€") {
+        if (n >= 1000000) return "€" + (n / 1000000).toFixed(1) + "M";
+        if (n >= 1000) return "€" + Math.round(n / 1000) + "K";
+        return "€" + n;
+      }
+      if (n >= 1000000) return (n / 1000000).toFixed(1) + " mio. DKK";
+      if (n >= 1000) return Math.round(n / 1000) + ".000 DKK";
+      return n + " DKK";
+    }
+
+    // ─── PDF Generation ───
+    function generatePDF(results, answers, t, lang) {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      const gold = [201, 169, 110];
+      const dark = [12, 12, 18];
+      const white = [232, 232, 237];
+      const gray = [130, 130, 155];
+
+      // Background
+      doc.setFillColor(...dark);
+      doc.rect(0, 0, 210, 297, 'F');
+
+      // Gold line
+      doc.setFillColor(...gold);
+      doc.rect(0, 0, 210, 3, 'F');
+
+      // Title
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(22);
+      doc.setTextColor(...white);
+      doc.text(t.resTitle, 20, 28);
+
+      doc.setFontSize(11);
+      doc.setTextColor(...gray);
+      const dateStr = new Date().toLocaleDateString(lang === "da" ? "da-DK" : "en-GB");
+      doc.text(lang === "da" ? `Genereret ${dateStr}` : `Generated ${dateStr}`, 20, 36);
+
+      // Total box
+      doc.setFillColor(26, 26, 46);
+      doc.roundedRect(20, 44, 170, 30, 3, 3, 'F');
+      doc.setFillColor(...gold);
+      doc.rect(20, 44, 170, 3, 'F');
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(14);
+      doc.setTextColor(...gold);
+      doc.text(t.totalLabel, 30, 58);
+      doc.setFontSize(22);
+      doc.text(formatNum(results.total, results.currency), 30, 69);
+      doc.setFontSize(10);
+      doc.setTextColor(...gray);
+      doc.text(lang === "da" ? "pr. år" : "per year", 30 + doc.getTextWidth(formatNum(results.total, results.currency)) + 4, 69);
+
+      // Risk items
+      const items = [
+        { title: t.fineSectionTitle, value: results.fineExposure, desc: t.fineDesc },
+        { title: t.prodSectionTitle, value: results.prodLoss, desc: t.prodDesc },
+        { title: t.compSectionTitle, value: results.complianceCost, desc: t.compDesc },
+        { title: t.riskSectionTitle, value: results.incidentRisk, desc: t.riskDesc },
+      ];
+
+      let y = 86;
+      items.forEach((item) => {
+        doc.setFillColor(26, 26, 46);
+        doc.roundedRect(20, y, 170, 22, 2, 2, 'F');
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(12);
+        doc.setTextColor(...white);
+        doc.text(item.title, 26, y + 9);
+        doc.setTextColor(...gold);
+        doc.text(formatNum(item.value, results.currency), 145, y + 9, { align: "left" });
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(8);
+        doc.setTextColor(...gray);
+        doc.text(item.desc, 26, y + 17);
+        y += 28;
+      });
+
+      // Timeline
+      y += 5;
+      doc.setFillColor(26, 26, 46);
+      doc.roundedRect(20, y, 170, 22, 2, 2, 'F');
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(14);
+      doc.setTextColor(239, 68, 68);
+      doc.text(`${results.monthsLeft} ${t.timelineDesc}`, 30, y + 14);
+
+      // Urgency
+      y += 30;
+      const urgencyText = results.urgencyLevel === "high" ? t.urgencyHigh : results.urgencyLevel === "med" ? t.urgencyMed : t.urgencyLow;
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(10);
+      doc.setTextColor(239, 68, 68);
+      const urgLines = doc.splitTextToSize(urgencyText, 160);
+      doc.text(urgLines, 25, y);
+
+      // CTA
+      y += 18;
+      doc.setFillColor(...gold);
+      doc.roundedRect(20, y, 170, 20, 3, 3, 'F');
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(12);
+      doc.setTextColor(...dark);
+      doc.text(t.ctaTitle + " " + t.ctaText, 30, y + 8);
+      doc.setFontSize(10);
+      doc.text("calendly.com/steven-wensley/30min", 30, y + 15);
+
+      // Footer
+      doc.setFontSize(7);
+      doc.setTextColor(...gray);
+      doc.text(t.disclaimer, 20, 280);
+      doc.setFillColor(...gold);
+      doc.rect(0, 285, 210, 1, 'F');
+      doc.setFontSize(8);
+      doc.setTextColor(...gold);
+      doc.text("stevenwensley.com", 20, 292);
+      doc.text(t.byLine, 210 - 20, 292, { align: "right" });
+
+      return doc;
+    }
+
+    // ─── Main App ───
+    function CostOfInactionCalc() {
+      const [lang, setLang] = useState("da");
+      const [phase, setPhase] = useState("intro"); // intro, questions, results
+      const [currentQ, setCurrentQ] = useState(0);
+      const [answers, setAnswers] = useState({});
+      const [results, setResults] = useState(null);
+      const [showLead, setShowLead] = useState(false);
+      const [leadSent, setLeadSent] = useState(false);
+      const [email, setEmail] = useState("");
+      const [company, setCompany] = useState("");
+      const [showPdfGate, setShowPdfGate] = useState(false);
+      const [pdfEmail, setPdfEmail] = useState("");
+
+      const t = T[lang];
+      const totalQuestions = 6;
+
+      const selectAnswer = (qIdx, optIdx) => {
+        setAnswers(prev => ({ ...prev, [qIdx]: optIdx }));
+      };
+
+      const goNext = () => {
+        if (currentQ < totalQuestions - 1) {
+          setCurrentQ(prev => prev + 1);
+        } else {
+          const r = calcResults(answers, lang);
+          setResults(r);
+          setPhase("results");
+        }
+      };
+
+      const goPrev = () => {
+        if (currentQ > 0) setCurrentQ(prev => prev - 1);
+      };
+
+      const downloadPDF = () => {
+        if (!results) return;
+        const doc = generatePDF(results, answers, t, lang);
+        doc.save("Cost-of-Inaction-Report.pdf");
+      };
+
+      const submitLead = async (e) => {
+        e.preventDefault();
+        try {
+          await fetch("https://formspree.io/f/xpqjldbp", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email,
+              company,
+              tool: "Cost of Inaction Calculator",
+              total_risk: results ? formatNum(results.total, results.currency) : "N/A",
+              fine_exposure: results ? formatNum(results.fineExposure, results.currency) : "N/A",
+              productivity_loss: results ? formatNum(results.prodLoss, results.currency) : "N/A",
+              language: lang,
+            }),
+          });
+          setLeadSent(true);
+          downloadPDF();
+        } catch { setLeadSent(true); }
+      };
+
+      const handlePdfClick = () => {
+        setShowPdfGate(true);
+      };
+
+      const handlePdfGateSubmit = () => {
+        if (pdfEmail && pdfEmail.includes('@')) {
+          fetch('https://formspree.io/f/xpqjldbp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              _subject: 'stevenwensley.com — PDF download lead',
+              email: pdfEmail,
+              tool: document.title
+            })
+          }).catch(() => {});
+          setShowPdfGate(false);
+          downloadPDF();
+        }
+      };
+
+      // ─── Shared Styles ───
+      const cardStyle = {
+        background: "#13131D",
+        borderRadius: 12,
+        border: "1px solid #1E1E30",
+        padding: "28px 32px",
+        marginBottom: 16,
+      };
+
+      const goldBtn = {
+        background: "linear-gradient(135deg, #C9A96E 0%, #B8944D 100%)",
+        color: "#0C0C12",
+        border: "none",
+        borderRadius: 8,
+        padding: "14px 32px",
+        fontSize: 16,
+        fontWeight: 700,
+        cursor: "pointer",
+        transition: "all 0.2s",
+        width: "100%",
+      };
+
+      const outlineBtn = {
+        background: "transparent",
+        color: "#C9A96E",
+        border: "1px solid #C9A96E33",
+        borderRadius: 8,
+        padding: "12px 24px",
+        fontSize: 14,
+        fontWeight: 600,
+        cursor: "pointer",
+        transition: "all 0.2s",
+      };
+
+      // ─── Question data accessor ───
+      const getQ = (idx) => ({
+        title: t[`q${idx + 1}_title`],
+        sub: t[`q${idx + 1}_sub`],
+        options: t[`q${idx + 1}_options`],
+      });
+
+      // ─── INTRO ───
+      if (phase === "intro") {
+        return (
+          <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+            {showPdfGate && (
+              <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.8)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center" }}
+                onClick={(e) => { if (e.target === e.currentTarget) setShowPdfGate(false); }}>
+                <div style={{ background: "#161620", border: "1px solid #C9A96E44", borderRadius: 16, padding: 32, maxWidth: 400, width: "90%", textAlign: "center" }}>
+                  <div style={{ fontSize: 36, marginBottom: 12 }}>📄</div>
+                  <h3 style={{ fontSize: 18, fontWeight: 700, color: "#C9A96E", marginBottom: 8 }}>
+                    Enter your email for the PDF report
+                  </h3>
+                  <p style={{ fontSize: 13, color: "#9CA3AF", marginBottom: 20, lineHeight: 1.5 }}>
+                    We'll only send you the report — no spam.
+                  </p>
+                  <input type="email" placeholder="Your work email"
+                    value={pdfEmail} onChange={(e) => setPdfEmail(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === 'Enter') handlePdfGateSubmit(); }}
+                    style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #333", background: "#0C0C12", color: "#E8E8ED", fontSize: 14, marginBottom: 16, outline: "none", boxSizing: "border-box" }} />
+                  <button onClick={handlePdfGateSubmit}
+                    style={{ width: "100%", background: "#C9A96E", color: "#0C0C12", padding: "12px 20px", borderRadius: 8, fontSize: 15, fontWeight: 700, border: "none", cursor: "pointer", marginBottom: 8 }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = "#D4B896"}
+                    onMouseLeave={(e) => e.currentTarget.style.background = "#C9A96E"}>
+                    Download PDF →
+                  </button>
+                  <button onClick={() => setShowPdfGate(false)}
+                    style={{ background: "transparent", border: "none", color: "#666", fontSize: 12, cursor: "pointer", padding: 4 }}>
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+            {/* Header */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 24px", borderBottom: "1px solid #1E1E30" }}>
+              <span style={{ fontSize: 13, color: "#8888AA" }}>{t.byLine}</span>
+              <button onClick={() => setLang(lang === "da" ? "en" : "da")} style={{ ...outlineBtn, padding: "6px 14px", fontSize: 12 }}>{t.langToggle}</button>
+            </div>
+
+            <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "40px 20px" }}>
+              <div style={{ maxWidth: 600, textAlign: "center" }} className="fade-in">
+                {/* Icon */}
+                <div style={{ fontSize: 56, marginBottom: 24 }}>⚠️</div>
+
+                {/* Badges */}
+                <div style={{ display: "flex", gap: 10, justifyContent: "center", marginBottom: 24 }}>
+                  <span style={{ background: "#C9A96E22", color: "#C9A96E", borderRadius: 20, padding: "5px 14px", fontSize: 12, fontWeight: 600 }}>{t.freeLabel}</span>
+                  <span style={{ background: "#1E1E30", color: "#8888AA", borderRadius: 20, padding: "5px 14px", fontSize: 12, fontWeight: 500 }}>⏱ {t.time}</span>
+                  <span style={{ background: "#1E1E30", color: "#8888AA", borderRadius: 20, padding: "5px 14px", fontSize: 12, fontWeight: 500 }}>6 {lang === "da" ? "spørgsmål" : "questions"}</span>
+                </div>
+
+                <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "clamp(28px, 5vw, 42px)", fontWeight: 700, lineHeight: 1.15, marginBottom: 16, background: "linear-gradient(135deg, #FFFFFF 0%, #C9A96E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                  {t.title}
+                </h1>
+
+                <p style={{ fontSize: 16, color: "#8888AA", lineHeight: 1.6, marginBottom: 36, maxWidth: 480, margin: "0 auto 36px" }}>
+                  {t.subtitle}
+                </p>
+
+                <button onClick={() => setPhase("questions")} style={goldBtn} onMouseEnter={e => e.target.style.transform = "translateY(-2px)"} onMouseLeave={e => e.target.style.transform = "translateY(0)"}>
+                  {t.startBtn} →
+                </button>
+
+                <p style={{ fontSize: 11, color: "#555", marginTop: 20 }}>
+                  {t.privacy}<a href="/privacy" style={{ color: "#C9A96E", textDecoration: "underline" }}>{t.privacyLink}</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // ─── QUESTIONS ───
+      if (phase === "questions") {
+        const q = getQ(currentQ);
+        const selected = answers[currentQ];
+
+        return (
+          <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+            {showPdfGate && (
+              <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.8)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center" }}
+                onClick={(e) => { if (e.target === e.currentTarget) setShowPdfGate(false); }}>
+                <div style={{ background: "#161620", border: "1px solid #C9A96E44", borderRadius: 16, padding: 32, maxWidth: 400, width: "90%", textAlign: "center" }}>
+                  <div style={{ fontSize: 36, marginBottom: 12 }}>📄</div>
+                  <h3 style={{ fontSize: 18, fontWeight: 700, color: "#C9A96E", marginBottom: 8 }}>
+                    Enter your email for the PDF report
+                  </h3>
+                  <p style={{ fontSize: 13, color: "#9CA3AF", marginBottom: 20, lineHeight: 1.5 }}>
+                    We'll only send you the report — no spam.
+                  </p>
+                  <input type="email" placeholder="Your work email"
+                    value={pdfEmail} onChange={(e) => setPdfEmail(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === 'Enter') handlePdfGateSubmit(); }}
+                    style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #333", background: "#0C0C12", color: "#E8E8ED", fontSize: 14, marginBottom: 16, outline: "none", boxSizing: "border-box" }} />
+                  <button onClick={handlePdfGateSubmit}
+                    style={{ width: "100%", background: "#C9A96E", color: "#0C0C12", padding: "12px 20px", borderRadius: 8, fontSize: 15, fontWeight: 700, border: "none", cursor: "pointer", marginBottom: 8 }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = "#D4B896"}
+                    onMouseLeave={(e) => e.currentTarget.style.background = "#C9A96E"}>
+                    Download PDF →
+                  </button>
+                  <button onClick={() => setShowPdfGate(false)}
+                    style={{ background: "transparent", border: "none", color: "#666", fontSize: 12, cursor: "pointer", padding: 4 }}>
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 24px", borderBottom: "1px solid #1E1E30" }}>
+              <span style={{ fontSize: 13, color: "#8888AA" }}>{t.byLine}</span>
+              <button onClick={() => setLang(lang === "da" ? "en" : "da")} style={{ ...outlineBtn, padding: "6px 14px", fontSize: 12 }}>{t.langToggle}</button>
+            </div>
+
+            {/* Progress */}
+            <div style={{ padding: "16px 24px 0" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                <span style={{ fontSize: 12, color: "#8888AA", fontWeight: 500 }}>{t.step} {currentQ + 1} {t.of} {totalQuestions}</span>
+                <span style={{ fontSize: 12, color: "#C9A96E", fontWeight: 600 }}>{Math.round(((currentQ + 1) / totalQuestions) * 100)}%</span>
+              </div>
+              <div style={{ width: "100%", height: 4, background: "#1E1E30", borderRadius: 2, overflow: "hidden" }}>
+                <div style={{ height: "100%", width: `${((currentQ + 1) / totalQuestions) * 100}%`, background: "linear-gradient(90deg, #C9A96E, #D4B978)", borderRadius: 2, transition: "width 0.4s ease" }} />
+              </div>
+            </div>
+
+            <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "24px 20px" }}>
+              <div style={{ maxWidth: 560, width: "100%" }} className="fade-in" key={currentQ}>
+                <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 28, fontWeight: 700, marginBottom: 8, color: "#fff" }}>
+                  {q.title}
+                </h2>
+                <p style={{ fontSize: 14, color: "#8888AA", marginBottom: 28, lineHeight: 1.5 }}>
+                  {q.sub}
+                </p>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  {q.options.map((opt, idx) => (
+                    <button key={idx} onClick={() => selectAnswer(currentQ, idx)} style={{
+                      ...cardStyle,
+                      padding: "16px 20px",
+                      marginBottom: 0,
+                      cursor: "pointer",
+                      textAlign: "left",
+                      fontSize: 14,
+                      fontWeight: 500,
+                      color: selected === idx ? "#C9A96E" : "#E8E8ED",
+                      border: selected === idx ? "1px solid #C9A96E" : "1px solid #1E1E30",
+                      background: selected === idx ? "#C9A96E11" : "#13131D",
+                      transition: "all 0.15s",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 12,
+                    }}>
+                      <span style={{
+                        width: 22, height: 22, borderRadius: "50%",
+                        border: selected === idx ? "2px solid #C9A96E" : "2px solid #333",
+                        background: selected === idx ? "#C9A96E" : "transparent",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        flexShrink: 0, fontSize: 12, color: "#0C0C12", fontWeight: 700,
+                      }}>
+                        {selected === idx && "✓"}
+                      </span>
+                      {opt}
+                    </button>
+                  ))}
+                </div>
+
+                <div style={{ display: "flex", gap: 12, marginTop: 28, justifyContent: "space-between" }}>
+                  {currentQ > 0 && (
+                    <button onClick={goPrev} style={{ ...outlineBtn, flex: "0 0 auto" }}>
+                      ← {t.prevBtn}
+                    </button>
+                  )}
+                  <button
+                    onClick={goNext}
+                    disabled={selected === undefined}
+                    style={{
+                      ...goldBtn,
+                      opacity: selected === undefined ? 0.4 : 1,
+                      cursor: selected === undefined ? "default" : "pointer",
+                      flex: 1,
+                      marginLeft: currentQ === 0 ? 0 : "auto",
+                    }}
+                  >
+                    {currentQ === totalQuestions - 1 ? t.calcBtn : t.nextBtn} →
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      // ─── RESULTS ───
+      if (phase === "results" && results) {
+        const items = [
+          { title: t.fineSectionTitle, value: results.fineExposure, desc: t.fineDesc, color: "#EF4444", icon: "⚖️" },
+          { title: t.prodSectionTitle, value: results.prodLoss, desc: t.prodDesc, color: "#F59E0B", icon: "📉" },
+          { title: t.compSectionTitle, value: results.complianceCost, desc: t.compDesc, color: "#8B5CF6", icon: "⏰" },
+          { title: t.riskSectionTitle, value: results.incidentRisk, desc: t.riskDesc, color: "#F97316", icon: "🛡️" },
+        ];
+
+        const maxVal = Math.max(...items.map(i => i.value), 1);
+
+        return (
+          <div style={{ minHeight: "100vh" }}>
+            {showPdfGate && (
+              <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.8)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center" }}
+                onClick={(e) => { if (e.target === e.currentTarget) setShowPdfGate(false); }}>
+                <div style={{ background: "#161620", border: "1px solid #C9A96E44", borderRadius: 16, padding: 32, maxWidth: 400, width: "90%", textAlign: "center" }}>
+                  <div style={{ fontSize: 36, marginBottom: 12 }}>📄</div>
+                  <h3 style={{ fontSize: 18, fontWeight: 700, color: "#C9A96E", marginBottom: 8 }}>
+                    Enter your email for the PDF report
+                  </h3>
+                  <p style={{ fontSize: 13, color: "#9CA3AF", marginBottom: 20, lineHeight: 1.5 }}>
+                    We'll only send you the report — no spam.
+                  </p>
+                  <input type="email" placeholder="Your work email"
+                    value={pdfEmail} onChange={(e) => setPdfEmail(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === 'Enter') handlePdfGateSubmit(); }}
+                    style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #333", background: "#0C0C12", color: "#E8E8ED", fontSize: 14, marginBottom: 16, outline: "none", boxSizing: "border-box" }} />
+                  <button onClick={handlePdfGateSubmit}
+                    style={{ width: "100%", background: "#C9A96E", color: "#0C0C12", padding: "12px 20px", borderRadius: 8, fontSize: 15, fontWeight: 700, border: "none", cursor: "pointer", marginBottom: 8 }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = "#D4B896"}
+                    onMouseLeave={(e) => e.currentTarget.style.background = "#C9A96E"}>
+                    Download PDF →
+                  </button>
+                  <button onClick={() => setShowPdfGate(false)}
+                    style={{ background: "transparent", border: "none", color: "#666", fontSize: 12, cursor: "pointer", padding: 4 }}>
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 24px", borderBottom: "1px solid #1E1E30" }}>
+              <span style={{ fontSize: 13, color: "#8888AA" }}>{t.byLine}</span>
+              <button onClick={() => setLang(lang === "da" ? "en" : "da")} style={{ ...outlineBtn, padding: "6px 14px", fontSize: 12 }}>{t.langToggle}</button>
+            </div>
+
+            <div style={{ maxWidth: 680, margin: "0 auto", padding: "32px 20px" }}>
+              {/* Total box */}
+              <div style={{ ...cardStyle, background: "linear-gradient(135deg, #13131D 0%, #1A1A2E 100%)", borderColor: "#C9A96E44", textAlign: "center", marginBottom: 32 }} className="fade-in">
+                <p style={{ fontSize: 13, color: "#8888AA", marginBottom: 8, textTransform: "uppercase", letterSpacing: 1.5, fontWeight: 600 }}>{t.resSubtitle}</p>
+                <div style={{ fontSize: "clamp(36px, 6vw, 52px)", fontFamily: "'DM Serif Display', serif", fontWeight: 700, color: "#EF4444", marginBottom: 8 }} className="count-up">
+                  {formatNum(results.total, results.currency)}
+                </div>
+                <p style={{ fontSize: 12, color: "#8888AA" }}>{lang === "da" ? "pr. år" : "per year"}</p>
+              </div>
+
+              {/* Risk breakdown */}
+              <h3 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 22, fontWeight: 700, marginBottom: 20, color: "#fff" }}>{t.resTitle}</h3>
+
+              {items.map((item, idx) => (
+                <div key={idx} style={{ ...cardStyle, marginBottom: 12 }} className="slide-up" >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <span style={{ fontSize: 20 }}>{item.icon}</span>
+                      <span style={{ fontSize: 15, fontWeight: 600, color: "#E8E8ED" }}>{item.title}</span>
+                    </div>
+                    <span style={{ fontSize: 18, fontWeight: 700, color: item.color, fontFamily: "'DM Serif Display', serif" }}>
+                      {formatNum(item.value, results.currency)}
+                    </span>
+                  </div>
+                  <div style={{ width: "100%", height: 6, background: "#1E1E30", borderRadius: 3, overflow: "hidden", marginBottom: 8 }}>
+                    <div className="bar-grow" style={{ height: "100%", width: `${Math.max(3, (item.value / maxVal) * 100)}%`, background: item.color, borderRadius: 3 }} />
+                  </div>
+                  <p style={{ fontSize: 12, color: "#6B6B8A", lineHeight: 1.4 }}>{item.desc}</p>
+                </div>
+              ))}
+
+              {/* Timeline */}
+              <div style={{ ...cardStyle, background: "#1A0A0A", borderColor: "#EF444433", textAlign: "center", marginTop: 24 }}>
+                <div style={{ fontSize: 48, fontFamily: "'DM Serif Display', serif", fontWeight: 700, color: "#EF4444", marginBottom: 4 }} className="pulse">
+                  {results.monthsLeft}
+                </div>
+                <p style={{ fontSize: 14, fontWeight: 600, color: "#EF4444" }}>{t.timelineDesc}</p>
+                <p style={{ fontSize: 12, color: "#8888AA", marginTop: 8 }}>{t.timelineSub}</p>
+              </div>
+
+              {/* Urgency banner */}
+              <div style={{ background: results.urgencyLevel === "high" ? "#EF444422" : results.urgencyLevel === "med" ? "#F59E0B22" : "#C9A96E22", borderRadius: 8, padding: "14px 20px", marginTop: 16, border: `1px solid ${results.urgencyLevel === "high" ? "#EF444444" : results.urgencyLevel === "med" ? "#F59E0B44" : "#C9A96E44"}` }}>
+                <p style={{ fontSize: 13, fontWeight: 700, color: results.urgencyLevel === "high" ? "#EF4444" : results.urgencyLevel === "med" ? "#F59E0B" : "#C9A96E" }}>
+                  {results.urgencyLevel === "high" ? t.urgencyHigh : results.urgencyLevel === "med" ? t.urgencyMed : t.urgencyLow}
+                </p>
+              </div>
+
+              {/* Lead capture / Download */}
+              <div style={{ ...cardStyle, marginTop: 32, textAlign: "center", borderColor: "#C9A96E44" }}>
+                {!showLead && !leadSent && (
+                  <>
+                    <h3 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 20, fontWeight: 700, color: "#fff", marginBottom: 8 }}>{t.ctaTitle}</h3>
+                    <p style={{ fontSize: 14, color: "#8888AA", marginBottom: 20 }}>{t.ctaText}</p>
+                    <a href="https://calendly.com/steven-wensley/30min" target="_blank" rel="noopener" style={{ ...goldBtn, display: "inline-block", textDecoration: "none", textAlign: "center", marginBottom: 12 }}>
+                      {t.ctaBtn}
+                    </a>
+                    <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 12, flexWrap: "wrap" }}>
+                      <button onClick={handlePdfClick} style={outlineBtn}>{t.downloadBtn} ↓</button>
+                      <a href="/ai-governance-assessment" style={{ ...outlineBtn, textDecoration: "none", display: "inline-block" }}>{t.assessBtn} →</a>
+                    </div>
+                  </>
+                )}
+
+                {showLead && !leadSent && (
+                  <form onSubmit={submitLead} className="fade-in">
+                    <h4 style={{ fontSize: 16, fontWeight: 600, color: "#fff", marginBottom: 4 }}>{t.leadTitle}</h4>
+                    <p style={{ fontSize: 12, color: "#8888AA", marginBottom: 16 }}>{t.leadSub}</p>
+                    <input type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder={t.emailPlaceholder} style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #1E1E30", background: "#0C0C12", color: "#E8E8ED", fontSize: 14, marginBottom: 10 }} />
+                    <input type="text" value={company} onChange={e => setCompany(e.target.value)} placeholder={t.companyPlaceholder} style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #1E1E30", background: "#0C0C12", color: "#E8E8ED", fontSize: 14, marginBottom: 16 }} />
+                    <button type="submit" style={goldBtn}>{t.sendBtn}</button>
+                    <button type="button" onClick={() => { setShowLead(false); downloadPDF(); }} style={{ ...outlineBtn, marginTop: 10, width: "100%" }}>{t.skipBtn}</button>
+                  </form>
+                )}
+
+                {leadSent && (
+                  <div className="fade-in">
+                    <div style={{ fontSize: 32, marginBottom: 8 }}>✅</div>
+                    <p style={{ fontSize: 14, color: "#22C55E", fontWeight: 600 }}>{t.thankYou}</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Disclaimer */}
+              <p style={{ fontSize: 10, color: "#555", textAlign: "center", marginTop: 24, lineHeight: 1.5 }}>
+                {t.disclaimer}
+              </p>
+            </div>
+          </div>
+        );
+      }
+
+      return null;
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<CostOfInactionCalc />);
+  
