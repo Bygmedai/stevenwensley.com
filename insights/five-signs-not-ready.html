@@ -430,17 +430,10 @@
 
       nav .nav-container {
         gap: 0.5rem;
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      nav .nav-links {
-        gap: 0.5rem;
-        flex-wrap: wrap;
       }
 
       article {
-        padding-top: 140px;
+        padding-top: 100px;
         padding-left: 1rem;
         padding-right: 1rem;
       }
@@ -477,8 +470,7 @@
       top: 100%;
       left: 0;
       right: 0;
-      background: rgba(10, 10, 15, 0.97);
-      backdrop-filter: blur(20px);
+      background: var(--bg, #0a0a0f);
       flex-direction: column;
       padding: 1.5rem 2rem;
       gap: 1rem;
@@ -585,11 +577,14 @@
         <text x="2" y="22" font-family="DM Serif Display,Georgia,serif" font-size="22" font-weight="700" fill="var(--gold)" stroke="var(--gold)" stroke-width="0.8">SSW</text>
       </svg>
     </a>
+    <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
     <ul class="nav-links">
-      <li><a href="https://stevenwensley.com/insights.html" class="active">Insights</a></li>
-      <li><a href="https://stevenwensley.com/#about">About</a></li>
-      <li><a href="https://stevenwensley.com/services.html">Services</a></li>
-      <li><a href="https://stevenwensley.com/ai-governance-assessment.html">Assessment</a></li>
+      <li><a href="https://stevenwensley.com/workshop">The Factory</a></li>
+      <li><a href="https://stevenwensley.com/playbooks">Playbooks</a></li>
+      <li><a href="https://stevenwensley.com/services">Services</a></li>
+      <li><a href="https://stevenwensley.com/tools">Tools</a></li>
+      <li><a href="https://stevenwensley.com/notes">Notes</a></li>
+      <li><a href="https://stevenwensley.com/about">About</a></li>
       <li><a href="https://stevenwensley.com/#contact">Contact</a></li>
     </ul>
   </div>

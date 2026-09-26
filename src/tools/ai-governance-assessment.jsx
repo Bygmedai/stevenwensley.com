@@ -25,7 +25,7 @@
         id: "compliance", name: "Compliance & Regulering", nameEN: "Compliance & Regulation", icon: "\u{1F4CB}",
         questions: [
           { q: "Ved I, hvilke af jeres AI-systemer der falder under EU AI Act?", qEN: "Do you know which of your AI systems fall under the EU AI Act?" },
-          { q: "Har I en tidsplan for at opfylde EU AI Act-kravene inden august 2026?", qEN: "Do you have a timeline for meeting EU AI Act requirements before August 2026?" },
+          { q: "Har I en tidsplan for at opfylde EU AI Act-kravene?", qEN: "Do you have a timeline for meeting EU AI Act requirements?" },
           { q: "Er jeres AI-systemer dokumenteret i et centralt register?", qEN: "Are your AI systems documented in a central register?" },
           { q: "Kan I fremvise audit trail for AI-beslutninger, hvis en myndighed beder om det?", qEN: "Can you produce an audit trail for AI decisions if a regulator requests it?" },
           { q: "Er jeres AI-governance koordineret med eksisterende compliance (GDPR, NIS2, ISO27001)?", qEN: "Is your AI governance coordinated with existing compliance (GDPR, NIS2, ISO27001)?" },
@@ -71,7 +71,7 @@
 
     const MATURITY_LEVELS = [
       { min: 0, max: 20, level: "Ad Hoc", levelEN: "Ad Hoc", color: "#EF4444", desc: "AI governance er ikke formaliseret. Der er betydelig risiko for compliance-problemer og uforudsete AI-fejl.", descEN: "AI governance is not formalized. There is significant risk of compliance issues and unforeseen AI failures." },
-      { min: 21, max: 40, level: "Begyndende", levelEN: "Emerging", color: "#F97316", desc: "Nogle processer er på plads, men der mangler systematik. Kritiske gaps bør adresseres nu — særligt med EU AI Act-deadline i august 2026.", descEN: "Some processes are in place but lack system. Critical gaps should be addressed now — especially with the EU AI Act deadline in August 2026." },
+      { min: 21, max: 40, level: "Begyndende", levelEN: "Emerging", color: "#F97316", desc: "Nogle processer er på plads, men der mangler systematik. Kritiske gaps bør adresseres nu — nu hvor EU AI Act håndhæves.", descEN: "Some processes are in place but lack system. Critical gaps should be addressed now — now that the EU AI Act is being enforced." },
       { min: 41, max: 60, level: "Defineret", levelEN: "Defined", color: "#F59E0B", desc: "I har et fundament, men der er rum for forbedring. Fokus bør være på at lukke de specifikke gaps, der scorer lavest.", descEN: "You have a foundation, but there is room for improvement. Focus should be on closing the specific gaps that score lowest." },
       { min: 61, max: 80, level: "Styret", levelEN: "Managed", color: "#22C55E", desc: "Stærk governance-position. Næste skridt er at formalisere audit-processer og sikre kontinuerlig forbedring.", descEN: "Strong governance position. Next step is to formalize audit processes and ensure continuous improvement." },
       { min: 81, max: 100, level: "Optimeret", levelEN: "Optimized", color: "#10B981", desc: "Best-in-class governance. I er godt rustet til regulering og kan bruge jeres governance som konkurrencefordel.", descEN: "Best-in-class governance. You are well prepared for regulation and can use your governance as a competitive advantage." },
@@ -95,8 +95,8 @@
         highEN: "Automate risk monitoring. Establish rollback plans and test them regularly. Include bias testing in standard risk reviews.",
       },
       compliance: {
-        low: "EU AI Act-deadline er august 2026. Start med at identificere hvilke systemer der er High Risk under Annex III. Det er den lavest hængende frugt.",
-        lowEN: "The EU AI Act deadline is August 2026. Start by identifying which systems are High Risk under Annex III. It's the lowest-hanging fruit.",
+        low: "EU AI Act-kravene indfases frem mod december 2027. Start med at identificere hvilke systemer der er High Risk under Annex III. Det er den lavest hængende frugt.",
+        lowEN: "The EU AI Act's obligations phase in through December 2027. Start by identifying which systems are High Risk under Annex III. It's the lowest-hanging fruit.",
         mid: "Opbyg et centralt AI-register med dokumentation. Koordinér med GDPR/NIS2/ISO27001-processer — undgå parallelle governance-siloer.",
         midEN: "Build a central AI register with documentation. Coordinate with GDPR/NIS2/ISO27001 processes — avoid parallel governance silos.",
         high: "Etabler audit trail-systemer og forbered jer på myndighedsinspektion. Jeres governance kan blive en konkurrencefordel overfor kunder.",

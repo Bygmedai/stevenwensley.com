@@ -41,13 +41,13 @@
       prodSectionTitle: "Produktivitetstab",
       prodDesc: "Tabt effektivitet vs. AI-adopterende konkurrenter",
       compSectionTitle: "Compliance-omkostning ved forsinkelse",
-      compDesc: "Prisen stiger jo t\xE6ttere p\xE5 august 2026-deadline",
+      compDesc: "Prisen stiger jo t\xE6ttere p\xE5 high-risk-deadline i december 2027",
       riskSectionTitle: "Risiko for AI-incident",
       riskDesc: "Potentielt tab ved ukontrolleret AI (fejl, bias, dataleaks)",
       totalLabel: "Samlet estimeret \xE5rlig risiko",
       timelineTitle: "Tidspres",
       timelineDesc: "m\xE5neder til EU AI Act high-risk deadline",
-      timelineSub: "August 2026 \u2014 forberedelse b\xF8r starte NU",
+      timelineSub: "December 2027 \u2014 forberedelsen b\xF8r starte nu",
       urgencyHigh: "KRITISK: Ingen governance + mange AI-systemer = h\xF8j eksponering",
       urgencyMed: "ADVARSEL: Delvis governance d\xE6kker ikke EU AI Act-krav",
       urgencyLow: "OPM\xC6RKSOMHED: Selv med moden governance kr\xE6ver EU AI Act specifik forberedelse",
@@ -107,13 +107,13 @@
       prodSectionTitle: "Productivity loss",
       prodDesc: "Lost efficiency vs. AI-adopting competitors",
       compSectionTitle: "Compliance cost of delay",
-      compDesc: "Cost increases the closer to the August 2026 deadline",
+      compDesc: "Cost increases the closer to the December 2027 high-risk deadline",
       riskSectionTitle: "AI incident risk",
       riskDesc: "Potential loss from uncontrolled AI (errors, bias, data leaks)",
       totalLabel: "Total estimated annual risk",
       timelineTitle: "Time pressure",
       timelineDesc: "months until EU AI Act high-risk deadline",
-      timelineSub: "August 2026 \u2014 preparation should start NOW",
+      timelineSub: "December 2027 \u2014 preparation should start now",
       urgencyHigh: "CRITICAL: No governance + many AI systems = high exposure",
       urgencyMed: "WARNING: Partial governance does not meet EU AI Act requirements",
       urgencyLow: "ATTENTION: Even with mature governance, EU AI Act requires specific preparation",
@@ -180,7 +180,7 @@
     const avgSalary = isEUR ? 65e3 : 48e4;
     const prodLoss = Math.round(employees * avgSalary * compProdLoss * (govMult * 0.5 + 0.5));
     const now = /* @__PURE__ */ new Date();
-    const deadline = new Date(2026, 7, 2);
+    const deadline = new Date(2027, 11, 2);
     const monthsLeft = Math.max(1, Math.round((deadline - now) / (30.44 * 24 * 60 * 60 * 1e3)));
     const urgencyMult = Math.max(1, 2.5 - monthsLeft / 24);
     const baseCost = isEUR ? employees * 120 : employees * 900;

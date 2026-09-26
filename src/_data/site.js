@@ -28,12 +28,18 @@ module.exports = {
     url: "https://stevenwensley.com",
   },
   locale: "en_GB",
-  // Used for nav rendering — order matters
+  // Used for nav rendering — order matters. The same seven links, in the
+  // same order, as the hand-maintained pages: the articles carried the
+  // site's first navigation (Insights / About / Services / Assessment) for a
+  // month after every other page had moved on, with .html links that
+  // redirect and an /#about anchor that no longer exists.
   navLinks: [
-    { label: "Insights", href: "/insights.html", id: "insights" },
-    { label: "About", href: "/#about", id: "about" },
-    { label: "Services", href: "/services.html", id: "services" },
-    { label: "Assessment", href: "/ai-governance-assessment.html", id: "assessment" },
+    { label: "The Factory", href: "/workshop", id: "workshop" },
+    { label: "Playbooks", href: "/playbooks", id: "playbooks" },
+    { label: "Services", href: "/services", id: "services" },
+    { label: "Tools", href: "/tools", id: "tools" },
+    { label: "Notes", href: "/notes", id: "notes" },
+    { label: "About", href: "/about", id: "about" },
     { label: "Contact", href: "/#contact", id: "contact" },
   ],
 };

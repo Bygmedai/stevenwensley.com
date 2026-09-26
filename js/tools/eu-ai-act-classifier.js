@@ -26,8 +26,8 @@
       articles: "Art. 6, Annex I & III",
       desc: "Dit AI-system klassificeres som h\xF8j-risiko under EU AI Act. Det kr\xE6ver fuld conformity assessment, kvalitetsstyring, og l\xF8bende overv\xE5gning.",
       descEN: "Your AI system is classified as high-risk under the EU AI Act. It requires full conformity assessment, quality management, and ongoing monitoring.",
-      deadline: "2. august 2026 (evt. udskudt til dec 2027 jf. Digital Omnibus)",
-      deadlineEN: "August 2, 2026 (possibly postponed to Dec 2027 per Digital Omnibus)"
+      deadline: "2. december 2027 (udskudt fra 2. august 2026 ved Digital Omnibus)",
+      deadlineEN: "December 2, 2027 (deferred from August 2, 2026 by the Digital Omnibus)"
     },
     limited: {
       id: "limited",
@@ -39,8 +39,8 @@
       articles: "Art. 50",
       desc: "Dit AI-system har transparensforpligtelser under EU AI Act Art. 50. Brugere skal informeres om, at de interagerer med AI.",
       descEN: "Your AI system has transparency obligations under EU AI Act Art. 50. Users must be informed they are interacting with AI.",
-      deadline: "2. august 2026",
-      deadlineEN: "August 2, 2026"
+      deadline: "2. august 2026 (i kraft)",
+      deadlineEN: "August 2, 2026 (in force)"
     },
     minimal: {
       id: "minimal",
@@ -77,7 +77,7 @@
       icon: "\u{1F3ED}",
       regulations: [
         { name: "Maskinforordningen 2023/1230", nameEN: "Machinery Regulation 2023/1230", desc: "AI i maskiner og safety-systemer er direkte reguleret af den nye maskinforordning. Tr\xE6der i kraft jan 2027.", descEN: "AI in machinery and safety systems is directly regulated by the new Machinery Regulation. Takes effect Jan 2027." },
-        { name: "NIS2-direktivet", nameEN: "NIS2 Directive", desc: "Kritisk infrastruktur og industriel OT kr\xE6ver NIS2-compliance. Deadline: august 2026.", descEN: "Critical infrastructure and industrial OT requires NIS2 compliance. Deadline: August 2026." },
+        { name: "NIS2-direktivet", nameEN: "NIS2 Directive", desc: "Kritisk infrastruktur og industriel OT kr\xE6ver NIS2-compliance. I kraft i Danmark siden 1. juli 2025.", descEN: "Critical infrastructure and industrial OT requires NIS2 compliance. In force in Denmark since 1 July 2025." },
         { name: "IEC 62443 (OT Security)", nameEN: "IEC 62443 (OT Security)", desc: "AI i industrielle kontrolsystemer (ICS/SCADA) skal leve op til IEC 62443 cybersikkerhedskrav.", descEN: "AI in industrial control systems (ICS/SCADA) must meet IEC 62443 cybersecurity requirements." }
       ],
       extra_requirements: [
