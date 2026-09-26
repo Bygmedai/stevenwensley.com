@@ -187,6 +187,25 @@
     .reco-item .reco-text strong { display: block; margin-bottom: 2px; color: var(--text-primary); }
 
     /* CTA section */
+    /* Paid board receipt — shown only when /api/receipt/config says it can be bought */
+    .receipt-offer { margin: 48px 0 0; padding: 36px 28px; border: 1px solid rgba(201,169,110,0.35); border-radius: 12px; background: var(--surface); }
+    .receipt-offer .kicker { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .receipt-offer h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.5rem; color: var(--text-primary); margin-bottom: 10px; }
+    .receipt-offer p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.65; margin-bottom: 14px; max-width: 620px; }
+    .receipt-offer ul { margin: 0 0 20px 1.1rem; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
+    .receipt-offer .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 6px; }
+    .receipt-offer .btn { text-decoration: none; display: inline-block; text-align: center; }
+    .receipt-offer [hidden] { display: none !important; }
+    .receipt-offer .fine { font-size: 0.78rem; color: var(--text-muted); margin: 16px 0 0; }
+    .receipt-offer a:not(.btn) { color: var(--gold); }
+    .receipt-status { margin-top: 16px; font-size: 0.9rem; color: var(--text-secondary); }
+    .receipt-status:empty { display: none; }
+    .receipt-status.ok { border-left: 2px solid var(--green); padding-left: 12px; }
+    .receipt-status.bad { border-left: 2px solid var(--red); padding-left: 12px; }
+    .receipt-status strong { color: var(--text-primary); }
+    .receipt-paid { display: none; margin: 0 0 24px; padding: 14px 18px; border-left: 2px solid var(--green); background: var(--surface); color: var(--text-secondary); font-size: 0.9rem; border-radius: 0 8px 8px 0; }
+    .receipt-paid.visible { display: block; }
+
     .cta-section { text-align: center; margin: 48px 0 0; padding: 40px 24px; background: linear-gradient(135deg, rgba(43,122,111,0.08), rgba(201,169,110,0.06)); border: 1px solid var(--border); border-radius: 12px; }
     .cta-section h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.4rem; color: var(--gold); margin-bottom: 8px; }
     .cta-section p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; max-width: 480px; margin-left: auto; margin-right: auto; }
@@ -204,7 +223,7 @@
 
     /* Print */
     @media print {
-      nav, .domain-nav, .nav-buttons, .action-bar, .btn, .cta-section, footer { display: none !important; }
+      nav, .domain-nav, .nav-buttons, .action-bar, .btn, .cta-section, .receipt-offer, .receipt-paid, footer { display: none !important; }
       .tool-header { padding-top: 24px; }
       .domain-section { display: none !important; }
       #results { display: block !important; }
@@ -268,6 +287,8 @@
 
 <div class="container">
 
+  <div class="receipt-paid" id="receipt-paid" role="status"></div>
+
   <!-- Progress -->
   <div class="progress-bar" data-reveal>
     <div class="progress-info">
@@ -291,6 +312,24 @@
 
   <!-- Results -->
   <div id="results"></div>
+
+  <!-- Paid board receipt. Hidden until the server says it can be bought. -->
+  <section class="receipt-offer" id="receipt-offer" hidden aria-labelledby="receipt-title">
+    <div class="kicker">For the board papers</div>
+    <h3 id="receipt-title">The board receipt</h3>
+    <p>The result above is yours, free: print it or save it as it is. The board receipt is the document to file with the board papers, numbered and issued after payment:</p>
+    <ul>
+      <li>a receipt number, date and time &mdash; and a page where anyone can check it</li>
+      <li>the result per domain, every critical gap, and the decisions NIS2 Article 20 puts on the management body</li>
+      <li>every answer, exactly as submitted</li>
+    </ul>
+    <div class="actions">
+      <button type="button" class="btn btn-gold" id="receipt-download" hidden>Download your receipt (PDF)</button>
+      <a class="btn btn-gold" id="receipt-buy" href="#"><span data-buy-label>Buy the board receipt</span> &mdash; <span data-receipt-price></span></a>
+    </div>
+    <div class="receipt-status" id="receipt-status" role="status" aria-live="polite"></div>
+    <p class="fine">Paid through Stripe. Your answers stay in this browser until the receipt is issued; then they are stored with your payment, so the same receipt can be downloaded again and checked at <a href="/verify-receipt">/verify-receipt</a>. One payment, one receipt. A record of what was declared &mdash; not an audit, a certification or legal advice.</p>
+  </section>
 
   <!-- CTA -->
   <div class="cta-section" id="cta-section" style="display:none;">
@@ -316,103 +355,10 @@
   <a href="/book-session">Book Session</a>
 </footer>
 
+<script src="/js/nis2-model.js"></script>
 <script>
-// ── DATA ──
-const domains = [
-  {
-    id: 'governance', name: 'Governance & Leadership', ref: 'Art. 20',
-    subtitle: 'Board accountability, cybersecurity strategy, management oversight',
-    questions: [
-      { text: 'Has the board formally approved a cybersecurity risk management policy?', context: 'NIS2 Art. 20 requires management body approval of cybersecurity measures.', options: ['No policy exists','Policy exists but not board-approved','Board-approved policy, reviewed annually','Board-approved, integrated with enterprise risk management'] },
-      { text: 'Does the management body receive regular cybersecurity briefings?', context: 'Art. 20 mandates management oversight — not delegation to IT alone.', options: ['No structured reporting','Ad-hoc reporting when incidents occur','Quarterly reporting with metrics','Monthly reporting with risk dashboard and KPIs'] },
-      { text: 'Has management completed NIS2-specific cybersecurity training?', context: 'Art. 20(2): Members of management bodies must follow training.', options: ['No training completed','General awareness training only','NIS2-specific training planned','NIS2-specific training completed and documented'] },
-      { text: 'Is there a designated CISO or equivalent security officer?', context: 'Essential for NIS2 governance. Reports to board, not buried in IT ops.', options: ['No dedicated security role','IT manager handles security part-time','Dedicated CISO but reports to CIO only','CISO with direct board reporting line'] }
-    ]
-  },
-  {
-    id: 'risk', name: 'Risk Management', ref: 'Art. 21(2)(a)',
-    subtitle: 'Cyber risk assessment methodology, risk register, acceptance criteria',
-    questions: [
-      { text: 'Do you maintain a formal cybersecurity risk assessment process?', context: 'Art. 21(2)(a): risk analysis and information system security policies.', options: ['No formal risk assessment','Informal/ad-hoc assessments','Annual risk assessment documented','Continuous risk assessment with automated monitoring'] },
-      { text: 'Are OT/production systems included in your risk assessments?', context: 'Food manufacturing relies on SCADA, PLCs, cold chain monitoring — all in scope.', options: ['OT systems not assessed','OT included informally','OT has separate risk assessment','Integrated IT/OT risk assessment with unified register'] },
-      { text: 'Do you have documented risk acceptance criteria approved by management?', context: 'Regulators expect evidence of conscious risk decisions — not ignored gaps.', options: ['No risk acceptance criteria','Informal thresholds','Documented criteria, management-approved','Quantified criteria with regular review and board sign-off'] }
-    ]
-  },
-  {
-    id: 'incident', name: 'Incident Management', ref: 'Art. 23, 24',
-    subtitle: 'Detection, response, reporting — 24h/72h/30-day obligations',
-    questions: [
-      { text: 'Do you have a documented incident response plan covering NIS2 reporting timelines?', context: 'NIS2 requires: 24h early warning, 72h detailed notification, 30-day final report.', options: ['No incident response plan','Plan exists but no NIS2-specific timelines','Plan includes NIS2 timelines, not tested','Plan tested via tabletop exercises within last 12 months'] },
-      { text: 'Can you detect a significant cyber incident within 24 hours?', context: '24-hour early warning is mandatory. Requires real-time monitoring capability.', options: ['No real-time monitoring','Basic monitoring, detection likely >48h','SIEM/SOC in place, <24h detection likely','24/7 SOC with automated alerting and <1h detection target'] },
-      { text: 'Do you know which national authority to notify for incidents?', context: 'Denmark: Centre for Cybersecurity. Sweden: MSB. Finland: Traficom.', options: ['Not identified','Identified but no contact established','Contact established, procedures drafted','Tested notification procedure with authority engagement'] },
-      { text: 'Have you conducted an incident response exercise in the last 12 months?', context: 'Regulators expect evidence of preparedness — not just documentation.', options: ['No exercises conducted','Discussed scenarios informally','Tabletop exercise completed','Full simulation including OT/production scenarios'] }
-    ]
-  },
-  {
-    id: 'bcp', name: 'Business Continuity', ref: 'Art. 21(2)(c)',
-    subtitle: 'Backup, disaster recovery, crisis management for production & supply chain',
-    questions: [
-      { text: 'Do you have documented RTO/RPO targets for critical systems?', context: 'ERP downtime = no orders. Production SCADA failure = factory stops. Cold chain break = product loss.', options: ['No documented RTO/RPO','Informal targets for some systems','Documented for all critical systems','Documented, tested, and validated quarterly'] },
-      { text: 'Are backups tested regularly and stored off-site/offline?', context: 'Ransomware specifically targets online backups. Air-gapped copies are essential.', options: ['No regular backup testing','Backups exist but rarely tested','Regular testing, online storage only','Tested quarterly with offline/air-gapped copies'] },
-      { text: 'Do you have a crisis management plan for cyber incidents affecting production?', context: 'Food production downtime has cascading effects: waste, supply chain delays, recalls.', options: ['No crisis management plan','IT disaster recovery only','Includes production/OT scenarios','Integrated plan with supply chain partners, tested annually'] }
-    ]
-  },
-  {
-    id: 'supply-chain', name: 'Supply Chain Security', ref: 'Art. 21(2)(d)',
-    subtitle: 'Vendor assessments, contractual clauses, third-party monitoring',
-    questions: [
-      { text: 'Have you assessed the cybersecurity posture of your critical suppliers?', context: 'Art. 21(2)(d): security of supply chain including vendor relationships.', options: ['No supplier security assessments','Informal assessment of some suppliers','Formal assessment of critical suppliers','Comprehensive program with regular reassessment and monitoring'] },
-      { text: 'Do supplier contracts include NIS2-compliant cybersecurity clauses?', context: 'Must include incident notification requirements, security standards, audit rights.', options: ['No security clauses in contracts','Generic security clauses','NIS2-aligned clauses in new contracts','All contracts updated with specific NIS2 requirements'] },
-      { text: 'Can your suppliers notify you of incidents within agreed timeframes?', context: 'Your 24h reporting obligation depends on supplier incident visibility.', options: ['No supplier notification procedures','Informal expectations','Documented notification requirements','Tested notification chain with critical suppliers'] },
-      { text: 'Do you assess the security of software/SaaS vendors (ERP, cloud, IoT)?', context: 'ERP, Azure, production monitoring, e-commerce — all are attack surfaces.', options: ['No vendor security assessment','SOC2/ISO cert checked at onboarding','Regular security reviews of critical vendors','Continuous monitoring with vendor risk scoring'] }
-    ]
-  },
-  {
-    id: 'access', name: 'Access Control', ref: 'Art. 21(2)(i)',
-    subtitle: 'Authentication, authorization, privileged access, zero trust',
-    questions: [
-      { text: 'Is multi-factor authentication (MFA) enforced for all privileged access?', context: 'Admin accounts, VPN, cloud consoles, ERP admin — all require MFA under NIS2.', options: ['MFA not deployed','MFA for some systems (e.g. email)','MFA for all remote and cloud access','MFA enforced universally including OT admin access'] },
-      { text: 'Do you implement least-privilege access control across IT and OT?', context: 'Production operators should only access their line. Admins should not have permanent root.', options: ['No formal access control policy','Basic role-based access in some systems','RBAC across IT systems, not OT','RBAC/ABAC across IT and OT with regular access reviews'] },
-      { text: 'How do you manage privileged access (admin/root accounts)?', context: 'Compromised admin accounts are the #1 path for ransomware in food manufacturing.', options: ['Shared admin accounts in use','Individual accounts but no PAM','Privileged Access Management (PAM) for IT','PAM across IT and OT with session recording'] }
-    ]
-  },
-  {
-    id: 'assets', name: 'Asset Management', ref: 'Art. 21(2)',
-    subtitle: 'Hardware, software, data inventory — IT and OT assets',
-    questions: [
-      { text: 'Do you maintain a complete inventory of IT and OT assets?', context: 'You cannot protect what you do not know. Includes servers, PLCs, sensors, IoT devices.', options: ['No centralized inventory','Partial IT inventory only','Complete IT inventory, partial OT','Complete IT + OT inventory with automated discovery'] },
-      { text: 'Are assets classified by criticality and data sensitivity?', context: 'Recipe databases, production SCADA, customer PII, financial systems — different risk levels.', options: ['No classification scheme','Informal classification','Documented classification for IT','Classification for IT and OT with risk-based prioritization'] },
-      { text: 'Do you track end-of-life/end-of-support for all systems?', context: 'Legacy OT systems often run unsupported OS. Major vulnerability if not managed.', options: ['No lifecycle tracking','Tracked for some IT systems','Tracked for all IT, some OT','Complete lifecycle management with upgrade/migration plans'] }
-    ]
-  },
-  {
-    id: 'crypto', name: 'Cryptography & Data Protection', ref: 'Art. 21(2)(h)',
-    subtitle: 'Encryption at rest and in transit, key management, data classification',
-    questions: [
-      { text: 'Is data encrypted in transit across all critical systems?', context: 'TLS 1.2+ for all connections. Includes internal traffic, not just external.', options: ['Encryption not standardized','External connections encrypted','All critical connections encrypted (TLS 1.2+)','Full encryption including internal east-west traffic'] },
-      { text: 'Is sensitive data encrypted at rest?', context: 'Recipes, customer data, financial records, employee PII — all require encryption.', options: ['No encryption at rest','Some databases encrypted','All sensitive data encrypted (AES-256)','Full disk + database + backup encryption with key rotation'] },
-      { text: 'Do you have a documented key management process?', context: 'Keys in code repos, shared drives, or individual laptops = critical vulnerability.', options: ['No key management process','Keys managed informally','Documented process with HSM/vault','Automated key lifecycle with rotation and audit logging'] }
-    ]
-  },
-  {
-    id: 'network', name: 'Network Security', ref: 'Art. 21(2)',
-    subtitle: 'Segmentation, monitoring, OT/IT separation, remote access',
-    questions: [
-      { text: 'Are your IT and OT networks segmented?', context: 'Critical for food manufacturing. IT ransomware must not reach production SCADA.', options: ['Flat network (no segmentation)','Basic VLAN segmentation','IT/OT separated with firewall','Purdue model / IEC 62443 zone architecture with DMZ'] },
-      { text: 'Do you monitor network traffic for anomalies?', context: 'Includes both IT (SIEM) and OT (industrial IDS/NMS) monitoring.', options: ['No network monitoring','Basic monitoring (availability only)','SIEM for IT, no OT monitoring','Integrated IT + OT monitoring with anomaly detection'] },
-      { text: 'How is remote access to OT systems managed?', context: 'Vendor remote access to PLCs/SCADA is a top attack vector in manufacturing.', options: ['Open VPN access to OT','VPN with standard credentials','Dedicated secure remote access gateway','Zero-trust remote access with session recording and approval workflows'] }
-    ]
-  },
-  {
-    id: 'hr', name: 'Human Resources Security', ref: 'Art. 21(2)(g)',
-    subtitle: 'Training, awareness, background checks, onboarding/offboarding',
-    questions: [
-      { text: 'Do all employees receive cybersecurity awareness training?', context: 'Art. 21(2)(g): Includes production staff, not just office workers.', options: ['No structured training','Training for office staff only','Annual training for all employees','Role-specific training (IT, OT, management) with phishing simulations'] },
-      { text: 'Are background checks performed for staff with access to critical systems?', context: 'Food manufacturing has high turnover. Contractors and temp workers also in scope.', options: ['No background checks','For senior IT staff only','For all staff with system access','Comprehensive checks including contractors, with periodic renewal'] },
-      { text: 'Do you have documented onboarding/offboarding procedures for system access?', context: 'Departed employee with active ERP/production access = significant risk.', options: ['No formal procedures','Informal process, often delayed','Documented with IT checklist','Automated provisioning/deprovisioning with same-day revocation'] }
-    ]
-  }
-];
+// ── DATA ── questions and scoring live in /js/nis2-model.js, shared with the receipt
+const domains = NIS2.domains;
 
 // ── STATE ──
 let currentDomain = 0;
@@ -511,21 +457,7 @@ function showResults() {
   results.style.display = 'block';
   document.getElementById('cta-section').style.display = 'block';
 
-  const domainScores = domains.map((d, di) => {
-    let total = 0, max = 0;
-    d.questions.forEach((q, qi) => { const val = answers[`${di}-${qi}`]; total += (val !== undefined ? val : 0); max += 3; });
-    return { name: d.name, ref: d.ref, score: total, max, pct: Math.round((total / max) * 100) };
-  });
-
-  const overallScore = domainScores.reduce((s, d) => s + d.score, 0);
-  const overallMax = domainScores.reduce((s, d) => s + d.max, 0);
-  const overallPct = Math.round((overallScore / overallMax) * 100);
-  const colorClass = overallPct < 30 ? 'red' : overallPct < 55 ? 'orange' : overallPct < 75 ? 'gold' : 'green';
-  const maturity = overallPct < 30 ? 'Initial \u2014 Significant gaps require immediate attention'
-    : overallPct < 55 ? 'Developing \u2014 Foundation exists but critical gaps remain'
-    : overallPct < 75 ? 'Defined \u2014 Good progress, focused improvements needed'
-    : 'Managed \u2014 Strong posture, continuous improvement recommended';
-
+  const { domainScores, overallPct, band: colorClass, maturity } = NIS2.score(answers);
 
   let html = `
     <div class="results-header">
@@ -546,8 +478,7 @@ function showResults() {
   html += '</div>';
 
   // Critical gaps
-  const gaps = [];
-  domains.forEach((d, di) => { d.questions.forEach((q, qi) => { const val = answers[`${di}-${qi}`]; if (val !== undefined && val <= 1) gaps.push({ domain: d.name, ref: d.ref, question: q.text, score: val, option: q.options[val] }); }); });
+  const gaps = NIS2.gaps(answers);
 
   if (gaps.length > 0) {
     html += `<div class="critical-gaps"><h3>Critical Gaps Identified (${gaps.length})</h3>`;
@@ -557,18 +488,7 @@ function showResults() {
 
   // Recommendations
   html += `<div class="reco-section"><h3>Priority Recommendations</h3>`;
-  const recos = [
-    { cond: () => domainScores[0].pct < 50, text: 'Establish Board-Level Governance', desc: 'Secure board approval for cybersecurity policy. Schedule quarterly security briefings. Appoint or empower a CISO with direct board reporting.' },
-    { cond: () => domainScores[2].pct < 50, text: 'Implement NIS2 Incident Reporting', desc: 'Document 24h/72h/30-day reporting procedures. Register with national CSIRT. Conduct tabletop exercise within 30 days.' },
-    { cond: () => domainScores[4].pct < 50, text: 'Launch Supply Chain Security Programme', desc: 'Identify and assess top 30 critical suppliers. Update contracts with NIS2 security clauses. Establish incident notification chain.' },
-    { cond: () => domainScores[1].pct < 50, text: 'Formalize Cybersecurity Risk Assessment', desc: 'Implement structured risk methodology covering IT and OT. Include production systems, cold chain, and ERP in scope.' },
-    { cond: () => domainScores[3].pct < 50, text: 'Strengthen Business Continuity', desc: 'Define RTO/RPO for production-critical systems. Test backups with offline/air-gapped copies. Develop production-specific crisis plan.' },
-    { cond: () => domainScores[8].pct < 75, text: 'Segment IT/OT Networks', desc: 'Implement Purdue model or IEC 62443 zone architecture. Deploy industrial firewall between IT and OT.' },
-    { cond: () => domainScores[5].pct < 75, text: 'Enforce Multi-Factor Authentication', desc: 'Deploy MFA across all privileged access, VPN, and cloud consoles. Include OT administrative access.' },
-    { cond: () => true, text: 'Continuous Monitoring & Evidence Collection', desc: 'Implement automated compliance dashboards, audit trails, and security metrics reporting.' }
-  ];
-  let recoCount = 0;
-  recos.forEach(r => { if (r.cond() && recoCount < 6) { recoCount++; html += `<div class="reco-item"><div class="reco-num">${recoCount}</div><div class="reco-text"><strong>${r.text}</strong>${r.desc}</div></div>`; } });
+  NIS2.recommendations(domainScores).forEach((r, n) => { html += `<div class="reco-item"><div class="reco-num">${n + 1}</div><div class="reco-text"><strong>${r.text}</strong>${r.desc}</div></div>`; });
   html += '</div>';
 
   html += `<div class="action-bar"><button class="btn btn-gold gradient-animated" onclick="window.print()">Export as PDF</button><button class="btn btn-secondary" onclick="resetAssessment()">Retake Assessment</button></div>`;
@@ -619,6 +539,141 @@ function resetAssessment() {
 }
 
 init();
+</script>
+
+<script>
+// ── Board receipt ──
+// The paid PDF is made by /api/receipt/issue, on the server, and only after
+// Stripe confirms the payment. This script carries the answers across the
+// Stripe checkout and asks for the file; it has no way to make one. Nothing
+// it keeps in the browser can unlock anything: the server asks Stripe every
+// time.
+(function () {
+  var ANSWERS = 'ssw.nis2.answers';
+  var SESSION = 'ssw.nis2.session';
+  var ls = {
+    get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+  var offerEl = document.getElementById('receipt-offer');
+  var buy = document.getElementById('receipt-buy');
+  var dl = document.getElementById('receipt-download');
+  var statusEl = document.getElementById('receipt-status');
+  var paidEl = document.getElementById('receipt-paid');
+  var offer = null;
+  var resultsShown = false;
+  var returnedSession = null;
+  var session = function () { return ls.get(SESSION) || returnedSession; };
+
+  var MESSAGES = {
+    not_paid: 'Stripe has not confirmed this payment yet. Try again in a minute.',
+    wrong_amount: 'This payment is not for the board receipt, so nothing was issued.',
+    not_found: 'Stripe does not know this payment, so nothing was issued.',
+    bad_session: 'Stripe does not know this payment, so nothing was issued.',
+    no_answers: 'Answer the questions first: the receipt records your answers.',
+    question_set_changed: 'The questions have changed since this receipt was issued. <a href="/#contact">Get in touch</a> and it will be reissued.',
+    not_configured: 'Receipts cannot be issued right now. Your payment is safe; try again later.',
+    error: 'The receipt could not be issued just now. Your payment is safe: try again in a moment, and if it keeps failing, <a href="/#contact">get in touch</a>.'
+  };
+
+  var esc = function (x) { return String(x).replace(/[&<>"']/g, function (c) { return '&#' + c.charCodeAt(0) + ';'; }); };
+  var when = function (iso) {
+    return new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Copenhagen', day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(iso)).replace(' at ', ', ');
+  };
+  var price = function (o) {
+    var n = (o.amount / 100).toLocaleString('en-GB');
+    return o.currency === 'dkk' ? 'DKK ' + n : n + ' ' + o.currency.toUpperCase();
+  };
+  function status(kind, html) { statusEl.className = 'receipt-status' + (kind ? ' ' + kind : ''); statusEl.innerHTML = html; }
+
+  function render() {
+    offerEl.hidden = !(resultsShown && (offer || session()));
+    buy.hidden = !offer;
+    dl.hidden = !session();
+    // Once paid, the download is the thing to press; buying is for a second,
+    // separate receipt.
+    buy.className = 'btn ' + (session() ? 'btn-secondary' : 'btn-gold');
+    dl.className = 'btn ' + (session() ? 'btn-gold' : 'btn-secondary');
+    buy.querySelector('[data-buy-label]').textContent = session() ? 'Buy another receipt' : 'Buy the board receipt';
+    if (offer) {
+      buy.href = offer.paymentLink;
+      document.querySelectorAll('[data-receipt-price]').forEach(function (el) { el.textContent = price(offer); });
+    }
+  }
+
+  var baseShow = showResults;
+  showResults = function () { baseShow(); resultsShown = true; render(); };
+  var baseReset = resetAssessment;
+  resetAssessment = function () { baseReset(); resultsShown = false; status('', ''); render(); };
+
+  // Stripe sends the buyer back to a fresh page load; the answers have to be
+  // waiting for them here.
+  buy.addEventListener('click', function (e) {
+    if (!offer) { e.preventDefault(); return; }
+    ls.set(ANSWERS, NIS2.encodeAnswers(answers));
+  });
+
+  dl.addEventListener('click', function () {
+    dl.disabled = true;
+    status('', 'Issuing your receipt&hellip;');
+    fetch('/api/receipt/issue', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ session_id: session(), answers: NIS2.encodeAnswers(answers) })
+    })
+      .then(function (res) {
+        if (!res.ok) return res.json().catch(function () { return {}; }).then(function (b) { throw b.code || 'error'; });
+        var id = res.headers.get('X-Receipt-Id');
+        var issued = res.headers.get('X-Receipt-Issued');
+        var reused = res.headers.get('X-Receipt-Reused') === '1';
+        return res.blob().then(function (blob) {
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url; a.download = id + '.pdf';
+          document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(function () { URL.revokeObjectURL(url); }, 30000);
+          status('ok', '<strong>Receipt ' + esc(id) + '</strong> ' +
+            (reused ? 'was issued for this payment on ' + esc(when(issued)) + '. This is that receipt, with the answers it was issued with.'
+                    : 'issued ' + esc(when(issued)) + '.') +
+            ' Check it any time at <a href="/verify-receipt?id=' + encodeURIComponent(id) + '">/verify-receipt</a>.');
+          dl.textContent = 'Download again (PDF)';
+        });
+      })
+      .catch(function (code) { status('bad', MESSAGES[code] || MESSAGES.error); })
+      .then(function () { dl.disabled = false; });
+  });
+
+  var params = new URLSearchParams(location.search);
+  var sid = params.get('session_id');
+  if (sid && /^cs_(test|live)_[A-Za-z0-9]+$/.test(sid)) {
+    returnedSession = sid;
+    ls.set(SESSION, sid);
+    // The session id stays out of the address bar, so it is not copied into
+    // a shared link or a bookmark.
+    params.delete('session_id');
+    try { history.replaceState(null, '', location.pathname + (params.toString() ? '?' + params : '') + location.hash); } catch (e) {}
+    var saved = NIS2.decodeAnswers(ls.get(ANSWERS) || '');
+    paidEl.classList.add('visible');
+    if (saved) {
+      answers = saved;
+      document.querySelectorAll('#assessment-form .domain-section').forEach(function (sec, di) {
+        sec.querySelectorAll('.question').forEach(function (q, qi) {
+          q.querySelectorAll('.option').forEach(function (o, oi) { o.classList.toggle('selected', answers[di + '-' + qi] === oi); });
+        });
+      });
+      paidEl.textContent = 'Payment received, thank you. Your answers are back as you left them; your receipt is ready to download below the result.';
+      showResults();
+    } else {
+      paidEl.textContent = 'Payment received, thank you. This browser does not have your answers: complete the assessment below, and the download appears with your result.';
+    }
+  }
+
+  fetch('/api/receipt/config', { headers: { Accept: 'application/json' } })
+    .then(function (res) { return res.ok ? res.json() : null; })
+    .then(function (c) { if (c && c.available) offer = c; render(); })
+    .catch(function () {});
+  render();
+})();
 </script>
 
 <!-- DS2: Design System v2 -->
