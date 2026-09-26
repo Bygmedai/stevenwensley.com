@@ -159,16 +159,39 @@ const drawChart = ({ id, W, H, L, R, T, B, font, endText, monthTicks }) => {
     return segs.join('') + dots.join('');
   };
 
-  // Name each gap once, above the commits line.
+  // Each gap is a faint band the height of the plot, named inside it, on
+  // whichever side of the lines has more room within the band.
+  //
+  // Two earlier placements failed, both caught only by looking. Above the
+  // line: when the latest stretch was itself a gap, the name sat on top of
+  // the "+1,220 commits" end label. At the foot of the band: fine for a late
+  // gap, but the first gap is where both lines rise from zero, and they ran
+  // straight through the words. The room is measured per band instead of
+  // assumed, and tests/factory-now.spec.js checks every label against every
+  // other label and every line.
+  const gapBands = [];
   const gapLabels = [];
   for (let i = 1; i < pts.length; i++) {
     const [a, b] = [pts[i - 1], pts[i]];
     const g = days(a.date, b.date);
-    if (g > GAP_DAYS) {
-      const mx = (X(a.date) + X(b.date)) / 2;
-      const my = Math.min(Y(a.commits - first.commits), Y(b.commits - first.commits)) - font;
-      gapLabels.push(`<text x="${mx.toFixed(1)}" y="${my.toFixed(1)}" text-anchor="middle" class="fn-gaplabel" ${fs(0.92)}>no measurement · ${g} days</text>`);
-    }
+    if (g <= GAP_DAYS) continue;
+    const xa = X(a.date), xb = X(b.date), mx = (xa + xb) / 2;
+    gapBands.push(`<rect x="${xa.toFixed(1)}" y="${T}" width="${(xb - xa).toFixed(1)}" height="${H - T - B}" class="fn-gapband"/>`);
+    // Where the lines are, anywhere across this band (SVG y grows downward).
+    const ys = [a, b].flatMap((p) => [Y(p.commits - first.commits), Y(p.pullRequests - first.pullRequests)]);
+    const roomAbove = Math.min(...ys) - T, roomBelow = H - B - Math.max(...ys);
+    const above = roomAbove >= roomBelow;
+    const oneLine = `no measurement · ${g} days`;
+    const fits = xb - xa >= oneLine.length * font * 0.55;
+    const lines = fits ? 1 : 2;
+    // First baseline: just inside the top of the band, or high enough above
+    // its foot for every line of the label to clear the axis.
+    const y0 = above ? T + font * 1.3 : H - B - font * (0.7 + 1.1 * (lines - 1));
+    gapLabels.push(
+      fits
+        ? `<text x="${mx.toFixed(1)}" y="${y0.toFixed(1)}" text-anchor="middle" class="fn-gaplabel" ${fs(0.92)}>${oneLine}</text>`
+        : `<text x="${mx.toFixed(1)}" y="${y0.toFixed(1)}" text-anchor="middle" class="fn-gaplabel" ${fs(0.92)}><tspan x="${mx.toFixed(1)}">no data</tspan><tspan x="${mx.toFixed(1)}" dy="${(font * 1.1).toFixed(1)}">${g} days</tspan></text>`
+    );
   }
 
   const endLabel = `<text x="${(X(last.date) - 8).toFixed(1)}" y="${(Y(last.commits - first.commits) - font).toFixed(1)}" text-anchor="end" class="fn-endlabel" ${fs(1.08)}>+${n(last.commits - first.commits)}${endText}</text>`;
@@ -176,6 +199,7 @@ const drawChart = ({ id, W, H, L, R, T, B, font, endText, monthTicks }) => {
   return `<svg viewBox="0 0 ${W} ${H}" class="fn-svg fn-svg-${id}" role="img" aria-labelledby="fn-${id}-title fn-${id}-desc">
             <title id="fn-${id}-title">Commits and pull requests added since ${long(first.date)}</title>
             <desc id="fn-${id}-desc">${pts.length} measurements from ${long(first.date)} to ${long(last.date)}. ${n(last.commits - first.commits)} commits and ${n(last.pullRequests - first.pullRequests)} pull requests added.${GAPS ? ` ${GAPS} gap${GAPS > 1 ? 's' : ''} of more than ${GAP_DAYS} days without a measurement, drawn dashed.` : ''}</desc>
+            ${gapBands.join('')}
             ${grid.join('')}
             ${xLabels.join('')}
             ${series('pullRequests', 'fn-prs')}
