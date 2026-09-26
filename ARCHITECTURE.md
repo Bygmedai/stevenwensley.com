@@ -61,6 +61,10 @@ committed `/insights/*.html` from main. See `MIGRATION.md` Phase 4.
 ├── /<tool>.html               ← React-based, will not be templated
 ├── /insights/*.html           ← BUILD OUTPUT from /src/insights/
 ├── /img/, /favicon.ico, ...   ← static assets, untouched by Eleventy
+├── /functions/api/receipt/    ← Cloudflare Pages Functions: the only server code.
+│                                The paid NIS2 board receipt (see
+│                                docs/nis2-receipt-setup.md). Never copied to _site.
+├── /js/nis2-model.js          ← NIS2 questions + scoring, shared by page and server
 │
 ├── /src/                      ← Eleventy input (NOT served — input dir)
 │   ├── _data/

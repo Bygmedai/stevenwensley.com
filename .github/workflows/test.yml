@@ -30,6 +30,12 @@ jobs:
             echo "Run 'npm run build' locally and commit the result."
             exit 1
           fi
+      # The paid NIS2 receipt runs as Cloudflare Pages Functions, which no
+      # other job here executes: payment gate, one receipt per payment,
+      # verification, the PDF, and a bundle of each route the way Cloudflare
+      # bundles it. Stripe is an in-memory stand-in; no key is involved.
+      - name: Receipt functions (unit)
+        run: npm run test:unit
 
   publish-verify:
     name: Publish Directory Verify

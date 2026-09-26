@@ -40,6 +40,10 @@ const OUT = join(ROOT, '_site');
 // Directories never published — source, tests, tooling, VCS, CI.
 const DENY_DIRS = new Set([
   'src',
+  // Cloudflare Pages Functions: Cloudflare compiles them from the repository
+  // root into server routes. Copied into the publish directory they would be
+  // served as plain files — the payment code readable at /functions/….
+  'functions',
   'tests',
   'scripts',
   'node_modules',
@@ -83,6 +87,9 @@ const REQUIRED = [
 // ones that measurably differed between GitHub Pages and the first Cloudflare
 // preview — if any of them reappears in the output, fail the build.
 const FORBIDDEN = [
+  'functions',
+  'functions/api/receipt/issue.js',
+  'functions/_lib/receipt-service.js',
   'src',
   'src/insights/five-signs-not-ready.html',
   'tests',
