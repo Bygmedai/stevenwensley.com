@@ -47,13 +47,13 @@
         prodSectionTitle: "Produktivitetstab",
         prodDesc: "Tabt effektivitet vs. AI-adopterende konkurrenter",
         compSectionTitle: "Compliance-omkostning ved forsinkelse",
-        compDesc: "Prisen stiger jo tættere på august 2026-deadline",
+        compDesc: "Prisen stiger jo tættere på high-risk-deadline i december 2027",
         riskSectionTitle: "Risiko for AI-incident",
         riskDesc: "Potentielt tab ved ukontrolleret AI (fejl, bias, dataleaks)",
         totalLabel: "Samlet estimeret årlig risiko",
         timelineTitle: "Tidspres",
         timelineDesc: "måneder til EU AI Act high-risk deadline",
-        timelineSub: "August 2026 — forberedelse bør starte NU",
+        timelineSub: "December 2027 — forberedelsen bør starte nu",
         urgencyHigh: "KRITISK: Ingen governance + mange AI-systemer = høj eksponering",
         urgencyMed: "ADVARSEL: Delvis governance dækker ikke EU AI Act-krav",
         urgencyLow: "OPMÆRKSOMHED: Selv med moden governance kræver EU AI Act specifik forberedelse",
@@ -122,13 +122,13 @@
         prodSectionTitle: "Productivity loss",
         prodDesc: "Lost efficiency vs. AI-adopting competitors",
         compSectionTitle: "Compliance cost of delay",
-        compDesc: "Cost increases the closer to the August 2026 deadline",
+        compDesc: "Cost increases the closer to the December 2027 high-risk deadline",
         riskSectionTitle: "AI incident risk",
         riskDesc: "Potential loss from uncontrolled AI (errors, bias, data leaks)",
         totalLabel: "Total estimated annual risk",
         timelineTitle: "Time pressure",
         timelineDesc: "months until EU AI Act high-risk deadline",
-        timelineSub: "August 2026 — preparation should start NOW",
+        timelineSub: "December 2027 — preparation should start now",
         urgencyHigh: "CRITICAL: No governance + many AI systems = high exposure",
         urgencyMed: "WARNING: Partial governance does not meet EU AI Act requirements",
         urgencyLow: "ATTENTION: Even with mature governance, EU AI Act requires specific preparation",
@@ -202,7 +202,7 @@
 
       // 3. Compliance cost of delay (increases as deadline approaches)
       const now = new Date();
-      const deadline = new Date(2026, 7, 2); // Aug 2 2026
+      const deadline = new Date(2027, 11, 2); // 2 Dec 2027: high-risk obligations, deferred from 2 Aug 2026 (see /regulatory-deadlines)
       const monthsLeft = Math.max(1, Math.round((deadline - now) / (30.44 * 24 * 60 * 60 * 1000)));
       const urgencyMult = Math.max(1, 2.5 - (monthsLeft / 24));
       const baseCost = isEUR ? (employees * 120) : (employees * 900);

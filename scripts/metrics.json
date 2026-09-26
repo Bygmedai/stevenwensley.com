@@ -8,8 +8,8 @@
     "inkandartPullRequests": 1,
     "pullRequests": 5,
     "repositories": 1,
-    "yearsExperience": 39,
-    "yearsExperienceDa": 6
+    "yearsExperience": 41,
+    "yearsExperienceDa": 8
   },
   "measuredAt": "2026-09-26",
   "method": "GitHub search API, org:Bygmedai, default branches only, private repositories included. Commits and pull requests counted from 2026-02-01; a search for commits before that date returns zero, which is what fixes February as the factory's start.",
