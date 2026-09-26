@@ -48,6 +48,15 @@ const BANNED = [
     why: 'ledighed angivet som en fast dato — skriv "Ledig nu" i stedet',
   },
   {
+    // "measured August 2026", "verified in May 2026". Added after workshop.html
+    // was found saying "Counts verified via the GitHub API (measured August
+    // 2026)" in late September, about figures measured every morning. The
+    // patterns above knew "Updated" and "Reviewed"; they had never met
+    // "measured", so the page passed.
+    re: new RegExp(`(measured|verified|målt|verificeret)\\s+(in\\s+|i\\s+)?${MONTHS}\\s+\\d{4}`, 'i'),
+    why: 'måledato med fast måned — tallene måles dagligt, så teksten bliver forkert',
+  },
+  {
     // "Opdateret juni 2026", "Updated June 2026", "Reviewed August 2026"
     re: new RegExp(`(Opdateret|Senest\\s+opdateret|Updated|Reviewed|Last\\s+reviewed)\\s+${MONTHS}\\s+\\d{4}`, 'i'),
     why: 'friskheds-stempel med fast måned — det påstår aktualitet, det ikke kan holde',
@@ -67,7 +76,10 @@ const files = [
 const hits = [];
 for (const f of files) {
   if (EXEMPT.has(f)) continue;
-  const text = await readFile(join(ROOT, f), 'utf8');
+  // A generated region is rewritten from data on every run, so a date inside
+  // it is a measurement, not a promise typed by hand. /factory-now states the
+  // day of its latest reading there, on purpose.
+  const text = (await readFile(join(ROOT, f), 'utf8')).replace(/<!-- factory:begin -->[\s\S]*?<!-- factory:end -->/g, '');
   for (const line of text.split('\n')) {
     for (const b of BANNED) {
       const m = line.match(b.re);
