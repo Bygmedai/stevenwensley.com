@@ -26,9 +26,24 @@
   #   calendly.com             booking embed
   #
   # 'unsafe-inline' is required and worth being honest about: the pages carry
-  # inline <style> blocks and 53 onclick attributes, and the tool pages compile
-  # JSX in the browser, which needs 'unsafe-eval' too. So this policy does not
-  # defend against injected inline script. What it does defend against is an
-  # attacker pointing the page at an origin that is not on this list — which is
-  # the realistic failure for a static site with third-party dependencies.
-  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://formspree.io https://cloudflareinsights.com https://static.cloudflareinsights.com; frame-src https://calendly.com; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; frame-ancestors 'self'
+  # inline <style> blocks and 68 inline event handlers (53 onclick, 7 each of
+  # onmouseover and onmouseout, 1 onload). So this policy does not defend
+  # against injected inline script. What it does defend against is an attacker
+  # pointing the page at an origin that is not on this list — which is the
+  # realistic failure for a static site with third-party dependencies.
+  #
+  # 'unsafe-eval' is gone. It lets a string become running code, and it was
+  # never needed. The August version of this comment claimed the tool pages
+  # required it because they compiled JSX in the browser with
+  # @babel/standalone. That was an assumption, not a measurement, and it was
+  # wrong: Babel inserts its output as inline <script> elements, which
+  # 'unsafe-inline' covers. Tested on 26 September with Babel actually running
+  # under a policy without 'unsafe-eval' — no violation — and the same harness
+  # does report one for a string passed to setTimeout, so it can see eval when
+  # eval happens. All eight third-party scripts on the site were also read for
+  # eval(), new Function() and Function(): React, ReactDOM, jsPDF, Chart.js,
+  # Lenis, GSAP, ScrollTrigger and the Cloudflare beacon. None uses them.
+  # (The first draft of this list left out Chart.js. scripts/csp-report.mjs
+  # caught it, by refusing to call a page clean when a library on it had not
+  # run.)
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://formspree.io https://cloudflareinsights.com https://static.cloudflareinsights.com; frame-src https://calendly.com; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; frame-ancestors 'self'
