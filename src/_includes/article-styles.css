@@ -429,8 +429,7 @@
       top: 100%;
       left: 0;
       right: 0;
-      background: rgba(10, 10, 15, 0.97);
-      backdrop-filter: blur(20px);
+      background: var(--bg, #0a0a0f);
       flex-direction: column;
       padding: 1.5rem 2rem;
       gap: 1rem;
