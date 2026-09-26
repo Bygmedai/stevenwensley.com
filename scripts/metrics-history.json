@@ -1,0 +1,77 @@
+{
+  "_comment": "One point per published measurement of the factory. Appended by scripts/fetch-metrics.mjs; drawn by scripts/build-factory.mjs on /factory-now. The first points were built by scripts/backfill-history.mjs from the git history of scripts/metrics.json.",
+  "points": [
+    {
+      "date": "2026-08-18",
+      "commits": 5722,
+      "pullRequests": 3442,
+      "repositories": 21
+    },
+    {
+      "date": "2026-08-31",
+      "commits": 6289,
+      "pullRequests": 3841,
+      "repositories": 24
+    },
+    {
+      "date": "2026-09-02",
+      "commits": 6338,
+      "pullRequests": 3882,
+      "repositories": 24
+    },
+    {
+      "date": "2026-09-03",
+      "commits": 6349,
+      "pullRequests": 3893,
+      "repositories": 24
+    },
+    {
+      "date": "2026-09-06",
+      "commits": 6388,
+      "pullRequests": 3934,
+      "repositories": 24
+    },
+    {
+      "date": "2026-09-08",
+      "commits": 6443,
+      "pullRequests": 3987,
+      "repositories": 24
+    },
+    {
+      "date": "2026-09-10",
+      "commits": 6502,
+      "pullRequests": 4032,
+      "repositories": 25
+    },
+    {
+      "date": "2026-09-11",
+      "commits": 6547,
+      "pullRequests": 4060,
+      "repositories": 26
+    },
+    {
+      "date": "2026-09-12",
+      "commits": 6579,
+      "pullRequests": 4080,
+      "repositories": 26
+    },
+    {
+      "date": "2026-09-14",
+      "commits": 6600,
+      "pullRequests": 4110,
+      "repositories": 26
+    },
+    {
+      "date": "2026-09-15",
+      "commits": 6604,
+      "pullRequests": 4112,
+      "repositories": 26
+    },
+    {
+      "date": "2026-09-16",
+      "commits": 6619,
+      "pullRequests": 4119,
+      "repositories": 26
+    }
+  ]
+}

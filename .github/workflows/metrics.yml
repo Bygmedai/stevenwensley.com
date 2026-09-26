@@ -82,6 +82,11 @@ jobs:
           npm ci
           node scripts/build-tools.mjs | tee -a "$GITHUB_STEP_SUMMARY"
 
+      # fetch-metrics appended today's measurement to the history; the page
+      # that draws it has to follow, in the same pull request.
+      - name: Redraw /factory-now
+        run: node scripts/build-factory.mjs | tee -a "$GITHUB_STEP_SUMMARY"
+
       # Statuses are arithmetic on dates, so they can go wrong on any morning,
       # not just when someone edits the page. Daily is the point: a regulatory
       # date passes on a Sunday and the tracker is right by Monday breakfast.
@@ -132,6 +137,7 @@ jobs:
           node scripts/build-meta.mjs --check
           node scripts/check-no-stale-dates.mjs
           node scripts/build-tools.mjs --check
+          node scripts/build-factory.mjs --check
           node scripts/build-publish.mjs
           npx html-validate "*.html" "insights/*.html"
 

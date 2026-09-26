@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>The Factory, Measured | Steven Wensley</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="Not typed, measured. 6,619 commits and every reading behind them, each one a commit you can check — including the days nobody measured.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stevenwensley.com/factory-now">
+<meta property="og:title" content="The Factory, Measured | Steven Wensley">
+<meta property="og:description" content="Not typed — measured. Every reading of the factory, when it was taken, and where there is none.">
+<meta property="og:image" content="https://stevenwensley.com/og/workshop.png">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Factory, Measured | Steven Wensley">
+<meta name="twitter:description" content="Not typed — measured. Every reading of the factory, and where there is none.">
+<meta name="twitter:image" content="https://stevenwensley.com/og/workshop.png">
+<link rel="canonical" href="https://stevenwensley.com/factory-now">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #1a1a26;
+    --gold: #c9a96e; --gold-light: #dfc08a; --gold-dim: rgba(201,169,110,0.15);
+    --text-primary: #f0ece4; --text-secondary: #9a9aaa; --text-muted: #6a6a7a;
+    --border: rgba(201,169,110,0.12); --red: #c0563f; --green: #4c9a72;
+    --serif: 'DM Serif Display', Georgia, serif; --sans: 'Space Grotesk', -apple-system, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg-primary); color: var(--text-primary); font-family: var(--sans); font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  nav .logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-decoration: none; }
+  nav .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  nav .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
+  nav .nav-links a:hover, nav .nav-links a.active { color: var(--gold); }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 101; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); margin: 5px 0; transition: all 0.3s; border-radius: 2px; }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  @media (max-width: 680px) {
+    .hamburger { display: block; }
+    nav .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(10,10,15,0.97); backdrop-filter: blur(20px); flex-direction: column; padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border); }
+    nav .nav-links.open { display: flex; }
+    nav .nav-links a { font-size: 0.9rem; padding: 0.5rem 0; }
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+  .page-hero { padding: 10rem 0 1rem; }
+  .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .page-hero h1 { font-family: var(--serif); font-size: clamp(2.2rem, 4.5vw, 3.2rem); font-weight: 700; line-height: 1.15; margin-bottom: 1.2rem; text-wrap: balance; }
+  .lede { font-size: 1.15rem; color: var(--text-secondary); max-width: 660px; line-height: 1.7; }
+
+  /* ── Figures ── */
+  .fn { padding: 3rem 0 1rem; }
+  .fn-figures { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .fn-figure { background: var(--bg-secondary); padding: 1.6rem 1.2rem; }
+  .fn-num { font-family: var(--serif); font-size: clamp(1.9rem, 3.6vw, 2.6rem); color: var(--gold); line-height: 1; font-variant-numeric: tabular-nums; }
+  .fn-label { font-size: 0.78rem; color: var(--text-secondary); letter-spacing: 0.04em; margin-top: 0.6rem; line-height: 1.4; }
+  .fn-stamp { font-size: 0.88rem; color: var(--text-muted); margin-top: 1rem; }
+  .fn-stamp time { color: var(--text-secondary); }
+  .fn-age.fn-stale { color: var(--red); }
+  .fn-pace { font-size: 1.02rem; color: var(--text-secondary); margin-top: 1.6rem; max-width: 660px; }
+  .fn-pace strong { color: var(--text-primary); font-weight: 500; }
+
+  /* ── Chart ── */
+  .fn-chart { margin: 2.4rem 0 0; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 4px; padding: 1.4rem 1.2rem 1.1rem; }
+  /* Two drawings, one shown. Same specificity on both rules, so the media
+     query decides — not whichever selector happens to be heavier. */
+  .fn-chart .fn-svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .fn-chart .fn-svg-narrow { display: none; }
+  @media (max-width: 600px) { .fn-chart .fn-svg-wide { display: none; } .fn-chart .fn-svg-narrow { display: block; } }
+  .fn-grid { stroke: rgba(240,236,228,0.06); stroke-width: 1; }
+  /* Font sizes are set per drawing, on the SVG text itself: a CSS size here
+     would override them and undo the narrow drawing's whole point. */
+  .fn-tick { fill: var(--text-muted); font-family: var(--sans); font-variant-numeric: tabular-nums; }
+  .fn-line { stroke-width: 2; stroke-linecap: round; }
+  .fn-line.fn-commits { stroke: var(--gold); }
+  .fn-line.fn-prs { stroke: var(--text-secondary); }
+  .fn-line.fn-gap { stroke-dasharray: 3 6; opacity: 0.55; }
+  .fn-dot.fn-commits { fill: var(--gold); }
+  .fn-dot.fn-prs { fill: var(--text-secondary); }
+  .fn-dot { stroke: var(--bg-secondary); stroke-width: 2; }
+  .fn-gaplabel { fill: var(--text-muted); font-family: var(--sans); letter-spacing: 0.02em; }
+  .fn-endlabel { fill: var(--gold); font-family: var(--sans); font-weight: 500; }
+  .fn-chart figcaption { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; align-items: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.8rem; padding: 0 0.3rem; }
+  .fn-key { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); }
+  .fn-key::before { content: ""; width: 18px; height: 2px; border-radius: 1px; }
+  .fn-key-commits::before { background: var(--gold); }
+  .fn-key-prs::before { background: var(--text-secondary); }
+
+  /* ── Ledger ── */
+  .fn-ledger { margin-top: 1.6rem; border-top: 1px solid var(--border); }
+  .fn-ledger summary { cursor: pointer; padding: 1.1rem 0; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+  .fn-ledger summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+  .fn-table-wrap { overflow-x: auto; padding-bottom: 1rem; }
+  .fn-ledger table { width: 100%; border-collapse: collapse; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+  .fn-ledger th { text-align: right; font-weight: 500; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border); }
+  .fn-ledger td { text-align: right; padding: 0.55rem 0.8rem; color: var(--text-secondary); border-bottom: 1px solid rgba(201,169,110,0.06); }
+  .fn-ledger th:first-child, .fn-ledger td:first-child { text-align: left; padding-left: 0; }
+  .fn-ledger tbody tr:first-child td { color: var(--text-primary); }
+
+  /* ── Method ── */
+  .method { padding: 3.5rem 0 1rem; border-top: 1px solid var(--border); margin-top: 3rem; }
+  .method h2 { font-family: var(--serif); font-size: clamp(1.5rem, 2.8vw, 2rem); font-weight: 600; line-height: 1.2; margin-bottom: 1.4rem; }
+  .method ul { list-style: none; display: grid; gap: 1rem; max-width: 680px; }
+  .method li { padding-left: 1.2rem; border-left: 2px solid var(--gold-dim); color: var(--text-secondary); font-size: 1rem; line-height: 1.65; }
+  .method li strong { color: var(--text-primary); font-weight: 500; }
+  .method a { color: var(--gold); text-decoration: none; border-bottom: 1px solid var(--gold-dim); }
+  .method a:hover, .method a:focus-visible { border-bottom-color: var(--gold); }
+  .next { padding: 3rem 0 5rem; display: flex; flex-wrap: wrap; gap: 1rem; }
+  .btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.95rem 2rem; font-family: var(--sans); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: opacity 0.3s, border-color 0.3s; }
+  .btn-primary { background: var(--gold); color: var(--bg-primary); }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-ghost { border: 1px solid var(--border); color: var(--text-primary); }
+  .btn-ghost:hover { border-color: var(--gold); }
+  .btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+  footer { padding: 3rem; text-align: center; color: var(--text-muted); font-size: 0.78rem; letter-spacing: 0.05em; border-top: 1px solid var(--border); }
+  footer a { color: var(--text-secondary); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+  @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .wrap { padding: 0 1.5rem; } .page-hero { padding: 8rem 0 1rem; } .fn-figures { grid-template-columns: repeat(2, 1fr); } }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}
+</style>
+  <!-- Cloudflare Web Analytics --><script type="module" defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;65eb31eee8724f75a014183d2bf26ef7&quot;}"></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<nav aria-label="Primary">
+  <a href="/" class="logo" aria-label="Steven Wensley — home">SSW</a>
+  <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-links">
+    <a href="/workshop" class="active">The Factory</a>
+    <a href="/playbooks">Playbooks</a>
+    <a href="/services">Services</a>
+    <a href="/tools">Tools</a>
+    <a href="/notes">Notes</a>
+    <a href="/about">About</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</nav>
+<main id="main" tabindex="-1">
+  <div class="wrap">
+    <header class="page-hero">
+      <div class="section-label">The Factory · Measured</div>
+      <h1>Not typed. Measured.</h1>
+      <p class="lede">Every figure this site quotes about the factory is measured from GitHub each morning, never typed by hand. This page shows the measurements themselves: every one, when it was taken, and where there is none.</p>
+    </header>
+
+    <section class="fn" aria-label="The measurements">
+      <!-- factory:begin -->
+      <div class="fn-figures">
+        <div class="fn-figure"><div class="fn-num">6,619</div><div class="fn-label">commits</div></div>
+        <div class="fn-figure"><div class="fn-num">4,119</div><div class="fn-label">pull requests</div></div>
+        <div class="fn-figure"><div class="fn-num">26</div><div class="fn-label">repositories in active development</div></div>
+        <div class="fn-figure"><div class="fn-num">15</div><div class="fn-label">client-facing solutions</div></div>
+      </div>
+      <p class="fn-stamp">Measured <time datetime="2026-09-16" data-measured>16 September 2026</time> from the GitHub API, since February 2026. <span class="fn-age" data-age></span></p>
+      <p class="fn-pace">Over the 29 days from 18 August 2026 to 16 September 2026: <strong>31 commits</strong> and <strong>23 pull requests</strong> a day, on average.</p>
+      <figure class="fn-chart">
+          <svg viewBox="0 0 760 320" class="fn-svg fn-svg-wide" role="img" aria-labelledby="fn-wide-title fn-wide-desc">
+            <title id="fn-wide-title">Commits and pull requests added since 18 August 2026</title>
+            <desc id="fn-wide-desc">12 measurements from 18 August 2026 to 16 September 2026. 897 commits and 677 pull requests added. 1 gap of more than 4 days without a measurement, drawn dashed.</desc>
+            <line x1="60" y1="276.0" x2="736" y2="276.0" class="fn-grid"/><text x="52" y="280.0" text-anchor="end" class="fn-tick" font-size="12.0">0</text><line x1="60" y1="226.4" x2="736" y2="226.4" class="fn-grid"/><text x="52" y="230.4" text-anchor="end" class="fn-tick" font-size="12.0">200</text><line x1="60" y1="176.8" x2="736" y2="176.8" class="fn-grid"/><text x="52" y="180.8" text-anchor="end" class="fn-tick" font-size="12.0">400</text><line x1="60" y1="127.2" x2="736" y2="127.2" class="fn-grid"/><text x="52" y="131.2" text-anchor="end" class="fn-tick" font-size="12.0">600</text><line x1="60" y1="77.6" x2="736" y2="77.6" class="fn-grid"/><text x="52" y="81.6" text-anchor="end" class="fn-tick" font-size="12.0">800</text><line x1="60" y1="28.0" x2="736" y2="28.0" class="fn-grid"/><text x="52" y="32.0" text-anchor="end" class="fn-tick" font-size="12.0">1,000</text>
+            <text x="60.0" y="297.6" text-anchor="start" class="fn-tick" font-size="12.0">18 Aug</text><text x="386.3" y="297.6" text-anchor="middle" class="fn-tick" font-size="12.0">1 Sep</text><text x="736.0" y="297.6" text-anchor="end" class="fn-tick" font-size="12.0">16 Sep</text>
+            <line x1="60.0" y1="276.0" x2="363.0" y2="177.0" class="fn-line fn-prs fn-gap"/><line x1="363.0" y1="177.0" x2="409.7" y2="166.9" class="fn-line fn-prs"/><line x1="409.7" y1="166.9" x2="433.0" y2="164.2" class="fn-line fn-prs"/><line x1="433.0" y1="164.2" x2="502.9" y2="154.0" class="fn-line fn-prs"/><line x1="502.9" y1="154.0" x2="549.5" y2="140.8" class="fn-line fn-prs"/><line x1="549.5" y1="140.8" x2="596.1" y2="129.7" class="fn-line fn-prs"/><line x1="596.1" y1="129.7" x2="619.4" y2="122.7" class="fn-line fn-prs"/><line x1="619.4" y1="122.7" x2="642.8" y2="117.8" class="fn-line fn-prs"/><line x1="642.8" y1="117.8" x2="689.4" y2="110.3" class="fn-line fn-prs"/><line x1="689.4" y1="110.3" x2="712.7" y2="109.8" class="fn-line fn-prs"/><line x1="712.7" y1="109.8" x2="736.0" y2="108.1" class="fn-line fn-prs"/><circle cx="60.0" cy="276.0" r="3" class="fn-dot fn-prs"><title>18 August 2026: 3,442 pull requests (+0 since 18 Aug)</title></circle><circle cx="363.0" cy="177.0" r="3" class="fn-dot fn-prs"><title>31 August 2026: 3,841 pull requests (+399 since 18 Aug)</title></circle><circle cx="409.7" cy="166.9" r="3" class="fn-dot fn-prs"><title>2 September 2026: 3,882 pull requests (+440 since 18 Aug)</title></circle><circle cx="433.0" cy="164.2" r="3" class="fn-dot fn-prs"><title>3 September 2026: 3,893 pull requests (+451 since 18 Aug)</title></circle><circle cx="502.9" cy="154.0" r="3" class="fn-dot fn-prs"><title>6 September 2026: 3,934 pull requests (+492 since 18 Aug)</title></circle><circle cx="549.5" cy="140.8" r="3" class="fn-dot fn-prs"><title>8 September 2026: 3,987 pull requests (+545 since 18 Aug)</title></circle><circle cx="596.1" cy="129.7" r="3" class="fn-dot fn-prs"><title>10 September 2026: 4,032 pull requests (+590 since 18 Aug)</title></circle><circle cx="619.4" cy="122.7" r="3" class="fn-dot fn-prs"><title>11 September 2026: 4,060 pull requests (+618 since 18 Aug)</title></circle><circle cx="642.8" cy="117.8" r="3" class="fn-dot fn-prs"><title>12 September 2026: 4,080 pull requests (+638 since 18 Aug)</title></circle><circle cx="689.4" cy="110.3" r="3" class="fn-dot fn-prs"><title>14 September 2026: 4,110 pull requests (+668 since 18 Aug)</title></circle><circle cx="712.7" cy="109.8" r="3" class="fn-dot fn-prs"><title>15 September 2026: 4,112 pull requests (+670 since 18 Aug)</title></circle><circle cx="736.0" cy="108.1" r="5" class="fn-dot fn-prs"><title>16 September 2026: 4,119 pull requests (+677 since 18 Aug)</title></circle>
+            <line x1="60.0" y1="276.0" x2="363.0" y2="135.4" class="fn-line fn-commits fn-gap"/><line x1="363.0" y1="135.4" x2="409.7" y2="123.2" class="fn-line fn-commits"/><line x1="409.7" y1="123.2" x2="433.0" y2="120.5" class="fn-line fn-commits"/><line x1="433.0" y1="120.5" x2="502.9" y2="110.8" class="fn-line fn-commits"/><line x1="502.9" y1="110.8" x2="549.5" y2="97.2" class="fn-line fn-commits"/><line x1="549.5" y1="97.2" x2="596.1" y2="82.6" class="fn-line fn-commits"/><line x1="596.1" y1="82.6" x2="619.4" y2="71.4" class="fn-line fn-commits"/><line x1="619.4" y1="71.4" x2="642.8" y2="63.5" class="fn-line fn-commits"/><line x1="642.8" y1="63.5" x2="689.4" y2="58.3" class="fn-line fn-commits"/><line x1="689.4" y1="58.3" x2="712.7" y2="57.3" class="fn-line fn-commits"/><line x1="712.7" y1="57.3" x2="736.0" y2="53.5" class="fn-line fn-commits"/><circle cx="60.0" cy="276.0" r="3" class="fn-dot fn-commits"><title>18 August 2026: 5,722 commits (+0 since 18 Aug)</title></circle><circle cx="363.0" cy="135.4" r="3" class="fn-dot fn-commits"><title>31 August 2026: 6,289 commits (+567 since 18 Aug)</title></circle><circle cx="409.7" cy="123.2" r="3" class="fn-dot fn-commits"><title>2 September 2026: 6,338 commits (+616 since 18 Aug)</title></circle><circle cx="433.0" cy="120.5" r="3" class="fn-dot fn-commits"><title>3 September 2026: 6,349 commits (+627 since 18 Aug)</title></circle><circle cx="502.9" cy="110.8" r="3" class="fn-dot fn-commits"><title>6 September 2026: 6,388 commits (+666 since 18 Aug)</title></circle><circle cx="549.5" cy="97.2" r="3" class="fn-dot fn-commits"><title>8 September 2026: 6,443 commits (+721 since 18 Aug)</title></circle><circle cx="596.1" cy="82.6" r="3" class="fn-dot fn-commits"><title>10 September 2026: 6,502 commits (+780 since 18 Aug)</title></circle><circle cx="619.4" cy="71.4" r="3" class="fn-dot fn-commits"><title>11 September 2026: 6,547 commits (+825 since 18 Aug)</title></circle><circle cx="642.8" cy="63.5" r="3" class="fn-dot fn-commits"><title>12 September 2026: 6,579 commits (+857 since 18 Aug)</title></circle><circle cx="689.4" cy="58.3" r="3" class="fn-dot fn-commits"><title>14 September 2026: 6,600 commits (+878 since 18 Aug)</title></circle><circle cx="712.7" cy="57.3" r="3" class="fn-dot fn-commits"><title>15 September 2026: 6,604 commits (+882 since 18 Aug)</title></circle><circle cx="736.0" cy="53.5" r="5" class="fn-dot fn-commits"><title>16 September 2026: 6,619 commits (+897 since 18 Aug)</title></circle>
+            <text x="211.5" y="123.4" text-anchor="middle" class="fn-gaplabel" font-size="11.0">no measurement · 13 days</text>
+            <text x="728.0" y="41.5" text-anchor="end" class="fn-endlabel" font-size="13.0">+897 commits</text>
+          </svg>
+          <svg viewBox="0 0 360 300" class="fn-svg fn-svg-narrow" role="img" aria-labelledby="fn-narrow-title fn-narrow-desc">
+            <title id="fn-narrow-title">Commits and pull requests added since 18 August 2026</title>
+            <desc id="fn-narrow-desc">12 measurements from 18 August 2026 to 16 September 2026. 897 commits and 677 pull requests added. 1 gap of more than 4 days without a measurement, drawn dashed.</desc>
+            <line x1="44" y1="264.0" x2="348" y2="264.0" class="fn-grid"/><text x="36" y="268.0" text-anchor="end" class="fn-tick" font-size="12.0">0</text><line x1="44" y1="216.4" x2="348" y2="216.4" class="fn-grid"/><text x="36" y="220.4" text-anchor="end" class="fn-tick" font-size="12.0">200</text><line x1="44" y1="168.8" x2="348" y2="168.8" class="fn-grid"/><text x="36" y="172.8" text-anchor="end" class="fn-tick" font-size="12.0">400</text><line x1="44" y1="121.2" x2="348" y2="121.2" class="fn-grid"/><text x="36" y="125.2" text-anchor="end" class="fn-tick" font-size="12.0">600</text><line x1="44" y1="73.6" x2="348" y2="73.6" class="fn-grid"/><text x="36" y="77.6" text-anchor="end" class="fn-tick" font-size="12.0">800</text><line x1="44" y1="26.0" x2="348" y2="26.0" class="fn-grid"/><text x="36" y="30.0" text-anchor="end" class="fn-tick" font-size="12.0">1,000</text>
+            <text x="44.0" y="285.6" text-anchor="start" class="fn-tick" font-size="12.0">18 Aug</text><text x="348.0" y="285.6" text-anchor="end" class="fn-tick" font-size="12.0">16 Sep</text>
+            <line x1="44.0" y1="264.0" x2="180.3" y2="169.0" class="fn-line fn-prs fn-gap"/><line x1="180.3" y1="169.0" x2="201.2" y2="159.3" class="fn-line fn-prs"/><line x1="201.2" y1="159.3" x2="211.7" y2="156.7" class="fn-line fn-prs"/><line x1="211.7" y1="156.7" x2="243.2" y2="146.9" class="fn-line fn-prs"/><line x1="243.2" y1="146.9" x2="264.1" y2="134.3" class="fn-line fn-prs"/><line x1="264.1" y1="134.3" x2="285.1" y2="123.6" class="fn-line fn-prs"/><line x1="285.1" y1="123.6" x2="295.6" y2="116.9" class="fn-line fn-prs"/><line x1="295.6" y1="116.9" x2="306.1" y2="112.2" class="fn-line fn-prs"/><line x1="306.1" y1="112.2" x2="327.0" y2="105.0" class="fn-line fn-prs"/><line x1="327.0" y1="105.0" x2="337.5" y2="104.5" class="fn-line fn-prs"/><line x1="337.5" y1="104.5" x2="348.0" y2="102.9" class="fn-line fn-prs"/><circle cx="44.0" cy="264.0" r="3" class="fn-dot fn-prs"><title>18 August 2026: 3,442 pull requests (+0 since 18 Aug)</title></circle><circle cx="180.3" cy="169.0" r="3" class="fn-dot fn-prs"><title>31 August 2026: 3,841 pull requests (+399 since 18 Aug)</title></circle><circle cx="201.2" cy="159.3" r="3" class="fn-dot fn-prs"><title>2 September 2026: 3,882 pull requests (+440 since 18 Aug)</title></circle><circle cx="211.7" cy="156.7" r="3" class="fn-dot fn-prs"><title>3 September 2026: 3,893 pull requests (+451 since 18 Aug)</title></circle><circle cx="243.2" cy="146.9" r="3" class="fn-dot fn-prs"><title>6 September 2026: 3,934 pull requests (+492 since 18 Aug)</title></circle><circle cx="264.1" cy="134.3" r="3" class="fn-dot fn-prs"><title>8 September 2026: 3,987 pull requests (+545 since 18 Aug)</title></circle><circle cx="285.1" cy="123.6" r="3" class="fn-dot fn-prs"><title>10 September 2026: 4,032 pull requests (+590 since 18 Aug)</title></circle><circle cx="295.6" cy="116.9" r="3" class="fn-dot fn-prs"><title>11 September 2026: 4,060 pull requests (+618 since 18 Aug)</title></circle><circle cx="306.1" cy="112.2" r="3" class="fn-dot fn-prs"><title>12 September 2026: 4,080 pull requests (+638 since 18 Aug)</title></circle><circle cx="327.0" cy="105.0" r="3" class="fn-dot fn-prs"><title>14 September 2026: 4,110 pull requests (+668 since 18 Aug)</title></circle><circle cx="337.5" cy="104.5" r="3" class="fn-dot fn-prs"><title>15 September 2026: 4,112 pull requests (+670 since 18 Aug)</title></circle><circle cx="348.0" cy="102.9" r="5" class="fn-dot fn-prs"><title>16 September 2026: 4,119 pull requests (+677 since 18 Aug)</title></circle>
+            <line x1="44.0" y1="264.0" x2="180.3" y2="129.1" class="fn-line fn-commits fn-gap"/><line x1="180.3" y1="129.1" x2="201.2" y2="117.4" class="fn-line fn-commits"/><line x1="201.2" y1="117.4" x2="211.7" y2="114.8" class="fn-line fn-commits"/><line x1="211.7" y1="114.8" x2="243.2" y2="105.5" class="fn-line fn-commits"/><line x1="243.2" y1="105.5" x2="264.1" y2="92.4" class="fn-line fn-commits"/><line x1="264.1" y1="92.4" x2="285.1" y2="78.4" class="fn-line fn-commits"/><line x1="285.1" y1="78.4" x2="295.6" y2="67.7" class="fn-line fn-commits"/><line x1="295.6" y1="67.7" x2="306.1" y2="60.0" class="fn-line fn-commits"/><line x1="306.1" y1="60.0" x2="327.0" y2="55.0" class="fn-line fn-commits"/><line x1="327.0" y1="55.0" x2="337.5" y2="54.1" class="fn-line fn-commits"/><line x1="337.5" y1="54.1" x2="348.0" y2="50.5" class="fn-line fn-commits"/><circle cx="44.0" cy="264.0" r="3" class="fn-dot fn-commits"><title>18 August 2026: 5,722 commits (+0 since 18 Aug)</title></circle><circle cx="180.3" cy="129.1" r="3" class="fn-dot fn-commits"><title>31 August 2026: 6,289 commits (+567 since 18 Aug)</title></circle><circle cx="201.2" cy="117.4" r="3" class="fn-dot fn-commits"><title>2 September 2026: 6,338 commits (+616 since 18 Aug)</title></circle><circle cx="211.7" cy="114.8" r="3" class="fn-dot fn-commits"><title>3 September 2026: 6,349 commits (+627 since 18 Aug)</title></circle><circle cx="243.2" cy="105.5" r="3" class="fn-dot fn-commits"><title>6 September 2026: 6,388 commits (+666 since 18 Aug)</title></circle><circle cx="264.1" cy="92.4" r="3" class="fn-dot fn-commits"><title>8 September 2026: 6,443 commits (+721 since 18 Aug)</title></circle><circle cx="285.1" cy="78.4" r="3" class="fn-dot fn-commits"><title>10 September 2026: 6,502 commits (+780 since 18 Aug)</title></circle><circle cx="295.6" cy="67.7" r="3" class="fn-dot fn-commits"><title>11 September 2026: 6,547 commits (+825 since 18 Aug)</title></circle><circle cx="306.1" cy="60.0" r="3" class="fn-dot fn-commits"><title>12 September 2026: 6,579 commits (+857 since 18 Aug)</title></circle><circle cx="327.0" cy="55.0" r="3" class="fn-dot fn-commits"><title>14 September 2026: 6,600 commits (+878 since 18 Aug)</title></circle><circle cx="337.5" cy="54.1" r="3" class="fn-dot fn-commits"><title>15 September 2026: 6,604 commits (+882 since 18 Aug)</title></circle><circle cx="348.0" cy="50.5" r="5" class="fn-dot fn-commits"><title>16 September 2026: 6,619 commits (+897 since 18 Aug)</title></circle>
+            <text x="112.1" y="117.1" text-anchor="middle" class="fn-gaplabel" font-size="11.0">no measurement · 13 days</text>
+            <text x="340.0" y="38.5" text-anchor="end" class="fn-endlabel" font-size="13.0">+897</text>
+          </svg>
+        <figcaption>
+          <span class="fn-key fn-key-commits">Commits</span>
+          <span class="fn-key fn-key-prs">Pull requests</span>
+          <span class="fn-key-note">added since measuring began on 18 August 2026 · every dot is a published measurement · dashed where none was taken</span>
+        </figcaption>
+      </figure>
+      <details class="fn-ledger">
+        <summary>All 12 measurements</summary>
+        <div class="fn-table-wrap">
+          <table>
+            <thead><tr><th scope="col">Measured</th><th scope="col">Commits</th><th scope="col">Pull requests</th><th scope="col">Repositories</th></tr></thead>
+            <tbody>
+            <tr><td>16 September 2026</td><td>6,619</td><td>4,119</td><td>26</td></tr>
+            <tr><td>15 September 2026</td><td>6,604</td><td>4,112</td><td>26</td></tr>
+            <tr><td>14 September 2026</td><td>6,600</td><td>4,110</td><td>26</td></tr>
+            <tr><td>12 September 2026</td><td>6,579</td><td>4,080</td><td>26</td></tr>
+            <tr><td>11 September 2026</td><td>6,547</td><td>4,060</td><td>26</td></tr>
+            <tr><td>10 September 2026</td><td>6,502</td><td>4,032</td><td>25</td></tr>
+            <tr><td>8 September 2026</td><td>6,443</td><td>3,987</td><td>24</td></tr>
+            <tr><td>6 September 2026</td><td>6,388</td><td>3,934</td><td>24</td></tr>
+            <tr><td>3 September 2026</td><td>6,349</td><td>3,893</td><td>24</td></tr>
+            <tr><td>2 September 2026</td><td>6,338</td><td>3,882</td><td>24</td></tr>
+            <tr><td>31 August 2026</td><td>6,289</td><td>3,841</td><td>24</td></tr>
+            <tr><td>18 August 2026</td><td>5,722</td><td>3,442</td><td>21</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+      <!-- factory:end -->
+    </section>
+
+    <section class="method" aria-labelledby="method-h">
+      <h2 id="method-h">How it is measured</h2>
+      <ul>
+        <li><strong>From GitHub's search API,</strong> across every repository in the Bygmedai organisation, private ones included.</li>
+        <li><strong>Default branches only,</strong> so every figure is a lower bound: work that has not been merged is not counted.</li>
+        <li><strong>Every morning, by a scheduled workflow.</strong> A change is proposed as a pull request and reaches this page when it is merged, so a measurement appears here only after review.</li>
+        <li><strong>Every measurement is a commit</strong> to <code>scripts/metrics.json</code> in this site's public repository. <a href="https://github.com/Bygmedai/stevenwensley.com/commits/main/scripts/metrics.json">Check every one</a>, or read <a href="https://github.com/Bygmedai/stevenwensley.com/blob/main/scripts/fetch-metrics.mjs">the script that measures</a> and <a href="https://github.com/Bygmedai/stevenwensley.com/blob/main/.github/workflows/metrics.yml">the workflow that runs it</a>.</li>
+        <li><strong>Client-facing solutions are counted by hand.</strong> What counts as one is a judgement, not a query.</li>
+        <li><strong>Nothing is smoothed.</strong> The chart draws only what was measured. Where no measurement was taken for more than four days, the line is dashed and the gap is named.</li>
+      </ul>
+    </section>
+
+    <div class="next">
+      <a href="/workshop" class="btn btn-primary">How the factory works</a>
+      <a href="/#contact" class="btn btn-ghost">Talk to me</a>
+    </div>
+  </div>
+</main>
+<footer>
+  <div data-footer-nav style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="/workshop">The Factory</a> &middot; <a href="/playbooks">Playbooks</a> &middot; <a href="/services">Services</a> &middot; <a href="/tools">Tools</a> &middot; <a href="/insights">Insights</a> &middot; <a href="/notes">Notes</a> &middot; <a href="/glossary">Glossary</a> &middot; <a href="/about">About</a> &middot; <a href="/#contact">Contact</a></div>
+
+  &copy; 2026 Steven Seidenfaden Wensley. All rights reserved.
+</footer>
+<script>
+  // A date alone does not tell a reader whether it is old. This turns the
+  // measurement date into an age, and colours it once it is more than three
+  // days old — a stale pipeline shows here instead of hiding behind a number.
+  (function () {
+    var el = document.querySelector('[data-measured]');
+    var out = document.querySelector('[data-age]');
+    if (!el || !out) return;
+    var d = Math.floor((Date.now() - Date.parse(el.getAttribute('datetime') + 'T12:00:00Z')) / 864e5);
+    out.textContent = d <= 0 ? '(today)' : d === 1 ? '(yesterday)' : '(' + d + ' days ago)';
+    if (d > 3) out.classList.add('fn-stale');
+  })();
+</script>
+</body>
+</html>

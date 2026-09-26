@@ -23,6 +23,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readHistory, writeHistory, withPoint } from './history.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const METRICS = join(ROOT, 'scripts/metrics.json');
@@ -152,4 +153,16 @@ for (const k of Object.keys(next)) {
 metrics.values = next;
 metrics.measuredAt = new Date().toISOString().slice(0, 10);
 await writeFile(METRICS, JSON.stringify(metrics, null, 2) + '\n', 'utf8');
+
+// The same measurement, appended to the history /factory-now draws from.
+// Written in the same run as metrics.json so the two cannot disagree about
+// the latest point — build-factory.mjs --check fails if they ever do.
+await writeHistory(
+  withPoint(await readHistory(), {
+    date: metrics.measuredAt,
+    commits: next.commits,
+    pullRequests: next.pullRequests,
+    repositories: next.repositories,
+  })
+);
 console.log('fetch-metrics: metrics.json skrevet — kør update-metrics for at lægge tallene i siderne');

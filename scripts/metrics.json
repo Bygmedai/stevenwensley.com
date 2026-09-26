@@ -2,8 +2,8 @@
   "_comment": "Factory metrics rendered on the site. Owned by scripts/update-metrics.mjs — edit through that, not by hand. `rendered` is the literal text currently present in the HTML; the updater uses it to find and replace, then rewrites it. If you hand-edit a number in a page, update `rendered` in the same commit or the next run will not find it.",
   "careerStart": 2006,
   "expectedHits": {
-    "commits": 14,
-    "copyrightYear": 54,
+    "commits": 15,
+    "copyrightYear": 55,
     "inkandartCommits": 1,
     "inkandartPullRequests": 1,
     "pullRequests": 5,
