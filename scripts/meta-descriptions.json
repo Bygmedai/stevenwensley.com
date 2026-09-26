@@ -10,6 +10,7 @@
   "cost-of-inaction.html": "Hvad koster det at lade være? Beregn prisen på at udskyde AI og EU AI Act — bøder, oprydning, tabte aftaler. Tre minutter.",
   "eu-ai-act-classifier.html": "Hvilken risikokategori falder jeres AI-system i? Tre minutter, gratis, ingen mail. Du får kategori, krav, tidslinje og en PDF du kan sende videre.",
   "factory-journey.html": "One feature’s journey through a one-man AI factory: the dispatch contract, an adversarial review with 11 findings, the gates, the human GO.",
+  "factory-now.html": "Not typed, measured. {commits} commits and every reading behind them, each one a commit you can check — including the days nobody measured.",
   "for-brokers.html": "Everything a broker needs to put me in front of a client: availability, role keywords, sectors, certifications, a ready-to-send pitch, real references.",
   "glossary.html": "Plain English for the terms that run regulated IT programmes: NIS2, DORA, GxP, Annex 11, ALCOA+, TSA, Day 1, cutover, hypercare, decision rights.",
   "hallucination-defence.html": "AI’s danger is not being wrong. It is sounding right while wrong. Four mechanical controls and ten real failure patterns from a production AI factory.",

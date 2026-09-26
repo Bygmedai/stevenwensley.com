@@ -93,6 +93,12 @@ jobs:
         run: |
           npm ci
           node scripts/build-tools.mjs --check
+      # /factory-now draws every published measurement from
+      # scripts/metrics-history.json. This fails if the page does not match the
+      # history, if the history's latest point disagrees with metrics.json, or
+      # if a count in it ever goes backwards.
+      - name: Verify /factory-now matches the measurement history
+        run: node scripts/build-factory.mjs --check
 
   csp-report:
     name: CSP Violation Report

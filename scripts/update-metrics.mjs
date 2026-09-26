@@ -76,6 +76,24 @@ async function collectFiles(dir = ROOT, rel = '') {
   return out;
 }
 
+// A generated region belongs to the script that generates it. /factory-now
+// renders the same figures this script propagates — "6,619" in its headline,
+// in its table, in its chart — but from scripts/metrics-history.json, via
+// build-factory.mjs. If this script replaced them too, the two would own the
+// same text, which is exactly how a meta description once said 5,722 while
+// its own page said 5,999. So text between these markers is neither counted
+// nor rewritten here; build-factory.mjs --check owns its correctness.
+const REGION = /<!-- factory:begin -->[\s\S]*?<!-- factory:end -->/g;
+const outside = (text) => text.replace(REGION, '');
+const replaceOutside = (text, from, to) => {
+  let out = '', last = 0;
+  for (const m of text.matchAll(REGION)) {
+    out += text.slice(last, m.index).split(from).join(to) + m[0];
+    last = m.index + m[0].length;
+  }
+  return out + text.slice(last).split(from).join(to);
+};
+
 const check = process.argv.includes('--check');
 const metrics = JSON.parse(await readFile(METRICS, 'utf8'));
 
@@ -133,7 +151,7 @@ if (plan.length === 0) {
   const stale = [];
   for (const key of AUTO) {
     let found = 0;
-    for (const f of files) found += (await readFile(join(ROOT, f), 'utf8')).split(metrics.rendered[key]).length - 1;
+    for (const f of files) found += outside(await readFile(join(ROOT, f), 'utf8')).split(metrics.rendered[key]).length - 1;
     if (found !== metrics.expectedHits[key]) stale.push({ key, found });
   }
   if (stale.length) {
@@ -161,11 +179,11 @@ for (const f of files) {
   const original = await readFile(abs, 'utf8');
   let text = original;
   for (const { key, from, to } of plan) {
-    const hits = text.split(from).length - 1;
+    const hits = outside(text).split(from).length - 1;
     if (hits === 0) continue;
     perMetric[key] += hits;
     totalHits += hits;
-    text = text.split(from).join(to);
+    text = replaceOutside(text, from, to);
   }
   if (text !== original) touched.set(f, text);
 }
