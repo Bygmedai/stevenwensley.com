@@ -1,0 +1,13 @@
+{
+  "_comment": "Commits per calendar month across the Bygmedai organisation, default branches only, measured by scripts/fetch-metrics.mjs on the same run as metrics.json and drawn on /workshop by scripts/build-monthly.mjs. A completed month is re-measured on every run and must come back the same; fetch-metrics refuses to publish if it does not. The first seven points are the hand measurement of 18 August 2026 that the chart was drawn from.",
+  "measuredAt": "2026-08-18",
+  "months": [
+    { "month": "2026-02", "commits": 44, "complete": true },
+    { "month": "2026-03", "commits": 694, "complete": true },
+    { "month": "2026-04", "commits": 1267, "complete": true },
+    { "month": "2026-05", "commits": 1529, "complete": true },
+    { "month": "2026-06", "commits": 730, "complete": true },
+    { "month": "2026-07", "commits": 748, "complete": true },
+    { "month": "2026-08", "commits": 710, "complete": false, "throughDay": 18 }
+  ]
+}

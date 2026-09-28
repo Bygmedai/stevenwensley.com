@@ -79,7 +79,7 @@ for (const f of files) {
   // A generated region is rewritten from data on every run, so a date inside
   // it is a measurement, not a promise typed by hand. /factory-now states the
   // day of its latest reading there, on purpose.
-  const text = (await readFile(join(ROOT, f), 'utf8')).replace(/<!-- factory:begin -->[\s\S]*?<!-- factory:end -->/g, '');
+  const text = (await readFile(join(ROOT, f), 'utf8')).replace(/<!-- (?:factory|monthly-[a-z]+):begin -->[\s\S]*?<!-- (?:factory|monthly-[a-z]+):end -->/g, '');
   for (const line of text.split('\n')) {
     for (const b of BANNED) {
       const m = line.match(b.re);
