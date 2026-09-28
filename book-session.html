@@ -556,13 +556,5 @@
 })();
 </script>
 
-<script>
-/* Lenis nulstiller scroll ved indlæsning; spring til #formular, når siden åbnes med et anker. */
-window.addEventListener('load', function () {
-  if (!location.hash) return;
-  var el = document.getElementById(location.hash.slice(1));
-  if (el) setTimeout(function () { el.scrollIntoView(); }, 250);
-});
-</script>
 </body>
 </html>
