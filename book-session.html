@@ -26,7 +26,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -487,16 +487,46 @@
 </style>
 <style id="a11y-skip-link">.skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;font-family:'Space Grotesk',sans-serif;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}</style>
   <!-- Cloudflare Web Analytics --><script type="module" defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;65eb31eee8724f75a014183d2bf26ef7&quot;}"></script><!-- End Cloudflare Web Analytics -->
+  <style>
+    /* The site's navigation, self-contained: this page has its own design
+       tokens, so the values are the site's literals rather than variables. */
+    nav.site-nav { position: fixed; top: 0; left: 0; width: 100%; box-sizing: border-box; z-index: 1000; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(201,169,110,0.12); font-family: 'Space Grotesk', -apple-system, sans-serif; }
+    nav.site-nav .logo { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.1rem; font-weight: 600; color: #c9a96e; letter-spacing: 0.05em; text-decoration: none; }
+    nav.site-nav .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+    nav.site-nav .nav-links a { color: #9a9aaa; text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
+    nav.site-nav .nav-links a:hover, nav.site-nav .nav-links a.active { color: #c9a96e; }
+    nav.site-nav .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 1001; }
+    nav.site-nav .hamburger span { display: block; width: 24px; height: 2px; background: #c9a96e; margin: 5px 0; transition: all 0.3s; border-radius: 2px; }
+    nav.site-nav .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    nav.site-nav .hamburger.active span:nth-child(2) { opacity: 0; }
+    nav.site-nav .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    main#main { padding-top: 72px; }
+    @media (max-width: 768px) { nav.site-nav { padding: 1rem 1.5rem; } main#main { padding-top: 62px; } }
+    @media (max-width: 680px) {
+      nav.site-nav .hamburger { display: block; }
+      nav.site-nav .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #0a0a0f; flex-direction: column; padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid rgba(201,169,110,0.12); }
+      nav.site-nav .nav-links.open { display: flex; }
+    }
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
+<nav aria-label="Primary" class="site-nav">
+  <a href="/" class="logo" aria-label="Steven Wensley — home">SSW</a>
+  <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.site-nav .nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-links">
+    <a href="/workshop">The Factory</a>
+    <a href="/playbooks">Playbooks</a>
+    <a href="/services">Services</a>
+    <a href="/tools">Tools</a>
+    <a href="/notes">Notes</a>
+    <a href="/about">About</a>
+    <a href="/#contact">Contact</a>
+  </div>
+</nav>
   <main id="main" tabindex="-1">
     <header>
         <div class="container">
-            <a href="https://stevenwensley.com" class="back-link">
-                <span>&#8592;</span>
-                <span>stevenwensley.com</span>
-            </a>
             <button class="lang-toggle" id="langToggle">
                 <span data-lang="da">EN</span>
                 <span data-lang="en">DA</span>
