@@ -287,12 +287,12 @@
       doc.text(t("N\xE6ste skridt", "Next Steps"), w / 2, 25, { align: "center" });
       doc.setTextColor(...white);
       doc.setFontSize(12);
-      doc.text(t("1. Book en gratis strategi-session", "1. Book a free strategy session"), 20, 50);
+      doc.text(t("1. Book en gratis samtale p\xE5 30 minutter", "1. Book a free 30-minute call"), 20, 50);
       doc.setTextColor(...gray);
       doc.setFontSize(10);
       const step1 = doc.splitTextToSize(t(
-        "Jeg gennemg\xE5r din score og laver en konkret handlingsplan. V\xE6rdi: DKK 7.000 \u2014 gratis for assessment-deltagere.",
-        "I will review your score and create a concrete action plan. Value: DKK 7,000 \u2014 free for assessment participants."
+        "Vi gennemg\xE5r din score sammen, og du f\xE5r et konkret bud p\xE5 n\xE6ste skridt. Gratis, 30 minutter.",
+        "We go through your score together and you get a concrete next step. Free, 30 minutes."
       ), w - 44);
       doc.text(step1, 22, 58);
       doc.setTextColor(...white);
@@ -503,8 +503,8 @@
           }
         },
         /* @__PURE__ */ React.createElement("div", { style: { fontSize: 32, marginBottom: 12 } }, "\u{1F4C5}"),
-        /* @__PURE__ */ React.createElement("h3", { style: { fontSize: 16, fontWeight: 700, color: "#60A5FA", marginBottom: 4 } }, t("Gratis 1-dags strategi-session", "Free 1-day strategy session")),
-        /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, background: "#059669", color: "#fff", padding: "4px 10px", borderRadius: 4, display: "inline-block", marginBottom: 12, fontWeight: 600 } }, t("V\xE6rdi: DKK 7.000", "Value: DKK 7,000")),
+        /* @__PURE__ */ React.createElement("h3", { style: { fontSize: 16, fontWeight: 700, color: "#60A5FA", marginBottom: 4 } }, t("Gratis samtale", "Free call")),
+        /* @__PURE__ */ React.createElement("div", { style: { fontSize: 11, background: "#059669", color: "#fff", padding: "4px 10px", borderRadius: 4, display: "inline-block", marginBottom: 12, fontWeight: 600 } }, t("30 minutter \xB7 gratis", "30 minutes \xB7 free")),
         /* @__PURE__ */ React.createElement("p", { style: { fontSize: 13, color: "#9CA3AF", marginBottom: 16, lineHeight: 1.5 } }, t("Jeg gennemg\xE5r din score og laver en konkret handlingsplan for din organisation.", "I'll review your score and create a concrete action plan for your organisation.")),
         /* @__PURE__ */ React.createElement(
           "a",

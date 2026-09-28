@@ -314,12 +314,12 @@
 
         doc.setTextColor(...white);
         doc.setFontSize(12);
-        doc.text(t('1. Book en gratis strategi-session', '1. Book a free strategy session'), 20, 50);
+        doc.text(t('1. Book en gratis samtale på 30 minutter', '1. Book a free 30-minute call'), 20, 50);
         doc.setTextColor(...gray);
         doc.setFontSize(10);
         const step1 = doc.splitTextToSize(t(
-          'Jeg gennemgår din score og laver en konkret handlingsplan. Værdi: DKK 7.000 — gratis for assessment-deltagere.',
-          'I will review your score and create a concrete action plan. Value: DKK 7,000 — free for assessment participants.'
+          'Vi gennemgår din score sammen, og du får et konkret bud på næste skridt. Gratis, 30 minutter.',
+          'We go through your score together and you get a concrete next step. Free, 30 minutes.'
         ), w - 44);
         doc.text(step1, 22, 58);
 
@@ -549,10 +549,10 @@
                     onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#1E5A8E"; e.currentTarget.style.boxShadow = "none"; }}>
                     <div style={{ fontSize: 32, marginBottom: 12 }}>📅</div>
                     <h3 style={{ fontSize: 16, fontWeight: 700, color: "#60A5FA", marginBottom: 4 }}>
-                      {t("Gratis 1-dags strategi-session", "Free 1-day strategy session")}
+                      {t("Gratis samtale", "Free call")}
                     </h3>
                     <div style={{ fontSize: 11, background: "#059669", color: "#fff", padding: "4px 10px", borderRadius: 4, display: "inline-block", marginBottom: 12, fontWeight: 600 }}>
-                      {t("Værdi: DKK 7.000", "Value: DKK 7,000")}
+                      {t("30 minutter · gratis", "30 minutes · free")}
                     </div>
                     <p style={{ fontSize: 13, color: "#9CA3AF", marginBottom: 16, lineHeight: 1.5 }}>
                       {t("Jeg gennemgår din score og laver en konkret handlingsplan for din organisation.", "I'll review your score and create a concrete action plan for your organisation.")}
