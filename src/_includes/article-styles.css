@@ -68,7 +68,10 @@
     }
 
     nav .nav-links a {
-      font-size: 0.9rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       color: var(--text-secondary);
       text-decoration: none;
       transition: color 0.3s;

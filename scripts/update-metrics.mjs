@@ -83,7 +83,7 @@ async function collectFiles(dir = ROOT, rel = '') {
 // same text, which is exactly how a meta description once said 5,722 while
 // its own page said 5,999. So text between these markers is neither counted
 // nor rewritten here; build-factory.mjs --check owns its correctness.
-const REGION = /<!-- factory:begin -->[\s\S]*?<!-- factory:end -->/g;
+const REGION = /<!-- (factory|monthly-[a-z]+):begin -->[\s\S]*?<!-- (factory|monthly-[a-z]+):end -->/g;
 const outside = (text) => text.replace(REGION, '');
 const replaceOutside = (text, from, to) => {
   let out = '', last = 0;

@@ -105,6 +105,10 @@ jobs:
       # if a count in it ever goes backwards.
       - name: Verify /factory-now matches the measurement history
         run: node scripts/build-factory.mjs --check
+      # The monthly-commits chart on /workshop is drawn from
+      # scripts/metrics-monthly.json. This fails if the page does not match it.
+      - name: Verify the monthly chart matches its data
+        run: node scripts/build-monthly.mjs --check
 
   csp-report:
     name: CSP Violation Report

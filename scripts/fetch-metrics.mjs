@@ -27,6 +27,7 @@ import { readHistory, writeHistory, withPoint } from './history.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const METRICS = join(ROOT, 'scripts/metrics.json');
+const MONTHLY = join(ROOT, 'scripts/metrics-monthly.json');
 const ORG = 'Bygmedai';
 const token = process.env.FACTORY_METRICS_TOKEN;
 
@@ -138,6 +139,52 @@ for (const k of ['commits', 'pullRequests', 'inkandartCommits', 'inkandartPullRe
     );
     process.exit(1);
   }
+}
+
+// ── Commits per calendar month, for the chart on /workshop ──
+// Measured every run, every month, from the factory's first month to the
+// current one. A completed month is immutable: if it comes back different
+// from what was published, that is a change in what the token can see — or
+// in GitHub's index — not in history, and the run refuses to publish rather
+// than redraw the past. The current month is partial by definition and is
+// marked with the day it was counted to.
+const today = (process.env.METRICS_NOW ? new Date(process.env.METRICS_NOW) : new Date()).toISOString().slice(0, 10);
+const monthly = JSON.parse(await readFile(MONTHLY, 'utf8'));
+const monthsToMeasure = [];
+for (let m = from.slice(0, 7); m <= today.slice(0, 7); ) {
+  monthsToMeasure.push(m);
+  const [y, mo] = m.split('-').map(Number);
+  m = `${mo === 12 ? y + 1 : y}-${String((mo % 12) + 1).padStart(2, '0')}`;
+}
+const measured = [];
+for (const m of monthsToMeasure) {
+  const [y, mo] = m.split('-').map(Number);
+  const current = m === today.slice(0, 7);
+  const lastDay = current ? Number(today.slice(8, 10)) : new Date(Date.UTC(y, mo, 0)).getUTCDate();
+  const end = `${m}-${String(lastDay).padStart(2, '0')}`;
+  // Sequential on purpose: the search API allows 30 requests a minute.
+  const r = await api(`/search/commits?q=${q(`org:${ORG} committer-date:${m}-01..${end}`)}&per_page=1`);
+  measured.push(current ? { month: m, commits: r.total_count, complete: false, throughDay: lastDay } : { month: m, commits: r.total_count, complete: true });
+}
+for (const was of monthly.months) {
+  const now = measured.find((x) => x.month === was.month);
+  if (was.complete && now && now.commits !== was.commits) {
+    console.error(
+      `fetch-metrics: FEJL — ${was.month} blev målt til ${now.commits} commits, men ${was.commits} er publiceret.\n` +
+        '  En afsluttet måned ændrer sig ikke. Tjek at tokenet stadig kan se alle repoer,\n' +
+        '  eller om noget er arkiveret eller slettet — og afgør bevidst, hvad der skal stå.'
+    );
+    process.exit(1);
+  }
+}
+const monthlyChanged = JSON.stringify(measured) !== JSON.stringify(monthly.months);
+if (monthlyChanged) {
+  for (const x of measured) {
+    const was = monthly.months.find((w) => w.month === x.month);
+    if (!was || was.commits !== x.commits || was.complete !== x.complete) console.log(`fetch-metrics: ${x.month}  ${was ? was.commits : '—'} → ${x.commits}${x.complete ? '' : ` (til d. ${x.throughDay})`}`);
+  }
+  await writeFile(MONTHLY, JSON.stringify({ ...monthly, measuredAt: today, months: measured }, null, 2) + '\n', 'utf8');
+  console.log('fetch-metrics: metrics-monthly.json skrevet — kør build-monthly for at tegne grafen');
 }
 
 const changed = Object.keys(next).some((k) => next[k] !== metrics.values[k]);

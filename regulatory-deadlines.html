@@ -109,12 +109,30 @@
   .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}
 </style>
   <!-- Cloudflare Web Analytics --><script type="module" defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;65eb31eee8724f75a014183d2bf26ef7&quot;}"></script><!-- End Cloudflare Web Analytics -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "url": "https://stevenwensley.com/regulatory-deadlines",
+  "name": "Deadline Tracker — NIS2, DORA, EU AI Act, PCI-DSS",
+  "description": "A plain-English deadline tracker for NIS2, DORA, the EU AI Act and PCI-DSS. What is live, what is coming, what each means for delivery. Kept current.",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Steven Seidenfaden Wensley",
+    "url": "https://stevenwensley.com/",
+    "sameAs": [
+      "https://www.linkedin.com/in/stevenwensley/"
+    ]
+  }
+}
+</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
 <nav aria-label="Primary">
   <a href="/" class="logo" aria-label="Steven Wensley — home">SSW</a>
-  <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <button class="hamburger" onclick="this.classList.toggle('active');this.setAttribute('aria-expanded',this.classList.contains('active'));document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   <div class="nav-links">
     <a href="/workshop">The Factory</a>
     <a href="/playbooks">Playbooks</a>
