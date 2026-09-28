@@ -333,7 +333,7 @@
       doc.setTextColor(...dark);
       doc.text(t.ctaTitle + " " + t.ctaText, 30, y + 8);
       doc.setFontSize(10);
-      doc.text("calendly.com/steven-wensley/30min", 30, y + 15);
+      doc.text("stevenwensley.com/book-session", 30, y + 15);
 
       // Footer
       doc.setFontSize(7);
@@ -760,7 +760,7 @@
                   <>
                     <h3 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 20, fontWeight: 700, color: "#fff", marginBottom: 8 }}>{t.ctaTitle}</h3>
                     <p style={{ fontSize: 14, color: "#8888AA", marginBottom: 20 }}>{t.ctaText}</p>
-                    <a href="https://calendly.com/steven-wensley/30min" target="_blank" rel="noopener" style={{ ...goldBtn, display: "inline-block", textDecoration: "none", textAlign: "center", marginBottom: 12 }}>
+                    <a href="/book-session" style={{ ...goldBtn, display: "inline-block", textDecoration: "none", textAlign: "center", marginBottom: 12 }}>
                       {t.ctaBtn}
                     </a>
                     <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 12, flexWrap: "wrap" }}>

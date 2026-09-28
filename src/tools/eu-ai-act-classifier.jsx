@@ -648,7 +648,7 @@
         doc.setTextColor(...white);
         doc.setFontSize(10);
         const nextSteps = [
-          { n: "1", title: t("Book en gratis AI Governance strategi-session", "Book a free AI Governance strategy session"), desc: t("1 dags intensivt forløb. Vi gennemgår jeres AI-systemer, regulatoriske krav, og laver en 90-dages handlingsplan.", "1 day intensive session. We review your AI systems, regulatory requirements, and create a 90-day action plan.") },
+          { n: "1", title: t("Book en gratis samtale på 30 minutter", "Book a free 30-minute call"), desc: t("Vi gennemgår jeres resultat, og du får et konkret bud på næste skridt. stevenwensley.com/book-session", "We go through your result and you get a concrete next step. stevenwensley.com/book-session") },
           { n: "2", title: t("Download vores governance-templates", "Download our governance templates"), desc: t("AI System Registry, Risk Assessment Framework, RACI Matrix, EU AI Act Checklist — klar til brug.", "AI System Registry, Risk Assessment Framework, RACI Matrix, EU AI Act Checklist — ready to use.") },
           { n: "3", title: t("Tag vores fulde AI Governance Readiness Assessment", "Take our full AI Governance Readiness Assessment"), desc: t("30 spørgsmål, 6 dimensioner, 5 minutter. Få et komplet billede af jeres governance-modenhed.", "30 questions, 6 dimensions, 5 minutes. Get a complete picture of your governance maturity.") },
         ];
@@ -828,7 +828,7 @@
                   📄 {t('Download PDF-rapport', 'Download PDF Report')}
                 </button>
                 <a href="/book-session" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, padding: '16px 24px', background: 'transparent', color: '#C9A96E', border: '2px solid #C9A96E', borderRadius: 10, fontSize: 15, fontWeight: 700, textDecoration: 'none' }}>
-                  📅 {t('Book gratis strategi-session', 'Book Free Strategy Session')}
+                  📅 {t('Book en gratis samtale', 'Book a free 30-minute call')}
                 </a>
                 <a href="/ai-governance-assessment" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, padding: '16px 24px', background: 'transparent', color: '#9a9aaa', border: '1px solid rgba(201,169,110,0.2)', borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: 'none' }}>
                   📊 {t('Tag fuld governance-assessment', 'Take Full Governance Assessment')}

@@ -781,7 +781,7 @@
             React.createElement("h3", { style: { fontSize: 20, fontWeight: 700, marginBottom: 8 } }, t.ctaTitle),
             React.createElement("p", { style: { fontSize: 15, color: "#999", marginBottom: 20, lineHeight: 1.6 } }, t.ctaText),
             React.createElement("a", {
-              href: "https://calendly.com/steven-wensley/30min",
+              href: "/book-session",
               target: "_blank",
               style: {
                 display: "inline-block", background: `linear-gradient(135deg, ${gold}, #B8943F)`,
