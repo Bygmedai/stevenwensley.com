@@ -266,12 +266,12 @@
         help: "Art. 50(2): Deepfakes og AI-genereret indhold skal mærkes tydeligt.",
         helpEN: "Art. 50(2): Deepfakes and AI-generated content must be clearly labeled.",
       },
-      // ─── CONTACT INFO ───
+      // ─── FINISH ───
       {
-        id: "contact",
-        type: "contact",
-        question: "Vil du modtage din rapport? (valgfrit)",
-        questionEN: "Would you like to receive your report? (optional)",
+        id: "finish",
+        type: "finish",
+        question: "Din klassificering er klar",
+        questionEN: "Your classification is ready",
       },
     ];
 
@@ -298,8 +298,6 @@
       const [currentStep, setCurrentStep] = useState(0);
       const [answers, setAnswers] = useState({});
       const [showResults, setShowResults] = useState(false);
-      const [showPdfGate, setShowPdfGate] = useState(false);
-      const [pdfEmail, setPdfEmail] = useState("");
 
       const t = (da, en) => (lang === "da" ? da : en);
 
@@ -376,26 +374,6 @@
       }, [answers, lang]);
 
       const industryOverlay = INDUSTRY_OVERLAYS[answers.industry] || null;
-
-      const handlePdfClick = () => {
-        setShowPdfGate(true);
-      };
-
-      const handlePdfGateSubmit = () => {
-        if (pdfEmail && pdfEmail.includes('@')) {
-          fetch('https://formspree.io/f/xpqjldbp', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              _subject: 'stevenwensley.com — PDF download lead',
-              email: pdfEmail,
-              tool: document.title
-            })
-          }).catch(() => {});
-          setShowPdfGate(false);
-          generatePDF();
-        }
-      };
 
       // ─── PDF GENERATION ───
       const generatePDF = () => {
@@ -686,23 +664,6 @@
         doc.save(`EU-AI-Act-Klassificering-${systemName}-${new Date().toISOString().split('T')[0]}.pdf`);
       };
 
-      // ─── SUBMIT LEAD TO FORMSPREE ───
-      const submitLead = (email, org) => {
-        if (!email) return;
-        fetch('https://formspree.io/f/xpqjldbp', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email,
-            organisation: org || '',
-            industry: answers.industry || '',
-            system_name: answers.system_name || '',
-            classification: classification.id,
-            source: 'eu-ai-act-classifier',
-          }),
-        }).catch(() => {});
-      };
-
       // ═══════════════════════════════════════════
       //  RENDER
       // ═══════════════════════════════════════════
@@ -824,7 +785,7 @@
 
               {/* CTA Section */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 16, marginTop: 40 }}>
-                <button onClick={handlePdfClick} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, padding: '16px 24px', background: '#C9A96E', color: '#0C0C12', border: 'none', borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: 'pointer' }}>
+                <button onClick={() => generatePDF()} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, padding: '16px 24px', background: '#C9A96E', color: '#0C0C12', border: 'none', borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: 'pointer' }}>
                   📄 {t('Download PDF-rapport', 'Download PDF Report')}
                 </button>
                 <a href="/book-session" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, padding: '16px 24px', background: 'transparent', color: '#C9A96E', border: '2px solid #C9A96E', borderRadius: 10, fontSize: 15, fontWeight: 700, textDecoration: 'none' }}>
@@ -852,34 +813,6 @@
 
       return (
         <div style={{ minHeight: '100vh', background: '#0C0C12' }}>
-          {showPdfGate && (
-            <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.8)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center" }}
-              onClick={(e) => { if (e.target === e.currentTarget) setShowPdfGate(false); }}>
-              <div style={{ background: "#161620", border: "1px solid #C9A96E44", borderRadius: 16, padding: 32, maxWidth: 400, width: "90%", textAlign: "center" }}>
-                <div style={{ fontSize: 36, marginBottom: 12 }}>📄</div>
-                <h3 style={{ fontSize: 18, fontWeight: 700, color: "#C9A96E", marginBottom: 8 }}>
-                  {t('Indtast din email for PDF-rapporten', 'Enter your email for the PDF report')}
-                </h3>
-                <p style={{ fontSize: 13, color: "#9CA3AF", marginBottom: 20, lineHeight: 1.5 }}>
-                  {t('Vi sender dig kun rapporten — ingen spam.', "We'll only send you the report — no spam.")}
-                </p>
-                <input type="email" placeholder={t("Din arbejdsmail", "Your work email")}
-                  value={pdfEmail} onChange={(e) => setPdfEmail(e.target.value)}
-                  onKeyDown={(e) => { if (e.key === 'Enter') handlePdfGateSubmit(); }}
-                  style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #333", background: "#0C0C12", color: "#E8E8ED", fontSize: 14, marginBottom: 16, outline: "none", boxSizing: "border-box" }} />
-                <button onClick={handlePdfGateSubmit}
-                  style={{ width: "100%", background: "#C9A96E", color: "#0C0C12", padding: "12px 20px", borderRadius: 8, fontSize: 15, fontWeight: 700, border: "none", cursor: "pointer", marginBottom: 8 }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = "#D4B896"}
-                  onMouseLeave={(e) => e.currentTarget.style.background = "#C9A96E"}>
-                  {t('Download PDF', 'Download PDF')} →
-                </button>
-                <button onClick={() => setShowPdfGate(false)}
-                  style={{ background: "transparent", border: "none", color: "#666", fontSize: 12, cursor: "pointer", padding: 4 }}>
-                  {t('Annuller', 'Cancel')}
-                </button>
-              </div>
-            </div>
-          )}
           {/* Header */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 24px', borderBottom: '1px solid rgba(201,169,110,0.12)' }}>
             <a href="/" style={{ color: '#C9A96E', fontSize: 14, textDecoration: 'none' }}>← {t('Tilbage', 'Back')}</a>
@@ -986,32 +919,17 @@
               </div>
             )}
 
-            {step.type === "contact" && (
+            {step.type === "finish" && (
               <div style={{ maxWidth: 500, margin: '0 auto' }}>
-                <input type="email" id="contact-email" placeholder={t('Din e-mail (valgfrit)', 'Your email (optional)')}
-                  style={{ width: '100%', padding: '14px 18px', background: '#1a1a26', border: '1px solid rgba(201,169,110,0.2)', borderRadius: 10, color: '#E8E8ED', fontSize: 15, outline: 'none', marginBottom: 12 }}
-                />
-                <input type="text" id="contact-org" placeholder={t('Organisation (valgfrit)', 'Organisation (optional)')}
-                  style={{ width: '100%', padding: '14px 18px', background: '#1a1a26', border: '1px solid rgba(201,169,110,0.2)', borderRadius: 10, color: '#E8E8ED', fontSize: 15, outline: 'none', marginBottom: 16 }}
-                />
-                <button onClick={() => {
-                    const emailEl = document.getElementById('contact-email');
-                    const orgEl = document.getElementById('contact-org');
-                    if (emailEl && emailEl.value) submitLead(emailEl.value, orgEl ? orgEl.value : '');
-                    finishClassification();
-                  }}
+                <button onClick={finishClassification}
                   style={{ width: '100%', padding: '16px', background: '#C9A96E', color: '#0C0C12', border: 'none', borderRadius: 10, fontSize: 16, fontWeight: 700, cursor: 'pointer' }}>
                   {t('Se din klassificering', 'See Your Classification')} →
-                </button>
-                <button onClick={finishClassification}
-                  style={{ width: '100%', marginTop: 10, padding: '12px', background: 'transparent', color: '#6a6a7a', border: 'none', fontSize: 13, cursor: 'pointer' }}>
-                  {t('Spring over →', 'Skip →')}
                 </button>
               </div>
             )}
 
             {/* Navigation */}
-            {step.type !== "contact" && (
+            {step.type !== "finish" && (
               <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 40, maxWidth: 500, margin: '40px auto 0' }}>
                 <button onClick={goBack} disabled={currentStep === 0}
                   style={{ padding: '10px 20px', background: 'transparent', border: '1px solid rgba(201,169,110,0.2)', borderRadius: 8, color: currentStep === 0 ? '#333' : '#9a9aaa', fontSize: 14, cursor: currentStep === 0 ? 'default' : 'pointer' }}>

@@ -149,11 +149,6 @@
     const [currentDim, setCurrentDim] = useState(0);
     const [answers, setAnswers] = useState({});
     const [showResults, setShowResults] = useState(false);
-    const [email, setEmail] = useState("");
-    const [showEmailPrompt, setShowEmailPrompt] = useState(false);
-    const [industry, setIndustry] = useState("");
-    const [showPdfGate, setShowPdfGate] = useState(false);
-    const [pdfEmail, setPdfEmail] = useState("");
     const t = (da, en) => lang === "da" ? da : en;
     const totalQuestions = DIMENSIONS.reduce((acc, d) => acc + d.questions.length, 0);
     const answeredCount = Object.keys(answers).length;
@@ -221,9 +216,6 @@
         day: "numeric"
       });
       doc.text(dateStr, w / 2, 78, { align: "center" });
-      if (industry) {
-        doc.text(t("Branche: ", "Industry: ") + industry, w / 2, 86, { align: "center" });
-      }
       doc.setDrawColor(...gold);
       doc.setLineWidth(2);
       doc.circle(w / 2, 130, 30);
@@ -320,101 +312,12 @@
       doc.text("\xA9 2026 Steven Seidenfaden Wensley | stevenwensley.com", w / 2, h - 10, { align: "center" });
       doc.save("AI-Governance-Report-" + (/* @__PURE__ */ new Date()).toISOString().split("T")[0] + ".pdf");
     };
-    const handlePdfClick = () => {
-      if (email && email.includes("@")) {
-        generatePDF();
-      } else {
-        setShowPdfGate(true);
-      }
-    };
-    const handlePdfGateSubmit = () => {
-      if (pdfEmail && pdfEmail.includes("@")) {
-        const dimScores = scores.reduce((acc, s) => {
-          acc[s.name] = s.pct + "%";
-          return acc;
-        }, {});
-        fetch("https://formspree.io/f/xpqjldbp", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            _subject: "AI Governance Assessment \u2014 PDF download lead",
-            email: pdfEmail,
-            samlet_score: totalPct + "%",
-            ...dimScores
-          })
-        }).catch(() => {
-        });
-        setEmail(pdfEmail);
-        setShowPdfGate(false);
-        generatePDF();
-      }
-    };
     const handleFinish = () => {
-      setShowEmailPrompt(true);
-    };
-    const handleShowResults = () => {
-      if (email && email.includes("@")) {
-        const dimScores = scores.reduce((acc, s) => {
-          acc[s.name] = s.pct + "%";
-          return acc;
-        }, {});
-        fetch("https://formspree.io/f/xpqjldbp", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            _subject: "AI Governance Assessment \u2014 ny lead",
-            email,
-            branche: industry || "Ikke angivet",
-            samlet_score: totalPct + "%",
-            ...dimScores
-          })
-        }).catch(() => {
-        });
-      }
-      setShowEmailPrompt(false);
       setShowResults(true);
     };
     if (showResults) {
       const sortedScores = [...scores].sort((a, b) => a.pct - b.pct);
-      return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh", background: "#0C0C12", color: "#E8E8ED", fontFamily: "'Space Grotesk', -apple-system, sans-serif" } }, showPdfGate && /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: { position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.8)", zIndex: 1e3, display: "flex", alignItems: "center", justifyContent: "center" },
-          onClick: (e) => {
-            if (e.target === e.currentTarget) setShowPdfGate(false);
-          }
-        },
-        /* @__PURE__ */ React.createElement("div", { className: "fade-in", style: { background: "#161620", border: "1px solid #C9A96E44", borderRadius: 16, padding: 32, maxWidth: 400, width: "90%", textAlign: "center" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 36, marginBottom: 12 } }, "\u{1F4C4}"), /* @__PURE__ */ React.createElement("h3", { style: { fontSize: 18, fontWeight: 700, color: "#C9A96E", marginBottom: 8 } }, t("Indtast din email for PDF-rapporten", "Enter your email for the PDF report")), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 13, color: "#9CA3AF", marginBottom: 20, lineHeight: 1.5 } }, t("Vi sender dig kun rapporten \u2014 ingen spam.", "We'll only send you the report \u2014 no spam.")), /* @__PURE__ */ React.createElement(
-          "input",
-          {
-            type: "email",
-            placeholder: t("Din arbejdsmail", "Your work email"),
-            value: pdfEmail,
-            onChange: (e) => setPdfEmail(e.target.value),
-            onKeyDown: (e) => {
-              if (e.key === "Enter") handlePdfGateSubmit();
-            },
-            style: { width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #333", background: "#0C0C12", color: "#E8E8ED", fontSize: 14, marginBottom: 16, outline: "none", boxSizing: "border-box" }
-          }
-        ), /* @__PURE__ */ React.createElement(
-          "button",
-          {
-            onClick: handlePdfGateSubmit,
-            style: { width: "100%", background: "#C9A96E", color: "#0C0C12", padding: "12px 20px", borderRadius: 8, fontSize: 15, fontWeight: 700, border: "none", cursor: "pointer", marginBottom: 8 },
-            onMouseEnter: (e) => e.currentTarget.style.background = "#D4B896",
-            onMouseLeave: (e) => e.currentTarget.style.background = "#C9A96E"
-          },
-          t("Download PDF", "Download PDF"),
-          " \u2192"
-        ), /* @__PURE__ */ React.createElement(
-          "button",
-          {
-            onClick: () => setShowPdfGate(false),
-            style: { background: "transparent", border: "none", color: "#666", fontSize: 12, cursor: "pointer", padding: 4 }
-          },
-          t("Annuller", "Cancel")
-        ))
-      ), /* @__PURE__ */ React.createElement("div", { className: "fade-in", style: { maxWidth: 1e3, margin: "0 auto", padding: "40px 20px" } }, /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", marginBottom: 40 } }, /* @__PURE__ */ React.createElement("h2", { style: { fontSize: 28, fontWeight: 700, color: "#C9A96E", marginBottom: 8 } }, t("Din AI Governance Score", "Your AI Governance Score")), /* @__PURE__ */ React.createElement("div", { className: "score-anim", style: { fontSize: 72, fontWeight: 800, color: maturityLevel.color, lineHeight: 1 } }, totalScore, "%"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 22, fontWeight: 600, color: maturityLevel.color, marginTop: 8 } }, t(maturityLevel.level, maturityLevel.levelEN)), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 15, color: "#9CA3AF", maxWidth: 600, margin: "16px auto 0", lineHeight: 1.6 } }, t(maturityLevel.desc, maturityLevel.descEN))), /* @__PURE__ */ React.createElement("div", { style: { background: "#161620", borderRadius: 16, padding: 32, marginBottom: 32 } }, /* @__PURE__ */ React.createElement("h2", { style: { fontSize: 18, fontWeight: 600, color: "#C9A96E", marginBottom: 24, textAlign: "center" } }, t("Governance-profil", "Governance Profile")), (() => {
+      return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh", background: "#0C0C12", color: "#E8E8ED", fontFamily: "'Space Grotesk', -apple-system, sans-serif" } }, /* @__PURE__ */ React.createElement("div", { className: "fade-in", style: { maxWidth: 1e3, margin: "0 auto", padding: "40px 20px" } }, /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", marginBottom: 40 } }, /* @__PURE__ */ React.createElement("h2", { style: { fontSize: 28, fontWeight: 700, color: "#C9A96E", marginBottom: 8 } }, t("Din AI Governance Score", "Your AI Governance Score")), /* @__PURE__ */ React.createElement("div", { className: "score-anim", style: { fontSize: 72, fontWeight: 800, color: maturityLevel.color, lineHeight: 1 } }, totalScore, "%"), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 22, fontWeight: 600, color: maturityLevel.color, marginTop: 8 } }, t(maturityLevel.level, maturityLevel.levelEN)), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 15, color: "#9CA3AF", maxWidth: 600, margin: "16px auto 0", lineHeight: 1.6 } }, t(maturityLevel.desc, maturityLevel.descEN))), /* @__PURE__ */ React.createElement("div", { style: { background: "#161620", borderRadius: 16, padding: 32, marginBottom: 32 } }, /* @__PURE__ */ React.createElement("h2", { style: { fontSize: 18, fontWeight: 600, color: "#C9A96E", marginBottom: 24, textAlign: "center" } }, t("Governance-profil", "Governance Profile")), (() => {
         const cx = 175, cy = 175, maxR = 130;
         const n = radarData.length;
         const angleStep = 2 * Math.PI / n;
@@ -480,7 +383,7 @@
         /* @__PURE__ */ React.createElement(
           "button",
           {
-            onClick: handlePdfClick,
+            onClick: () => generatePDF(),
             style: { width: "100%", background: "#C9A96E", color: "#0C0C12", padding: "12px 20px", borderRadius: 8, fontSize: 15, fontWeight: 700, border: "none", cursor: "pointer", transition: "all 0.2s ease" },
             onMouseEnter: (e) => e.currentTarget.style.background = "#D4B896",
             onMouseLeave: (e) => e.currentTarget.style.background = "#C9A96E"
@@ -563,51 +466,6 @@
         },
         t("Tag testen igen", "Take the test again")
       ))));
-    }
-    if (showEmailPrompt) {
-      return /* @__PURE__ */ React.createElement("div", { className: "fade-in", style: { minHeight: "100vh", background: "#0C0C12", color: "#E8E8ED", fontFamily: "'Space Grotesk', -apple-system, sans-serif", display: "flex", alignItems: "center", justifyContent: "center" } }, /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 480, padding: 40, textAlign: "center" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 48, marginBottom: 16 } }, "\u{1F4CA}"), /* @__PURE__ */ React.createElement("h2", { style: { fontSize: 24, fontWeight: 700, color: "#C9A96E", marginBottom: 8 } }, t("Din governance-score er klar", "Your governance score is ready")), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 14, color: "#9CA3AF", marginBottom: 24, lineHeight: 1.6 } }, t(
-        "Indtast din email for at modtage en fuld rapport med handlingsanbefalinger \u2014 eller se resultaterne med det samme.",
-        "Enter your email to receive a full report with action recommendations \u2014 or view results immediately."
-      )), /* @__PURE__ */ React.createElement(
-        "select",
-        {
-          value: industry,
-          onChange: (e) => setIndustry(e.target.value),
-          style: { width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #333", background: "#161620", color: "#E8E8ED", fontSize: 14, marginBottom: 12, outline: "none" }
-        },
-        /* @__PURE__ */ React.createElement("option", { value: "" }, t("V\xE6lg branche (valgfrit)", "Select industry (optional)")),
-        /* @__PURE__ */ React.createElement("option", { value: "pharma" }, t("Pharma / Life Science", "Pharma / Life Science")),
-        /* @__PURE__ */ React.createElement("option", { value: "finance" }, t("Finans / Forsikring", "Finance / Insurance")),
-        /* @__PURE__ */ React.createElement("option", { value: "public" }, t("Offentlig sektor", "Public sector")),
-        /* @__PURE__ */ React.createElement("option", { value: "infrastructure" }, t("Kritisk infrastruktur / Energi", "Critical infrastructure / Energy")),
-        /* @__PURE__ */ React.createElement("option", { value: "manufacturing" }, t("Produktion / Industri", "Manufacturing / Industry")),
-        /* @__PURE__ */ React.createElement("option", { value: "tech" }, t("Tech / SaaS", "Tech / SaaS")),
-        /* @__PURE__ */ React.createElement("option", { value: "other" }, t("Anden", "Other"))
-      ), /* @__PURE__ */ React.createElement(
-        "input",
-        {
-          type: "email",
-          placeholder: t("Din arbejdsmail (valgfrit)", "Your work email (optional)"),
-          value: email,
-          onChange: (e) => setEmail(e.target.value),
-          style: { width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #333", background: "#161620", color: "#E8E8ED", fontSize: 14, marginBottom: 16, outline: "none", boxSizing: "border-box" }
-        }
-      ), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 12, color: "#666", marginBottom: 16 } }, t("Vi sender dig ikke spam \u2014 kun din personlige rapport.", "We won't spam you \u2014 only your personal report.")), /* @__PURE__ */ React.createElement(
-        "button",
-        {
-          onClick: handleShowResults,
-          style: { width: "100%", background: "#C9A96E", color: "#0C0C12", padding: "14px 32px", borderRadius: 8, fontSize: 16, fontWeight: 700, border: "none", cursor: "pointer", marginBottom: 12 }
-        },
-        t("Se min score", "View my score"),
-        " \u2192"
-      ), /* @__PURE__ */ React.createElement(
-        "button",
-        {
-          onClick: handleShowResults,
-          style: { background: "transparent", border: "none", color: "#666", fontSize: 13, cursor: "pointer", padding: 8 }
-        },
-        t("Spring over \u2014 vis resultaterne", "Skip \u2014 show results")
-      )));
     }
     return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh", background: "#0C0C12", color: "#E8E8ED", fontFamily: "'Space Grotesk', -apple-system, sans-serif" } }, /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 700, margin: "0 auto", padding: "32px 20px" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32 } }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("a", { href: "https://stevenwensley.com", style: { fontSize: 12, color: "#666", textDecoration: "none", display: "block", marginBottom: 4 } }, "\u2190 stevenwensley.com"), /* @__PURE__ */ React.createElement("h1", { style: { fontSize: 22, fontWeight: 700, color: "#C9A96E", margin: 0 } }, t("AI Governance Readiness", "AI Governance Readiness")), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 13, color: "#9CA3AF", margin: "4px 0 0" } }, t("30 sp\xF8rgsm\xE5l \xB7 6 dimensioner \xB7 5 minutter", "30 questions \xB7 6 dimensions \xB7 5 minutes"))), /* @__PURE__ */ React.createElement(
       "button",

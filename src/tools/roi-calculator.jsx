@@ -85,14 +85,6 @@
         assessBtn: "Tag AI Governance Assessment",
         disclaimer: "Alle tal er estimater baseret på branchedata og typiske AI-implementeringer. Faktisk ROI afhænger af implementering og organisatoriske forhold.",
 
-        leadTitle: "Få din business case tilsendt",
-        leadSub: "Indtast din email for at modtage PDF-rapporten og en personlig opfølgning.",
-        emailPlaceholder: "din@email.dk",
-        companyPlaceholder: "Virksomhedsnavn (valgfrit)",
-        sendBtn: "Send mig rapporten",
-        skipBtn: "Spring over — download direkte",
-        thankYou: "Tak! Rapporten er sendt.",
-
         langToggle: "EN",
         byLine: "Steven Wensley — AI Advisory & EU AI Act Compliance",
         privacy: "Ingen data gemmes i browseren. ",
@@ -179,14 +171,6 @@
         costBtn: "Calculate your Cost of Inaction",
         assessBtn: "Take AI Governance Assessment",
         disclaimer: "All figures are estimates based on industry data and typical AI implementations. Actual ROI depends on implementation and organisational factors.",
-
-        leadTitle: "Get your business case emailed",
-        leadSub: "Enter your email to receive the PDF report and a personal follow-up.",
-        emailPlaceholder: "you@company.com",
-        companyPlaceholder: "Company name (optional)",
-        sendBtn: "Send me the report",
-        skipBtn: "Skip — download directly",
-        thankYou: "Thanks! Report sent.",
 
         langToggle: "DA",
         byLine: "Steven Wensley — AI Advisory & EU AI Act Compliance",
@@ -469,12 +453,6 @@
       const [currentQ, setCurrentQ] = useState(0);
       const [answers, setAnswers] = useState({});
       const [results, setResults] = useState(null);
-      const [showLead, setShowLead] = useState(false);
-      const [leadSent, setLeadSent] = useState(false);
-      const [email, setEmail] = useState("");
-      const [company, setCompany] = useState("");
-      const [showPdfGate, setShowPdfGate] = useState(false);
-      const [pdfEmail, setPdfEmail] = useState("");
 
       const t = T[lang];
       const totalQuestions = 8;
@@ -501,48 +479,6 @@
         if (!results) return;
         const doc = generatePDF(results, t, lang);
         doc.save("AI-ROI-Business-Case.pdf");
-      };
-
-      const submitLead = async (e) => {
-        e.preventDefault();
-        try {
-          await fetch("https://formspree.io/f/xpqjldbp", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              email,
-              company,
-              tool: "ROI Business Case Generator",
-              roi: results ? `${results.roi}%` : "N/A",
-              payback: results ? `${results.paybackMonths} months` : "N/A",
-              net_benefit: results ? fmtNum(results.netBenefit, results.currency) : "N/A",
-              savings_yr1: results ? fmtNum(results.yr1Savings, results.currency) : "N/A",
-              language: lang,
-            }),
-          });
-          setLeadSent(true);
-          downloadPDF();
-        } catch { setLeadSent(true); }
-      };
-
-      const handlePdfClick = () => {
-        setShowPdfGate(true);
-      };
-
-      const handlePdfGateSubmit = () => {
-        if (pdfEmail && pdfEmail.includes('@')) {
-          fetch('https://formspree.io/f/xpqjldbp', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              _subject: 'stevenwensley.com — PDF download lead',
-              email: pdfEmail,
-              tool: document.title
-            })
-          }).catch(() => {});
-          setShowPdfGate(false);
-          downloadPDF();
-        }
       };
 
       // ─── Shared Styles ───
@@ -589,34 +525,6 @@
       if (phase === "intro") {
         return (
           <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-            {showPdfGate && (
-              <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.8)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center" }}
-                onClick={(e) => { if (e.target === e.currentTarget) setShowPdfGate(false); }}>
-                <div style={{ background: "#161620", border: "1px solid #C9A96E44", borderRadius: 16, padding: 32, maxWidth: 400, width: "90%", textAlign: "center" }}>
-                  <div style={{ fontSize: 36, marginBottom: 12 }}>📄</div>
-                  <h3 style={{ fontSize: 18, fontWeight: 700, color: "#C9A96E", marginBottom: 8 }}>
-                    Enter your email for the PDF report
-                  </h3>
-                  <p style={{ fontSize: 13, color: "#9CA3AF", marginBottom: 20, lineHeight: 1.5 }}>
-                    We'll only send you the report — no spam.
-                  </p>
-                  <input type="email" placeholder="Your work email"
-                    value={pdfEmail} onChange={(e) => setPdfEmail(e.target.value)}
-                    onKeyDown={(e) => { if (e.key === 'Enter') handlePdfGateSubmit(); }}
-                    style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #333", background: "#0C0C12", color: "#E8E8ED", fontSize: 14, marginBottom: 16, outline: "none", boxSizing: "border-box" }} />
-                  <button onClick={handlePdfGateSubmit}
-                    style={{ width: "100%", background: "#C9A96E", color: "#0C0C12", padding: "12px 20px", borderRadius: 8, fontSize: 15, fontWeight: 700, border: "none", cursor: "pointer", marginBottom: 8 }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = "#D4B896"}
-                    onMouseLeave={(e) => e.currentTarget.style.background = "#C9A96E"}>
-                    Download PDF →
-                  </button>
-                  <button onClick={() => setShowPdfGate(false)}
-                    style={{ background: "transparent", border: "none", color: "#666", fontSize: 12, cursor: "pointer", padding: 4 }}>
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            )}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 24px", borderBottom: "1px solid #1E1E30" }}>
               <span style={{ fontSize: 13, color: "#8888AA" }}>{t.byLine}</span>
               <button onClick={() => setLang(lang === "da" ? "en" : "da")} style={{ ...outlineBtn, padding: "6px 14px", fontSize: 12 }}>{t.langToggle}</button>
@@ -660,34 +568,6 @@
 
         return (
           <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-            {showPdfGate && (
-              <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.8)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center" }}
-                onClick={(e) => { if (e.target === e.currentTarget) setShowPdfGate(false); }}>
-                <div style={{ background: "#161620", border: "1px solid #C9A96E44", borderRadius: 16, padding: 32, maxWidth: 400, width: "90%", textAlign: "center" }}>
-                  <div style={{ fontSize: 36, marginBottom: 12 }}>📄</div>
-                  <h3 style={{ fontSize: 18, fontWeight: 700, color: "#C9A96E", marginBottom: 8 }}>
-                    Enter your email for the PDF report
-                  </h3>
-                  <p style={{ fontSize: 13, color: "#9CA3AF", marginBottom: 20, lineHeight: 1.5 }}>
-                    We'll only send you the report — no spam.
-                  </p>
-                  <input type="email" placeholder="Your work email"
-                    value={pdfEmail} onChange={(e) => setPdfEmail(e.target.value)}
-                    onKeyDown={(e) => { if (e.key === 'Enter') handlePdfGateSubmit(); }}
-                    style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #333", background: "#0C0C12", color: "#E8E8ED", fontSize: 14, marginBottom: 16, outline: "none", boxSizing: "border-box" }} />
-                  <button onClick={handlePdfGateSubmit}
-                    style={{ width: "100%", background: "#C9A96E", color: "#0C0C12", padding: "12px 20px", borderRadius: 8, fontSize: 15, fontWeight: 700, border: "none", cursor: "pointer", marginBottom: 8 }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = "#D4B896"}
-                    onMouseLeave={(e) => e.currentTarget.style.background = "#C9A96E"}>
-                    Download PDF →
-                  </button>
-                  <button onClick={() => setShowPdfGate(false)}
-                    style={{ background: "transparent", border: "none", color: "#666", fontSize: 12, cursor: "pointer", padding: 4 }}>
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            )}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 24px", borderBottom: "1px solid #1E1E30" }}>
               <span style={{ fontSize: 13, color: "#8888AA" }}>{t.byLine}</span>
               <button onClick={() => setLang(lang === "da" ? "en" : "da")} style={{ ...outlineBtn, padding: "6px 14px", fontSize: 12 }}>{t.langToggle}</button>
@@ -790,34 +670,6 @@
 
         return (
           <div style={{ minHeight: "100vh" }}>
-            {showPdfGate && (
-              <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.8)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center" }}
-                onClick={(e) => { if (e.target === e.currentTarget) setShowPdfGate(false); }}>
-                <div style={{ background: "#161620", border: "1px solid #C9A96E44", borderRadius: 16, padding: 32, maxWidth: 400, width: "90%", textAlign: "center" }}>
-                  <div style={{ fontSize: 36, marginBottom: 12 }}>📄</div>
-                  <h3 style={{ fontSize: 18, fontWeight: 700, color: "#C9A96E", marginBottom: 8 }}>
-                    Enter your email for the PDF report
-                  </h3>
-                  <p style={{ fontSize: 13, color: "#9CA3AF", marginBottom: 20, lineHeight: 1.5 }}>
-                    We'll only send you the report — no spam.
-                  </p>
-                  <input type="email" placeholder="Your work email"
-                    value={pdfEmail} onChange={(e) => setPdfEmail(e.target.value)}
-                    onKeyDown={(e) => { if (e.key === 'Enter') handlePdfGateSubmit(); }}
-                    style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #333", background: "#0C0C12", color: "#E8E8ED", fontSize: 14, marginBottom: 16, outline: "none", boxSizing: "border-box" }} />
-                  <button onClick={handlePdfGateSubmit}
-                    style={{ width: "100%", background: "#C9A96E", color: "#0C0C12", padding: "12px 20px", borderRadius: 8, fontSize: 15, fontWeight: 700, border: "none", cursor: "pointer", marginBottom: 8 }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = "#D4B896"}
-                    onMouseLeave={(e) => e.currentTarget.style.background = "#C9A96E"}>
-                    Download PDF →
-                  </button>
-                  <button onClick={() => setShowPdfGate(false)}
-                    style={{ background: "transparent", border: "none", color: "#666", fontSize: 12, cursor: "pointer", padding: 4 }}>
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            )}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 24px", borderBottom: "1px solid #1E1E30" }}>
               <span style={{ fontSize: 13, color: "#8888AA" }}>{t.byLine}</span>
               <button onClick={() => setLang(lang === "da" ? "en" : "da")} style={{ ...outlineBtn, padding: "6px 14px", fontSize: 12 }}>{t.langToggle}</button>
@@ -910,40 +762,18 @@
 
               {/* CTA */}
               <div style={{ ...cardStyle, marginTop: 32, textAlign: "center", borderColor: "#C9A96E44" }}>
-                {!showLead && !leadSent && (
-                  <>
-                    <h3 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 20, fontWeight: 700, color: "#fff", marginBottom: 8 }}>{t.ctaTitle}</h3>
-                    <p style={{ fontSize: 14, color: "#8888AA", marginBottom: 20 }}>{t.ctaText}</p>
-                    <a href="/book-session" style={{ ...goldBtn, display: "inline-block", textDecoration: "none", textAlign: "center", marginBottom: 12 }}>
-                      {t.ctaBtn}
-                    </a>
-                    <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 12, flexWrap: "wrap" }}>
-                      <button onClick={handlePdfClick} style={outlineBtn}>{t.downloadBtn} ↓</button>
-                      <a href="/cost-of-inaction" style={{ ...outlineBtn, textDecoration: "none", display: "inline-block" }}>{t.costBtn} →</a>
-                    </div>
-                    <div style={{ marginTop: 8 }}>
-                      <a href="/ai-governance-assessment" style={{ ...outlineBtn, textDecoration: "none", display: "inline-block", fontSize: 12 }}>{t.assessBtn} →</a>
-                    </div>
-                  </>
-                )}
-
-                {showLead && !leadSent && (
-                  <form onSubmit={submitLead} className="fade-in">
-                    <h4 style={{ fontSize: 16, fontWeight: 600, color: "#fff", marginBottom: 4 }}>{t.leadTitle}</h4>
-                    <p style={{ fontSize: 12, color: "#8888AA", marginBottom: 16 }}>{t.leadSub}</p>
-                    <input type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder={t.emailPlaceholder} style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #1E1E30", background: "#0C0C12", color: "#E8E8ED", fontSize: 14, marginBottom: 10 }} />
-                    <input type="text" value={company} onChange={e => setCompany(e.target.value)} placeholder={t.companyPlaceholder} style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #1E1E30", background: "#0C0C12", color: "#E8E8ED", fontSize: 14, marginBottom: 16 }} />
-                    <button type="submit" style={goldBtn}>{t.sendBtn}</button>
-                    <button type="button" onClick={() => { setShowLead(false); downloadPDF(); }} style={{ ...outlineBtn, marginTop: 10, width: "100%" }}>{t.skipBtn}</button>
-                  </form>
-                )}
-
-                {leadSent && (
-                  <div className="fade-in">
-                    <div style={{ fontSize: 32, marginBottom: 8 }}>✅</div>
-                    <p style={{ fontSize: 14, color: "#22C55E", fontWeight: 600 }}>{t.thankYou}</p>
-                  </div>
-                )}
+                <h3 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 20, fontWeight: 700, color: "#fff", marginBottom: 8 }}>{t.ctaTitle}</h3>
+                <p style={{ fontSize: 14, color: "#8888AA", marginBottom: 20 }}>{t.ctaText}</p>
+                <a href="/book-session" style={{ ...goldBtn, display: "inline-block", textDecoration: "none", textAlign: "center", marginBottom: 12 }}>
+                  {t.ctaBtn}
+                </a>
+                <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 12, flexWrap: "wrap" }}>
+                  <button onClick={downloadPDF} style={outlineBtn}>{t.downloadBtn} ↓</button>
+                  <a href="/cost-of-inaction" style={{ ...outlineBtn, textDecoration: "none", display: "inline-block" }}>{t.costBtn} →</a>
+                </div>
+                <div style={{ marginTop: 8 }}>
+                  <a href="/ai-governance-assessment" style={{ ...outlineBtn, textDecoration: "none", display: "inline-block", fontSize: 12 }}>{t.assessBtn} →</a>
+                </div>
               </div>
 
               <p style={{ fontSize: 10, color: "#555", textAlign: "center", marginTop: 24, lineHeight: 1.5 }}>
