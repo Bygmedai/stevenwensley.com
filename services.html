@@ -878,24 +878,6 @@
     lenis.on('scroll', function() { if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update(); });
     gsap.ticker.add(function(time) { lenis.raf(time * 1000); });
     gsap.ticker.lagSmoothing(0);
-    /* Ankerlinks: Lenis 1.1.18 har ingen anchors-option og nulstiller en native hop, så vi scroller selv. */
-    document.addEventListener('click', function(e) {
-      var a = e.target.closest && e.target.closest('a[href^="#"]');
-      if (!a) return;
-      var id = a.getAttribute('href').slice(1);
-      var el = id && document.getElementById(id);
-      if (!el) return;
-      e.preventDefault();
-      lenis.scrollTo(el, { offset: -80 });
-      if (history.replaceState) history.replaceState(null, '', '#' + id);
-      if (el.hasAttribute('tabindex')) el.focus({ preventScroll: true });
-    });
-    if (location.hash) {
-      window.addEventListener('load', function() {
-        var el = document.getElementById(location.hash.slice(1));
-        if (el) lenis.scrollTo(el, { offset: -80, immediate: true });
-      });
-    }
   } catch(e) {}
 
   /* Scroll reveal */
