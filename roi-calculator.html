@@ -139,7 +139,7 @@
   <a class="skip-link" href="#main">Skip to main content</a>
 <nav aria-label="Primary" class="site-nav">
   <a href="/" class="logo" aria-label="Steven Wensley — home">SSW</a>
-  <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.site-nav .nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <button class="hamburger" onclick="this.classList.toggle('active');this.setAttribute('aria-expanded',this.classList.contains('active'));document.querySelector('.site-nav .nav-links').classList.toggle('open')" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   <div class="nav-links">
     <a href="/workshop">The Factory</a>
     <a href="/playbooks">Playbooks</a>

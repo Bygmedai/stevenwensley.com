@@ -85,12 +85,95 @@
   @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .wrap { padding: 0 1.5rem; } .page-hero { padding: 8rem 0 1rem; } }
   .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "url": "https://stevenwensley.com/tools",
+  "name": "Free Tools — Diagnostics & Calculators | Steven Wensley",
+  "description": "Ten free in-browser tools for AI governance, EU AI Act classification and NIS2 gap analysis. No email, nothing stored. Answer, get a result, leave.",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Steven Seidenfaden Wensley",
+    "url": "https://stevenwensley.com/",
+    "sameAs": [
+      "https://www.linkedin.com/in/stevenwensley/"
+    ]
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "url": "https://stevenwensley.com/eu-ai-act-classifier",
+        "name": "EU AI Act Classifier"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "url": "https://stevenwensley.com/ai-governance-assessment",
+        "name": "AI Governance Readiness Assessment"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "url": "https://stevenwensley.com/ai-readiness-scan",
+        "name": "AI Readiness Quick Scan"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "url": "https://stevenwensley.com/cost-of-inaction",
+        "name": "Cost of Inaction Calculator"
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "url": "https://stevenwensley.com/roi-calculator",
+        "name": "AI ROI & Business Case Generator"
+      },
+      {
+        "@type": "ListItem",
+        "position": 6,
+        "url": "https://stevenwensley.com/nis2-gap-assessment",
+        "name": "NIS2 Compliance Gap Assessment"
+      },
+      {
+        "@type": "ListItem",
+        "position": 7,
+        "url": "https://stevenwensley.com/nis2-implementation-roadmap",
+        "name": "NIS2 Implementation Roadmap"
+      },
+      {
+        "@type": "ListItem",
+        "position": 8,
+        "url": "https://stevenwensley.com/regulatory-deadlines",
+        "name": "Regulatory Deadline Tracker"
+      },
+      {
+        "@type": "ListItem",
+        "position": 9,
+        "url": "https://stevenwensley.com/programme-health-check",
+        "name": "Programme Health Check"
+      },
+      {
+        "@type": "ListItem",
+        "position": 10,
+        "url": "https://stevenwensley.com/cost-of-delay",
+        "name": "Cost-of-Delay Calculator"
+      }
+    ]
+  }
+}
+</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
 <nav aria-label="Primary">
   <a href="/" class="logo" aria-label="Steven Wensley — home">SSW</a>
-  <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <button class="hamburger" onclick="this.classList.toggle('active');this.setAttribute('aria-expanded',this.classList.contains('active'));document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   <div class="nav-links">
     <a href="/workshop">The Factory</a>
     <a href="/playbooks">Playbooks</a>

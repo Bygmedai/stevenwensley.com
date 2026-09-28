@@ -109,7 +109,10 @@
     }
 
     nav .nav-links a {
-      font-size: 0.9rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       color: var(--text-secondary);
       text-decoration: none;
       transition: color 0.3s;
@@ -577,7 +580,7 @@
         <text x="2" y="22" font-family="DM Serif Display,Georgia,serif" font-size="22" font-weight="700" fill="var(--gold)" stroke="var(--gold)" stroke-width="0.8">SSW</text>
       </svg>
     </a>
-    <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+    <button class="hamburger" onclick="this.classList.toggle('active');this.setAttribute('aria-expanded',this.classList.contains('active'));document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <ul class="nav-links">
       <li><a href="https://stevenwensley.com/workshop">The Factory</a></li>
       <li><a href="https://stevenwensley.com/playbooks">Playbooks</a></li>

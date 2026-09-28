@@ -94,13 +94,66 @@
   .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}
 </style>
   <!-- Cloudflare Web Analytics --><script type="module" defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;65eb31eee8724f75a014183d2bf26ef7&quot;}"></script><!-- End Cloudflare Web Analytics -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "url": "https://stevenwensley.com/playbooks",
+  "name": "Playbooks — How I'd Approach It | Steven Wensley",
+  "description": "Five scenarios: the AI initiative your board asked for, red programme turnaround, stalled GxP migration, NIS2 compliance, IT carve-out.",
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "name": "Steven Seidenfaden Wensley",
+    "url": "https://stevenwensley.com/",
+    "sameAs": [
+      "https://www.linkedin.com/in/stevenwensley/"
+    ]
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "url": "https://stevenwensley.com/playbook-ai-initiative",
+        "name": "The AI initiative your board asked for"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "url": "https://stevenwensley.com/playbook-programme-recovery",
+        "name": "The red programme you just inherited"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "url": "https://stevenwensley.com/playbook-gxp-migration",
+        "name": "The stalled GxP datacenter migration"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "url": "https://stevenwensley.com/playbook-nis2-compliance",
+        "name": "The NIS2 deadline you’re already past"
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "url": "https://stevenwensley.com/playbook-carveout-separation",
+        "name": "The carve-out separating two entities"
+      }
+    ]
+  }
+}
+</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
 
 <nav aria-label="Primary">
   <a href="/" class="logo" aria-label="Steven Wensley — home">SSW</a>
-  <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <button class="hamburger" onclick="this.classList.toggle('active');this.setAttribute('aria-expanded',this.classList.contains('active'));document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   <div class="nav-links">
     <a href="/workshop">The Factory</a>
     <a href="/playbooks" class="active">Playbooks</a>

@@ -291,7 +291,7 @@
 
 <nav aria-label="Primary">
   <a href="/" class="logo" style="text-decoration:none;"><span class="visually-hidden" style="position:absolute;left:-10000px;">Steven Seidenfaden Wensley — home</span><svg class="nav-logo-svg" viewBox="0 0 80 28" width="80" height="28" xmlns="http://www.w3.org/2000/svg"><text x="2" y="22" font-family="DM Serif Display,Georgia,serif" font-size="22" font-weight="700" fill="var(--gold)" stroke="var(--gold)" stroke-width="0.8">SSW</text></svg></a>
-  <button class="hamburger" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <button class="hamburger" onclick="this.classList.toggle('active');this.setAttribute('aria-expanded',this.classList.contains('active'));document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   <div class="nav-links">
     <a href="/workshop">The Factory</a>
     <a href="/playbooks">Playbooks</a>
@@ -382,7 +382,7 @@
     <div class="article-meta">
       <span class="article-tag">Programme Management</span>
       <span class="article-date">March 2026</span>
-      <span class="article-read">6 min read</span>
+      <span class="article-read">9 min read</span>
     </div>
     <h2>How to Structure an AI Governance Programme That Actually Delivers</h2>
     <p>Complex transformations don't succeed on their own. They succeed when structured in phases with clear exit criteria. Here's the four-phase model I use with clients.</p>
@@ -393,7 +393,7 @@
     <div class="article-meta">
       <span class="article-tag">Programme Management</span>
       <span class="article-date">March 2026</span>
-      <span class="article-read">4 min read</span>
+      <span class="article-read">8 min read</span>
     </div>
     <h2>The Most Important Hire for AI Act Compliance Isn't Who You Think</h2>
     <p>It's not a lawyer, a data scientist, or a governance specialist. It's a programme manager. Here's why nobody else can hold a cross-functional compliance programme together.</p>
@@ -404,7 +404,7 @@
     <div class="article-meta">
       <span class="article-tag">AI Governance</span>
       <span class="article-date">March 2026</span>
-      <span class="article-read">5 min read</span>
+      <span class="article-read">8 min read</span>
     </div>
     <h2>Shadow AI: The Biggest Compliance Risk You Don't Know You Have</h2>
     <p>Most organisations think they have 3-5 AI systems. The actual number is usually 15-50. Here's where the hidden ones are — and what to do about them.</p>
@@ -415,7 +415,7 @@
     <div class="article-meta">
       <span class="article-tag">EU AI Act</span>
       <span class="article-date">March 2026</span>
-      <span class="article-read">5 min read</span>
+      <span class="article-read">7 min read</span>
     </div>
     <h2>Human Oversight Means More Than a Rubber Stamp</h2>
     <p>Article 14 requires "human oversight" for high-risk AI systems. Most organisations interpret this as a human reviewing output. That's not oversight — it's observation.</p>
@@ -426,7 +426,7 @@
     <div class="article-meta">
       <span class="article-tag">AI Governance</span>
       <span class="article-date">March 2026</span>
-      <span class="article-read">4 min read</span>
+      <span class="article-read">7 min read</span>
     </div>
     <h2>The AI Governance Starter Kit: What You Actually Need Before Policies</h2>
     <p>Most organisations want to "do AI governance." But when asked what that means in practice, the answers miss the mark. Here's the actual starter kit.</p>
