@@ -72,13 +72,6 @@
       costBtn: "Beregn din Cost of Inaction",
       assessBtn: "Tag AI Governance Assessment",
       disclaimer: "Alle tal er estimater baseret p\xE5 branchedata og typiske AI-implementeringer. Faktisk ROI afh\xE6nger af implementering og organisatoriske forhold.",
-      leadTitle: "F\xE5 din business case tilsendt",
-      leadSub: "Indtast din email for at modtage PDF-rapporten og en personlig opf\xF8lgning.",
-      emailPlaceholder: "din@email.dk",
-      companyPlaceholder: "Virksomhedsnavn (valgfrit)",
-      sendBtn: "Send mig rapporten",
-      skipBtn: "Spring over \u2014 download direkte",
-      thankYou: "Tak! Rapporten er sendt.",
       langToggle: "EN",
       byLine: "Steven Wensley \u2014 AI Advisory & EU AI Act Compliance",
       privacy: "Ingen data gemmes i browseren. ",
@@ -152,13 +145,6 @@
       costBtn: "Calculate your Cost of Inaction",
       assessBtn: "Take AI Governance Assessment",
       disclaimer: "All figures are estimates based on industry data and typical AI implementations. Actual ROI depends on implementation and organisational factors.",
-      leadTitle: "Get your business case emailed",
-      leadSub: "Enter your email to receive the PDF report and a personal follow-up.",
-      emailPlaceholder: "you@company.com",
-      companyPlaceholder: "Company name (optional)",
-      sendBtn: "Send me the report",
-      skipBtn: "Skip \u2014 download directly",
-      thankYou: "Thanks! Report sent.",
       langToggle: "DA",
       byLine: "Steven Wensley \u2014 AI Advisory & EU AI Act Compliance",
       privacy: "No data stored in browser. ",
@@ -392,12 +378,6 @@
     const [currentQ, setCurrentQ] = useState(0);
     const [answers, setAnswers] = useState({});
     const [results, setResults] = useState(null);
-    const [showLead, setShowLead] = useState(false);
-    const [leadSent, setLeadSent] = useState(false);
-    const [email, setEmail] = useState("");
-    const [company, setCompany] = useState("");
-    const [showPdfGate, setShowPdfGate] = useState(false);
-    const [pdfEmail, setPdfEmail] = useState("");
     const t = T[lang];
     const totalQuestions = 8;
     const selectAnswer = (qIdx, optIdx) => {
@@ -419,48 +399,6 @@
       if (!results) return;
       const doc = generatePDF(results, t, lang);
       doc.save("AI-ROI-Business-Case.pdf");
-    };
-    const submitLead = async (e) => {
-      e.preventDefault();
-      try {
-        await fetch("https://formspree.io/f/xpqjldbp", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email,
-            company,
-            tool: "ROI Business Case Generator",
-            roi: results ? `${results.roi}%` : "N/A",
-            payback: results ? `${results.paybackMonths} months` : "N/A",
-            net_benefit: results ? fmtNum(results.netBenefit, results.currency) : "N/A",
-            savings_yr1: results ? fmtNum(results.yr1Savings, results.currency) : "N/A",
-            language: lang
-          })
-        });
-        setLeadSent(true);
-        downloadPDF();
-      } catch {
-        setLeadSent(true);
-      }
-    };
-    const handlePdfClick = () => {
-      setShowPdfGate(true);
-    };
-    const handlePdfGateSubmit = () => {
-      if (pdfEmail && pdfEmail.includes("@")) {
-        fetch("https://formspree.io/f/xpqjldbp", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            _subject: "stevenwensley.com \u2014 PDF download lead",
-            email: pdfEmail,
-            tool: document.title
-          })
-        }).catch(() => {
-        });
-        setShowPdfGate(false);
-        downloadPDF();
-      }
     };
     const cardStyle = {
       background: "#13131D",
@@ -498,86 +436,12 @@
       options: t[`q${idx + 1}_options`]
     });
     if (phase === "intro") {
-      return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh", display: "flex", flexDirection: "column" } }, showPdfGate && /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: { position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.8)", zIndex: 1e3, display: "flex", alignItems: "center", justifyContent: "center" },
-          onClick: (e) => {
-            if (e.target === e.currentTarget) setShowPdfGate(false);
-          }
-        },
-        /* @__PURE__ */ React.createElement("div", { style: { background: "#161620", border: "1px solid #C9A96E44", borderRadius: 16, padding: 32, maxWidth: 400, width: "90%", textAlign: "center" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 36, marginBottom: 12 } }, "\u{1F4C4}"), /* @__PURE__ */ React.createElement("h3", { style: { fontSize: 18, fontWeight: 700, color: "#C9A96E", marginBottom: 8 } }, "Enter your email for the PDF report"), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 13, color: "#9CA3AF", marginBottom: 20, lineHeight: 1.5 } }, "We'll only send you the report \u2014 no spam."), /* @__PURE__ */ React.createElement(
-          "input",
-          {
-            type: "email",
-            placeholder: "Your work email",
-            value: pdfEmail,
-            onChange: (e) => setPdfEmail(e.target.value),
-            onKeyDown: (e) => {
-              if (e.key === "Enter") handlePdfGateSubmit();
-            },
-            style: { width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #333", background: "#0C0C12", color: "#E8E8ED", fontSize: 14, marginBottom: 16, outline: "none", boxSizing: "border-box" }
-          }
-        ), /* @__PURE__ */ React.createElement(
-          "button",
-          {
-            onClick: handlePdfGateSubmit,
-            style: { width: "100%", background: "#C9A96E", color: "#0C0C12", padding: "12px 20px", borderRadius: 8, fontSize: 15, fontWeight: 700, border: "none", cursor: "pointer", marginBottom: 8 },
-            onMouseEnter: (e) => e.currentTarget.style.background = "#D4B896",
-            onMouseLeave: (e) => e.currentTarget.style.background = "#C9A96E"
-          },
-          "Download PDF \u2192"
-        ), /* @__PURE__ */ React.createElement(
-          "button",
-          {
-            onClick: () => setShowPdfGate(false),
-            style: { background: "transparent", border: "none", color: "#666", fontSize: 12, cursor: "pointer", padding: 4 }
-          },
-          "Cancel"
-        ))
-      ), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 24px", borderBottom: "1px solid #1E1E30" } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 13, color: "#8888AA" } }, t.byLine), /* @__PURE__ */ React.createElement("button", { onClick: () => setLang(lang === "da" ? "en" : "da"), style: { ...outlineBtn, padding: "6px 14px", fontSize: 12 } }, t.langToggle)), /* @__PURE__ */ React.createElement("div", { style: { flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "40px 20px" } }, /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 600, textAlign: "center" }, className: "fade-in" }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 56, marginBottom: 24 } }, "\u{1F4CA}"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 10, justifyContent: "center", marginBottom: 24 } }, /* @__PURE__ */ React.createElement("span", { style: { background: "#C9A96E22", color: "#C9A96E", borderRadius: 20, padding: "5px 14px", fontSize: 12, fontWeight: 600 } }, t.freeLabel), /* @__PURE__ */ React.createElement("span", { style: { background: "#1E1E30", color: "#8888AA", borderRadius: 20, padding: "5px 14px", fontSize: 12, fontWeight: 500 } }, "\u23F1 ", t.time), /* @__PURE__ */ React.createElement("span", { style: { background: "#1E1E30", color: "#8888AA", borderRadius: 20, padding: "5px 14px", fontSize: 12, fontWeight: 500 } }, "8 ", lang === "da" ? "sp\xF8rgsm\xE5l" : "questions")), /* @__PURE__ */ React.createElement("h1", { style: { fontFamily: "'DM Serif Display', serif", fontSize: "clamp(28px, 5vw, 42px)", fontWeight: 700, lineHeight: 1.15, marginBottom: 16, background: "linear-gradient(135deg, #FFFFFF 0%, #C9A96E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" } }, t.title), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 16, color: "#8888AA", lineHeight: 1.6, marginBottom: 36, maxWidth: 480, margin: "0 auto 36px" } }, t.subtitle), /* @__PURE__ */ React.createElement("button", { onClick: () => setPhase("questions"), style: goldBtn, onMouseEnter: (e) => e.target.style.transform = "translateY(-2px)", onMouseLeave: (e) => e.target.style.transform = "translateY(0)" }, t.startBtn, " \u2192"), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 11, color: "#555", marginTop: 20 } }, t.privacy, /* @__PURE__ */ React.createElement("a", { href: "/privacy", style: { color: "#C9A96E", textDecoration: "underline" } }, t.privacyLink)))));
+      return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh", display: "flex", flexDirection: "column" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 24px", borderBottom: "1px solid #1E1E30" } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 13, color: "#8888AA" } }, t.byLine), /* @__PURE__ */ React.createElement("button", { onClick: () => setLang(lang === "da" ? "en" : "da"), style: { ...outlineBtn, padding: "6px 14px", fontSize: 12 } }, t.langToggle)), /* @__PURE__ */ React.createElement("div", { style: { flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "40px 20px" } }, /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 600, textAlign: "center" }, className: "fade-in" }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 56, marginBottom: 24 } }, "\u{1F4CA}"), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 10, justifyContent: "center", marginBottom: 24 } }, /* @__PURE__ */ React.createElement("span", { style: { background: "#C9A96E22", color: "#C9A96E", borderRadius: 20, padding: "5px 14px", fontSize: 12, fontWeight: 600 } }, t.freeLabel), /* @__PURE__ */ React.createElement("span", { style: { background: "#1E1E30", color: "#8888AA", borderRadius: 20, padding: "5px 14px", fontSize: 12, fontWeight: 500 } }, "\u23F1 ", t.time), /* @__PURE__ */ React.createElement("span", { style: { background: "#1E1E30", color: "#8888AA", borderRadius: 20, padding: "5px 14px", fontSize: 12, fontWeight: 500 } }, "8 ", lang === "da" ? "sp\xF8rgsm\xE5l" : "questions")), /* @__PURE__ */ React.createElement("h1", { style: { fontFamily: "'DM Serif Display', serif", fontSize: "clamp(28px, 5vw, 42px)", fontWeight: 700, lineHeight: 1.15, marginBottom: 16, background: "linear-gradient(135deg, #FFFFFF 0%, #C9A96E 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" } }, t.title), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 16, color: "#8888AA", lineHeight: 1.6, marginBottom: 36, maxWidth: 480, margin: "0 auto 36px" } }, t.subtitle), /* @__PURE__ */ React.createElement("button", { onClick: () => setPhase("questions"), style: goldBtn, onMouseEnter: (e) => e.target.style.transform = "translateY(-2px)", onMouseLeave: (e) => e.target.style.transform = "translateY(0)" }, t.startBtn, " \u2192"), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 11, color: "#555", marginTop: 20 } }, t.privacy, /* @__PURE__ */ React.createElement("a", { href: "/privacy", style: { color: "#C9A96E", textDecoration: "underline" } }, t.privacyLink)))));
     }
     if (phase === "questions") {
       const q = getQ(currentQ);
       const selected = answers[currentQ];
-      return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh", display: "flex", flexDirection: "column" } }, showPdfGate && /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: { position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.8)", zIndex: 1e3, display: "flex", alignItems: "center", justifyContent: "center" },
-          onClick: (e) => {
-            if (e.target === e.currentTarget) setShowPdfGate(false);
-          }
-        },
-        /* @__PURE__ */ React.createElement("div", { style: { background: "#161620", border: "1px solid #C9A96E44", borderRadius: 16, padding: 32, maxWidth: 400, width: "90%", textAlign: "center" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 36, marginBottom: 12 } }, "\u{1F4C4}"), /* @__PURE__ */ React.createElement("h3", { style: { fontSize: 18, fontWeight: 700, color: "#C9A96E", marginBottom: 8 } }, "Enter your email for the PDF report"), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 13, color: "#9CA3AF", marginBottom: 20, lineHeight: 1.5 } }, "We'll only send you the report \u2014 no spam."), /* @__PURE__ */ React.createElement(
-          "input",
-          {
-            type: "email",
-            placeholder: "Your work email",
-            value: pdfEmail,
-            onChange: (e) => setPdfEmail(e.target.value),
-            onKeyDown: (e) => {
-              if (e.key === "Enter") handlePdfGateSubmit();
-            },
-            style: { width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #333", background: "#0C0C12", color: "#E8E8ED", fontSize: 14, marginBottom: 16, outline: "none", boxSizing: "border-box" }
-          }
-        ), /* @__PURE__ */ React.createElement(
-          "button",
-          {
-            onClick: handlePdfGateSubmit,
-            style: { width: "100%", background: "#C9A96E", color: "#0C0C12", padding: "12px 20px", borderRadius: 8, fontSize: 15, fontWeight: 700, border: "none", cursor: "pointer", marginBottom: 8 },
-            onMouseEnter: (e) => e.currentTarget.style.background = "#D4B896",
-            onMouseLeave: (e) => e.currentTarget.style.background = "#C9A96E"
-          },
-          "Download PDF \u2192"
-        ), /* @__PURE__ */ React.createElement(
-          "button",
-          {
-            onClick: () => setShowPdfGate(false),
-            style: { background: "transparent", border: "none", color: "#666", fontSize: 12, cursor: "pointer", padding: 4 }
-          },
-          "Cancel"
-        ))
-      ), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 24px", borderBottom: "1px solid #1E1E30" } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 13, color: "#8888AA" } }, t.byLine), /* @__PURE__ */ React.createElement("button", { onClick: () => setLang(lang === "da" ? "en" : "da"), style: { ...outlineBtn, padding: "6px 14px", fontSize: 12 } }, t.langToggle)), /* @__PURE__ */ React.createElement("div", { style: { padding: "16px 24px 0" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 12, color: "#8888AA", fontWeight: 500 } }, t.step, " ", currentQ + 1, " ", t.of, " ", totalQuestions), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 12, color: "#C9A96E", fontWeight: 600 } }, Math.round((currentQ + 1) / totalQuestions * 100), "%")), /* @__PURE__ */ React.createElement("div", { style: { width: "100%", height: 4, background: "#1E1E30", borderRadius: 2, overflow: "hidden" } }, /* @__PURE__ */ React.createElement("div", { style: { height: "100%", width: `${(currentQ + 1) / totalQuestions * 100}%`, background: "linear-gradient(90deg, #C9A96E, #D4B978)", borderRadius: 2, transition: "width 0.4s ease" } }))), /* @__PURE__ */ React.createElement("div", { style: { flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "24px 20px" } }, /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 560, width: "100%" }, className: "fade-in", key: currentQ }, /* @__PURE__ */ React.createElement("h2", { style: { fontFamily: "'DM Serif Display', serif", fontSize: 28, fontWeight: 700, marginBottom: 8, color: "#fff" } }, q.title), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 14, color: "#8888AA", marginBottom: 28, lineHeight: 1.5 } }, q.sub), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 10 } }, q.options.map((opt, idx) => /* @__PURE__ */ React.createElement("button", { key: idx, onClick: () => selectAnswer(currentQ, idx), style: {
+      return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh", display: "flex", flexDirection: "column" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 24px", borderBottom: "1px solid #1E1E30" } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 13, color: "#8888AA" } }, t.byLine), /* @__PURE__ */ React.createElement("button", { onClick: () => setLang(lang === "da" ? "en" : "da"), style: { ...outlineBtn, padding: "6px 14px", fontSize: 12 } }, t.langToggle)), /* @__PURE__ */ React.createElement("div", { style: { padding: "16px 24px 0" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 12, color: "#8888AA", fontWeight: 500 } }, t.step, " ", currentQ + 1, " ", t.of, " ", totalQuestions), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 12, color: "#C9A96E", fontWeight: 600 } }, Math.round((currentQ + 1) / totalQuestions * 100), "%")), /* @__PURE__ */ React.createElement("div", { style: { width: "100%", height: 4, background: "#1E1E30", borderRadius: 2, overflow: "hidden" } }, /* @__PURE__ */ React.createElement("div", { style: { height: "100%", width: `${(currentQ + 1) / totalQuestions * 100}%`, background: "linear-gradient(90deg, #C9A96E, #D4B978)", borderRadius: 2, transition: "width 0.4s ease" } }))), /* @__PURE__ */ React.createElement("div", { style: { flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "24px 20px" } }, /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 560, width: "100%" }, className: "fade-in", key: currentQ }, /* @__PURE__ */ React.createElement("h2", { style: { fontFamily: "'DM Serif Display', serif", fontSize: 28, fontWeight: 700, marginBottom: 8, color: "#fff" } }, q.title), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 14, color: "#8888AA", marginBottom: 28, lineHeight: 1.5 } }, q.sub), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 10 } }, q.options.map((opt, idx) => /* @__PURE__ */ React.createElement("button", { key: idx, onClick: () => selectAnswer(currentQ, idx), style: {
         ...cardStyle,
         padding: "16px 20px",
         marginBottom: 0,
@@ -636,53 +500,13 @@
         { label: t.yr3Label, savings: results.yr3Savings, net: results.yr3Net }
       ];
       const maxYr = Math.max(...yr.map((y) => y.savings), 1);
-      return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh" } }, showPdfGate && /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: { position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.8)", zIndex: 1e3, display: "flex", alignItems: "center", justifyContent: "center" },
-          onClick: (e) => {
-            if (e.target === e.currentTarget) setShowPdfGate(false);
-          }
-        },
-        /* @__PURE__ */ React.createElement("div", { style: { background: "#161620", border: "1px solid #C9A96E44", borderRadius: 16, padding: 32, maxWidth: 400, width: "90%", textAlign: "center" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 36, marginBottom: 12 } }, "\u{1F4C4}"), /* @__PURE__ */ React.createElement("h3", { style: { fontSize: 18, fontWeight: 700, color: "#C9A96E", marginBottom: 8 } }, "Enter your email for the PDF report"), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 13, color: "#9CA3AF", marginBottom: 20, lineHeight: 1.5 } }, "We'll only send you the report \u2014 no spam."), /* @__PURE__ */ React.createElement(
-          "input",
-          {
-            type: "email",
-            placeholder: "Your work email",
-            value: pdfEmail,
-            onChange: (e) => setPdfEmail(e.target.value),
-            onKeyDown: (e) => {
-              if (e.key === "Enter") handlePdfGateSubmit();
-            },
-            style: { width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #333", background: "#0C0C12", color: "#E8E8ED", fontSize: 14, marginBottom: 16, outline: "none", boxSizing: "border-box" }
-          }
-        ), /* @__PURE__ */ React.createElement(
-          "button",
-          {
-            onClick: handlePdfGateSubmit,
-            style: { width: "100%", background: "#C9A96E", color: "#0C0C12", padding: "12px 20px", borderRadius: 8, fontSize: 15, fontWeight: 700, border: "none", cursor: "pointer", marginBottom: 8 },
-            onMouseEnter: (e) => e.currentTarget.style.background = "#D4B896",
-            onMouseLeave: (e) => e.currentTarget.style.background = "#C9A96E"
-          },
-          "Download PDF \u2192"
-        ), /* @__PURE__ */ React.createElement(
-          "button",
-          {
-            onClick: () => setShowPdfGate(false),
-            style: { background: "transparent", border: "none", color: "#666", fontSize: 12, cursor: "pointer", padding: 4 }
-          },
-          "Cancel"
-        ))
-      ), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 24px", borderBottom: "1px solid #1E1E30" } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 13, color: "#8888AA" } }, t.byLine), /* @__PURE__ */ React.createElement("button", { onClick: () => setLang(lang === "da" ? "en" : "da"), style: { ...outlineBtn, padding: "6px 14px", fontSize: 12 } }, t.langToggle)), /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 680, margin: "0 auto", padding: "32px 20px" } }, /* @__PURE__ */ React.createElement("div", { style: { ...cardStyle, background: "linear-gradient(135deg, #13131D 0%, #1A1A2E 100%)", borderColor: results.roi > 0 ? "#22C55E44" : "#EF444444", textAlign: "center", marginBottom: 32 }, className: "fade-in" }, /* @__PURE__ */ React.createElement("p", { style: { fontSize: 13, color: "#8888AA", marginBottom: 8, textTransform: "uppercase", letterSpacing: 1.5, fontWeight: 600 } }, t.resSubtitle), /* @__PURE__ */ React.createElement("div", { style: { fontSize: "clamp(42px, 7vw, 64px)", fontFamily: "'DM Serif Display', serif", fontWeight: 700, color: results.roi > 0 ? "#22C55E" : "#EF4444", marginBottom: 4 }, className: "count-up" }, results.roi, "%"), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 14, color: "#8888AA", fontWeight: 500 } }, t.roiLabel)), /* @__PURE__ */ React.createElement("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 32 } }, /* @__PURE__ */ React.createElement("div", { style: { ...cardStyle, textAlign: "center", marginBottom: 0, padding: "20px 16px" } }, /* @__PURE__ */ React.createElement("p", { style: { fontSize: 11, color: "#8888AA", marginBottom: 6, fontWeight: 500 } }, t.paybackLabel), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 24, fontFamily: "'DM Serif Display', serif", fontWeight: 700, color: "#C9A96E" } }, results.paybackMonths), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 11, color: "#8888AA" } }, t.months)), /* @__PURE__ */ React.createElement("div", { style: { ...cardStyle, textAlign: "center", marginBottom: 0, padding: "20px 16px" } }, /* @__PURE__ */ React.createElement("p", { style: { fontSize: 11, color: "#8888AA", marginBottom: 6, fontWeight: 500 } }, t.totalSavingsLabel), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 18, fontFamily: "'DM Serif Display', serif", fontWeight: 700, color: "#22C55E" } }, fmtNum(results.yr1Savings, results.currency))), /* @__PURE__ */ React.createElement("div", { style: { ...cardStyle, textAlign: "center", marginBottom: 0, padding: "20px 16px" } }, /* @__PURE__ */ React.createElement("p", { style: { fontSize: 11, color: "#8888AA", marginBottom: 6, fontWeight: 500 } }, t.investmentLabel), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 18, fontFamily: "'DM Serif Display', serif", fontWeight: 700, color: "#E8E8ED" } }, fmtNum(results.totalInvestment, results.currency)))), /* @__PURE__ */ React.createElement("h3", { style: { fontFamily: "'DM Serif Display', serif", fontSize: 22, fontWeight: 700, marginBottom: 20, color: "#fff" } }, t.savTitle), savItems.map((item, idx) => /* @__PURE__ */ React.createElement("div", { key: idx, style: { ...cardStyle, marginBottom: 12 }, className: "slide-up" }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 10 } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 20 } }, item.icon), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 15, fontWeight: 600, color: "#E8E8ED" } }, item.title)), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 18, fontWeight: 700, color: item.color, fontFamily: "'DM Serif Display', serif" } }, fmtNum(item.value, results.currency))), /* @__PURE__ */ React.createElement("div", { style: { width: "100%", height: 6, background: "#1E1E30", borderRadius: 3, overflow: "hidden", marginBottom: 8 } }, /* @__PURE__ */ React.createElement("div", { className: "bar-grow", style: { height: "100%", width: `${Math.max(3, item.value / maxSav * 100)}%`, background: item.color, borderRadius: 3 } })), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 12, color: "#6B6B8A", lineHeight: 1.4 } }, item.desc))), /* @__PURE__ */ React.createElement("div", { style: { ...cardStyle, borderColor: "#C9A96E44", borderLeft: "3px solid #C9A96E", marginTop: 20 } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 14, fontWeight: 600, color: "#C9A96E" } }, "\u2696\uFE0F ", t.complianceTitle), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 16, fontWeight: 700, color: "#C9A96E", fontFamily: "'DM Serif Display', serif" } }, fmtNum(results.complianceCost, results.currency))), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 12, color: "#8888AA", lineHeight: 1.4 } }, t.complianceDesc, " (12% ", t.compliancePct, ")"), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 11, color: "#EF4444", marginTop: 6, fontWeight: 500 } }, t.complianceNote)), /* @__PURE__ */ React.createElement("h3", { style: { fontFamily: "'DM Serif Display', serif", fontSize: 22, fontWeight: 700, marginBottom: 20, marginTop: 32, color: "#fff" } }, t.projTitle), /* @__PURE__ */ React.createElement("div", { style: { ...cardStyle, padding: "28px 24px" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "flex-end", height: 160, gap: 16, marginBottom: 16 } }, yr.map((y, idx) => /* @__PURE__ */ React.createElement("div", { key: idx, style: { flex: 1, display: "flex", flexDirection: "column", alignItems: "center", height: "100%", justifyContent: "flex-end" } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 12, fontWeight: 600, color: "#22C55E", marginBottom: 6 } }, fmtShort(y.savings, results.currency)), /* @__PURE__ */ React.createElement("div", { className: "grow-in", style: {
+      return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 24px", borderBottom: "1px solid #1E1E30" } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 13, color: "#8888AA" } }, t.byLine), /* @__PURE__ */ React.createElement("button", { onClick: () => setLang(lang === "da" ? "en" : "da"), style: { ...outlineBtn, padding: "6px 14px", fontSize: 12 } }, t.langToggle)), /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 680, margin: "0 auto", padding: "32px 20px" } }, /* @__PURE__ */ React.createElement("div", { style: { ...cardStyle, background: "linear-gradient(135deg, #13131D 0%, #1A1A2E 100%)", borderColor: results.roi > 0 ? "#22C55E44" : "#EF444444", textAlign: "center", marginBottom: 32 }, className: "fade-in" }, /* @__PURE__ */ React.createElement("p", { style: { fontSize: 13, color: "#8888AA", marginBottom: 8, textTransform: "uppercase", letterSpacing: 1.5, fontWeight: 600 } }, t.resSubtitle), /* @__PURE__ */ React.createElement("div", { style: { fontSize: "clamp(42px, 7vw, 64px)", fontFamily: "'DM Serif Display', serif", fontWeight: 700, color: results.roi > 0 ? "#22C55E" : "#EF4444", marginBottom: 4 }, className: "count-up" }, results.roi, "%"), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 14, color: "#8888AA", fontWeight: 500 } }, t.roiLabel)), /* @__PURE__ */ React.createElement("div", { style: { display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, marginBottom: 32 } }, /* @__PURE__ */ React.createElement("div", { style: { ...cardStyle, textAlign: "center", marginBottom: 0, padding: "20px 16px" } }, /* @__PURE__ */ React.createElement("p", { style: { fontSize: 11, color: "#8888AA", marginBottom: 6, fontWeight: 500 } }, t.paybackLabel), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 24, fontFamily: "'DM Serif Display', serif", fontWeight: 700, color: "#C9A96E" } }, results.paybackMonths), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 11, color: "#8888AA" } }, t.months)), /* @__PURE__ */ React.createElement("div", { style: { ...cardStyle, textAlign: "center", marginBottom: 0, padding: "20px 16px" } }, /* @__PURE__ */ React.createElement("p", { style: { fontSize: 11, color: "#8888AA", marginBottom: 6, fontWeight: 500 } }, t.totalSavingsLabel), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 18, fontFamily: "'DM Serif Display', serif", fontWeight: 700, color: "#22C55E" } }, fmtNum(results.yr1Savings, results.currency))), /* @__PURE__ */ React.createElement("div", { style: { ...cardStyle, textAlign: "center", marginBottom: 0, padding: "20px 16px" } }, /* @__PURE__ */ React.createElement("p", { style: { fontSize: 11, color: "#8888AA", marginBottom: 6, fontWeight: 500 } }, t.investmentLabel), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 18, fontFamily: "'DM Serif Display', serif", fontWeight: 700, color: "#E8E8ED" } }, fmtNum(results.totalInvestment, results.currency)))), /* @__PURE__ */ React.createElement("h3", { style: { fontFamily: "'DM Serif Display', serif", fontSize: 22, fontWeight: 700, marginBottom: 20, color: "#fff" } }, t.savTitle), savItems.map((item, idx) => /* @__PURE__ */ React.createElement("div", { key: idx, style: { ...cardStyle, marginBottom: 12 }, className: "slide-up" }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 10 } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 20 } }, item.icon), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 15, fontWeight: 600, color: "#E8E8ED" } }, item.title)), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 18, fontWeight: 700, color: item.color, fontFamily: "'DM Serif Display', serif" } }, fmtNum(item.value, results.currency))), /* @__PURE__ */ React.createElement("div", { style: { width: "100%", height: 6, background: "#1E1E30", borderRadius: 3, overflow: "hidden", marginBottom: 8 } }, /* @__PURE__ */ React.createElement("div", { className: "bar-grow", style: { height: "100%", width: `${Math.max(3, item.value / maxSav * 100)}%`, background: item.color, borderRadius: 3 } })), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 12, color: "#6B6B8A", lineHeight: 1.4 } }, item.desc))), /* @__PURE__ */ React.createElement("div", { style: { ...cardStyle, borderColor: "#C9A96E44", borderLeft: "3px solid #C9A96E", marginTop: 20 } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 14, fontWeight: 600, color: "#C9A96E" } }, "\u2696\uFE0F ", t.complianceTitle), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 16, fontWeight: 700, color: "#C9A96E", fontFamily: "'DM Serif Display', serif" } }, fmtNum(results.complianceCost, results.currency))), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 12, color: "#8888AA", lineHeight: 1.4 } }, t.complianceDesc, " (12% ", t.compliancePct, ")"), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 11, color: "#EF4444", marginTop: 6, fontWeight: 500 } }, t.complianceNote)), /* @__PURE__ */ React.createElement("h3", { style: { fontFamily: "'DM Serif Display', serif", fontSize: 22, fontWeight: 700, marginBottom: 20, marginTop: 32, color: "#fff" } }, t.projTitle), /* @__PURE__ */ React.createElement("div", { style: { ...cardStyle, padding: "28px 24px" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "flex-end", height: 160, gap: 16, marginBottom: 16 } }, yr.map((y, idx) => /* @__PURE__ */ React.createElement("div", { key: idx, style: { flex: 1, display: "flex", flexDirection: "column", alignItems: "center", height: "100%", justifyContent: "flex-end" } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 12, fontWeight: 600, color: "#22C55E", marginBottom: 6 } }, fmtShort(y.savings, results.currency)), /* @__PURE__ */ React.createElement("div", { className: "grow-in", style: {
         width: "100%",
         maxWidth: 80,
         height: `${Math.max(10, y.savings / maxYr * 120)}px`,
         background: `linear-gradient(180deg, #22C55E${idx === 0 ? "88" : idx === 1 ? "AA" : "CC"} 0%, #22C55E${idx === 0 ? "33" : idx === 1 ? "55" : "77"} 100%)`,
         borderRadius: "6px 6px 0 0"
-      } }), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 13, fontWeight: 600, color: "#E8E8ED", marginTop: 8 } }, y.label), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 11, color: "#8888AA", marginTop: 2 } }, lang === "da" ? "netto" : "net", ": ", fmtShort(y.net, results.currency))))), /* @__PURE__ */ React.createElement("div", { style: { borderTop: "1px solid #1E1E30", paddingTop: 12, textAlign: "center" } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 12, color: "#8888AA" } }, t.cumulativeLabel, ": "), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 18, fontWeight: 700, color: "#22C55E", fontFamily: "'DM Serif Display', serif" } }, fmtNum(results.cumulative3yr, results.currency)))), /* @__PURE__ */ React.createElement("div", { style: { ...cardStyle, marginTop: 32, textAlign: "center", borderColor: "#C9A96E44" } }, !showLead && !leadSent && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("h3", { style: { fontFamily: "'DM Serif Display', serif", fontSize: 20, fontWeight: 700, color: "#fff", marginBottom: 8 } }, t.ctaTitle), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 14, color: "#8888AA", marginBottom: 20 } }, t.ctaText), /* @__PURE__ */ React.createElement("a", { href: "/book-session", style: { ...goldBtn, display: "inline-block", textDecoration: "none", textAlign: "center", marginBottom: 12 } }, t.ctaBtn), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 10, justifyContent: "center", marginTop: 12, flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement("button", { onClick: handlePdfClick, style: outlineBtn }, t.downloadBtn, " \u2193"), /* @__PURE__ */ React.createElement("a", { href: "/cost-of-inaction", style: { ...outlineBtn, textDecoration: "none", display: "inline-block" } }, t.costBtn, " \u2192")), /* @__PURE__ */ React.createElement("div", { style: { marginTop: 8 } }, /* @__PURE__ */ React.createElement("a", { href: "/ai-governance-assessment", style: { ...outlineBtn, textDecoration: "none", display: "inline-block", fontSize: 12 } }, t.assessBtn, " \u2192"))), showLead && !leadSent && /* @__PURE__ */ React.createElement("form", { onSubmit: submitLead, className: "fade-in" }, /* @__PURE__ */ React.createElement("h4", { style: { fontSize: 16, fontWeight: 600, color: "#fff", marginBottom: 4 } }, t.leadTitle), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 12, color: "#8888AA", marginBottom: 16 } }, t.leadSub), /* @__PURE__ */ React.createElement("input", { type: "email", required: true, value: email, onChange: (e) => setEmail(e.target.value), placeholder: t.emailPlaceholder, style: { width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #1E1E30", background: "#0C0C12", color: "#E8E8ED", fontSize: 14, marginBottom: 10 } }), /* @__PURE__ */ React.createElement("input", { type: "text", value: company, onChange: (e) => setCompany(e.target.value), placeholder: t.companyPlaceholder, style: { width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #1E1E30", background: "#0C0C12", color: "#E8E8ED", fontSize: 14, marginBottom: 16 } }), /* @__PURE__ */ React.createElement("button", { type: "submit", style: goldBtn }, t.sendBtn), /* @__PURE__ */ React.createElement("button", { type: "button", onClick: () => {
-        setShowLead(false);
-        downloadPDF();
-      }, style: { ...outlineBtn, marginTop: 10, width: "100%" } }, t.skipBtn)), leadSent && /* @__PURE__ */ React.createElement("div", { className: "fade-in" }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 32, marginBottom: 8 } }, "\u2705"), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 14, color: "#22C55E", fontWeight: 600 } }, t.thankYou))), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 10, color: "#555", textAlign: "center", marginTop: 24, lineHeight: 1.5 } }, t.disclaimer)));
+      } }), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 13, fontWeight: 600, color: "#E8E8ED", marginTop: 8 } }, y.label), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 11, color: "#8888AA", marginTop: 2 } }, lang === "da" ? "netto" : "net", ": ", fmtShort(y.net, results.currency))))), /* @__PURE__ */ React.createElement("div", { style: { borderTop: "1px solid #1E1E30", paddingTop: 12, textAlign: "center" } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 12, color: "#8888AA" } }, t.cumulativeLabel, ": "), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 18, fontWeight: 700, color: "#22C55E", fontFamily: "'DM Serif Display', serif" } }, fmtNum(results.cumulative3yr, results.currency)))), /* @__PURE__ */ React.createElement("div", { style: { ...cardStyle, marginTop: 32, textAlign: "center", borderColor: "#C9A96E44" } }, /* @__PURE__ */ React.createElement("h3", { style: { fontFamily: "'DM Serif Display', serif", fontSize: 20, fontWeight: 700, color: "#fff", marginBottom: 8 } }, t.ctaTitle), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 14, color: "#8888AA", marginBottom: 20 } }, t.ctaText), /* @__PURE__ */ React.createElement("a", { href: "/book-session", style: { ...goldBtn, display: "inline-block", textDecoration: "none", textAlign: "center", marginBottom: 12 } }, t.ctaBtn), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 10, justifyContent: "center", marginTop: 12, flexWrap: "wrap" } }, /* @__PURE__ */ React.createElement("button", { onClick: downloadPDF, style: outlineBtn }, t.downloadBtn, " \u2193"), /* @__PURE__ */ React.createElement("a", { href: "/cost-of-inaction", style: { ...outlineBtn, textDecoration: "none", display: "inline-block" } }, t.costBtn, " \u2192")), /* @__PURE__ */ React.createElement("div", { style: { marginTop: 8 } }, /* @__PURE__ */ React.createElement("a", { href: "/ai-governance-assessment", style: { ...outlineBtn, textDecoration: "none", display: "inline-block", fontSize: 12 } }, t.assessBtn, " \u2192"))), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 10, color: "#555", textAlign: "center", marginTop: 24, lineHeight: 1.5 } }, t.disclaimer)));
     }
     return null;
   }

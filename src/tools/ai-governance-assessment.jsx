@@ -133,11 +133,6 @@
       const [currentDim, setCurrentDim] = useState(0);
       const [answers, setAnswers] = useState({});
       const [showResults, setShowResults] = useState(false);
-      const [email, setEmail] = useState("");
-      const [showEmailPrompt, setShowEmailPrompt] = useState(false);
-      const [industry, setIndustry] = useState("");
-      const [showPdfGate, setShowPdfGate] = useState(false);
-      const [pdfEmail, setPdfEmail] = useState("");
 
       const t = (da, en) => (lang === "da" ? da : en);
 
@@ -223,9 +218,6 @@
           day: 'numeric'
         });
         doc.text(dateStr, w/2, 78, { align: 'center' });
-        if (industry) {
-          doc.text(t('Branche: ', 'Industry: ') + industry, w/2, 86, { align: 'center' });
-        }
 
         // Score circle
         doc.setDrawColor(...gold);
@@ -353,89 +345,13 @@
         doc.save('AI-Governance-Report-' + new Date().toISOString().split('T')[0] + '.pdf');
       };
 
-      const handlePdfClick = () => {
-        if (email && email.includes('@')) {
-          // Already have email from earlier prompt
-          generatePDF();
-        } else {
-          setShowPdfGate(true);
-        }
-      };
-
-      const handlePdfGateSubmit = () => {
-        if (pdfEmail && pdfEmail.includes('@')) {
-          const dimScores = scores.reduce((acc, s) => { acc[s.name] = s.pct + '%'; return acc; }, {});
-          fetch('https://formspree.io/f/xpqjldbp', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              _subject: 'AI Governance Assessment — PDF download lead',
-              email: pdfEmail,
-              samlet_score: totalPct + '%',
-              ...dimScores
-            })
-          }).catch(() => {});
-          setEmail(pdfEmail);
-          setShowPdfGate(false);
-          generatePDF();
-        }
-      };
-
-      const handleFinish = () => { setShowEmailPrompt(true); };
-      const handleShowResults = () => {
-        // Send lead to Formspree if email provided
-        if (email && email.includes('@')) {
-          const dimScores = scores.reduce((acc, s) => { acc[s.name] = s.pct + '%'; return acc; }, {});
-          fetch('https://formspree.io/f/xpqjldbp', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              _subject: 'AI Governance Assessment — ny lead',
-              email: email,
-              branche: industry || 'Ikke angivet',
-              samlet_score: totalPct + '%',
-              ...dimScores
-            })
-          }).catch(() => {});
-        }
-        setShowEmailPrompt(false);
-        setShowResults(true);
-      };
+      const handleFinish = () => { setShowResults(true); };
 
       // RESULTS PAGE
       if (showResults) {
         const sortedScores = [...scores].sort((a, b) => a.pct - b.pct);
         return (
           <div style={{ minHeight: "100vh", background: "#0C0C12", color: "#E8E8ED", fontFamily: "'Space Grotesk', -apple-system, sans-serif" }}>
-            {/* PDF Email Gate Modal */}
-            {showPdfGate && (
-              <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.8)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center" }}
-                onClick={(e) => { if (e.target === e.currentTarget) setShowPdfGate(false); }}>
-                <div className="fade-in" style={{ background: "#161620", border: "1px solid #C9A96E44", borderRadius: 16, padding: 32, maxWidth: 400, width: "90%", textAlign: "center" }}>
-                  <div style={{ fontSize: 36, marginBottom: 12 }}>📄</div>
-                  <h3 style={{ fontSize: 18, fontWeight: 700, color: "#C9A96E", marginBottom: 8 }}>
-                    {t("Indtast din email for PDF-rapporten", "Enter your email for the PDF report")}
-                  </h3>
-                  <p style={{ fontSize: 13, color: "#9CA3AF", marginBottom: 20, lineHeight: 1.5 }}>
-                    {t("Vi sender dig kun rapporten — ingen spam.", "We'll only send you the report — no spam.")}
-                  </p>
-                  <input type="email" placeholder={t("Din arbejdsmail", "Your work email")}
-                    value={pdfEmail} onChange={(e) => setPdfEmail(e.target.value)}
-                    onKeyDown={(e) => { if (e.key === 'Enter') handlePdfGateSubmit(); }}
-                    style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #333", background: "#0C0C12", color: "#E8E8ED", fontSize: 14, marginBottom: 16, outline: "none", boxSizing: "border-box" }} />
-                  <button onClick={handlePdfGateSubmit}
-                    style={{ width: "100%", background: "#C9A96E", color: "#0C0C12", padding: "12px 20px", borderRadius: 8, fontSize: 15, fontWeight: 700, border: "none", cursor: "pointer", marginBottom: 8 }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = "#D4B896"}
-                    onMouseLeave={(e) => e.currentTarget.style.background = "#C9A96E"}>
-                    {t("Download PDF", "Download PDF")} →
-                  </button>
-                  <button onClick={() => setShowPdfGate(false)}
-                    style={{ background: "transparent", border: "none", color: "#666", fontSize: 12, cursor: "pointer", padding: 4 }}>
-                    {t("Annuller", "Cancel")}
-                  </button>
-                </div>
-              </div>
-            )}
             <div className="fade-in" style={{ maxWidth: 1000, margin: "0 auto", padding: "40px 20px" }}>
               <div style={{ textAlign: "center", marginBottom: 40 }}>
                 <h2 style={{ fontSize: 28, fontWeight: 700, color: "#C9A96E", marginBottom: 8 }}>
@@ -535,7 +451,7 @@
                     <p style={{ fontSize: 13, color: "#9CA3AF", marginBottom: 16, lineHeight: 1.5 }}>
                       {t("Få en PDF med din score, radar chart og skræddersyede anbefalinger for alle 6 dimensioner.", "Get a PDF with your score, radar chart, and tailored recommendations for all 6 dimensions.")}
                     </p>
-                    <button onClick={handlePdfClick}
+                    <button onClick={() => generatePDF()}
                       style={{ width: "100%", background: "#C9A96E", color: "#0C0C12", padding: "12px 20px", borderRadius: 8, fontSize: 15, fontWeight: 700, border: "none", cursor: "pointer", transition: "all 0.2s ease" }}
                       onMouseEnter={(e) => e.currentTarget.style.background = "#D4B896"}
                       onMouseLeave={(e) => e.currentTarget.style.background = "#C9A96E"}>
@@ -615,51 +531,6 @@
                   {t("Tag testen igen", "Take the test again")}
                 </button>
               </div>
-            </div>
-          </div>
-        );
-      }
-
-      // EMAIL PROMPT PAGE
-      if (showEmailPrompt) {
-        return (
-          <div className="fade-in" style={{ minHeight: "100vh", background: "#0C0C12", color: "#E8E8ED", fontFamily: "'Space Grotesk', -apple-system, sans-serif", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <div style={{ maxWidth: 480, padding: 40, textAlign: "center" }}>
-              <div style={{ fontSize: 48, marginBottom: 16 }}>📊</div>
-              <h2 style={{ fontSize: 24, fontWeight: 700, color: "#C9A96E", marginBottom: 8 }}>
-                {t("Din governance-score er klar", "Your governance score is ready")}
-              </h2>
-              <p style={{ fontSize: 14, color: "#9CA3AF", marginBottom: 24, lineHeight: 1.6 }}>
-                {t(
-                  "Indtast din email for at modtage en fuld rapport med handlingsanbefalinger — eller se resultaterne med det samme.",
-                  "Enter your email to receive a full report with action recommendations — or view results immediately."
-                )}
-              </p>
-              <select value={industry} onChange={(e) => setIndustry(e.target.value)}
-                style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #333", background: "#161620", color: "#E8E8ED", fontSize: 14, marginBottom: 12, outline: "none" }}>
-                <option value="">{t("Vælg branche (valgfrit)", "Select industry (optional)")}</option>
-                <option value="pharma">{t("Pharma / Life Science", "Pharma / Life Science")}</option>
-                <option value="finance">{t("Finans / Forsikring", "Finance / Insurance")}</option>
-                <option value="public">{t("Offentlig sektor", "Public sector")}</option>
-                <option value="infrastructure">{t("Kritisk infrastruktur / Energi", "Critical infrastructure / Energy")}</option>
-                <option value="manufacturing">{t("Produktion / Industri", "Manufacturing / Industry")}</option>
-                <option value="tech">{t("Tech / SaaS", "Tech / SaaS")}</option>
-                <option value="other">{t("Anden", "Other")}</option>
-              </select>
-              <input type="email" placeholder={t("Din arbejdsmail (valgfrit)", "Your work email (optional)")}
-                value={email} onChange={(e) => setEmail(e.target.value)}
-                style={{ width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #333", background: "#161620", color: "#E8E8ED", fontSize: 14, marginBottom: 16, outline: "none", boxSizing: "border-box" }} />
-              <p style={{ fontSize: 12, color: "#666", marginBottom: 16 }}>
-                {t("Vi sender dig ikke spam — kun din personlige rapport.", "We won't spam you — only your personal report.")}
-              </p>
-              <button onClick={handleShowResults}
-                style={{ width: "100%", background: "#C9A96E", color: "#0C0C12", padding: "14px 32px", borderRadius: 8, fontSize: 16, fontWeight: 700, border: "none", cursor: "pointer", marginBottom: 12 }}>
-                {t("Se min score", "View my score")} →
-              </button>
-              <button onClick={handleShowResults}
-                style={{ background: "transparent", border: "none", color: "#666", fontSize: 13, cursor: "pointer", padding: 8 }}>
-                {t("Spring over — vis resultaterne", "Skip — show results")}
-              </button>
             </div>
           </div>
         );

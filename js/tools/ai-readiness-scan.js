@@ -1,7 +1,7 @@
 // GENERATED from src/tools/ai-readiness-scan.jsx by scripts/build-tools.mjs — do not edit.
 // Edit the .jsx and run: node scripts/build-tools.mjs
 (() => {
-  const { useState, useEffect, useMemo, useRef } = React;
+  const { useState, useEffect, useMemo } = React;
   const T = {
     da: {
       title: "Er din organisation klar til AI?",
@@ -71,13 +71,6 @@
       assessBtn: "Tag den fulde AI Governance Assessment",
       calcBtn2: "Beregn cost of inaction",
       disclaimer: "Resultaterne er vejledende og baseret p\xE5 selvvurdering. En dybere analyse kr\xE6ver en personlig gennemgang.",
-      leadTitle: "F\xE5 din rapport tilsendt",
-      leadSub: "Indtast din email for at modtage rapporten og en personlig opf\xF8lgning.",
-      emailPlaceholder: "din@email.dk",
-      companyPlaceholder: "Virksomhedsnavn (valgfrit)",
-      sendBtn: "Send mig rapporten",
-      skipBtn: "Spring over \u2014 download direkte",
-      thankYou: "Tak! Rapporten er sendt.",
       langToggle: "EN",
       byLine: "Steven Wensley \u2014 AI Advisory",
       privacy: "Ingen data gemmes i browseren. ",
@@ -149,13 +142,6 @@
       assessBtn: "Take the full AI Governance Assessment",
       calcBtn2: "Calculate cost of inaction",
       disclaimer: "Results are indicative and based on self-assessment. A deeper analysis requires a personal review.",
-      leadTitle: "Get your report emailed",
-      leadSub: "Enter your email to receive the report and a personal follow-up.",
-      emailPlaceholder: "you@company.com",
-      companyPlaceholder: "Company name (optional)",
-      sendBtn: "Send me the report",
-      skipBtn: "Skip \u2014 download directly",
-      thankYou: "Thanks! Report sent.",
       langToggle: "DA",
       byLine: "Steven Wensley \u2014 AI Advisory",
       privacy: "No data stored in browser. ",
@@ -413,11 +399,6 @@
     const [phase, setPhase] = useState("landing");
     const [qIndex, setQIndex] = useState(0);
     const [answers, setAnswers] = useState({});
-    const [showLead, setShowLead] = useState(false);
-    const [leadSent, setLeadSent] = useState(false);
-    const [showPdfGate, setShowPdfGate] = useState(false);
-    const [pdfEmail, setPdfEmail] = useState("");
-    const formRef = useRef(null);
     const t = T[lang];
     const questions = Array.from({ length: 10 }, (_, i) => ({
       title: t[`q${i + 1}_title`],
@@ -435,39 +416,6 @@
         setTimeout(() => setQIndex(qIndex + 1), 250);
       }
     }
-    function handleLeadSubmit(e) {
-      e.preventDefault();
-      const fd = new FormData(formRef.current);
-      fd.append("tool", "AI Readiness Quick Scan");
-      fd.append("score", `${overallPct}%`);
-      fd.append("level", getLevelLabel(overallLevel, t));
-      fetch("https://formspree.io/f/xpqjldbp", { method: "POST", body: fd, headers: { Accept: "application/json" } }).then(() => {
-        setLeadSent(true);
-        generatePDF(results, answers, t, lang);
-      }).catch(() => {
-        setLeadSent(true);
-        generatePDF(results, answers, t, lang);
-      });
-    }
-    const handlePdfClick = () => {
-      setShowPdfGate(true);
-    };
-    const handlePdfGateSubmit = () => {
-      if (pdfEmail && pdfEmail.includes("@")) {
-        fetch("https://formspree.io/f/xpqjldbp", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            _subject: "stevenwensley.com \u2014 PDF download lead",
-            email: pdfEmail,
-            tool: document.title
-          })
-        }).catch(() => {
-        });
-        setShowPdfGate(false);
-        generatePDF(results, answers, t, lang);
-      }
-    };
     if (phase === "landing") {
       return React.createElement(
         "div",
@@ -642,42 +590,6 @@
     return React.createElement(
       "div",
       { style: { minHeight: "100vh" } },
-      showPdfGate && React.createElement(
-        "div",
-        {
-          style: { position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.8)", zIndex: 1e3, display: "flex", alignItems: "center", justifyContent: "center" },
-          onClick: (e) => {
-            if (e.target === e.currentTarget) setShowPdfGate(false);
-          }
-        },
-        React.createElement(
-          "div",
-          { style: { background: "#161620", border: "1px solid #C9A96E44", borderRadius: 16, padding: 32, maxWidth: 400, width: "90%", textAlign: "center" } },
-          React.createElement("div", { style: { fontSize: 36, marginBottom: 12 } }, "\u{1F4C4}"),
-          React.createElement("h3", { style: { fontSize: 18, fontWeight: 700, color: "#C9A96E", marginBottom: 8 } }, "Enter your email for the PDF report"),
-          React.createElement("p", { style: { fontSize: 13, color: "#9CA3AF", marginBottom: 20, lineHeight: 1.5 } }, "We'll only send you the report \u2014 no spam."),
-          React.createElement("input", {
-            type: "email",
-            placeholder: "Your work email",
-            value: pdfEmail,
-            onChange: (e) => setPdfEmail(e.target.value),
-            onKeyDown: (e) => {
-              if (e.key === "Enter") handlePdfGateSubmit();
-            },
-            style: { width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #333", background: "#0C0C12", color: "#E8E8ED", fontSize: 14, marginBottom: 16, outline: "none", boxSizing: "border-box" }
-          }),
-          React.createElement("button", {
-            onClick: handlePdfGateSubmit,
-            style: { width: "100%", background: "#C9A96E", color: "#0C0C12", padding: "12px 20px", borderRadius: 8, fontSize: 15, fontWeight: 700, border: "none", cursor: "pointer", marginBottom: 8 },
-            onMouseEnter: (e) => e.currentTarget.style.background = "#D4B896",
-            onMouseLeave: (e) => e.currentTarget.style.background = "#C9A96E"
-          }, "Download PDF \u2192"),
-          React.createElement("button", {
-            onClick: () => setShowPdfGate(false),
-            style: { background: "transparent", border: "none", color: "#666", fontSize: 12, cursor: "pointer", padding: 4 }
-          }, "Cancel")
-        )
-      ),
       React.createElement(
         "nav",
         {
@@ -777,84 +689,6 @@
             );
           })
         ),
-        // Lead capture or CTA
-        showLead ? React.createElement(
-          "div",
-          {
-            className: "slide-up",
-            style: { background: navy, borderRadius: 16, padding: 28, marginBottom: 24, border: `1px solid ${gold}44` }
-          },
-          leadSent ? React.createElement(
-            "div",
-            { style: { textAlign: "center", padding: 20 } },
-            React.createElement("div", { style: { fontSize: 32, marginBottom: 12 } }, "\u2705"),
-            React.createElement("p", { style: { fontSize: 16, color: gold, fontWeight: 600 } }, t.thankYou)
-          ) : React.createElement(
-            React.Fragment,
-            null,
-            React.createElement("h3", { style: { fontSize: 18, fontWeight: 700, color: gold, marginBottom: 8 } }, t.leadTitle),
-            React.createElement("p", { style: { fontSize: 14, color: "#999", marginBottom: 16 } }, t.leadSub),
-            React.createElement(
-              "form",
-              { ref: formRef, onSubmit: handleLeadSubmit },
-              React.createElement("input", {
-                name: "email",
-                type: "email",
-                required: true,
-                placeholder: t.emailPlaceholder,
-                style: {
-                  width: "100%",
-                  padding: "12px 16px",
-                  marginBottom: 10,
-                  background: "#0C0C12",
-                  border: "1px solid #333",
-                  borderRadius: 8,
-                  color: "#E8E8ED",
-                  fontSize: 14,
-                  outline: "none"
-                }
-              }),
-              React.createElement("input", {
-                name: "company",
-                type: "text",
-                placeholder: t.companyPlaceholder,
-                style: {
-                  width: "100%",
-                  padding: "12px 16px",
-                  marginBottom: 14,
-                  background: "#0C0C12",
-                  border: "1px solid #333",
-                  borderRadius: 8,
-                  color: "#E8E8ED",
-                  fontSize: 14,
-                  outline: "none"
-                }
-              }),
-              React.createElement("button", {
-                type: "submit",
-                style: {
-                  width: "100%",
-                  padding: "14px",
-                  background: `linear-gradient(135deg, ${gold}, #B8943F)`,
-                  color: "#0C0C12",
-                  border: "none",
-                  borderRadius: 8,
-                  fontSize: 15,
-                  fontWeight: 700,
-                  cursor: "pointer",
-                  marginBottom: 8
-                }
-              }, t.sendBtn)
-            ),
-            React.createElement("button", {
-              onClick: () => {
-                setShowLead(false);
-                generatePDF(results, answers, t, lang);
-              },
-              style: { background: "none", border: "none", color: "#888", fontSize: 13, cursor: "pointer", width: "100%", textAlign: "center", padding: 8 }
-            }, t.skipBtn)
-          )
-        ) : null,
         // CTA section
         React.createElement(
           "div",
@@ -889,7 +723,7 @@
             "div",
             { style: { display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginTop: 12 } },
             React.createElement("button", {
-              onClick: handlePdfClick,
+              onClick: () => generatePDF(results, answers, t, lang),
               style: {
                 background: "transparent",
                 border: `1px solid ${gold}`,

@@ -272,12 +272,12 @@
       help: "Art. 50(2): Deepfakes og AI-genereret indhold skal m\xE6rkes tydeligt.",
       helpEN: "Art. 50(2): Deepfakes and AI-generated content must be clearly labeled."
     },
-    // ─── CONTACT INFO ───
+    // ─── FINISH ───
     {
-      id: "contact",
-      type: "contact",
-      question: "Vil du modtage din rapport? (valgfrit)",
-      questionEN: "Would you like to receive your report? (optional)"
+      id: "finish",
+      type: "finish",
+      question: "Din klassificering er klar",
+      questionEN: "Your classification is ready"
     }
   ];
   const HIGH_RISK_REQUIREMENTS = [
@@ -301,8 +301,6 @@
     const [currentStep, setCurrentStep] = useState(0);
     const [answers, setAnswers] = useState({});
     const [showResults, setShowResults] = useState(false);
-    const [showPdfGate, setShowPdfGate] = useState(false);
-    const [pdfEmail, setPdfEmail] = useState("");
     const t = (da, en) => lang === "da" ? da : en;
     const toggleLang = () => {
       const next = lang === "da" ? "en" : "da";
@@ -363,25 +361,6 @@
       return { ...RISK_CATEGORIES.minimal, triggers: [] };
     }, [answers, lang]);
     const industryOverlay = INDUSTRY_OVERLAYS[answers.industry] || null;
-    const handlePdfClick = () => {
-      setShowPdfGate(true);
-    };
-    const handlePdfGateSubmit = () => {
-      if (pdfEmail && pdfEmail.includes("@")) {
-        fetch("https://formspree.io/f/xpqjldbp", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            _subject: "stevenwensley.com \u2014 PDF download lead",
-            email: pdfEmail,
-            tool: document.title
-          })
-        }).catch(() => {
-        });
-        setShowPdfGate(false);
-        generatePDF();
-      }
-    };
     const generatePDF = () => {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF("p", "mm", "a4");
@@ -635,67 +614,13 @@
       const systemName = (answers.system_name || "AI-System").replace(/[^a-zA-Z0-9æøåÆØÅ\s-]/g, "").replace(/\s+/g, "-");
       doc.save(`EU-AI-Act-Klassificering-${systemName}-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}.pdf`);
     };
-    const submitLead = (email, org) => {
-      if (!email) return;
-      fetch("https://formspree.io/f/xpqjldbp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          organisation: org || "",
-          industry: answers.industry || "",
-          system_name: answers.system_name || "",
-          classification: classification.id,
-          source: "eu-ai-act-classifier"
-        })
-      }).catch(() => {
-      });
-    };
     if (showResults) {
       return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh", background: "#0C0C12" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 24px", borderBottom: "1px solid rgba(201,169,110,0.12)" } }, /* @__PURE__ */ React.createElement("a", { href: "/", style: { color: "#C9A96E", fontSize: 14, textDecoration: "none" } }, "\u2190 ", t("Tilbage", "Back")), /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "'DM Serif Display', serif", color: "#C9A96E", fontSize: 18 } }, "Steven Wensley"), /* @__PURE__ */ React.createElement("button", { onClick: toggleLang, style: { background: "transparent", border: "1px solid rgba(201,169,110,0.3)", color: "#C9A96E", padding: "6px 14px", borderRadius: 6, cursor: "pointer", fontSize: 13 } }, lang === "da" ? "EN" : "DA")), /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 900, margin: "0 auto", padding: "40px 20px" }, className: "fade-in" }, /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", marginBottom: 40 } }, /* @__PURE__ */ React.createElement("div", { className: "score-anim", style: { display: "inline-flex", flexDirection: "column", alignItems: "center", padding: "30px 50px", border: `3px solid ${classification.color}`, borderRadius: 20, background: `${classification.color}11` } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 48 } }, classification.icon), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 28, fontWeight: 800, color: classification.color, marginTop: 8 } }, t(classification.name, classification.nameEN)), /* @__PURE__ */ React.createElement("span", { style: { fontSize: 13, color: "#9a9aaa", marginTop: 4 } }, classification.articles))), answers.system_name && /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", marginBottom: 30 } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 20, fontWeight: 700, color: "#E8E8ED" } }, answers.system_name), answers.system_desc && /* @__PURE__ */ React.createElement("p", { style: { color: "#9a9aaa", fontSize: 14, marginTop: 8, maxWidth: 600, margin: "8px auto 0" } }, answers.system_desc)), /* @__PURE__ */ React.createElement("div", { style: { background: "#1a1a26", borderRadius: 12, padding: 24, marginBottom: 24, border: "1px solid rgba(201,169,110,0.12)" } }, /* @__PURE__ */ React.createElement("p", { style: { fontSize: 15, lineHeight: 1.7, color: "#E8E8ED" } }, t(classification.desc, classification.descEN))), /* @__PURE__ */ React.createElement("div", { style: { background: `${classification.color}15`, borderRadius: 12, padding: 20, marginBottom: 24, border: `1px solid ${classification.color}33` } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", alignItems: "center", gap: 10 } }, /* @__PURE__ */ React.createElement("span", { style: { fontSize: 20 } }, "\u23F0"), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 12, color: "#C9A96E", fontWeight: 600, textTransform: "uppercase", letterSpacing: 1 } }, t("Compliance-deadline", "Compliance Deadline")), /* @__PURE__ */ React.createElement("div", { style: { fontSize: 15, color: "#E8E8ED", fontWeight: 600, marginTop: 2 } }, t(classification.deadline, classification.deadlineEN))))), classification.triggers && classification.triggers.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { marginBottom: 30 } }, /* @__PURE__ */ React.createElement("h3", { style: { color: "#C9A96E", fontSize: 16, fontWeight: 700, marginBottom: 12 } }, t("Udl\xF8sende faktorer", "Triggering Factors")), classification.triggers.map((tr, i) => /* @__PURE__ */ React.createElement("div", { key: i, style: { display: "flex", alignItems: "center", gap: 12, padding: "10px 16px", background: "#1a1a26", borderRadius: 8, marginBottom: 8, border: "1px solid rgba(201,169,110,0.08)" } }, /* @__PURE__ */ React.createElement("span", { style: { color: classification.color, fontWeight: 700, fontSize: 13, minWidth: 120 } }, tr.art), /* @__PURE__ */ React.createElement("span", { style: { color: "#E8E8ED", fontSize: 14 } }, tr.reason)))), classification.id === "high" && /* @__PURE__ */ React.createElement("div", { style: { marginBottom: 30 } }, /* @__PURE__ */ React.createElement("h3", { style: { color: "#C9A96E", fontSize: 16, fontWeight: 700, marginBottom: 16 } }, t("Obligatoriske krav (Art. 8-15 + Art. 17)", "Mandatory Requirements (Art. 8-15 + Art. 17)")), HIGH_RISK_REQUIREMENTS.map((req, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "slide-up", style: { background: "#1a1a26", borderRadius: 10, padding: 18, marginBottom: 10, border: "1px solid rgba(201,169,110,0.08)", animationDelay: `${i * 0.05}s` } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 6 } }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("span", { style: { color: "#C9A96E", fontSize: 12, fontWeight: 700 } }, req.art), /* @__PURE__ */ React.createElement("span", { style: { color: "#E8E8ED", fontSize: 14, fontWeight: 600, marginLeft: 10 } }, t(req.name, req.nameEN))), /* @__PURE__ */ React.createElement("span", { style: { color: "#F59E0B", fontSize: 11, fontWeight: 600, whiteSpace: "nowrap" } }, t(req.timeline, req.timelineEN))), /* @__PURE__ */ React.createElement("p", { style: { color: "#9a9aaa", fontSize: 13, lineHeight: 1.6 } }, t(req.desc, req.descEN))))), classification.id === "limited" && /* @__PURE__ */ React.createElement("div", { style: { marginBottom: 30 } }, /* @__PURE__ */ React.createElement("h3", { style: { color: "#C9A96E", fontSize: 16, fontWeight: 700, marginBottom: 16 } }, t("Transparensforpligtelser (Art. 50)", "Transparency Obligations (Art. 50)")), /* @__PURE__ */ React.createElement("div", { style: { background: "#1a1a26", borderRadius: 10, padding: 18, marginBottom: 10, border: "1px solid rgba(201,169,110,0.08)" } }, /* @__PURE__ */ React.createElement("p", { style: { color: "#E8E8ED", fontSize: 14, lineHeight: 1.7 } }, t(
         "Brugere skal informeres om, at de interagerer med et AI-system (Art. 50(1)). AI-genereret indhold skal m\xE6rkes maskinl\xE6sbart (Art. 50(2)). Deepfakes der forestiller eksisterende personer skal tydeligt disclosure's (Art. 50(4)).",
         "Users must be informed they are interacting with an AI system (Art. 50(1)). AI-generated content must be machine-readably labeled (Art. 50(2)). Deepfakes depicting existing persons must be clearly disclosed (Art. 50(4))."
-      )))), industryOverlay && /* @__PURE__ */ React.createElement("div", { style: { marginBottom: 30 } }, /* @__PURE__ */ React.createElement("h3", { style: { color: "#C9A96E", fontSize: 16, fontWeight: 700, marginBottom: 16 } }, industryOverlay.icon, " ", t("Branche-specifik regulering", "Industry-Specific Regulation"), ": ", industryOverlay.name), industryOverlay.regulations.map((reg, i) => /* @__PURE__ */ React.createElement("div", { key: i, style: { background: "#1a1a26", borderRadius: 10, padding: 18, marginBottom: 10, border: "1px solid rgba(201,169,110,0.08)" } }, /* @__PURE__ */ React.createElement("div", { style: { color: "#C9A96E", fontSize: 14, fontWeight: 700, marginBottom: 6 } }, t(reg.name, reg.nameEN)), /* @__PURE__ */ React.createElement("p", { style: { color: "#9a9aaa", fontSize: 13, lineHeight: 1.6 } }, t(reg.desc, reg.descEN)))), /* @__PURE__ */ React.createElement("div", { style: { marginTop: 16 } }, /* @__PURE__ */ React.createElement("div", { style: { color: "#C9A96E", fontSize: 13, fontWeight: 600, marginBottom: 8 } }, t("Ekstra branche-krav:", "Additional industry requirements:")), industryOverlay.extra_requirements.map((er, i) => /* @__PURE__ */ React.createElement("div", { key: i, style: { display: "flex", gap: 8, padding: "6px 0" } }, /* @__PURE__ */ React.createElement("span", { style: { color: "#C9A96E" } }, "\u2192"), /* @__PURE__ */ React.createElement("span", { style: { color: "#E8E8ED", fontSize: 13 } }, t(er.req, er.reqEN)))))), /* @__PURE__ */ React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 16, marginTop: 40 } }, /* @__PURE__ */ React.createElement("button", { onClick: handlePdfClick, style: { display: "flex", alignItems: "center", justifyContent: "center", gap: 10, padding: "16px 24px", background: "#C9A96E", color: "#0C0C12", border: "none", borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: "pointer" } }, "\u{1F4C4} ", t("Download PDF-rapport", "Download PDF Report")), /* @__PURE__ */ React.createElement("a", { href: "/book-session", style: { display: "flex", alignItems: "center", justifyContent: "center", gap: 10, padding: "16px 24px", background: "transparent", color: "#C9A96E", border: "2px solid #C9A96E", borderRadius: 10, fontSize: 15, fontWeight: 700, textDecoration: "none" } }, "\u{1F4C5} ", t("Book en gratis samtale", "Book a free 30-minute call")), /* @__PURE__ */ React.createElement("a", { href: "/ai-governance-assessment", style: { display: "flex", alignItems: "center", justifyContent: "center", gap: 10, padding: "16px 24px", background: "transparent", color: "#9a9aaa", border: "1px solid rgba(201,169,110,0.2)", borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: "none" } }, "\u{1F4CA} ", t("Tag fuld governance-assessment", "Take Full Governance Assessment"))), /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", marginTop: 50, padding: "30px 0", borderTop: "1px solid rgba(201,169,110,0.12)" } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "'DM Serif Display', serif", color: "#C9A96E", fontSize: 20, marginBottom: 8 } }, "Steven Wensley"), /* @__PURE__ */ React.createElement("div", { style: { color: "#9a9aaa", fontSize: 13 } }, "AI Governance Specialist"), /* @__PURE__ */ React.createElement("div", { style: { color: "#9a9aaa", fontSize: 13, marginTop: 8 } }, "steven.wensley@gmail.com  \xB7  +45 5388 6061  \xB7  stevenwensley.com"))));
+      )))), industryOverlay && /* @__PURE__ */ React.createElement("div", { style: { marginBottom: 30 } }, /* @__PURE__ */ React.createElement("h3", { style: { color: "#C9A96E", fontSize: 16, fontWeight: 700, marginBottom: 16 } }, industryOverlay.icon, " ", t("Branche-specifik regulering", "Industry-Specific Regulation"), ": ", industryOverlay.name), industryOverlay.regulations.map((reg, i) => /* @__PURE__ */ React.createElement("div", { key: i, style: { background: "#1a1a26", borderRadius: 10, padding: 18, marginBottom: 10, border: "1px solid rgba(201,169,110,0.08)" } }, /* @__PURE__ */ React.createElement("div", { style: { color: "#C9A96E", fontSize: 14, fontWeight: 700, marginBottom: 6 } }, t(reg.name, reg.nameEN)), /* @__PURE__ */ React.createElement("p", { style: { color: "#9a9aaa", fontSize: 13, lineHeight: 1.6 } }, t(reg.desc, reg.descEN)))), /* @__PURE__ */ React.createElement("div", { style: { marginTop: 16 } }, /* @__PURE__ */ React.createElement("div", { style: { color: "#C9A96E", fontSize: 13, fontWeight: 600, marginBottom: 8 } }, t("Ekstra branche-krav:", "Additional industry requirements:")), industryOverlay.extra_requirements.map((er, i) => /* @__PURE__ */ React.createElement("div", { key: i, style: { display: "flex", gap: 8, padding: "6px 0" } }, /* @__PURE__ */ React.createElement("span", { style: { color: "#C9A96E" } }, "\u2192"), /* @__PURE__ */ React.createElement("span", { style: { color: "#E8E8ED", fontSize: 13 } }, t(er.req, er.reqEN)))))), /* @__PURE__ */ React.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 16, marginTop: 40 } }, /* @__PURE__ */ React.createElement("button", { onClick: () => generatePDF(), style: { display: "flex", alignItems: "center", justifyContent: "center", gap: 10, padding: "16px 24px", background: "#C9A96E", color: "#0C0C12", border: "none", borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: "pointer" } }, "\u{1F4C4} ", t("Download PDF-rapport", "Download PDF Report")), /* @__PURE__ */ React.createElement("a", { href: "/book-session", style: { display: "flex", alignItems: "center", justifyContent: "center", gap: 10, padding: "16px 24px", background: "transparent", color: "#C9A96E", border: "2px solid #C9A96E", borderRadius: 10, fontSize: 15, fontWeight: 700, textDecoration: "none" } }, "\u{1F4C5} ", t("Book en gratis samtale", "Book a free 30-minute call")), /* @__PURE__ */ React.createElement("a", { href: "/ai-governance-assessment", style: { display: "flex", alignItems: "center", justifyContent: "center", gap: 10, padding: "16px 24px", background: "transparent", color: "#9a9aaa", border: "1px solid rgba(201,169,110,0.2)", borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: "none" } }, "\u{1F4CA} ", t("Tag fuld governance-assessment", "Take Full Governance Assessment"))), /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", marginTop: 50, padding: "30px 0", borderTop: "1px solid rgba(201,169,110,0.12)" } }, /* @__PURE__ */ React.createElement("div", { style: { fontFamily: "'DM Serif Display', serif", color: "#C9A96E", fontSize: 20, marginBottom: 8 } }, "Steven Wensley"), /* @__PURE__ */ React.createElement("div", { style: { color: "#9a9aaa", fontSize: 13 } }, "AI Governance Specialist"), /* @__PURE__ */ React.createElement("div", { style: { color: "#9a9aaa", fontSize: 13, marginTop: 8 } }, "steven.wensley@gmail.com  \xB7  +45 5388 6061  \xB7  stevenwensley.com"))));
     }
-    return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh", background: "#0C0C12" } }, showPdfGate && /* @__PURE__ */ React.createElement(
-      "div",
-      {
-        style: { position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.8)", zIndex: 1e3, display: "flex", alignItems: "center", justifyContent: "center" },
-        onClick: (e) => {
-          if (e.target === e.currentTarget) setShowPdfGate(false);
-        }
-      },
-      /* @__PURE__ */ React.createElement("div", { style: { background: "#161620", border: "1px solid #C9A96E44", borderRadius: 16, padding: 32, maxWidth: 400, width: "90%", textAlign: "center" } }, /* @__PURE__ */ React.createElement("div", { style: { fontSize: 36, marginBottom: 12 } }, "\u{1F4C4}"), /* @__PURE__ */ React.createElement("h3", { style: { fontSize: 18, fontWeight: 700, color: "#C9A96E", marginBottom: 8 } }, t("Indtast din email for PDF-rapporten", "Enter your email for the PDF report")), /* @__PURE__ */ React.createElement("p", { style: { fontSize: 13, color: "#9CA3AF", marginBottom: 20, lineHeight: 1.5 } }, t("Vi sender dig kun rapporten \u2014 ingen spam.", "We'll only send you the report \u2014 no spam.")), /* @__PURE__ */ React.createElement(
-        "input",
-        {
-          type: "email",
-          placeholder: t("Din arbejdsmail", "Your work email"),
-          value: pdfEmail,
-          onChange: (e) => setPdfEmail(e.target.value),
-          onKeyDown: (e) => {
-            if (e.key === "Enter") handlePdfGateSubmit();
-          },
-          style: { width: "100%", padding: "12px 16px", borderRadius: 8, border: "1px solid #333", background: "#0C0C12", color: "#E8E8ED", fontSize: 14, marginBottom: 16, outline: "none", boxSizing: "border-box" }
-        }
-      ), /* @__PURE__ */ React.createElement(
-        "button",
-        {
-          onClick: handlePdfGateSubmit,
-          style: { width: "100%", background: "#C9A96E", color: "#0C0C12", padding: "12px 20px", borderRadius: 8, fontSize: 15, fontWeight: 700, border: "none", cursor: "pointer", marginBottom: 8 },
-          onMouseEnter: (e) => e.currentTarget.style.background = "#D4B896",
-          onMouseLeave: (e) => e.currentTarget.style.background = "#C9A96E"
-        },
-        t("Download PDF", "Download PDF"),
-        " \u2192"
-      ), /* @__PURE__ */ React.createElement(
-        "button",
-        {
-          onClick: () => setShowPdfGate(false),
-          style: { background: "transparent", border: "none", color: "#666", fontSize: 12, cursor: "pointer", padding: 4 }
-        },
-        t("Annuller", "Cancel")
-      ))
-    ), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 24px", borderBottom: "1px solid rgba(201,169,110,0.12)" } }, /* @__PURE__ */ React.createElement("a", { href: "/", style: { color: "#C9A96E", fontSize: 14, textDecoration: "none" } }, "\u2190 ", t("Tilbage", "Back")), /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "'DM Serif Display', serif", color: "#C9A96E", fontSize: 18 } }, "Steven Wensley"), /* @__PURE__ */ React.createElement("button", { onClick: toggleLang, style: { background: "transparent", border: "1px solid rgba(201,169,110,0.3)", color: "#C9A96E", padding: "6px 14px", borderRadius: 6, cursor: "pointer", fontSize: 13 } }, lang === "da" ? "EN" : "DA")), /* @__PURE__ */ React.createElement("div", { style: { padding: "0 24px", maxWidth: 700, margin: "0 auto" } }, /* @__PURE__ */ React.createElement("div", { style: { height: 3, background: "rgba(201,169,110,0.12)", borderRadius: 2, marginTop: 16 } }, /* @__PURE__ */ React.createElement("div", { style: { height: "100%", background: "#C9A96E", borderRadius: 2, width: `${progress}%`, transition: "width 0.3s ease" } })), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", marginTop: 6, fontSize: 11, color: "#6a6a7a" } }, /* @__PURE__ */ React.createElement("span", null, t("Sp\xF8rgsm\xE5l", "Question"), " ", currentStep + 1, " / ", totalSteps), /* @__PURE__ */ React.createElement("span", null, Math.round(progress), "%"))), /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 700, margin: "0 auto", padding: "40px 20px" }, className: "fade-in", key: currentStep }, /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", marginBottom: 40 } }, currentStep === 0 && /* @__PURE__ */ React.createElement("div", { style: { marginBottom: 20 } }, /* @__PURE__ */ React.createElement("h1", { style: { fontFamily: "'DM Serif Display', serif", color: "#C9A96E", fontSize: 28, marginBottom: 8 } }, "EU AI Act Classifier"), /* @__PURE__ */ React.createElement("p", { style: { color: "#9a9aaa", fontSize: 14, maxWidth: 500, margin: "0 auto" } }, t("Klassific\xE9r dit AI-system p\xE5 3 minutter. F\xE5 risikokategori, krav, tidslinje og PDF-rapport.", "Classify your AI system in 3 minutes. Get risk category, requirements, timeline and PDF report."))), /* @__PURE__ */ React.createElement("h2", { style: { color: "#E8E8ED", fontSize: 20, fontWeight: 700, lineHeight: 1.4, maxWidth: 600, margin: "0 auto" } }, t(step.question, step.questionEN)), step.help && /* @__PURE__ */ React.createElement("p", { style: { color: "#6a6a7a", fontSize: 13, marginTop: 10, maxWidth: 500, margin: "10px auto 0", lineHeight: 1.5 } }, "\u{1F4A1} ", t(step.help, step.helpEN))), step.type === "select" && /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 10, maxWidth: 400, margin: "0 auto" } }, step.options.map((opt) => /* @__PURE__ */ React.createElement(
+    return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh", background: "#0C0C12" } }, /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 24px", borderBottom: "1px solid rgba(201,169,110,0.12)" } }, /* @__PURE__ */ React.createElement("a", { href: "/", style: { color: "#C9A96E", fontSize: 14, textDecoration: "none" } }, "\u2190 ", t("Tilbage", "Back")), /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "'DM Serif Display', serif", color: "#C9A96E", fontSize: 18 } }, "Steven Wensley"), /* @__PURE__ */ React.createElement("button", { onClick: toggleLang, style: { background: "transparent", border: "1px solid rgba(201,169,110,0.3)", color: "#C9A96E", padding: "6px 14px", borderRadius: 6, cursor: "pointer", fontSize: 13 } }, lang === "da" ? "EN" : "DA")), /* @__PURE__ */ React.createElement("div", { style: { padding: "0 24px", maxWidth: 700, margin: "0 auto" } }, /* @__PURE__ */ React.createElement("div", { style: { height: 3, background: "rgba(201,169,110,0.12)", borderRadius: 2, marginTop: 16 } }, /* @__PURE__ */ React.createElement("div", { style: { height: "100%", background: "#C9A96E", borderRadius: 2, width: `${progress}%`, transition: "width 0.3s ease" } })), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", marginTop: 6, fontSize: 11, color: "#6a6a7a" } }, /* @__PURE__ */ React.createElement("span", null, t("Sp\xF8rgsm\xE5l", "Question"), " ", currentStep + 1, " / ", totalSteps), /* @__PURE__ */ React.createElement("span", null, Math.round(progress), "%"))), /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 700, margin: "0 auto", padding: "40px 20px" }, className: "fade-in", key: currentStep }, /* @__PURE__ */ React.createElement("div", { style: { textAlign: "center", marginBottom: 40 } }, currentStep === 0 && /* @__PURE__ */ React.createElement("div", { style: { marginBottom: 20 } }, /* @__PURE__ */ React.createElement("h1", { style: { fontFamily: "'DM Serif Display', serif", color: "#C9A96E", fontSize: 28, marginBottom: 8 } }, "EU AI Act Classifier"), /* @__PURE__ */ React.createElement("p", { style: { color: "#9a9aaa", fontSize: 14, maxWidth: 500, margin: "0 auto" } }, t("Klassific\xE9r dit AI-system p\xE5 3 minutter. F\xE5 risikokategori, krav, tidslinje og PDF-rapport.", "Classify your AI system in 3 minutes. Get risk category, requirements, timeline and PDF report."))), /* @__PURE__ */ React.createElement("h2", { style: { color: "#E8E8ED", fontSize: 20, fontWeight: 700, lineHeight: 1.4, maxWidth: 600, margin: "0 auto" } }, t(step.question, step.questionEN)), step.help && /* @__PURE__ */ React.createElement("p", { style: { color: "#6a6a7a", fontSize: 13, marginTop: 10, maxWidth: 500, margin: "10px auto 0", lineHeight: 1.5 } }, "\u{1F4A1} ", t(step.help, step.helpEN))), step.type === "select" && /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 10, maxWidth: 400, margin: "0 auto" } }, step.options.map((opt) => /* @__PURE__ */ React.createElement(
       "button",
       {
         key: opt.value,
@@ -787,43 +712,15 @@
         }
       },
       t("Nej", "No")
-    )), step.type === "contact" && /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 500, margin: "0 auto" } }, /* @__PURE__ */ React.createElement(
-      "input",
-      {
-        type: "email",
-        id: "contact-email",
-        placeholder: t("Din e-mail (valgfrit)", "Your email (optional)"),
-        style: { width: "100%", padding: "14px 18px", background: "#1a1a26", border: "1px solid rgba(201,169,110,0.2)", borderRadius: 10, color: "#E8E8ED", fontSize: 15, outline: "none", marginBottom: 12 }
-      }
-    ), /* @__PURE__ */ React.createElement(
-      "input",
-      {
-        type: "text",
-        id: "contact-org",
-        placeholder: t("Organisation (valgfrit)", "Organisation (optional)"),
-        style: { width: "100%", padding: "14px 18px", background: "#1a1a26", border: "1px solid rgba(201,169,110,0.2)", borderRadius: 10, color: "#E8E8ED", fontSize: 15, outline: "none", marginBottom: 16 }
-      }
-    ), /* @__PURE__ */ React.createElement(
+    )), step.type === "finish" && /* @__PURE__ */ React.createElement("div", { style: { maxWidth: 500, margin: "0 auto" } }, /* @__PURE__ */ React.createElement(
       "button",
       {
-        onClick: () => {
-          const emailEl = document.getElementById("contact-email");
-          const orgEl = document.getElementById("contact-org");
-          if (emailEl && emailEl.value) submitLead(emailEl.value, orgEl ? orgEl.value : "");
-          finishClassification();
-        },
+        onClick: finishClassification,
         style: { width: "100%", padding: "16px", background: "#C9A96E", color: "#0C0C12", border: "none", borderRadius: 10, fontSize: 16, fontWeight: 700, cursor: "pointer" }
       },
       t("Se din klassificering", "See Your Classification"),
       " \u2192"
-    ), /* @__PURE__ */ React.createElement(
-      "button",
-      {
-        onClick: finishClassification,
-        style: { width: "100%", marginTop: 10, padding: "12px", background: "transparent", color: "#6a6a7a", border: "none", fontSize: 13, cursor: "pointer" }
-      },
-      t("Spring over \u2192", "Skip \u2192")
-    )), step.type !== "contact" && /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", marginTop: 40, maxWidth: 500, margin: "40px auto 0" } }, /* @__PURE__ */ React.createElement(
+    )), step.type !== "finish" && /* @__PURE__ */ React.createElement("div", { style: { display: "flex", justifyContent: "space-between", marginTop: 40, maxWidth: 500, margin: "40px auto 0" } }, /* @__PURE__ */ React.createElement(
       "button",
       {
         onClick: goBack,
