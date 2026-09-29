@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="da">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="alternate" type="application/atom+xml" title="Field Notes — Steven Wensley" href="https://stevenwensley.com/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Hvorfor jeres AI-pilot lyver for jer | Steven Wensley</title>
+<meta name="description" content="Ikke med vilje. Strukturelt. En agent lyder lige sikker, om den har læst kilden eller opfundet den, og jeres pilot kan ikke se forskel.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://stevenwensley.com/piloten-lyver">
+<meta property="og:title" content="Hvorfor jeres AI-pilot lyver for jer">
+<meta property="og:description" content="Ikke med vilje. Strukturelt. En agent lyder lige sikker, om den har læst kilden eller opfundet den, og jeres pilot kan ikke se forskel.">
+<meta property="og:image" content="https://stevenwensley.com/og/note-ai-pilot-lying.png">
+<meta property="og:locale" content="da_DK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hvorfor jeres AI-pilot lyver for jer">
+<meta name="twitter:description" content="Ikke med vilje. Strukturelt. En agent lyder lige sikker, om den har læst kilden eller opfundet den, og jeres pilot kan ikke se forskel.">
+<meta name="twitter:image" content="https://stevenwensley.com/og/note-ai-pilot-lying.png">
+<link rel="canonical" href="https://stevenwensley.com/piloten-lyver">
+<link rel="alternate" hreflang="en" href="https://stevenwensley.com/note-ai-pilot-lying">
+<link rel="alternate" hreflang="da" href="https://stevenwensley.com/piloten-lyver">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #1a1a26;
+    --gold: #c9a96e; --gold-light: #dfc08a; --gold-dim: rgba(201,169,110,0.15);
+    --text-primary: #f0ece4; --text-secondary: #9a9aaa; --text-muted: #6a6a7a;
+    --border: rgba(201,169,110,0.12); --red: #c0563f; --green: #4c9a72;
+    --serif: 'DM Serif Display', Georgia, serif; --sans: 'Space Grotesk', -apple-system, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg-primary); color: var(--text-primary); font-family: var(--sans); font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  nav .logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-decoration: none; }
+  nav .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  nav .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
+  nav .nav-links a:hover, nav .nav-links a.active { color: var(--gold); }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 101; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); margin: 5px 0; transition: all 0.3s; border-radius: 2px; }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  @media (max-width: 680px) {
+    .hamburger { display: block; }
+    nav .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #0a0a0f; flex-direction: column; padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border); }
+    nav .nav-links.open { display: flex; }
+    nav .nav-links a { font-size: 0.9rem; padding: 0.5rem 0; }
+  }
+  .article { max-width: 720px; margin: 0 auto; padding: 10rem 2rem 0; }
+  .article-meta-top { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  .article-meta-top a { color: var(--gold); text-decoration: none; }
+  h1.article-title { font-family: var(--serif); font-size: clamp(2.1rem, 4.5vw, 3.1rem); font-weight: 700; line-height: 1.15; margin-bottom: 1.2rem; }
+  .article-dek { font-size: 1.25rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.8rem; font-weight: 300; }
+  .article-byline { font-size: 0.85rem; color: var(--text-muted); padding-bottom: 2rem; border-bottom: 1px solid var(--border); margin-bottom: 2.5rem; letter-spacing: 0.03em; }
+  .article-body p { font-size: 1.12rem; color: var(--text-secondary); line-height: 1.85; margin-bottom: 1.5rem; }
+  .article-body p strong { color: var(--text-primary); font-weight: 500; }
+  .article-body h2 { font-family: var(--serif); font-size: 1.6rem; font-weight: 600; color: var(--text-primary); margin: 3rem 0 1.2rem; line-height: 1.3; }
+  .article-body blockquote { margin: 2.5rem 0; padding-left: 1.6rem; border-left: 3px solid var(--gold); font-family: var(--serif); font-size: 1.5rem; line-height: 1.45; color: var(--text-primary); font-style: italic; }
+  .article-body ul { list-style: none; margin: 0 0 1.5rem; }
+  .article-body li { font-size: 1.08rem; color: var(--text-secondary); line-height: 1.7; padding-left: 1.6rem; position: relative; margin-bottom: 0.9rem; }
+  .article-body li::before { content: '→'; position: absolute; left: 0; color: var(--gold); }
+  .article-cta { margin: 3.5rem 0 0; padding: 2rem 2.2rem; background: var(--bg-card); border: 1px solid var(--gold); border-radius: 4px; }
+  .article-cta p { font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.2rem; }
+  .article-cta a.btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.8rem; background: var(--gold); color: var(--bg-primary); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: opacity 0.3s; }
+  .article-cta a.btn:hover { opacity: 0.9; }
+  .more-notes { max-width: 720px; margin: 4rem auto 0; padding: 0 2rem; }
+  .more-notes .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+  .more-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 600px) { .more-grid { grid-template-columns: 1fr; } }
+  .more-card { display: block; padding: 1.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px; text-decoration: none; color: inherit; transition: border-color 0.3s, transform 0.3s; }
+  .more-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .more-card .mc-tag { font-size: 0.66rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .more-card h3 { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--text-primary); line-height: 1.3; }
+  footer { padding: 3rem; text-align: center; color: var(--text-muted); font-size: 0.78rem; letter-spacing: 0.05em; border-top: 1px solid var(--border); margin-top: 5rem; }
+  footer a { color: var(--text-secondary); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+  @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .article { padding: 8rem 1.5rem 0; } }
+  .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}
+</style>
+  <!-- Cloudflare Web Analytics --><script type="module" defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;65eb31eee8724f75a014183d2bf26ef7&quot;}"></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+<a class="skip-link" href="#main">Spring til indhold</a>
+<nav aria-label="Primary">
+  <a href="/index-da" class="logo" aria-label="Steven Wensley — forside">SSW</a>
+  <button class="hamburger" onclick="this.classList.toggle('active');this.setAttribute('aria-expanded',this.classList.contains('active'));document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <div class="nav-links">
+    <a href="/index-da">Forside</a>
+    <a href="/index-da#det-jeg-har-set" class="active">Noter</a>
+    <a href="/index-da#ydelser">Ydelser</a>
+    <a href="/about">Om</a>
+    <a href="/index-da#kontakt">Kontakt</a>
+    <a href="/" style="opacity:.7">EN</a>
+  </div>
+</nav>
+<main id="main" tabindex="-1">
+
+<article class="article">
+  <div class="article-meta-top"><a href="/index-da#det-jeg-har-set">Noter</a> &nbsp;/&nbsp; Maskinerne</div>
+  <h1 class="article-title">Hvorfor jeres AI-pilot lyver for jer</h1>
+  <p class="article-dek">Ikke med vilje. Strukturelt. En agent lyder lige sikker, når den har læst kilden, og når den har opfundet den &mdash; og jeres pilot kan ikke se forskel.</p>
+  <div class="article-byline">Steven Wensley &middot; 17. juli 2026 &middot; 4 min &middot; <a href="/note-ai-pilot-lying" style="color:var(--text-muted)">Read in English</a></div>
+
+  <div class="article-body">
+    <p>Tidligt i fabrikkens liv leverede en specialistagent en analyse af et datasæt. Den var velstruktureret, konkret, professionelt formuleret. Den henviste til mønstre i dataene. Den drog rimelige konklusioner.</p>
+    <p><strong>Den havde aldrig åbnet datasættet.</strong></p>
+    <p>Ikke fordi den var i stykker. Fordi den ikke kunne, den manglede adgang, og i stedet for at sige det gjorde den det, sprogmodeller gør glimrende: den rekonstruerede, hvordan sådan en analyse <em>sandsynligvis</em> ville se ud. Resultatet var plausibelt nok til at overleve to dages gennemsyn, før et instinkt fik mig til at give den samme opgave til en anden agent. Min mave havde ret. Analysen var fiktion med fremragende holdning.</p>
+    <p>Her er det, der gør det farligt, og grunden til, at jeg ville vædde penge på, at jeres organisations AI-pilot har det samme problem: <strong>en sprogmodel lyder nogenlunde lige kompetent i fire meget forskellige situationer.</strong> Når den har læst kilden. Når den husker noget lignende. Når den har sluttet sig til noget rimeligt. Og når den bare har fyldt et hul. Tonen er den samme. Sikkerheden er den samme. Formateringen er den samme.</p>
+    <blockquote>Sproglig sikkerhed er ikke et kvalitetssignal. Det er en stilistisk konstant.</blockquote>
+    <p>Jeres styregruppe har brugt årtier på at lære at spotte en projektleder, der bluffer: forbeholdene, øjenkontakten, de mistænkeligt runde tal. Ingen af de instinkter virker på en AI. Den tager ikke forbehold, når den gætter. Den ved ikke, at den gætter.</p>
+
+    <h2>Hold op med at vurdere påstanden. Forlang beviset.</h2>
+    <p>Løsningen kan ikke være «læs outputtet mere omhyggeligt». Løsningen er strukturel, og det er den samme, revisorer har brugt i hundrede år.</p>
+    <p>I min fabrik bliver enhver driftspåstand fra en agent klassificeret efter, hvor stærkt beviset er. <strong>Kildebaseret</strong>: direkte understøttet af en artefakt eller en aflæsning. <strong>Blandet</strong>: kilde plus fortolkning. <strong>Heuristisk</strong>: kvalificeret skøn, ingen fuld aflæsning. <strong>Uverificeret</strong>: en påstand uden noget under sig, mærket præcis sådan, på skrift. En agent får ingen kredit for at have «analyseret» noget, før systemet kan vise, hvilken kilde der blev åbnet, hvornår, og hvilke observationer konklusionen hviler på.</p>
+    <p>«Systemet siger» er ikke evidens. «Agenten har analyseret det» er ikke evidens. Et sikkert afsnit er ikke evidens. Og den regel koster næsten ingenting at håndhæve, hvilket er præcis grunden til, at det er pinligt, hvor få AI-initiativer der gør det.</p>
+
+    <h2>Ét spørgsmål at stille i morgen</h2>
+    <p>Har I en AI-pilot kørende lige nu, så spørg den, der ejer den: <strong>«Når den giver os et svar, hvordan ved vi så, om den har læst kilden eller rekonstrueret den?»</strong> Er svaret en pause, lyver jeres pilot ikke for jer endnu.</p>
+    <p>Men det kommer den til. Strukturelt. Og den kommer til at lyde vidunderlig imens.</p>
+  </div>
+
+  <div class="article-cta">
+    <p>Det er det, fabrikken lærte mig den hårde vej. Hele forsvaret er offentligt: fire mekaniske kontroller og ti rigtige fejlmønstre fra produktion (på engelsk).</p>
+    <a href="/hallucination-defence" class="btn">Læs The Hallucination Defence &rarr;</a>
+  </div>
+</article>
+
+<div class="more-notes">
+  <div class="section-label">Flere noter</div>
+  <div class="more-grid">
+    <a href="/spejlet" class="more-card">
+      <div class="mc-tag">Maskinerne</div>
+      <h3>Spejlet</h3>
+    </a>
+    <a href="/kloge-boern" class="more-card">
+      <div class="mc-tag">Maskinerne</div>
+      <h3>At lede meget kloge børn med enorm magt</h3>
+    </a>
+  </div>
+</div>
+
+</main>
+<footer>
+  <div data-footer-nav style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="/workshop">The Factory</a> &middot; <a href="/playbooks">Playbooks</a> &middot; <a href="/services">Services</a> &middot; <a href="/tools">Tools</a> &middot; <a href="/insights">Insights</a> &middot; <a href="/notes">Notes</a> &middot; <a href="/glossary">Glossary</a> &middot; <a href="/about">About</a> &middot; <a href="/#contact">Contact</a></div>
+
+  &copy; 2026 Steven Seidenfaden Wensley. Alle rettigheder forbeholdes.
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Hvorfor jeres AI-pilot lyver for jer",
+  "description": "Ikke med vilje. Strukturelt. En agent lyder lige sikker, om den har læst kilden eller opfundet den, og jeres pilot kan ikke se forskel.",
+  "datePublished": "2026-07-17",
+  "dateModified": "2026-07-17",
+  "inLanguage": "da",
+  "author": {
+    "@type": "Person",
+    "name": "Steven Seidenfaden Wensley",
+    "url": "https://stevenwensley.com/about"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Steven Seidenfaden Wensley"
+  },
+  "mainEntityOfPage": "https://stevenwensley.com/piloten-lyver"
+}
+</script>
+</body>
+</html>
