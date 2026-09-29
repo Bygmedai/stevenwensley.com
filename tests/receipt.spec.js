@@ -76,7 +76,7 @@ test.describe('NIS2 board receipt', () => {
     await takeAssessment(page);
     await expect(page.locator('#receipt-offer')).toBeHidden();
     await expect(page.getByRole('button', { name: 'Export as PDF' })).toBeVisible();
-    await expect(page.getByRole('link', { name: /Book a Free Session/ })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Book a call/ })).toBeVisible();
     expect(errors).toEqual([]);
   });
 
