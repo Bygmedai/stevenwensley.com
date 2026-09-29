@@ -3,13 +3,13 @@
   "careerStart": 2006,
   "expectedHits": {
     "commits": 17,
-    "copyrightYear": 57,
+    "copyrightYear": 60,
     "inkandartCommits": 1,
     "inkandartPullRequests": 1,
     "pullRequests": 6,
     "repositories": 1,
-    "yearsExperience": 41,
-    "yearsExperienceDa": 9
+    "yearsExperience": 38,
+    "yearsExperienceDa": 2
   },
   "measuredAt": "2026-09-26",
   "method": "GitHub search API, org:Bygmedai, default branches only, private repositories included. Commits and pull requests counted from 2026-02-01; a search for commits before that date returns zero, which is what fixes February as the factory's start.",
