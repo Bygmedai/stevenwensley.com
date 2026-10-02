@@ -1,6 +1,15 @@
 # Steven Wensley — stevenwensley.com
 
-> Senior IT programme leader (20 years, regulated industries: pharma/GxP, finance/NIS2/DORA, telecom, public sector) who runs his own AI software factory — 6,948 commits and 15 client-facing solutions since February 2026. Based in Copenhagen, Denmark. Works in Danish and English. Helps organisations take AI initiatives from pilot to production with enforced governance. Available now, via broker or direct.
+> "AI is not an IT problem." Steven Wensley has run AI agents in production since February 2026, every day, at his own expense — a one-man AI software factory with 6,948 commits and 15 client-facing solutions. What he learned is about judgement, not technology: what happens to it when the answer always sounds certain. He talks to leadership teams and boards about that, in Danish and English, from Copenhagen. Twenty years of IT programme leadership in regulated industries (pharma/GxP, finance/NIS2/DORA, telecom, public sector) behind it.
+
+## Front doors
+- [Forside (Danish, the root)](https://stevenwensley.com/): «AI er ikke et IT-problem.» Dømmekraft i drift — for ledelser og bestyrelser.
+- [Home (English)](https://stevenwensley.com/en): The same message in English.
+
+## For leadership teams (Danish)
+- [Dømmekraft i drift — forløb for ledergrupper](https://stevenwensley.com/forloeb): Three sessions of three hours — Spejlet, Skinnerne, Dømmekraften — for a leadership team that must approve AI-built tools without being able to read the code.
+- [Ydelser](https://stevenwensley.com/services-da): Bestyrelsesbriefing, lederforløb, AI-afklaring.
+- Notes in Danish: [Spejlet](https://stevenwensley.com/spejlet) · [Kloge børn med enorm magt](https://stevenwensley.com/kloge-boern) · [Piloten lyver](https://stevenwensley.com/piloten-lyver)
 
 ## Core pages
 - [The Factory](https://stevenwensley.com/workshop): How the one-man AI factory works — multi-agent orchestration, human-in-the-loop, enforced quality gates, measured output statistics.

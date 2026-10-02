@@ -1,0 +1,9 @@
+# Cloudflare Pages redirects. One rule per line: source, destination, status.
+#
+# The Danish front page moved from /index-da to the root on 2 October 2026
+# (BYG-703). The old address had been linked from the English page for three
+# months and sits in search results, so it answers with a permanent redirect
+# rather than a 404. scripts/serve-static.mjs reads this file too, so the
+# redirect is measured locally before it is trusted in production.
+/index-da / 301
+/index-da.html / 301

@@ -1,8 +1,18 @@
 {
   "/": {
     "changefreq": "weekly",
-    "lastmod": "2026-08-18",
+    "lastmod": "2026-10-02",
     "priority": "1.0"
+  },
+  "/en": {
+    "changefreq": "monthly",
+    "lastmod": "2026-10-02",
+    "priority": "0.9"
+  },
+  "/forloeb": {
+    "changefreq": "monthly",
+    "lastmod": "2026-10-02",
+    "priority": "0.9"
   },
   "/about": {
     "changefreq": "monthly",
@@ -68,11 +78,6 @@
     "changefreq": "monthly",
     "lastmod": "2026-07-17",
     "priority": "0.9"
-  },
-  "/index-da": {
-    "changefreq": "monthly",
-    "lastmod": "2026-08-17",
-    "priority": "0.6"
   },
   "/insights": {
     "changefreq": "monthly",

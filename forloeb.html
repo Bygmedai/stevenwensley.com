@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="da">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<meta name="view-transition" content="same-origin">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Dømmekraft i drift · forløb for ledergrupper · Steven Wensley</title>
+<meta name="description" content="Tre gange tre timer for ledergrupper, der skal sige god for AI-byggede værktøjer uden at kunne læse koden. Spejlet, skinnerne, dømmekraften.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stevenwensley.com/forloeb">
+<meta property="og:title" content="Dømmekraft i drift — forløb for ledergrupper">
+<meta property="og:description" content="Tre gange tre timer for ledergrupper, der skal sige god for AI-byggede værktøjer uden at kunne læse koden. Spejlet, skinnerne, dømmekraften.">
+<meta property="og:image" content="https://stevenwensley.com/og/forloeb.png">
+<meta property="og:locale" content="da_DK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dømmekraft i drift — forløb for ledergrupper">
+<meta name="twitter:description" content="Tre gange tre timer for ledergrupper, der skal sige god for AI-byggede værktøjer uden at kunne læse koden. Spejlet, skinnerne, dømmekraften.">
+<meta name="twitter:image" content="https://stevenwensley.com/og/forloeb.png">
+<link rel="canonical" href="https://stevenwensley.com/forloeb">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #1a1a26;
+    --gold: #c9a96e; --gold-light: #dfc08a; --gold-dim: rgba(201,169,110,0.15);
+    --text-primary: #f0ece4; --text-secondary: #9a9aaa; --text-muted: #6a6a7a;
+    --border: rgba(201,169,110,0.12);
+    --serif: 'DM Serif Display', Georgia, serif; --sans: 'Space Grotesk', -apple-system, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg-primary); color: var(--text-primary); font-family: var(--sans); font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+  nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+  nav .logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; text-decoration: none; }
+  nav .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  nav .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.3s; }
+  nav .nav-links a:hover, nav .nav-links a.active { color: var(--gold); }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 101; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); margin: 5px 0; transition: all 0.3s; border-radius: 2px; }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  @media (max-width: 680px) {
+    .hamburger { display: block; }
+    nav .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #0a0a0f; flex-direction: column; padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid var(--border); }
+    nav .nav-links.open { display: flex; }
+    nav .nav-links a { font-size: 0.9rem; padding: 0.5rem 0; }
+  }
+  .article { max-width: 720px; margin: 0 auto; padding: 10rem 2rem 0; }
+  .article-meta-top { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+  h1.article-title { font-family: var(--serif); font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 700; line-height: 1.1; margin-bottom: 1.4rem; }
+  .article-dek { font-family: var(--serif); font-size: clamp(1.3rem, 2.4vw, 1.7rem); color: var(--text-primary); line-height: 1.45; margin-bottom: 2.4rem; font-weight: 400; padding-bottom: 2.4rem; border-bottom: 1px solid var(--border); }
+  .article-body p { font-size: 1.12rem; color: var(--text-secondary); line-height: 1.85; margin-bottom: 1.5rem; }
+  .article-body p strong { color: var(--text-primary); font-weight: 500; }
+  .article-body h2 { font-family: var(--serif); font-size: 1.6rem; font-weight: 600; color: var(--text-primary); margin: 3.2rem 0 1.2rem; line-height: 1.3; }
+  .sessions { list-style: none; margin: 0 0 1.5rem; counter-reset: s; }
+  .sessions li { position: relative; padding: 1.6rem 0 1.6rem 3.4rem; border-top: 1px solid var(--border); }
+  .sessions li:last-child { border-bottom: 1px solid var(--border); }
+  .sessions li::before { counter-increment: s; content: counter(s); position: absolute; left: 0; top: 1.45rem; font-family: var(--serif); font-size: 1.6rem; color: var(--gold); line-height: 1; }
+  .sessions h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem; line-height: 1.3; }
+  .sessions p { margin-bottom: 0; }
+  .article-cta { margin: 3.5rem 0 0; padding: 2rem 2.2rem; background: var(--bg-card); border: 1px solid var(--gold); border-radius: 4px; }
+  .article-cta .cta-label { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .article-cta a.btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.95rem 2.2rem; background: var(--gold); color: var(--bg-primary); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: opacity 0.3s; }
+  .article-cta a.btn:hover { opacity: 0.9; }
+  footer { padding: 3rem; text-align: center; color: var(--text-secondary); font-size: 0.78rem; letter-spacing: 0.05em; border-top: 1px solid var(--border); margin-top: 5rem; }
+  footer a { color: var(--text-secondary); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+  @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .article { padding: 8rem 1.5rem 0; } }
+  .skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}
+  @view-transition { navigation: auto; }
+</style>
+  <!-- Cloudflare Web Analytics --><script type="module" defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;65eb31eee8724f75a014183d2bf26ef7&quot;}"></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+<a class="skip-link" href="#main">Spring til indhold</a>
+<nav aria-label="Primary">
+  <a href="/" class="logo" aria-label="Steven Wensley — forside">SSW</a>
+  <button class="hamburger" onclick="this.classList.toggle('active');this.setAttribute('aria-expanded',this.classList.contains('active'));document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <div class="nav-links">
+    <a href="/forloeb" class="active">Forl&oslash;bet</a>
+    <a href="/#det-jeg-har-set">Noter</a>
+    <a href="/services-da">Ydelser</a>
+    <a href="/#om">Om</a>
+    <a href="/#kontakt">Kontakt</a>
+    <a href="/en" style="opacity:.7" hreflang="en" lang="en">EN</a>
+  </div>
+</nav>
+<main id="main" tabindex="-1">
+
+<article class="article">
+  <div class="article-meta-top">Forl&oslash;b for ledergrupper &nbsp;&middot;&nbsp; tre gange tre timer</div>
+  <h1 class="article-title">D&oslash;mmekraft i drift</h1>
+  <p class="article-dek">AI er ikke et IT-problem. Det er et sp&oslash;rgsm&aring;l om, hvem der b&oslash;jer sig ned og r&oslash;rer ved trinene.</p>
+
+  <div class="article-body">
+    <p>Jeg har haft AI-agenter i drift siden februar. De skriver al koden i min fabrik. Over 4.000 &aelig;ndringer er g&aring;et i drift, og ingen af dem er godkendt af den, der skrev dem. Jeg har ikke l&aelig;st &eacute;n af dem linje for linje.</p>
+    <p>Det lyder uansvarligt. Det er det modsatte. Men det tog mig fire dage og &eacute;n nedstyrtning at l&aelig;re hvorfor.</p>
+    <p>Det her forl&oslash;b er det, jeg l&aelig;rte, givet videre til ledergrupper, der st&aring;r med AI-byggede v&aelig;rkt&oslash;jer p&aring; vej mod rigtige data, og som skal sige god for dem uden selv at kunne l&aelig;se koden.</p>
+
+    <h2>Hvem det er for</h2>
+    <p>En ledergruppe eller direktion p&aring; seks til ti. Mindst &eacute;n AI-bygget l&oslash;sning er i brug eller p&aring; vej. Ingen af jer er udviklere, og det er pointen. Det er jer, der skal sige ja, og jer, der skal leve med det bagefter.</p>
+    <p>Det er ikke for medarbejdere, der skal l&aelig;re at bygge. Det er ikke for it-afdelingen.</p>
+
+    <h2>Hvad I g&aring;r hjem med</h2>
+    <p>Tre ting. En erfaring af selv at v&aelig;re blevet overbevist af noget, der ikke holdt. Et sprog for, hvorn&aring;r et svar fortjener tvivl. Og &eacute;n side om jeres eget projekt, som I selv har skrevet: hvad det ikke m&aring;, og hvordan I vil opdage, at det tager fejl.</p>
+
+    <h2>Tre sessioner</h2>
+    <ol class="sessions">
+      <li>
+        <h3>Spejlet</h3>
+        <p>Hvorfor det lyder rigtigt, n&aring;r det er forkert. Jeg fort&aelig;ller, hvad der skete, da jeg stod og s&aring; en agent male p&aring; fernissen i dagevis og troede, det var olie. S&aring; arbejder en agent live p&aring; jeres eget materiale og leverer noget, der er overbevisende forkert &eacute;t sted. I skal finde det. Bagefter taler vi om, hvorfor I ikke gjorde.</p>
+      </li>
+      <li>
+        <h3>Skinnerne</h3>
+        <p>Det, der skal v&aelig;re p&aring; plads, f&oslash;r nogen m&aring; stole p&aring; det. Ikke som kontrol, men som det, der g&oslash;r det muligt at lege. Ti sp&oslash;rgsm&aring;l, hvert projekt skal kunne svare ja til, f&oslash;r det r&oslash;rer rigtige data, stillet til jeres eget, &eacute;t ad gangen, h&oslash;jt.</p>
+      </li>
+      <li>
+        <h3>D&oslash;mmekraften</h3>
+        <p>Det, der ikke kan uddelegeres. Hvad det g&oslash;r ved ens egen d&oslash;mmekraft at arbejde t&aelig;t p&aring; noget, der spejler en, og altid lyder sikkert. Hvorfor hverken ja'et eller nej'et er evidens. Og det, I som ledere skal beslutte, som ingen maskine kan: hvad den ikke m&aring;, hvilke beslutninger den ikke tr&aelig;ffer alene, og hvem der opdager det, n&aring;r den tager fejl. Hver af jer skriver den ene side. Den er leverancen.</p>
+      </li>
+    </ol>
+    <p>Mellem sessionerne er der &eacute;n opgave p&aring; under en time, om jeres eget projekt.</p>
+
+    <h2>Hvad det ikke er</h2>
+    <p>Ikke et promptkursus. Ikke et byggekursus. Ikke compliance. Ikke en teknisk gennemgang af jeres leverand&oslash;r. Vil I have jeres l&oslash;sning gennemg&aring;et teknisk, er det en anden ydelse, og den kommer bagefter, ikke f&oslash;r.</p>
+
+    <h2>Format</h2>
+    <p>Tre gange tre timer, hos jer, med to til tre uger imellem. Fysisk; rummet er en del af metoden. Session 1 kan ogs&aring; holdes alene som et opl&aelig;g p&aring; 90 minutter med demonstration.</p>
+  </div>
+
+  <div class="article-cta">
+    <div class="cta-label">Kontakt</div>
+    <a href="/book-session" class="btn">Kontakt &rarr;</a>
+  </div>
+</article>
+
+</main>
+<footer>
+  <div data-footer-nav style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="/workshop">The Factory</a> &middot; <a href="/playbooks">Playbooks</a> &middot; <a href="/services">Services</a> &middot; <a href="/tools">Tools</a> &middot; <a href="/insights">Insights</a> &middot; <a href="/notes">Notes</a> &middot; <a href="/glossary">Glossary</a> &middot; <a href="/about">About</a> &middot; <a href="/en#contact">Contact</a></div>
+
+  <div style="font-size: 0.72rem; color: var(--text-secondary); letter-spacing: 0.05em; margin-bottom: 0.5rem;"><a href="/">Forside</a> &middot; <a href="/spejlet">Spejlet</a> &middot; <a href="/about">CV, referencer og certificeringer</a> &middot; <a href="/privacy">Privatliv</a></div>
+  &copy; 2026 Steven Seidenfaden Wensley. Alle rettigheder forbeholdes.
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Dømmekraft i drift — forløb for ledergrupper",
+  "url": "https://stevenwensley.com/forloeb",
+  "inLanguage": "da",
+  "description": "Tre gange tre timer for ledergrupper, der skal sige god for AI-byggede værktøjer uden at kunne læse koden. Spejlet, skinnerne, dømmekraften.",
+  "author": {
+    "@type": "Person",
+    "name": "Steven Seidenfaden Wensley",
+    "url": "https://stevenwensley.com/about"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Steven Wensley",
+    "url": "https://stevenwensley.com/"
+  }
+}
+</script>
+</body>
+</html>

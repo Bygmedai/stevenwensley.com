@@ -36,8 +36,9 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 
-// Every hub the site has. Contact is a fragment on the front page, so it goes
-// last where a truncated read loses least.
+// Every hub the site has. Contact is a fragment on the English front page
+// (/en since BYG-703; the root is Danish and its section is #kontakt), so it
+// goes last where a truncated read loses least.
 const LINKS = [
   ['/', 'Home'],
   ['/workshop', 'The Factory'],
@@ -48,7 +49,7 @@ const LINKS = [
   ['/notes', 'Notes'],
   ['/glossary', 'Glossary'],
   ['/about', 'About'],
-  ['/#contact', 'Contact'],
+  ['/en#contact', 'Contact'],
 ];
 
 const MARK = 'data-footer-nav';
@@ -75,13 +76,13 @@ const STANDALONE = (rowHtml) =>
   '  &copy; 2026 Steven Seidenfaden Wensley. All rights reserved.\n' +
   '</footer>\n';
 
-// Pages that are deliberately outside the site's navigation. The 404 page gets
-// the row — someone who lands there needs it more than anyone — but templates
-// is a gated lead magnet and index-da/services-da are the Danish mirror, which
-// links within itself.
-const SKIP = new Set(['index-da.html', 'services-da.html']);
-
-const files = (await readdir(ROOT)).filter((f) => f.endsWith('.html') && !SKIP.has(f));
+// Every root page, no exceptions. The Danish pages used to be skipped as "a
+// mirror that links within itself"; Steven's decision on BYG-703 (2 October
+// 2026) was that the row goes on every page, the Danish root included — the
+// row exists for the link graph, and a crawler does not care which language
+// the page around it is in. A skip list is also one more place a new page can
+// be forgotten.
+const files = (await readdir(ROOT)).filter((f) => f.endsWith('.html'));
 
 const added = [];
 const replaced = [];

@@ -14,6 +14,7 @@
 // Testing against a server with different resolution rules than production is
 // testing the wrong thing. This one applies production's order:
 //
+//   0. a rule in _redirects, if one matches the path exactly
 //   1. exact path, if it is a file
 //   2. path + ".html"
 //   3. path + "/index.html"
@@ -21,6 +22,14 @@
 //
 // Directory listings are never produced, because neither real server produces
 // them.
+//
+// _redirects is Cloudflare's file (one rule per line: source, destination,
+// status) and Cloudflare evaluates it before static assets. It is read here
+// for the same reason the resolution order is copied: when /index-da moved to
+// the root, the acceptance criterion was "answers 301", and a server that
+// could not answer 301 would have left that to be assumed. Only exact-path
+// rules are supported — that is all the file uses. A rule with a splat or a
+// placeholder stops the server at startup instead of being silently ignored.
 //
 // Usage: node scripts/serve-static.mjs [root] [port]
 
@@ -30,6 +39,18 @@ import { join, normalize, extname } from 'node:path';
 
 const ROOT = process.argv[2] || '.';
 const PORT = Number(process.argv[3] || 8080);
+
+const REDIRECTS = new Map();
+for (const raw of (await readFile(join(ROOT, '_redirects'), 'utf8').catch(() => '')).split('\n')) {
+  const line = raw.replace(/#.*$/, '').trim();
+  if (!line) continue;
+  const [from, to, status = '302'] = line.split(/\s+/);
+  if (!from || !to || /[*:]/.test(from)) {
+    console.error(`serve-static: _redirects-regel ikke understøttet her: "${raw}"`);
+    process.exit(1);
+  }
+  REDIRECTS.set(from, { to, status: Number(status) });
+}
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -72,6 +93,13 @@ async function resolve(pathname) {
 createServer(async (req, res) => {
   const { pathname } = new URL(req.url, 'http://localhost');
 
+  const rule = REDIRECTS.get(pathname);
+  if (rule) {
+    res.writeHead(rule.status, { location: rule.to });
+    res.end();
+    return;
+  }
+
   // Cloudflare Pages 308-redirects /about/ to /about when the directory has no
   // index. Mirroring that matters for more than fidelity: without it the link
   // checker treats /about/ as a live base and resolves the page's own relative
@@ -106,5 +134,5 @@ createServer(async (req, res) => {
   });
   res.end(await readFile(file));
 }).listen(PORT, () => {
-  console.log(`serve-static: ${ROOT} paa http://localhost:${PORT}`);
+  console.log(`serve-static: ${ROOT} paa http://localhost:${PORT} (${REDIRECTS.size} redirect-regler)`);
 });
