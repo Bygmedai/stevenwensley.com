@@ -40,6 +40,6 @@ module.exports = {
     { label: "Tools", href: "/tools", id: "tools" },
     { label: "Notes", href: "/notes", id: "notes" },
     { label: "About", href: "/about", id: "about" },
-    { label: "Contact", href: "/#contact", id: "contact" },
+    { label: "Contact", href: "/en#contact", id: "contact" },
   ],
 };
