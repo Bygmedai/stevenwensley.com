@@ -74,12 +74,15 @@ const REQUIRED = [
   'index.html',
   '404.html',
   '_headers',
+  '_redirects',
   'robots.txt',
   'sitemap.xml',
   'feed.xml',
   'llms.txt',
   'insights/five-signs-not-ready.html',
   'og/index.png',
+  'en.html',
+  'forloeb.html',
 ];
 
 // The inverse assertion. A deny list without a test rots: someone adds a tool

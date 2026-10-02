@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Steven Wensley — AI is not an IT problem</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="AI is not an IT problem. I have run AI agents in production since February. What I learned is about judgement, not technology. Copenhagen.">
+
+<!-- Open Graph / Social sharing -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stevenwensley.com/en">
+<meta property="og:title" content="Steven Wensley — AI is not an IT problem">
+<meta property="og:description" content="I have run AI agents in production since February. Every day, at my own expense. What I learned is not about the technology. It is about what happens to judgement when the answer always sounds certain. That is what I talk to leadership teams about. And I show it before I say it.">
+<meta property="og:image" content="https://stevenwensley.com/og/en.png">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Steven Wensley — AI is not an IT problem">
+<meta name="twitter:description" content="I have run AI agents in production since February. Every day, at my own expense. What I learned is not about the technology. It is about what happens to judgement when the answer always sounds certain. That is what I talk to leadership teams about. And I show it before I say it.">
+<meta name="twitter:image" content="https://stevenwensley.com/og/en.png">
+
+<link rel="canonical" href="https://stevenwensley.com/en">
+<link rel="alternate" hreflang="da" href="https://stevenwensley.com/">
+<link rel="alternate" hreflang="en" href="https://stevenwensley.com/en">
+<link rel="alternate" hreflang="x-default" href="https://stevenwensley.com/">
+
+<meta name="view-transition" content="same-origin">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-card: #1a1a26;
+    --gold: #c9a96e;
+    --gold-light: #dfc08a;
+    --gold-dim: rgba(201, 169, 110, 0.15);
+    --text-primary: #f0ece4;
+    --text-secondary: #9a9aaa;
+    --text-muted: #6a6a7a;
+    --border: rgba(201, 169, 110, 0.12);
+    --red: #c0563f;
+    --green: #4c9a72;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'Space Grotesk', -apple-system, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .logo {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+  nav .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  nav .nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  nav .nav-links a:hover, nav .nav-links a.active { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    padding: 8rem 3rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .hero-content { flex: 1; }
+  .hero-photo {
+    flex-shrink: 0;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 15%;
+    border: 3px solid var(--gold);
+    box-shadow: 0 0 40px rgba(201, 169, 110, 0.15);
+  }
+  .hero-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .hero-label::before {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+  }
+  .hero h1 .accent { color: var(--gold); }
+  .hero .tagline {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    max-width: 560px;
+    margin-bottom: 3rem;
+    line-height: 1.8;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2.5rem;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.4s;
+    cursor: pointer;
+  }
+  .hero-cta:hover {
+    background: var(--gold);
+    color: var(--bg-primary);
+  }
+  .hero-cta svg { width: 16px; height: 16px; transition: transform 0.3s; }
+  .hero-cta:hover svg { transform: translateX(4px); }
+
+  /* ── SECTION COMMONS ── */
+  section { padding: 7rem 3rem; }
+  .section-inner { max-width: 1000px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 600;
+    margin-bottom: 2rem;
+    line-height: 1.3;
+  }
+  .section-intro {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    max-width: 680px;
+    line-height: 1.8;
+  }
+
+  /* ── PLAYBOOK CARDS ── */
+  .playbook-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .playbook-card {
+    display: block;
+    padding: 2.2rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.4s, transform 0.4s;
+    position: relative;
+  }
+  .playbook-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .playbook-card.flagship { border-left: 3px solid var(--gold); }
+  .playbook-flag {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bg-primary);
+    background: var(--gold);
+    padding: 3px 9px;
+    border-radius: 3px;
+    position: absolute;
+    top: 1.4rem;
+    right: 1.4rem;
+  }
+  .playbook-sector {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .playbook-card h3 {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+  .playbook-card p {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+  .playbook-link {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* ── PAIN CARDS ── */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .pain-card {
+    padding: 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--red);
+    border-radius: 4px;
+  }
+  .pain-card h3 {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-bottom: 0.6rem;
+    line-height: 1.35;
+  }
+  .pain-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
+
+  /* ── THESIS ── */
+  #thesis { background: var(--bg-secondary); }
+  .thesis-statement {
+    font-family: var(--serif);
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--text-primary);
+    max-width: 760px;
+    margin-bottom: 2rem;
+  }
+  .thesis-statement em {
+    color: var(--gold);
+    font-style: normal;
+    font-weight: 600;
+  }
+  .thesis-detail {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    max-width: 680px;
+    line-height: 1.8;
+  }
+
+  /* ── CAPABILITIES ── */
+  .cap-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .cap-card {
+    padding: 2rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    transition: border-color 0.4s;
+  }
+  .cap-card:hover { border-color: var(--gold); }
+  .cap-card h3 { font-family: var(--serif); font-size: 1.15rem; font-weight: 600; margin-bottom: 0.6rem; }
+  .cap-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
+
+  /* ── CONTACT ── */
+  #contact { text-align: center; }
+  #contact .section-label { justify-content: center; }
+  #contact .section-label::before { display: none; }
+  .contact-photo {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 20%;
+    border: 2px solid var(--gold);
+    margin: 0 auto 2rem;
+    display: block;
+  }
+  .contact-text { font-size: 1.05rem; color: var(--text-secondary); max-width: 520px; margin: 0 auto 3rem; }
+  .contact-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 400;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .contact-link:hover { border-color: var(--gold); color: var(--gold); }
+  .contact-link svg { width: 18px; height: 18px; color: var(--gold); }
+
+  /* ── FOOTER ── */
+  footer { padding: 3rem; text-align: center; color: var(--text-muted); font-size: 0.78rem; letter-spacing: 0.05em; border-top: 1px solid var(--border); }
+  footer a { color: var(--text-secondary); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+
+  .gold-line { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 2rem; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    nav .nav-links { gap: 1.5rem; }
+    nav .nav-links a { font-size: 0.72rem; }
+    .hero { padding: 7rem 1.5rem 3rem; flex-direction: column-reverse; text-align: center; gap: 2rem; }
+    .hero-photo { width: 200px; height: 200px; }
+    .hero-label { justify-content: center; }
+    .hero-label::before { display: none; }
+    section { padding: 5rem 1.5rem; }
+    .contact-links { flex-direction: column; align-items: center; }
+  }
+
+  /* ── SCROLL REVEAL ── */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  [data-reveal].revealed { opacity: 1; transform: translateY(0); }
+  .stagger-item {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .stagger-item.revealed { opacity: 1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal], .stagger-item { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ── HAMBURGER MOBILE MENU ── */
+  .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 101; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); margin: 5px 0; transition: all 0.3s; border-radius: 2px; }
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+  @media (max-width: 680px) {
+    .hamburger { display: block; }
+    nav .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(10, 10, 15, 0.97);
+      backdrop-filter: blur(20px);
+      flex-direction: column;
+      padding: 1.5rem 2rem;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    nav .nav-links.open { display: flex; }
+    nav .nav-links a { font-size: 0.9rem; padding: 0.5rem 0; }
+  }
+
+  /* ── REGULATORY MAP ── */
+  .reg-wrap { display: grid; grid-template-columns: 280px 1fr; gap: 1.5rem; margin-top: 3rem; align-items: start; }
+  .reg-tabs { display: flex; flex-direction: column; gap: 0.5rem; }
+  .reg-tab { text-align: left; background: var(--bg-secondary); border: 1px solid var(--border); border-left: 3px solid transparent; border-radius: 2px; padding: 1rem 1.2rem; cursor: pointer; font-family: var(--sans); transition: color 0.3s, background 0.3s, border-color 0.3s; }
+  .reg-tab:hover { border-color: var(--gold); }
+  .reg-tab .reg-abbr { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--text-primary); display: block; }
+  .reg-tab .reg-full { font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.02em; }
+  .reg-tab[aria-selected="true"] { border-left-color: var(--gold); background: var(--bg-card); }
+  .reg-tab[aria-selected="true"] .reg-abbr { color: var(--gold); }
+  .reg-tab:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .reg-panel { background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px; padding: 2rem; }
+  .reg-panel[hidden] { display: none; }
+  .reg-panel h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.3rem; color: var(--text-primary); }
+  .reg-panel .reg-gov { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem; }
+  .reg-h { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+  .reg-sectors { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.6rem; }
+  .reg-sector { padding: 0.35rem 0.85rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 20px; font-size: 0.76rem; color: var(--text-primary); }
+  .reg-do { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.75; border-left: 2px solid var(--gold); padding-left: 1.1rem; }
+  @media (max-width: 760px) { .reg-wrap { grid-template-columns: 1fr; } .reg-tabs { flex-direction: row; flex-wrap: wrap; } .reg-tab { flex: 1; min-width: 140px; } }
+</style>
+<style id="a11y-skip-link">.skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;font-family:'Space Grotesk',sans-serif;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}</style>
+  <!-- Cloudflare Web Analytics --><script type="module" defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;65eb31eee8724f75a014183d2bf26ef7&quot;}"></script><!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- NAV -->
+<nav aria-label="Primary">
+  <a href="/" class="logo" style="text-decoration:none;" aria-label="Steven Wensley — home">SSW</a>
+  <button class="hamburger" onclick="this.classList.toggle('active');this.setAttribute('aria-expanded',this.classList.contains('active'));document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <div class="nav-links">
+    <a href="/workshop">The Factory</a>
+    <a href="/playbooks">Playbooks</a>
+    <a href="/services">Services</a>
+    <a href="/tools">Tools</a>
+    <a href="/notes">Notes</a>
+    <a href="/about">About</a>
+    <a href="#contact">Contact</a>
+    <a href="/" class="lang-switch" style="border-left:1px solid var(--border);padding-left:1.5rem;" hreflang="da" lang="da">DA</a>
+  </div>
+</nav>
+<main id="main" tabindex="-1">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-label">Copenhagen</div>
+    <h1>
+      AI is not an <span class="accent" style="white-space: nowrap;">IT problem.</span>
+    </h1>
+    <p class="tagline">
+      I have run AI agents in production since February. Every day, at my own expense. What I learned is not about the technology. It is about what happens to judgement when the answer always sounds certain. That is what I talk to leadership teams about. And I show it before I say it.
+    </p>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+      <a href="/forloeb" class="hero-cta" style="background: var(--gold); color: var(--bg-primary); font-weight: 600; border: none;" hreflang="da">
+        The programme
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="/note-fallible-both-directions" class="hero-cta">
+        Read: Fallible in both directions
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+  <img loading="eager" src="/img/photo-hero.jpg" alt="Steven Seidenfaden Wensley" class="hero-photo" width="341" height="512" decoding="async" fetchpriority="high">
+</section>
+
+
+<!-- PAIN / SOUND FAMILIAR -->
+<section data-reveal style="background: var(--bg-secondary); border-bottom: 1px solid var(--border);">
+  <div class="section-inner">
+    <div class="section-label">Sound familiar?</div>
+    <h2 class="section-title">The situations I&rsquo;m called into.</h2>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <h3>The status report says amber. Everyone knows it&rsquo;s red.</h3>
+        <p>The SteerCo meets monthly to watch it get worse, the vendors point at each other, and the board is starting to ask whose name is on it.</p>
+      </div>
+      <div class="pain-card">
+        <h3>The compliance date is already behind you.</h3>
+        <p>NIS2 or DORA is in force, the controls exist on paper, and no one actually owns making them operate before the regulator asks for evidence.</p>
+      </div>
+      <div class="pain-card">
+        <h3>The migration froze two quarters ago.</h3>
+        <p>Validated systems no one dares touch, QA and IT talking past each other, and a go-live date that keeps moving to the right.</p>
+      </div>
+    </div>
+    <p class="section-intro" style="margin-top: 2.5rem;">
+      I don&rsquo;t hand you a slide deck. I show you exactly how I&rsquo;d take each of these apart &mdash; the method, the tools, and the political reality nobody writes down.
+    </p>
+    <div style="margin-top: 2.5rem; padding: 1.6rem 2rem; background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 4px; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;">
+      <div>
+        <div style="font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem;">2-minute check</div>
+        <p style="font-size: 1rem; color: var(--text-secondary); line-height: 1.6;">Not sure if yours is actually red? Seven honest questions &mdash; no email, runs in your browser.</p>
+      </div>
+      <a href="/programme-health-check" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.8rem; background: var(--gold); color: var(--bg-primary); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; white-space: nowrap; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">Take the check &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- PLAYBOOKS -->
+<section id="playbooks" data-reveal>
+  <div class="section-inner">
+    <div class="section-label">Playbooks</div>
+    <h2 class="section-title">Show, don&rsquo;t tell. Pick your situation.</h2>
+    <p class="section-intro">
+      Four scenarios drawn from 20 years in regulated delivery &mdash; and from the Danish programmes everyone remembers. No confidential client detail; the pattern is the point. Each one walks through how I&rsquo;d approach it.
+    </p>
+    <div class="playbook-grid">
+      <a href="/playbook-programme-recovery" class="playbook-card flagship stagger-item">
+        <span class="playbook-flag">Interactive</span>
+        <div class="playbook-sector">Turnaround &middot; cross-sector</div>
+        <h3>The red programme you just inherited</h3>
+        <p>Multiple vendors, an SKI framework that locks you in, a nervous board, and a governance structure that stopped working months ago. The first 90 days, step by step.</p>
+        <span class="playbook-link">Walk the first 90 days &rarr;</span>
+      </a>
+      <a href="/playbook-gxp-migration" class="playbook-card stagger-item">
+        <div class="playbook-sector">Pharma &middot; life science</div>
+        <h3>The stalled GxP datacenter migration</h3>
+        <p>Production can&rsquo;t go down, validated systems are frozen, and QA holds a veto everyone respects and no one enjoys. It&rsquo;s validation debt, not servers.</p>
+        <span class="playbook-link">See the approach &rarr;</span>
+      </a>
+      <a href="/playbook-nis2-compliance" class="playbook-card stagger-item">
+        <div class="playbook-sector">Critical infra &middot; finance</div>
+        <h3>The NIS2 deadline you&rsquo;re already past</h3>
+        <p>In force since 1 July 2025. Controls on paper, ownership nowhere &mdash; and a Danish law that makes management approve and oversee the measures but adds no personal fine, so the pressure stays abstract.</p>
+        <span class="playbook-link">See the approach &rarr;</span>
+      </a>
+      <a href="/playbook-carveout-separation" class="playbook-card stagger-item">
+        <div class="playbook-sector">M&amp;A &middot; divestiture</div>
+        <h3>The carve-out separating two entities</h3>
+        <p>A fixed business date, 1,500+ interdependent decisions, and a parent company with no incentive to help you leave. Day 1 readiness, ruthlessly defined.</p>
+        <span class="playbook-link">See the approach &rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- THESIS -->
+<section id="thesis" data-reveal>
+  <div class="section-inner">
+    <div class="section-label">Why programmes really fail</div>
+    <p class="thesis-statement">
+      Denmark has a whole shelf of Rigsrevisionen reports on programmes that failed. They almost never fail on <em>technology</em>. They fail because <em>decision rights</em> are unclear, <em>accountability</em> is diluted &mdash; and because, by the time it&rsquo;s red, the real question in the room is <em>whose name is on it.</em>
+    </p>
+    <p class="thesis-detail">
+      The org chart tells you who&rsquo;s accountable. The corridor conversations tell you who actually decides. I read both &mdash; and I rebuild governance that&rsquo;s connected to delivery instead of performing it. That is the difference between a recovery plan and a recovery.
+    </p>
+    <p class="thesis-detail" style="margin-top: 1.5rem;"><a href="/method" style="color: var(--gold); text-decoration: none;">See the method &mdash; Control &middot; Stabilise &middot; Correct &rarr;</a></p>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section id="capabilities" data-reveal>
+  <div class="section-inner">
+    <div class="section-label">What I&rsquo;m brought in for</div>
+    <h2 class="section-title">Where governance meets delivery.</h2>
+    <div class="cap-grid">
+      <div class="cap-card stagger-item">
+        <h3>Programme turnaround</h3>
+        <p>Taking over red, stalled or politically stuck programmes &mdash; re-establishing decision rights, resetting vendor governance and recovering the timeline.</p>
+      </div>
+      <div class="cap-card stagger-item">
+        <h3>Transition &amp; migration</h3>
+        <p>Datacenter, mainframe and cloud transitions in production-critical, regulated environments &mdash; including GxP-validated pharma estates (MES, SCADA, PAS-X).</p>
+      </div>
+      <div class="cap-card stagger-item">
+        <h3>Regulatory delivery</h3>
+        <p>NIS2, DORA, ISO 27001 and GxP made operational &mdash; turning controls-on-paper into evidence a supervisory authority will accept.</p>
+      </div>
+      <div class="cap-card stagger-item">
+        <h3>Carve-out &amp; separation</h3>
+        <p>IT separation and TSA exit across multiple entities, workstreams and geographies &mdash; Day 1 readiness planned as a governed backlog, not discovered late.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
+      <div style="padding: 1.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px;">
+        <div style="font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem;">Sectors</div>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.9;">Pharma &amp; life science &middot; Financial infrastructure &middot; Telecom &middot; Public sector &amp; healthcare &middot; Critical infrastructure</p>
+      </div>
+      <div style="padding: 1.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px;">
+        <div style="font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem;">Certifications</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">PMP</span>
+          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">PRINCE2 Practitioner</span>
+          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">SAFe 5.0 Agilist</span>
+          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">PSM I</span>
+          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">PSPO I</span>
+          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">SPS</span>
+          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">PAL I</span>
+          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">MSP</span>
+          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">P3O</span>
+          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">MoP</span>
+          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">AgilePM</span>
+        </div>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 1rem; line-height: 1.6;">In progress (2026): EU AI Act &amp; ISO/IEC 42001 Lead Implementer, NIS2 Lead Implementer (PECB).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGULATORY MAP -->
+<section id="regulatory" data-reveal style="background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="section-inner">
+    <div class="section-label">The regulatory landscape</div>
+    <h2 class="section-title">The regimes I operate across.</h2>
+    <p class="section-intro">Regulated delivery means the compliance regime <em>is</em> the constraint. Pick one to see what it governs, which sectors it hits, and what I do with it. &mdash; or see every key date in the <a href="/regulatory-deadlines" style="color: var(--gold);">deadline tracker</a>.</p>
+    <div class="reg-wrap">
+      <div class="reg-tabs" role="tablist" aria-label="Regulatory regimes" aria-orientation="vertical">
+        <button class="reg-tab" id="regtab-nis2" role="tab" aria-selected="true" aria-controls="regpanel-nis2" type="button">
+          <span class="reg-abbr">NIS2</span><span class="reg-full">Network &amp; Information Security Directive</span>
+        </button>
+        <button class="reg-tab" id="regtab-dora" role="tab" aria-selected="false" aria-controls="regpanel-dora" type="button" tabindex="-1">
+          <span class="reg-abbr">DORA</span><span class="reg-full">Digital Operational Resilience Act</span>
+        </button>
+        <button class="reg-tab" id="regtab-gxp" role="tab" aria-selected="false" aria-controls="regpanel-gxp" type="button" tabindex="-1">
+          <span class="reg-abbr">GxP / EU GMP</span><span class="reg-full">Good Practice &amp; Annex 11</span>
+        </button>
+        <button class="reg-tab" id="regtab-pci" role="tab" aria-selected="false" aria-controls="regpanel-pci" type="button" tabindex="-1">
+          <span class="reg-abbr">PCI-DSS</span><span class="reg-full">Payment Card Industry Data Security</span>
+        </button>
+        <button class="reg-tab" id="regtab-iso" role="tab" aria-selected="false" aria-controls="regpanel-iso" type="button" tabindex="-1">
+          <span class="reg-abbr">ISO 27001</span><span class="reg-full">Information Security Management</span>
+        </button>
+      </div>
+
+      <div class="reg-panel" id="regpanel-nis2" role="tabpanel" aria-labelledby="regtab-nis2" tabindex="0">
+        <h3>NIS2</h3>
+        <p class="reg-gov">Cybersecurity risk-management measures and incident reporting for Essential and Important Entities &mdash; in force in Denmark since 1 July 2025, with penalties up to &euro;10M or 2% of global turnover.</p>
+        <div class="reg-h">Sectors it hits</div>
+        <div class="reg-sectors"><span class="reg-sector">Energy</span><span class="reg-sector">Transport</span><span class="reg-sector">Health</span><span class="reg-sector">Water</span><span class="reg-sector">Digital infrastructure</span><span class="reg-sector">Public administration</span></div>
+        <div class="reg-h">What I do with it</div>
+        <p class="reg-do">Turn the directive into an operating programme with named owners and evidence a supervisor accepts &mdash; not a binder of policies nobody runs.</p>
+      </div>
+
+      <div class="reg-panel" id="regpanel-dora" role="tabpanel" aria-labelledby="regtab-dora" tabindex="0" hidden>
+        <h3>DORA</h3>
+        <p class="reg-gov">ICT risk management, third-party oversight, incident reporting and resilience testing for financial entities &mdash; applicable across the EU since 17 January 2025.</p>
+        <div class="reg-h">Sectors it hits</div>
+        <div class="reg-sectors"><span class="reg-sector">Banking</span><span class="reg-sector">Insurance</span><span class="reg-sector">Payments</span><span class="reg-sector">Investment</span><span class="reg-sector">Financial infrastructure</span></div>
+        <div class="reg-h">What I do with it</div>
+        <p class="reg-do">Stand up ICT-risk governance and third-party oversight that hold up under a resilience test &mdash; stacked cleanly on top of NIS2 where both apply.</p>
+      </div>
+
+      <div class="reg-panel" id="regpanel-gxp" role="tabpanel" aria-labelledby="regtab-gxp" tabindex="0" hidden>
+        <h3>GxP / EU GMP</h3>
+        <p class="reg-gov">Computerised-system validation and data integrity (ALCOA+) in regulated manufacturing &mdash; governed by EU GMP Annex 11, GAMP 5 and 21 CFR Part 11.</p>
+        <div class="reg-h">Sectors it hits</div>
+        <div class="reg-sectors"><span class="reg-sector">Pharma</span><span class="reg-sector">Life science</span><span class="reg-sector">Medical devices</span><span class="reg-sector">Biotech</span></div>
+        <div class="reg-h">What I do with it</div>
+        <p class="reg-do">Run migrations and transitions that keep validated systems (MES, SCADA, PAS-X) audit-ready &mdash; migration and validation evidence landing together.</p>
+      </div>
+
+      <div class="reg-panel" id="regpanel-pci" role="tabpanel" aria-labelledby="regtab-pci" tabindex="0" hidden>
+        <h3>PCI-DSS</h3>
+        <p class="reg-gov">Security controls protecting cardholder data across people, process and technology &mdash; assessed on a recurring recertification cycle.</p>
+        <div class="reg-h">Sectors it hits</div>
+        <div class="reg-sectors"><span class="reg-sector">Banking</span><span class="reg-sector">Payments</span><span class="reg-sector">Retail</span><span class="reg-sector">Fintech</span></div>
+        <div class="reg-h">What I do with it</div>
+        <p class="reg-do">Bring card-data environments through recertification without stalling delivery &mdash; governance and scope kept tight around the CDE.</p>
+      </div>
+
+      <div class="reg-panel" id="regpanel-iso" role="tabpanel" aria-labelledby="regtab-iso" tabindex="0" hidden>
+        <h3>ISO 27001</h3>
+        <p class="reg-gov">A risk-based information-security management system (ISMS) &mdash; the control backbone that most of the regimes above lean on.</p>
+        <div class="reg-h">Sectors it hits</div>
+        <div class="reg-sectors"><span class="reg-sector">Cross-sector</span><span class="reg-sector">Finance</span><span class="reg-sector">Public sector</span><span class="reg-sector">Critical infrastructure</span></div>
+        <div class="reg-h">What I do with it</div>
+        <p class="reg-do">Use it as the shared control backbone under NIS2 and DORA programmes &mdash; so evidence is produced once and reused, not rebuilt per regime.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section data-reveal style="background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="section-inner">
+    <div class="section-label">In their words</div>
+    <h2 class="section-title">What the people I&rsquo;ve delivered for say.</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 1.5rem; margin-top: 2.5rem;">
+      <blockquote style="margin: 0; padding: 2rem; background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 3px; min-width: 0;">
+        <p style="font-size: 1.05rem; color: var(--text-primary); line-height: 1.7; margin-bottom: 1.2rem; font-style: italic;">&ldquo;Steven joined when things were not moving in the right direction. In a very short time of six weeks he was able to bring the project on track.&rdquo;</p>
+        <div style="font-size: 0.9rem; color: var(--gold-light); font-weight: 500;">Abhaprakash Praharaj, PMP</div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Project Manager, Tata Consultancy Services</div>
+      </blockquote>
+      <blockquote style="margin: 0; padding: 2rem; background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 3px; min-width: 0;">
+        <p style="font-size: 1.05rem; color: var(--text-primary); line-height: 1.7; margin-bottom: 1.2rem; font-style: italic;">&ldquo;His experience in programme governance, planning, risk and dependency management was invaluable&hellip; detailed reporting brought together in a stakeholder-friendly way.&rdquo;</p>
+        <div style="font-size: 0.9rem; color: var(--gold-light); font-weight: 500;">Alan Todd</div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Global Programme Director (managed Steven directly)</div>
+      </blockquote>
+    </div>
+    <p style="margin-top: 1.8rem; font-size: 0.92rem;"><a href="/about#testimonials" style="color: var(--gold); text-decoration: none;">Read more &mdash; all verifiable on LinkedIn &rarr;</a></p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" data-reveal>
+  <div class="section-inner">
+    <div class="section-label">Contact</div>
+    <div class="gold-line"></div>
+    <img src="/img/photo-contact.jpg" alt="Steven Seidenfaden Wensley" class="contact-photo" width="341" height="512" loading="lazy" decoding="async">
+    <h2 class="section-title">Got a programme that&rsquo;s gone quiet at the top?</h2>
+    <p class="contact-text">
+      If it&rsquo;s red, stalled, or a compliance date has already slipped, I can help. Interim or freelance, via broker or direct. References from previous clients available on request.
+    </p>
+    <div class="contact-links" style="margin-top: 2.5rem;">
+      <a href="tel:+4553886061" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        +45 53 88 60 61
+      </a>
+      <a href="mailto:steven.wensley@gmail.com" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        steven.wensley@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/stevenwensley/" target="_blank" rel="noopener" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>
+  <div data-footer-nav style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="/workshop">The Factory</a> &middot; <a href="/playbooks">Playbooks</a> &middot; <a href="/services">Services</a> &middot; <a href="/tools">Tools</a> &middot; <a href="/insights">Insights</a> &middot; <a href="/notes">Notes</a> &middot; <a href="/glossary">Glossary</a> &middot; <a href="/about">About</a> &middot; <a href="/#contact">Contact</a></div>
+
+  <div style="font-size: 0.72rem; color: var(--text-secondary); letter-spacing: 0.05em; margin-bottom: 0.5rem;">AI-native delivery &middot; Turnaround &middot; Transition &mdash; PMP &middot; PRINCE2 Practitioner &middot; SAFe 5.0 Agilist &middot; PSM I &middot; PSPO I &middot; SPS &middot; PAL I &middot; MSP &middot; P3O &middot; MoP &middot; AgilePM &middot; 20 years in regulated environments</div>
+  &copy; 2026 Steven Seidenfaden Wensley. All rights reserved.
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Steven Seidenfaden Wensley",
+  "url": "https://stevenwensley.com/en",
+  "jobTitle": "Senior Programme Leader — AI Transition & Delivery",
+  "description": "I have run AI agents in production since February. Every day, at my own expense. What I learned is not about the technology. It is about what happens to judgement when the answer always sounds certain. That is what I talk to leadership teams about. And I show it before I say it. Copenhagen, Denmark.",
+  "knowsAbout": ["AI-Native Software Delivery", "Multi-Agent Orchestration", "AI Governance", "Agentic Development", "Programme Turnaround", "IT Transition Management", "Datacenter Migration", "GxP", "NIS2", "DORA", "Programme Management"],
+  "knowsLanguage": ["Danish", "English", "Swedish"],
+  "sameAs": ["https://linkedin.com/in/stevenwensley/", "https://github.com/stevenwensley-a11y"],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Copenhagen",
+    "addressCountry": "DK"
+  }
+}
+</script>
+
+<script>
+(function() {
+  'use strict';
+  try {
+    var revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          var items = entry.target.querySelectorAll('.stagger-item:not(.revealed)');
+          items.forEach(function(item, i) {
+            setTimeout(function() { item.classList.add('revealed'); }, 100 + i * 80);
+          });
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-reveal]').forEach(function(el) { revealObserver.observe(el); });
+  } catch(e) { document.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('revealed'); }); }
+
+  /* ── REGULATORY MAP TABS ── */
+  try {
+    var regTabs = Array.prototype.slice.call(document.querySelectorAll('.reg-tab'));
+    function regSelect(tab) {
+      regTabs.forEach(function(t) {
+        var on = t === tab;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        var panel = document.getElementById(t.getAttribute('aria-controls'));
+        if (panel) { if (on) { panel.removeAttribute('hidden'); } else { panel.setAttribute('hidden', ''); } }
+      });
+    }
+    regTabs.forEach(function(tab, i) {
+      tab.addEventListener('click', function() { regSelect(tab); });
+      tab.addEventListener('keydown', function(e) {
+        var idx = null;
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') idx = (i + 1) % regTabs.length;
+        else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') idx = (i - 1 + regTabs.length) % regTabs.length;
+        else if (e.key === 'Home') idx = 0;
+        else if (e.key === 'End') idx = regTabs.length - 1;
+        if (idx !== null) { e.preventDefault(); regSelect(regTabs[idx]); regTabs[idx].focus(); }
+      });
+    });
+  } catch(e) {}
+})();
+</script>
+</body>
+</html>

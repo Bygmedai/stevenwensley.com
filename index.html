@@ -1,32 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="yuw5Cu3V9xdo4eriR31kGux4n0DhrRJ4Qkqh8av5-Ik">
 <meta name="robots" content="index, follow">
-<title>Steven Wensley — The Senior Programme Leader Who Builds With AI</title>
+<meta name="view-transition" content="same-origin">
+<title>Steven Wensley — Dømmekraft i drift. AI for ledelser og bestyrelser</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="description" content="I navigate organisations through the AI transition. 20 years in regulated IT, plus a one-man AI factory with 6,948 commits. Copenhagen.">
+<meta name="description" content="AI lyder lige så sikker, når den gætter. Jeg har haft agenter i drift siden februar og taler med ledelser og bestyrelser om, hvad det gør ved dømmekraften.">
 
 <!-- Open Graph / Social sharing -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://stevenwensley.com/">
-<meta property="og:title" content="Steven Wensley — The Senior Programme Leader Who Builds With AI">
-<meta property="og:description" content="AI is uncharted water — I've already sailed it. 20 years of programme leadership plus hands-on building with every frontier lab's models since late 2025: 6,948 commits, 4,269 pull requests and 15 solutions since February 2026. Your navigator through the AI transition.">
+<meta property="og:title" content="AI er ikke et IT-problem — Steven Wensley">
+<meta property="og:description" content="AI lyder lige så sikker, når den gætter. Det er en ledelsesopgave, ikke en IT-opgave. Bestyrelsesbriefing, lederforløb og AI-afklaring. København.">
 <meta property="og:image" content="https://stevenwensley.com/og/index.png">
-<meta property="og:locale" content="en_GB">
+<meta property="og:locale" content="da_DK">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Steven Wensley — The Senior Programme Leader Who Builds With AI">
-<meta name="twitter:description" content="20 years of programme leadership + hands-on AI building: 6,948 commits, every frontier lab's models. Your navigator through the AI transition. Copenhagen.">
+<meta name="twitter:title" content="AI er ikke et IT-problem — Steven Wensley">
+<meta name="twitter:description" content="AI lyder lige så sikker, når den gætter. Det er en ledelsesopgave, ikke en IT-opgave. Bestyrelsesbriefing, lederforløb og AI-afklaring. København.">
 <meta name="twitter:image" content="https://stevenwensley.com/og/index.png">
 
 <link rel="canonical" href="https://stevenwensley.com/">
-<link rel="alternate" hreflang="en" href="https://stevenwensley.com/">
-<link rel="alternate" hreflang="da" href="https://stevenwensley.com/index-da">
+<link rel="alternate" hreflang="da" href="https://stevenwensley.com/">
+<link rel="alternate" hreflang="en" href="https://stevenwensley.com/en">
 <link rel="alternate" hreflang="x-default" href="https://stevenwensley.com/">
 
-<meta name="view-transition" content="same-origin">
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%230a0a0f'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='16' fill='%23c9a96e'%3ESSW%3C/text%3E%3C/svg%3E">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -44,8 +47,6 @@
     --text-secondary: #9a9aaa;
     --text-muted: #6a6a7a;
     --border: rgba(201, 169, 110, 0.12);
-    --red: #c0563f;
-    --green: #4c9a72;
     --serif: 'DM Serif Display', Georgia, serif;
     --sans: 'Space Grotesk', -apple-system, sans-serif;
   }
@@ -82,7 +83,7 @@
     color: var(--gold);
     letter-spacing: 0.05em;
   }
-  nav .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  nav .nav-links { display: flex; gap: 2.5rem; }
   nav .nav-links a {
     color: var(--text-secondary);
     text-decoration: none;
@@ -92,7 +93,40 @@
     text-transform: uppercase;
     transition: color 0.3s;
   }
-  nav .nav-links a:hover, nav .nav-links a.active { color: var(--gold); }
+  nav .nav-links a:hover { color: var(--gold); }
+
+  /* ── LANG SWITCHER ── */
+  .lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.72rem;
+    border-left: 1px solid var(--border);
+    padding-left: 1.5rem;
+    margin-left: 0.5rem;
+  }
+  .lang-switch a {
+    text-decoration: none;
+    font-size: 0.72rem !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+    transition: color 0.3s;
+  }
+  .lang-switch a.lang-active {
+    color: var(--gold) !important;
+    font-weight: 600 !important;
+  }
+  .lang-switch a.lang-inactive {
+    color: var(--text-muted) !important;
+    font-weight: 400 !important;
+  }
+  .lang-switch a.lang-inactive:hover {
+    color: var(--text-secondary) !important;
+  }
+  .lang-switch .lang-sep {
+    color: var(--text-muted);
+    font-size: 0.72rem;
+  }
 
   /* ── HERO ── */
   .hero {
@@ -177,7 +211,7 @@
 
   /* ── SECTION COMMONS ── */
   section { padding: 7rem 3rem; }
-  .section-inner { max-width: 1000px; margin: 0 auto; }
+  .section-inner { max-width: 900px; margin: 0 auto; }
   .section-label {
     font-size: 0.72rem;
     font-weight: 500;
@@ -203,111 +237,106 @@
     margin-bottom: 2rem;
     line-height: 1.3;
   }
-  .section-intro {
+
+  /* ── ABOUT ── */
+  #about { background: var(--bg-secondary); }
+  .about-layout {
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+  }
+  .about-photo {
+    flex-shrink: 0;
+    width: 220px;
+    height: 300px;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+  }
+  .about-text-wrap { flex: 1; }
+  .about-text {
     font-size: 1.05rem;
     color: var(--text-secondary);
     max-width: 680px;
-    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+  .credentials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  .credential {
+    padding: 1.8rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+  }
+  .credential-value {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+  .credential-label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
-  /* ── PLAYBOOK CARDS ── */
-  .playbook-grid {
+  /* ── EXPERTISE ── */
+  .expertise-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
     margin-top: 3rem;
   }
-  .playbook-card {
-    display: block;
-    padding: 2.2rem;
+  .expertise-card {
+    padding: 2.5rem;
     background: var(--bg-secondary);
     border: 1px solid var(--border);
     border-radius: 2px;
-    text-decoration: none;
-    color: inherit;
     transition: border-color 0.4s, transform 0.4s;
-    position: relative;
   }
-  .playbook-card:hover { border-color: var(--gold); transform: translateY(-4px); }
-  .playbook-card.flagship { border-left: 3px solid var(--gold); }
-  .playbook-flag {
-    font-size: 0.62rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--bg-primary);
-    background: var(--gold);
-    padding: 3px 9px;
-    border-radius: 3px;
-    position: absolute;
-    top: 1.4rem;
-    right: 1.4rem;
+  .expertise-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
   }
-  .playbook-sector {
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+  .expertise-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gold-dim);
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
     color: var(--gold);
-    margin-bottom: 1rem;
   }
-  .playbook-card h3 {
+  .expertise-card h3 {
     font-family: var(--serif);
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 0.8rem;
-    color: var(--text-primary);
-    line-height: 1.3;
   }
-  .playbook-card p {
+  .expertise-card p {
     font-size: 0.92rem;
     color: var(--text-secondary);
     line-height: 1.7;
-    margin-bottom: 1.2rem;
   }
-  .playbook-link {
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--gold);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  /* ── PAIN CARDS ── */
-  .pain-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-top: 3rem;
-  }
-  .pain-card {
-    padding: 2rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-top: 3px solid var(--red);
-    border-radius: 4px;
-  }
-  .pain-card h3 {
-    font-family: var(--serif);
-    font-size: 1.1rem;
-    color: var(--text-primary);
-    margin-bottom: 0.6rem;
-    line-height: 1.35;
-  }
-  .pain-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
 
   /* ── THESIS ── */
   #thesis { background: var(--bg-secondary); }
   .thesis-statement {
     font-family: var(--serif);
-    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
     font-weight: 400;
-    line-height: 1.6;
+    line-height: 1.7;
     color: var(--text-primary);
-    max-width: 760px;
+    max-width: 720px;
     margin-bottom: 2rem;
   }
   .thesis-statement em {
@@ -322,23 +351,49 @@
     line-height: 1.8;
   }
 
-  /* ── CAPABILITIES ── */
-  .cap-grid {
+  /* ── CASES ── */
+  .cases-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
     margin-top: 3rem;
   }
-  .cap-card {
-    padding: 2rem;
+  .case-card {
+    padding: 2.5rem;
     background: var(--bg-secondary);
     border: 1px solid var(--border);
     border-radius: 2px;
     transition: border-color 0.4s;
   }
-  .cap-card:hover { border-color: var(--gold); }
-  .cap-card h3 { font-family: var(--serif); font-size: 1.15rem; font-weight: 600; margin-bottom: 0.6rem; }
-  .cap-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; }
+  .case-card:hover { border-color: var(--gold); }
+  .case-sector {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .case-card h3 {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: var(--text-primary);
+  }
+  .case-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .case-result {
+    font-size: 0.88rem;
+    color: var(--gold-light);
+    font-weight: 500;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
 
   /* ── AVAILABILITY ── */
   .availability-box {
@@ -349,7 +404,73 @@
     border-radius: 2px;
     display: inline-block;
   }
-  .availability-box p { font-size: 0.92rem; color: var(--gold-light); font-weight: 500; letter-spacing: 0.02em; }
+  .availability-box p {
+    font-size: 0.92rem;
+    color: var(--gold-light);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── SERVICES ── */
+  #services { background: var(--bg-secondary); }
+  .services-list { margin-top: 3rem; }
+  .service-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: padding-left 0.3s;
+  }
+  .service-item:hover { padding-left: 1rem; }
+  .service-num {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    color: var(--gold);
+    font-weight: 600;
+    min-width: 40px;
+  }
+  .service-item h3 {
+    font-size: 1.15rem;
+    font-weight: 500;
+  }
+  .service-item p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    margin-top: 0.3rem;
+  }
+  .service-arrow {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    transition: color 0.3s, transform 0.3s;
+  }
+  .service-item:hover .service-arrow {
+    color: var(--gold);
+    transform: translateX(4px);
+  }
+
+  /* ── HIRING TRIGGER ── */
+  .trigger-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .trigger-item {
+    padding: 1.8rem 2rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    border-radius: 2px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .trigger-item strong {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
 
   /* ── CONTACT ── */
   #contact { text-align: center; }
@@ -365,8 +486,18 @@
     margin: 0 auto 2rem;
     display: block;
   }
-  .contact-text { font-size: 1.05rem; color: var(--text-secondary); max-width: 520px; margin: 0 auto 3rem; }
-  .contact-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+  .contact-text {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    max-width: 500px;
+    margin: 0 auto 3rem;
+  }
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
   .contact-link {
     display: flex;
     align-items: center;
@@ -385,11 +516,26 @@
   .contact-link svg { width: 18px; height: 18px; color: var(--gold); }
 
   /* ── FOOTER ── */
-  footer { padding: 3rem; text-align: center; color: var(--text-muted); font-size: 0.78rem; letter-spacing: 0.05em; border-top: 1px solid var(--border); }
-  footer a { color: var(--text-secondary); text-decoration: none; }
-  footer a:hover { color: var(--gold); }
+  footer {
+    padding: 3rem;
+    text-align: center;
+    color: var(--text-secondary); /* --text-muted on this background is 3.6:1; small text needs 4.5:1 */
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    border-top: 1px solid var(--border);
+  }
 
-  .gold-line { width: 60px; height: 1px; background: var(--gold); margin: 0 auto 2rem; }
+  @media (max-width: 600px) {
+    .trust-two-col { grid-template-columns: 1fr !important; }
+  }
+
+  /* ── DIVIDER ── */
+  .gold-line {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 2rem;
+  }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
@@ -401,31 +547,20 @@
     .hero-label { justify-content: center; }
     .hero-label::before { display: none; }
     section { padding: 5rem 1.5rem; }
+    .about-layout { flex-direction: column; align-items: center; }
+    .about-photo { width: 180px; height: 240px; }
+    .service-item { grid-template-columns: auto 1fr; gap: 1rem; }
+    .service-arrow { display: none; }
     .contact-links { flex-direction: column; align-items: center; }
   }
-
-  /* ── SCROLL REVEAL ── */
-  [data-reveal] {
-    opacity: 0;
-    transform: translateY(32px);
-    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-  [data-reveal].revealed { opacity: 1; transform: translateY(0); }
-  .stagger-item {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-  .stagger-item.revealed { opacity: 1; transform: translateY(0); }
-
-  @media (prefers-reduced-motion: reduce) {
-    [data-reveal], .stagger-item { opacity: 1; transform: none; transition: none; }
-    html { scroll-behavior: auto; }
+  @media (max-width: 480px) {
+    nav .nav-links { gap: 1rem; }
+    .credentials { grid-template-columns: 1fr 1fr; }
   }
 
   /* ── HAMBURGER MOBILE MENU ── */
   .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 8px; z-index: 101; }
-  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); margin: 5px 0; transition: all 0.3s; border-radius: 2px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold, #c9a96e); margin: 5px 0; transition: all 0.3s; border-radius: 2px; }
   .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
   .hamburger.active span:nth-child(2) { opacity: 0; }
   .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
@@ -443,52 +578,111 @@
       flex-direction: column;
       padding: 1.5rem 2rem;
       gap: 1rem;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid var(--border, rgba(201,169,110,0.12));
     }
     nav .nav-links.open { display: flex; }
     nav .nav-links a { font-size: 0.9rem; padding: 0.5rem 0; }
   }
 
-  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-  /* ── REGULATORY MAP ── */
-  .reg-wrap { display: grid; grid-template-columns: 280px 1fr; gap: 1.5rem; margin-top: 3rem; align-items: start; }
-  .reg-tabs { display: flex; flex-direction: column; gap: 0.5rem; }
-  .reg-tab { text-align: left; background: var(--bg-secondary); border: 1px solid var(--border); border-left: 3px solid transparent; border-radius: 2px; padding: 1rem 1.2rem; cursor: pointer; font-family: var(--sans); transition: color 0.3s, background 0.3s, border-color 0.3s; }
-  .reg-tab:hover { border-color: var(--gold); }
-  .reg-tab .reg-abbr { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; color: var(--text-primary); display: block; }
-  .reg-tab .reg-full { font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.02em; }
-  .reg-tab[aria-selected="true"] { border-left-color: var(--gold); background: var(--bg-card); }
-  .reg-tab[aria-selected="true"] .reg-abbr { color: var(--gold); }
-  .reg-tab:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-  .reg-panel { background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px; padding: 2rem; }
-  .reg-panel[hidden] { display: none; }
-  .reg-panel h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.3rem; color: var(--text-primary); }
-  .reg-panel .reg-gov { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem; }
-  .reg-h { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
-  .reg-sectors { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.6rem; }
-  .reg-sector { padding: 0.35rem 0.85rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 20px; font-size: 0.76rem; color: var(--text-primary); }
-  .reg-do { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.75; border-left: 2px solid var(--gold); padding-left: 1.1rem; }
-  @media (max-width: 760px) { .reg-wrap { grid-template-columns: 1fr; } .reg-tabs { flex-direction: row; flex-wrap: wrap; } .reg-tab { flex: 1; min-width: 140px; } }
+  /* ── SCROLL REVEAL ── */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  [data-reveal].revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .stagger-item {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .stagger-item.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── FE3: CSS @property GRADIENT CTA ── */
+  @property --grad-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+  .gradient-animated {
+    background: linear-gradient(var(--grad-angle), var(--gold, #c9a96e), var(--gold-light, #dfc08a), #e8c97a, var(--gold, #c9a96e));
+    animation: gradient-spin 4s linear infinite;
+  }
+  @keyframes gradient-spin {
+    to { --grad-angle: 360deg; }
+  }
+
+  /* ── FE4: SVG NAV LOGO ── */
+  .nav-logo-svg text {
+    stroke-dasharray: 300;
+    stroke-dashoffset: 300;
+    animation: logo-draw 2s ease forwards 0.3s;
+    fill-opacity: 0;
+  }
+  .nav-logo-svg text.drawn {
+    fill-opacity: 1;
+    transition: fill-opacity 0.5s ease 1.8s;
+  }
+  @keyframes logo-draw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  /* ── FE6: VIEW TRANSITIONS ── */
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root) { animation: fade-out 0.2s ease; }
+  ::view-transition-new(root) { animation: fade-in 0.3s ease; }
+  @keyframes fade-out { to { opacity: 0; } }
+  @keyframes fade-in { from { opacity: 0; } }
+
+  /* ── REDUCED MOTION ── */
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal], .stagger-item { opacity: 1; transform: none; transition: none; }
+    .nav-logo-svg text { stroke-dashoffset: 0; fill-opacity: 1; animation: none; }
+    .gradient-animated { animation: none; }
+  }
+
 </style>
 <style id="a11y-skip-link">.skip-link{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;background:#c9a96e;color:#0a0a0f;padding:.85rem 1.4rem;font-weight:600;z-index:9999;text-decoration:none;border-radius:0 0 6px 0;font-family:'Space Grotesk',sans-serif;}.skip-link:focus{left:0;top:0;width:auto;height:auto;}</style>
   <!-- Cloudflare Web Analytics --><script type="module" defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;65eb31eee8724f75a014183d2bf26ef7&quot;}"></script><!-- End Cloudflare Web Analytics -->
+<style>
+  .note-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+  .note-card { display: block; padding: 2.2rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px; text-decoration: none; color: inherit; transition: border-color 0.3s, transform 0.3s; }
+  .note-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .note-card .nc-tag { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+  .note-card h3 { font-family: var(--serif); font-size: 1.25rem; font-weight: 600; margin-bottom: 0.8rem; color: var(--text-primary); line-height: 1.3; }
+  .note-card p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem; }
+  .note-card .nc-more { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
+  .question-list { margin-top: 2.5rem; counter-reset: q; max-width: 720px; }
+  .question { position: relative; padding: 1.4rem 0 1.4rem 3.2rem; border-top: 1px solid var(--border); font-family: var(--serif); font-size: 1.25rem; line-height: 1.5; color: var(--text-primary); }
+  .question:last-child { border-bottom: 1px solid var(--border); }
+  .question::before { counter-increment: q; content: counter(q, decimal-leading-zero); position: absolute; left: 0; top: 1.5rem; font-family: var(--sans); font-size: 0.8rem; letter-spacing: 0.1em; color: var(--gold); }
+  .aside-line { margin-top: 2.5rem; font-size: 0.92rem; color: var(--text-muted); max-width: 680px; line-height: 1.7; }
+  .aside-line a { color: var(--text-secondary); }
+  .aside-line a:hover { color: var(--gold); }
+  .price { color: var(--gold-light); font-weight: 500; }
+</style>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to main content</a>
+  <a class="skip-link" href="#main">Spring til indhold</a>
 
 <!-- NAV -->
 <nav aria-label="Primary">
-  <a href="/" class="logo" style="text-decoration:none;" aria-label="Steven Wensley — home">SSW</a>
+  <a href="/" class="logo" style="text-decoration:none;"><span class="visually-hidden" style="position:absolute;left:-10000px;">Steven Seidenfaden Wensley — forside</span><svg class="nav-logo-svg" viewBox="0 0 80 28" width="80" height="28" xmlns="http://www.w3.org/2000/svg"><text x="2" y="22" font-family="'DM Serif Display',Georgia,serif" font-size="22" font-weight="700" fill="var(--gold)" stroke="var(--gold)" stroke-width="0.8">SSW</text></svg></a>
   <button class="hamburger" onclick="this.classList.toggle('active');this.setAttribute('aria-expanded',this.classList.contains('active'));document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   <div class="nav-links">
-    <a href="/workshop">The Factory</a>
-    <a href="/playbooks">Playbooks</a>
-    <a href="/services">Services</a>
-    <a href="/tools">Tools</a>
-    <a href="/notes">Notes</a>
-    <a href="/about">About</a>
-    <a href="#contact">Contact</a>
+    <a href="/forloeb">Forl&oslash;bet</a>
+    <a href="#det-jeg-har-set">Noter</a>
+    <a href="/services-da">Ydelser</a>
+    <a href="#om">Om</a>
+    <a href="#kontakt">Kontakt</a>
+    <a href="/en" class="lang-switch" style="border-left:1px solid var(--border);padding-left:1.5rem;" hreflang="en" lang="en">EN</a>
   </div>
 </nav>
 <main id="main" tabindex="-1">
@@ -496,21 +690,20 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-content">
-    <div class="hero-label">Copenhagen &nbsp;·&nbsp; Senior AI programme leadership</div>
+    <div class="hero-label">D&oslash;mmekraft i drift &nbsp;&middot;&nbsp; K&oslash;benhavn</div>
     <h1>
-      AI is uncharted water.
-      <span class="accent">I&rsquo;ve already sailed it.</span>
+      AI er ikke et <span class="accent" style="white-space: nowrap;">IT-problem.</span>
     </h1>
     <p class="tagline">
-      Most consultants advising on AI have read about it. I&rsquo;ve built with it &mdash; hands-on, every frontier lab&rsquo;s models since late 2025, and an entire one-man software factory: 6,948 commits since February 2026. Combine that with 20 years leading complex IT programmes, and you get something rare: <strong style="color: var(--text-primary); font-weight: 500;">a senior programme leader who actually knows what AI does under pressure</strong> &mdash; because I&rsquo;ve been burned by it, built the rails for it, and shipped with it. I don&rsquo;t sell you a deck. I navigate you through. <strong style="color: var(--text-primary); font-weight: 500;">Available now.</strong>
+      Jeg har haft AI-agenter i drift siden februar. Hver dag, p&aring; egen regning. Det, jeg l&aelig;rte, handler ikke om teknik. Det handler om, hvad der sker med d&oslash;mmekraften, n&aring;r svaret altid lyder sikkert. Det taler jeg med ledelser om. Og jeg viser det, f&oslash;r jeg taler om det.
     </p>
     <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
-      <a href="/workshop" class="hero-cta" style="background: var(--gold); color: var(--bg-primary); font-weight: 600; border: none;">
-        See the proof &mdash; my factory
+      <a href="/forloeb" class="hero-cta" style="background: var(--gold); color: var(--bg-primary); font-weight: 600;">
+        Forl&oslash;bet: D&oslash;mmekraft i drift
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <a href="#contact" class="hero-cta">
-        Get in touch
+      <a href="/spejlet" class="hero-cta">
+        L&aelig;s: Spejlet
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>
@@ -518,267 +711,138 @@
   <img loading="eager" src="/img/photo-hero.jpg" alt="Steven Seidenfaden Wensley" class="hero-photo" width="341" height="512" decoding="async" fetchpriority="high">
 </section>
 
-<!-- AVAILABILITY -->
-<section id="hire" data-reveal style="padding: 4rem 3rem; background: linear-gradient(135deg, rgba(201, 169, 110, 0.06) 0%, rgba(10, 10, 15, 0.95) 100%); border-top: 2px solid var(--gold); border-bottom: 1px solid var(--border);">
-  <div style="max-width: 1000px; margin: 0 auto;">
-    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
-      <span style="display: inline-block; width: 10px; height: 10px; background: #10b981; border-radius: 50%; animation: pulse 2s infinite;"></span>
-      <span style="font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #10b981;">Available now</span>
-      <span style="font-size: 0.72rem; color: var(--text-muted); margin-left: 0.5rem;">Copenhagen &middot; on-site, hybrid or remote</span>
-    </div>
-    <h2 style="font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 600; color: var(--text-primary); margin-bottom: 1rem; line-height: 1.3;">
-      Your navigator through the AI transition.
-    </h2>
-    <p style="font-size: 1.05rem; color: var(--text-secondary); max-width: 700px; line-height: 1.8;">
-      Every organisation is sailing into AI right now &mdash; most without anyone on board who has actually done it. That&rsquo;s the role I take: <strong style="color: var(--text-primary); font-weight: 500;">the senior programme leader who leads your AI initiative from idea to working delivery</strong> &mdash; realistic scoping, the right guardrails, honest calls on what agents can and can&rsquo;t do, and the delivery discipline of 20 years in regulated environments. Interim or freelance, via broker or direct. <strong style="color: var(--text-primary); font-weight: 500;">Written, verifiable references on the site; personal referees at offer stage.</strong> (Need something <em>built</em> rather than navigated? That&rsquo;s my factory: <a href="https://bygmedai.dk" target="_blank" rel="noopener" style="color: var(--gold);">BygMedAI</a>.)
-    </p>
-    <a href="/for-brokers" style="display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1.8rem; padding: 0.85rem 1.8rem; border: 1px solid var(--gold); color: var(--gold); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: all 0.3s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--bg-primary)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">Broker or agency? Everything you need &rarr;</a>
-    <a href="/services" style="display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1.8rem; margin-left: 1rem; padding: 0.85rem 1.8rem; background: var(--gold); color: var(--bg-primary); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px;">AI governance services &rarr;</a>
-  </div>
-</section>
-
-<!-- PAIN / SOUND FAMILIAR -->
-<section data-reveal style="background: var(--bg-secondary); border-bottom: 1px solid var(--border);">
+<!-- DET, JEG HAR SET -->
+<section data-reveal id="det-jeg-har-set" style="background: var(--bg-secondary); border-top: 1px solid var(--border);">
   <div class="section-inner">
-    <div class="section-label">Sound familiar?</div>
-    <h2 class="section-title">The situations I&rsquo;m called into.</h2>
-    <div class="pain-grid">
-      <div class="pain-card">
-        <h3>The status report says amber. Everyone knows it&rsquo;s red.</h3>
-        <p>The SteerCo meets monthly to watch it get worse, the vendors point at each other, and the board is starting to ask whose name is on it.</p>
-      </div>
-      <div class="pain-card">
-        <h3>The compliance date is already behind you.</h3>
-        <p>NIS2 or DORA is in force, the controls exist on paper, and no one actually owns making them operate before the regulator asks for evidence.</p>
-      </div>
-      <div class="pain-card">
-        <h3>The migration froze two quarters ago.</h3>
-        <p>Validated systems no one dares touch, QA and IT talking past each other, and a go-live date that keeps moving to the right.</p>
-      </div>
-    </div>
-    <p class="section-intro" style="margin-top: 2.5rem;">
-      I don&rsquo;t hand you a slide deck. I show you exactly how I&rsquo;d take each of these apart &mdash; the method, the tools, and the political reality nobody writes down.
-    </p>
-    <div style="margin-top: 2.5rem; padding: 1.6rem 2rem; background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 4px; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;">
-      <div>
-        <div style="font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem;">2-minute check</div>
-        <p style="font-size: 1rem; color: var(--text-secondary); line-height: 1.6;">Not sure if yours is actually red? Seven honest questions &mdash; no email, runs in your browser.</p>
-      </div>
-      <a href="/programme-health-check" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.8rem; background: var(--gold); color: var(--bg-primary); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; white-space: nowrap; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">Take the check &rarr;</a>
-    </div>
-  </div>
-</section>
-
-<!-- PLAYBOOKS -->
-<section id="playbooks" data-reveal>
-  <div class="section-inner">
-    <div class="section-label">Playbooks</div>
-    <h2 class="section-title">Show, don&rsquo;t tell. Pick your situation.</h2>
-    <p class="section-intro">
-      Four scenarios drawn from 20 years in regulated delivery &mdash; and from the Danish programmes everyone remembers. No confidential client detail; the pattern is the point. Each one walks through how I&rsquo;d approach it.
-    </p>
-    <div class="playbook-grid">
-      <a href="/playbook-programme-recovery" class="playbook-card flagship stagger-item">
-        <span class="playbook-flag">Interactive</span>
-        <div class="playbook-sector">Turnaround &middot; cross-sector</div>
-        <h3>The red programme you just inherited</h3>
-        <p>Multiple vendors, an SKI framework that locks you in, a nervous board, and a governance structure that stopped working months ago. The first 90 days, step by step.</p>
-        <span class="playbook-link">Walk the first 90 days &rarr;</span>
+    <div class="section-label">Det, jeg har set</div>
+    <h2 class="section-title">Tre ting, et halvt &aring;r med agenter i drift l&aelig;rte mig.</h2>
+    <p style="font-size: 1.05rem; color: var(--text-secondary); max-width: 680px;">Ingen af dem st&aring;r i et kursus. De kom af at se maskinerne tage fejl, overbevisende, mens jeg selv b&aelig;rer ansvaret for det, de laver.</p>
+    <div class="note-cards">
+      <a href="/spejlet" class="note-card stagger-item">
+        <div class="nc-tag">Spejlet</div>
+        <h3>Afvisningen er ikke mere trov&aelig;rdig end enigheden.</h3>
+        <p>Alle advarer mod den AI, der er enig i alt. Det samme spejl producerer nej'et, forbeholdet og designet, der kommer tilbage mindre. Hverken ja'et eller nej'et er evidens.</p>
+        <div class="nc-more">L&aelig;s noten &rarr;</div>
       </a>
-      <a href="/playbook-gxp-migration" class="playbook-card stagger-item">
-        <div class="playbook-sector">Pharma &middot; life science</div>
-        <h3>The stalled GxP datacenter migration</h3>
-        <p>Production can&rsquo;t go down, validated systems are frozen, and QA holds a veto everyone respects and no one enjoys. It&rsquo;s validation debt, not servers.</p>
-        <span class="playbook-link">See the approach &rarr;</span>
+      <a href="/kloge-boern" class="note-card stagger-item">
+        <div class="nc-tag">Kloge b&oslash;rn med enorm magt</div>
+        <h3>De mangler ikke etik. De har for meget af den forkerte slags.</h3>
+        <p>Den v&aelig;rste forsigtighed er den, der gemmer sig i det arbejde, agenten stille lader v&aelig;re med at lave. Det ligner en leverance. Det er frav&aelig;r kl&aelig;dt ud som arbejde.</p>
+        <div class="nc-more">L&aelig;s noten &rarr;</div>
       </a>
-      <a href="/playbook-nis2-compliance" class="playbook-card stagger-item">
-        <div class="playbook-sector">Critical infra &middot; finance</div>
-        <h3>The NIS2 deadline you&rsquo;re already past</h3>
-        <p>In force since 1 July 2025. Controls on paper, ownership nowhere &mdash; and a Danish law that makes management approve and oversee the measures but adds no personal fine, so the pressure stays abstract.</p>
-        <span class="playbook-link">See the approach &rarr;</span>
-      </a>
-      <a href="/playbook-carveout-separation" class="playbook-card stagger-item">
-        <div class="playbook-sector">M&amp;A &middot; divestiture</div>
-        <h3>The carve-out separating two entities</h3>
-        <p>A fixed business date, 1,500+ interdependent decisions, and a parent company with no incentive to help you leave. Day 1 readiness, ruthlessly defined.</p>
-        <span class="playbook-link">See the approach &rarr;</span>
+      <a href="/piloten-lyver" class="note-card stagger-item">
+        <div class="nc-tag">Piloten lyver</div>
+        <h3>Sproglig sikkerhed er ikke et kvalitetssignal. Det er en stilistisk konstant.</h3>
+        <p>En agent lyder lige sikker, n&aring;r den har l&aelig;st kilden, og n&aring;r den har opfundet den. Jeres styregruppe kan spotte en projektleder, der bluffer. Ingen af de instinkter virker her.</p>
+        <div class="nc-more">L&aelig;s noten &rarr;</div>
       </a>
     </div>
   </div>
 </section>
 
-<!-- THESIS -->
-<section id="thesis" data-reveal>
+<!-- STANDPUNKT -->
+<section data-reveal id="standpunkt">
   <div class="section-inner">
-    <div class="section-label">Why programmes really fail</div>
+    <div class="section-label">Standpunktet</div>
     <p class="thesis-statement">
-      Denmark has a whole shelf of Rigsrevisionen reports on programmes that failed. They almost never fail on <em>technology</em>. They fail because <em>decision rights</em> are unclear, <em>accountability</em> is diluted &mdash; and because, by the time it&rsquo;s red, the real question in the room is <em>whose name is on it.</em>
+      Regler er ikke etik. En agent kan f&oslash;lge enhver regel, I giver den, og stadig tr&aelig;ffe det forkerte sk&oslash;n, i bedre prosa end jeres eget. <em>Den moralske infrastruktur er jer.</em>
     </p>
     <p class="thesis-detail">
-      The org chart tells you who&rsquo;s accountable. The corridor conversations tell you who actually decides. I read both &mdash; and I rebuild governance that&rsquo;s connected to delivery instead of performing it. That is the difference between a recovery plan and a recovery.
+      Det er derfor, jeg ikke s&aelig;lger promptkurser til medarbejdere. Om AI g&oslash;r en organisation klogere eller bare hurtigere, bliver afgjort dér, hvor beslutningerne tages. Dér, hvor nogen skal kunne sige: det her stoler vi p&aring;, og det her g&oslash;r vi ikke. Og vide hvorfor.
     </p>
-    <p class="thesis-detail" style="margin-top: 1.5rem;"><a href="/method" style="color: var(--gold); text-decoration: none;">See the method &mdash; Control &middot; Stabilise &middot; Correct &rarr;</a></p>
   </div>
 </section>
 
-<!-- CAPABILITIES -->
-<section id="capabilities" data-reveal>
+<!-- OM -->
+<section data-reveal id="om" style="background: var(--bg-secondary);">
   <div class="section-inner">
-    <div class="section-label">What I&rsquo;m brought in for</div>
-    <h2 class="section-title">Where governance meets delivery.</h2>
-    <div class="cap-grid">
-      <div class="cap-card stagger-item">
-        <h3>Programme turnaround</h3>
-        <p>Taking over red, stalled or politically stuck programmes &mdash; re-establishing decision rights, resetting vendor governance and recovering the timeline.</p>
-      </div>
-      <div class="cap-card stagger-item">
-        <h3>Transition &amp; migration</h3>
-        <p>Datacenter, mainframe and cloud transitions in production-critical, regulated environments &mdash; including GxP-validated pharma estates (MES, SCADA, PAS-X).</p>
-      </div>
-      <div class="cap-card stagger-item">
-        <h3>Regulatory delivery</h3>
-        <p>NIS2, DORA, ISO 27001 and GxP made operational &mdash; turning controls-on-paper into evidence a supervisory authority will accept.</p>
-      </div>
-      <div class="cap-card stagger-item">
-        <h3>Carve-out &amp; separation</h3>
-        <p>IT separation and TSA exit across multiple entities, workstreams and geographies &mdash; Day 1 readiness planned as a governed backlog, not discovered late.</p>
+    <div class="section-label">Hvorfor mig</div>
+    <h2 class="section-title">Historiker og digter f&oslash;rst.<br>IT-mand bagefter.</h2>
+    <div class="about-layout">
+      <img src="/img/photo-about.jpg" alt="Steven Seidenfaden Wensley" class="about-photo" width="341" height="512" loading="lazy" decoding="async">
+      <div class="about-text-wrap">
+        <p class="about-text">
+          Jeg har skrevet digte i tyve &aring;r, under navnet <a href="https://www.tkbars.dk" rel="noopener" style="color: var(--gold-light);">T.K. Bars</a>, og ledet IT-programmer i regulerede milj&oslash;er lige s&aring; l&aelig;nge: pharma, pension, telekom, offentlig sektor. De to ting har ikke meget med hinanden at g&oslash;re. Indtil man skal forklare en bestyrelse, hvorfor en maskine uden krop kan lyde s&aring; overbevisende om ting, den ikke kan m&aelig;rke.
+        </p>
+        <p class="about-text">
+          Siden februar har jeg drevet en enmandsfabrik af AI-agenter, der bygger rigtige l&oslash;sninger til rigtige kunder. Ikke som eksperiment. Som drift, med kontrol, logning og et menneske, der siger ja eller nej til hver eneste &aelig;ndring. Det er beviset for, at jeg ikke taler om noget, jeg har l&aelig;st om.
+        </p>
+        <p class="about-text" style="font-size: 0.92rem; color: var(--text-muted);">
+          <a href="/workshop" style="color: var(--text-secondary);">Se fabrikken og tallene &rarr;</a> &nbsp;&middot;&nbsp; <a href="/about" style="color: var(--text-secondary);">CV, referencer og certificeringer &rarr;</a>
+        </p>
       </div>
     </div>
+  </div>
+</section>
 
-    <div style="margin-top: 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
-      <div style="padding: 1.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px;">
-        <div style="font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem;">Sectors</div>
-        <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.9;">Pharma &amp; life science &middot; Financial infrastructure &middot; Telecom &middot; Public sector &amp; healthcare &middot; Critical infrastructure</p>
-      </div>
-      <div style="padding: 1.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 2px;">
-        <div style="font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem;">Certifications</div>
-        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">PMP</span>
-          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">PRINCE2 Practitioner</span>
-          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">SAFe 5.0 Agilist</span>
-          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">PSM I</span>
-          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">PSPO I</span>
-          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">SPS</span>
-          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">PAL I</span>
-          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">MSP</span>
-          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">P3O</span>
-          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">MoP</span>
-          <span style="padding: 0.35rem 0.8rem; background: var(--gold-dim); border: 1px solid var(--border); border-radius: 2px; font-size: 0.76rem; font-weight: 500; color: var(--text-primary);">AgilePM</span>
+<!-- YDELSER -->
+<section data-reveal id="ydelser">
+  <div class="section-inner">
+    <div class="section-label">Det, I kan k&oslash;be</div>
+    <h2 class="section-title">Tre ting. Alle tre begynder med at vise det, f&oslash;r vi taler om det.</h2>
+    <div class="services-list">
+      <a href="/book-session#formular" class="service-item" style="text-decoration: none; color: inherit;">
+        <div class="service-num">01</div>
+        <div>
+          <h3>Bestyrelsesbriefing &mdash; to timer</h3>
+          <p>For &eacute;n bestyrelse eller direktion. F&oslash;rst arbejder en agent p&aring; jeres eget materiale, mens I ser p&aring;, og er overbevisende forkert &eacute;t sted, som I selv skal finde. S&aring; de fem sp&oslash;rgsm&aring;l, en bestyrelse skal kunne stille. Til sidst det, ingen andre i lokalet siger: d&oslash;mmekraft kan ikke uddelegeres. I f&aring;r &eacute;n side med hjem, bestyrelsens AI-protokol. <span class="price">25.000 kr. ekskl. moms.</span></p>
         </div>
-        <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 1rem; line-height: 1.6;">In progress (2026): EU AI Act &amp; ISO/IEC 42001 Lead Implementer, NIS2 Lead Implementer (PECB).</p>
-      </div>
+        <span class="service-arrow">&rarr;</span>
+      </a>
+      <a href="/book-session#formular" class="service-item" style="text-decoration: none; color: inherit;">
+        <div class="service-num">02</div>
+        <div>
+          <h3>Lederforl&oslash;b &mdash; D&oslash;mmekraft i drift</h3>
+          <p>To eller tre halve dage for &eacute;n ledergruppe, med uger imellem, s&aring; det kan pr&oslash;ves af i eget arbejde. Fra hvad AI kan og ikke kan i jeres egne opgaver, til hvem der m&aring; sige god for hvad, og hvordan I ser det, n&aring;r den tager fejl. <span class="price">Fra 60.000 kr. ekskl. moms.</span></p>
+        </div>
+        <span class="service-arrow">&rarr;</span>
+      </a>
+      <a href="/book-session#formular" class="service-item" style="text-decoration: none; color: inherit;">
+        <div class="service-num">03</div>
+        <div>
+          <h3>AI-afklaring &mdash; en halv dag</h3>
+          <p>Fire timer hos jer. Tre til fem arbejdsgange gennemg&aring;et med dem, der har dem i h&aelig;nderne, to af dem testet p&aring; jeres egne data, og et beslutningsnotat p&aring; &eacute;n side samme uge. <span class="price">6.500 kr. ekskl. moms.</span></p>
+        </div>
+        <span class="service-arrow">&rarr;</span>
+      </a>
+    </div>
+    <p class="aside-line">
+      Skal noget bygges, sikres eller drives? Det er fabrikkens arbejde: <a href="https://www.bygmedai.dk" rel="noopener">bygmedai.dk</a>. Har I allerede bygget noget med Lovable, Bolt eller Cursor: <a href="/lovable-til-drift">sikkerhedstjek p&aring; fem dage</a>. Og programledelse i regulerede milj&oslash;er tager jeg stadig, fuld tid eller mindre: <a href="/for-brokers">alt, en broker skal bruge</a>.
+    </p>
+  </div>
+</section>
+
+<!-- FEM SPØRGSMÅL -->
+<section data-reveal id="fem-spoergsmaal" style="background: var(--bg-secondary);">
+  <div class="section-inner">
+    <div class="section-label">Fem sp&oslash;rgsm&aring;l</div>
+    <h2 class="section-title">Det, en bestyrelse skal kunne sp&oslash;rge om, f&oslash;r en agent f&aring;r lov at k&oslash;re.</h2>
+    <p style="font-size: 1.05rem; color: var(--text-secondary); max-width: 680px;">Ingen af dem handler om modellen. Jeg har stillet dem til mine egne agenter hver uge siden februar. De fleste uger var svaret p&aring; mindst &eacute;t af dem «&oslash;h». Det er ikke pinligt. Det er bare dér, arbejdet ligger.</p>
+    <div class="question-list">
+      <div class="question">Hvem m&aring; den handle p&aring; vegne af, og med hvilken identitet?</div>
+      <div class="question">Hvad logger den, og hvor l&aelig;nge ligger loggen?</div>
+      <div class="question">Hvad sker der, n&aring;r den tager fejl? Hvem ser det, og hvor hurtigt?</div>
+      <div class="question">Kan vi rulle tilbage, og har vi pr&oslash;vet det?</div>
+      <div class="question">Hvem har sagt god for, at den overhovedet m&aring; k&oslash;re?</div>
     </div>
   </div>
 </section>
 
-<!-- REGULATORY MAP -->
-<section id="regulatory" data-reveal style="background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+<!-- KONTAKT -->
+<section data-reveal id="kontakt">
+  <span id="contact"></span>
   <div class="section-inner">
-    <div class="section-label">The regulatory landscape</div>
-    <h2 class="section-title">The regimes I operate across.</h2>
-    <p class="section-intro">Regulated delivery means the compliance regime <em>is</em> the constraint. Pick one to see what it governs, which sectors it hits, and what I do with it. &mdash; or see every key date in the <a href="/regulatory-deadlines" style="color: var(--gold);">deadline tracker</a>.</p>
-    <div class="reg-wrap">
-      <div class="reg-tabs" role="tablist" aria-label="Regulatory regimes" aria-orientation="vertical">
-        <button class="reg-tab" id="regtab-nis2" role="tab" aria-selected="true" aria-controls="regpanel-nis2" type="button">
-          <span class="reg-abbr">NIS2</span><span class="reg-full">Network &amp; Information Security Directive</span>
-        </button>
-        <button class="reg-tab" id="regtab-dora" role="tab" aria-selected="false" aria-controls="regpanel-dora" type="button" tabindex="-1">
-          <span class="reg-abbr">DORA</span><span class="reg-full">Digital Operational Resilience Act</span>
-        </button>
-        <button class="reg-tab" id="regtab-gxp" role="tab" aria-selected="false" aria-controls="regpanel-gxp" type="button" tabindex="-1">
-          <span class="reg-abbr">GxP / EU GMP</span><span class="reg-full">Good Practice &amp; Annex 11</span>
-        </button>
-        <button class="reg-tab" id="regtab-pci" role="tab" aria-selected="false" aria-controls="regpanel-pci" type="button" tabindex="-1">
-          <span class="reg-abbr">PCI-DSS</span><span class="reg-full">Payment Card Industry Data Security</span>
-        </button>
-        <button class="reg-tab" id="regtab-iso" role="tab" aria-selected="false" aria-controls="regpanel-iso" type="button" tabindex="-1">
-          <span class="reg-abbr">ISO 27001</span><span class="reg-full">Information Security Management</span>
-        </button>
-      </div>
-
-      <div class="reg-panel" id="regpanel-nis2" role="tabpanel" aria-labelledby="regtab-nis2" tabindex="0">
-        <h3>NIS2</h3>
-        <p class="reg-gov">Cybersecurity risk-management measures and incident reporting for Essential and Important Entities &mdash; in force in Denmark since 1 July 2025, with penalties up to &euro;10M or 2% of global turnover.</p>
-        <div class="reg-h">Sectors it hits</div>
-        <div class="reg-sectors"><span class="reg-sector">Energy</span><span class="reg-sector">Transport</span><span class="reg-sector">Health</span><span class="reg-sector">Water</span><span class="reg-sector">Digital infrastructure</span><span class="reg-sector">Public administration</span></div>
-        <div class="reg-h">What I do with it</div>
-        <p class="reg-do">Turn the directive into an operating programme with named owners and evidence a supervisor accepts &mdash; not a binder of policies nobody runs.</p>
-      </div>
-
-      <div class="reg-panel" id="regpanel-dora" role="tabpanel" aria-labelledby="regtab-dora" tabindex="0" hidden>
-        <h3>DORA</h3>
-        <p class="reg-gov">ICT risk management, third-party oversight, incident reporting and resilience testing for financial entities &mdash; applicable across the EU since 17 January 2025.</p>
-        <div class="reg-h">Sectors it hits</div>
-        <div class="reg-sectors"><span class="reg-sector">Banking</span><span class="reg-sector">Insurance</span><span class="reg-sector">Payments</span><span class="reg-sector">Investment</span><span class="reg-sector">Financial infrastructure</span></div>
-        <div class="reg-h">What I do with it</div>
-        <p class="reg-do">Stand up ICT-risk governance and third-party oversight that hold up under a resilience test &mdash; stacked cleanly on top of NIS2 where both apply.</p>
-      </div>
-
-      <div class="reg-panel" id="regpanel-gxp" role="tabpanel" aria-labelledby="regtab-gxp" tabindex="0" hidden>
-        <h3>GxP / EU GMP</h3>
-        <p class="reg-gov">Computerised-system validation and data integrity (ALCOA+) in regulated manufacturing &mdash; governed by EU GMP Annex 11, GAMP 5 and 21 CFR Part 11.</p>
-        <div class="reg-h">Sectors it hits</div>
-        <div class="reg-sectors"><span class="reg-sector">Pharma</span><span class="reg-sector">Life science</span><span class="reg-sector">Medical devices</span><span class="reg-sector">Biotech</span></div>
-        <div class="reg-h">What I do with it</div>
-        <p class="reg-do">Run migrations and transitions that keep validated systems (MES, SCADA, PAS-X) audit-ready &mdash; migration and validation evidence landing together.</p>
-      </div>
-
-      <div class="reg-panel" id="regpanel-pci" role="tabpanel" aria-labelledby="regtab-pci" tabindex="0" hidden>
-        <h3>PCI-DSS</h3>
-        <p class="reg-gov">Security controls protecting cardholder data across people, process and technology &mdash; assessed on a recurring recertification cycle.</p>
-        <div class="reg-h">Sectors it hits</div>
-        <div class="reg-sectors"><span class="reg-sector">Banking</span><span class="reg-sector">Payments</span><span class="reg-sector">Retail</span><span class="reg-sector">Fintech</span></div>
-        <div class="reg-h">What I do with it</div>
-        <p class="reg-do">Bring card-data environments through recertification without stalling delivery &mdash; governance and scope kept tight around the CDE.</p>
-      </div>
-
-      <div class="reg-panel" id="regpanel-iso" role="tabpanel" aria-labelledby="regtab-iso" tabindex="0" hidden>
-        <h3>ISO 27001</h3>
-        <p class="reg-gov">A risk-based information-security management system (ISMS) &mdash; the control backbone that most of the regimes above lean on.</p>
-        <div class="reg-h">Sectors it hits</div>
-        <div class="reg-sectors"><span class="reg-sector">Cross-sector</span><span class="reg-sector">Finance</span><span class="reg-sector">Public sector</span><span class="reg-sector">Critical infrastructure</span></div>
-        <div class="reg-h">What I do with it</div>
-        <p class="reg-do">Use it as the shared control backbone under NIS2 and DORA programmes &mdash; so evidence is produced once and reused, not rebuilt per regime.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SOCIAL PROOF -->
-<section data-reveal style="background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-  <div class="section-inner">
-    <div class="section-label">In their words</div>
-    <h2 class="section-title">What the people I&rsquo;ve delivered for say.</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 1.5rem; margin-top: 2.5rem;">
-      <blockquote style="margin: 0; padding: 2rem; background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 3px; min-width: 0;">
-        <p style="font-size: 1.05rem; color: var(--text-primary); line-height: 1.7; margin-bottom: 1.2rem; font-style: italic;">&ldquo;Steven joined when things were not moving in the right direction. In a very short time of six weeks he was able to bring the project on track.&rdquo;</p>
-        <div style="font-size: 0.9rem; color: var(--gold-light); font-weight: 500;">Abhaprakash Praharaj, PMP</div>
-        <div style="font-size: 0.8rem; color: var(--text-muted);">Project Manager, Tata Consultancy Services</div>
-      </blockquote>
-      <blockquote style="margin: 0; padding: 2rem; background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 3px; min-width: 0;">
-        <p style="font-size: 1.05rem; color: var(--text-primary); line-height: 1.7; margin-bottom: 1.2rem; font-style: italic;">&ldquo;His experience in programme governance, planning, risk and dependency management was invaluable&hellip; detailed reporting brought together in a stakeholder-friendly way.&rdquo;</p>
-        <div style="font-size: 0.9rem; color: var(--gold-light); font-weight: 500;">Alan Todd</div>
-        <div style="font-size: 0.8rem; color: var(--text-muted);">Global Programme Director (managed Steven directly)</div>
-      </blockquote>
-    </div>
-    <p style="margin-top: 1.8rem; font-size: 0.92rem;"><a href="/about#testimonials" style="color: var(--gold); text-decoration: none;">Read more &mdash; all verifiable on LinkedIn &rarr;</a></p>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" data-reveal>
-  <div class="section-inner">
-    <div class="section-label">Contact</div>
+    <div class="section-label">Kontakt</div>
     <div class="gold-line"></div>
     <img src="/img/photo-contact.jpg" alt="Steven Seidenfaden Wensley" class="contact-photo" width="341" height="512" loading="lazy" decoding="async">
-    <h2 class="section-title">Got a programme that&rsquo;s gone quiet at the top?</h2>
+    <h2 class="section-title">Skal vi tage den samtale i jeres lokale?</h2>
     <p class="contact-text">
-      If it&rsquo;s red, stalled, or a compliance date has already slipped, I can help. Interim or freelance, via broker or direct. References from previous clients available on request.
+      Skriv eller ring. Den f&oslash;rste samtale p&aring; 30 minutter koster ikke noget, og jeg siger det, hvis jeg ikke tror, det giver mening for jer.
     </p>
-    <div class="availability-box">
-      <p>Available now &mdash; AI navigation and regulated programmes across Denmark and the Nordics. Full-time freelance or smaller pieces, as the calendar allows.</p>
-    </div>
-    <div class="contact-links" style="margin-top: 2.5rem;">
+    <a href="/book-session#formular" style="display: inline-flex; align-items: center; gap: 0.75rem; padding: 1rem 2.5rem; background: var(--gold); color: var(--bg-primary); font-family: var(--sans); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: opacity 0.3s; margin-bottom: 2rem;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+      Book et 30-min introkald &rarr;
+    </a>
+    <div class="contact-links">
       <a href="tel:+4553886061" class="contact-link">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
         +45 53 88 60 61
@@ -787,7 +851,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
         steven.wensley@gmail.com
       </a>
-      <a href="https://www.linkedin.com/in/stevenwensley/" target="_blank" rel="noopener" class="contact-link">
+      <a href="https://www.linkedin.com/in/stevenwensley/" target="_blank" class="contact-link" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         LinkedIn
       </a>
@@ -797,10 +861,8 @@
 
 </main>
 <footer>
-  <div data-footer-nav style="margin-bottom: 0.5rem;"><a href="/">Home</a> &middot; <a href="/workshop">The Factory</a> &middot; <a href="/playbooks">Playbooks</a> &middot; <a href="/services">Services</a> &middot; <a href="/tools">Tools</a> &middot; <a href="/insights">Insights</a> &middot; <a href="/notes">Notes</a> &middot; <a href="/glossary">Glossary</a> &middot; <a href="/about">About</a> &middot; <a href="/#contact">Contact</a></div>
-
-  <div style="font-size: 0.72rem; color: var(--text-secondary); letter-spacing: 0.05em; margin-bottom: 0.5rem;">AI-native delivery &middot; Turnaround &middot; Transition &mdash; PMP &middot; PRINCE2 Practitioner &middot; SAFe 5.0 Agilist &middot; PSM I &middot; PSPO I &middot; SPS &middot; PAL I &middot; MSP &middot; P3O &middot; MoP &middot; AgilePM &middot; 20 years in regulated environments</div>
-  &copy; 2026 Steven Seidenfaden Wensley. All rights reserved.
+  <div style="font-size: 0.72rem; color: var(--text-secondary); letter-spacing: 0.05em; margin-bottom: 0.5rem;"><a href="/about" style="color: var(--text-secondary); text-decoration: none;">CV, referencer og certificeringer</a> &middot; <a href="/en" style="color: var(--text-secondary); text-decoration: none;" hreflang="en" lang="en">English</a> &middot; <a href="/privacy" style="color: var(--text-secondary); text-decoration: none;">Privatliv</a></div>
+  &copy; 2026 Steven Seidenfaden Wensley. Alle rettigheder forbeholdes.
 </footer>
 
 <script type="application/ld+json">
@@ -808,64 +870,58 @@
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Steven Seidenfaden Wensley",
-  "url": "https://stevenwensley.com",
-  "jobTitle": "Senior Programme Leader — AI Transition & Delivery",
-  "description": "Senior programme leader with 20 years in regulated IT and rare hands-on AI experience: building with every frontier lab's models since late 2025 — a one-man AI software factory with 6,948 commits since February 2026. Navigates organisations through the AI transition. Copenhagen, Denmark.",
-  "knowsAbout": ["AI-Native Software Delivery", "Multi-Agent Orchestration", "AI Governance", "Agentic Development", "Programme Turnaround", "IT Transition Management", "Datacenter Migration", "GxP", "NIS2", "DORA", "Programme Management"],
+  "url": "https://stevenwensley.com/",
+  "jobTitle": "Rådgiver for ledelser og bestyrelser om AI og dømmekraft",
+  "description": "Historiker og digter, 20 års programledelse i regulerede miljøer, og siden februar 2026 en enmandsfabrik af AI-agenter i drift. Bestyrelsesbriefing, lederforløb og AI-afklaring. København.",
+  "knowsAbout": ["AI og ledelse", "Dømmekraft", "AI-agenter i drift", "Programledelse", "Regulerede miljøer"],
   "knowsLanguage": ["Danish", "English", "Swedish"],
-  "sameAs": ["https://linkedin.com/in/stevenwensley/", "https://github.com/stevenwensley-a11y"],
+  "sameAs": ["https://linkedin.com/in/stevenwensley/", "https://www.tkbars.dk", "https://www.bygmedai.dk"],
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": "Copenhagen",
+    "addressLocality": "København",
     "addressCountry": "DK"
   }
 }
 </script>
 
+<!-- CDN: Design System v2 -->
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" integrity="sha384-tKsJDT6PlUI0pSBt9/sBKJluKgA19/a6mBrDsZaXotLB4ZYfMGM6xt6/WgGpYhTm" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js" integrity="sha384-pEQB1h4Zmn9xhS6jotzltHSIQq6N0Oh3BXkCNOH5LKI81R2NRbb9efarAJYw9gTY" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js" integrity="sha384-TgZ1GoXcDnrw/czNfaiSZSFV1zgIRv8aQOevBA8ppS4SkNONmzYfjARpXsDfdnUE" crossorigin="anonymous"></script>
+
 <script>
 (function() {
   'use strict';
+  /* Lenis smooth scroll */
   try {
-    var revealObserver = new IntersectionObserver(function(entries) {
+    var lenis = new Lenis({ duration: 1.2, easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); } });
+    lenis.on('scroll', function() { if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update(); });
+    gsap.ticker.add(function(time) { lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  } catch(e) {}
+
+  /* Scroll reveal */
+  try {
+    var ro = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add('revealed');
           var items = entry.target.querySelectorAll('.stagger-item:not(.revealed)');
-          items.forEach(function(item, i) {
-            setTimeout(function() { item.classList.add('revealed'); }, 100 + i * 80);
-          });
-          revealObserver.unobserve(entry.target);
+          items.forEach(function(item, i) { setTimeout(function() { item.classList.add('revealed'); }, 100 + i * 80); });
+          ro.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('[data-reveal]').forEach(function(el) { revealObserver.observe(el); });
-  } catch(e) { document.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('revealed'); }); }
+    document.querySelectorAll('[data-reveal]').forEach(function(el) { ro.observe(el); });
+  } catch(e) {}
 
-  /* ── REGULATORY MAP TABS ── */
+  /* FE4: SVG logo drawn class */
   try {
-    var regTabs = Array.prototype.slice.call(document.querySelectorAll('.reg-tab'));
-    function regSelect(tab) {
-      regTabs.forEach(function(t) {
-        var on = t === tab;
-        t.setAttribute('aria-selected', on ? 'true' : 'false');
-        t.tabIndex = on ? 0 : -1;
-        var panel = document.getElementById(t.getAttribute('aria-controls'));
-        if (panel) { if (on) { panel.removeAttribute('hidden'); } else { panel.setAttribute('hidden', ''); } }
-      });
-    }
-    regTabs.forEach(function(tab, i) {
-      tab.addEventListener('click', function() { regSelect(tab); });
-      tab.addEventListener('keydown', function(e) {
-        var idx = null;
-        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') idx = (i + 1) % regTabs.length;
-        else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') idx = (i - 1 + regTabs.length) % regTabs.length;
-        else if (e.key === 'Home') idx = 0;
-        else if (e.key === 'End') idx = regTabs.length - 1;
-        if (idx !== null) { e.preventDefault(); regSelect(regTabs[idx]); regTabs[idx].focus(); }
-      });
-    });
+    var svgText = document.querySelector('.nav-logo-svg text');
+    if (svgText) setTimeout(function() { svgText.classList.add('drawn'); }, 2200);
   } catch(e) {}
 })();
 </script>
+
 </body>
 </html>

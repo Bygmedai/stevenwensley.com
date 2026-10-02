@@ -76,10 +76,11 @@ const STANDALONE = (rowHtml) =>
   '</footer>\n';
 
 // Pages that are deliberately outside the site's navigation. The 404 page gets
-// the row — someone who lands there needs it more than anyone — but templates
-// is a gated lead magnet and index-da/services-da are the Danish mirror, which
-// links within itself.
-const SKIP = new Set(['index-da.html', 'services-da.html']);
+// the row — someone who lands there needs it more than anyone — but the Danish
+// front page (the root since BYG-703), services-da and the programme page
+// carry their own Danish footer and link within themselves. The English home
+// is /en and gets the row like every other English page.
+const SKIP = new Set(['index.html', 'services-da.html', 'forloeb.html']);
 
 const files = (await readdir(ROOT)).filter((f) => f.endsWith('.html') && !SKIP.has(f));
 
