@@ -1,0 +1,24 @@
+# Security — TruffleHog (inline). Offentlige repos kan ikke kalde den private
+# reusable workflow i Bygmedai/.github, derfor samme job direkte her.
+name: Security — TruffleHog
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  secrets:
+    name: Scan for secrets
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          extra_args: --only-verified
