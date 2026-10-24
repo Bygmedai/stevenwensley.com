@@ -1,0 +1,10 @@
+# Security — TruffleHog (kalder den fælles reusable workflow i Bygmedai/.github @v1)
+name: Security — TruffleHog
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  secrets:
+    uses: Bygmedai/.github/.github/workflows/trufflehog-secret-scan.yml@v1
