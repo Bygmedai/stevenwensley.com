@@ -668,6 +668,11 @@
   .aside-line { margin-top: 2.5rem; font-size: 0.92rem; color: var(--text-muted); max-width: 680px; line-height: 1.7; }
   .aside-line a { color: var(--text-secondary); }
   .aside-line a:hover { color: var(--gold); }
+  .nej-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 0.9rem; padding: 0.9rem 1.5rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); font-family: var(--sans); font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-secondary); }
+  .nej-strip .nej-dot { color: var(--gold); }
+  .faq-list { max-width: 680px; margin: 2rem 0 0; }
+  .faq-list dt { font-family: var(--sans); font-weight: 600; color: var(--text-primary); margin-top: 1.4rem; }
+  .faq-list dd { margin: 0.35rem 0 0; color: var(--text-secondary); line-height: 1.7; }
   .price { color: var(--gold-light); font-weight: 500; }
 </style>
 </head>
@@ -692,26 +697,31 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-content">
-    <div class="hero-label">D&oslash;mmekraft i drift &nbsp;&middot;&nbsp; K&oslash;benhavn</div>
+    <div class="hero-label">D&oslash;mmekraft i drift &nbsp;&middot;&nbsp; K&oslash;benhavn &nbsp;&middot;&nbsp; Ledig nu</div>
     <h1>
       AI er ikke et <span style="white-space: nowrap;">IT-problem.</span> <span class="accent">Det er et magtproblem.</span>
     </h1>
     <p class="tagline">
-      AI flytter magten fra dem, der laver arbejdet, til dem, der skal skrive under p&aring; det. Jeg hj&aelig;lper organisationer med at f&aring; AI fra pilot til drift, uden at underskriften bliver et stempel. Med 18 &aring;r som programleder i pharma, pension og staten bag mig, og en AI-fabrik, jeg selv har drevet siden februar.
+      Nogen har bedt jer om en AI-strategi. IT siger nej, licenserne st&aring;r ubrugte, og tre medarbejdere bruger ChatGPT i smug. D&eacute;r starter jeg, ikke i et slidedeck om fremtiden. AI flytter magten fra dem, der laver arbejdet, til dem, der skal skrive under p&aring; det, og jeg hj&aelig;lper jer med at f&aring; den fra pilot til drift, uden at underskriften bliver et stempel. 18 &aring;r som programleder i pharma, pension og staten. En AI-fabrik, jeg selv har drevet siden februar.
     </p>
     <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
       <a href="/book-session#formular" class="hero-cta" style="background: var(--gold); color: var(--bg-primary); font-weight: 600;">
         Book 30 minutter, gratis
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <a href="#ydelser" class="hero-cta">
-        Se, hvad I kan k&oslash;be
+      <a href="tel:+4553886061" class="hero-cta">
+        Hellere en snak? Ring mig op
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>
   </div>
   <img loading="eager" src="/img/photo-hero.jpg" alt="Steven Seidenfaden Wensley" class="hero-photo" width="341" height="512" decoding="async" fetchpriority="high">
 </section>
+
+<!-- TRE NEJ'ER -->
+<div class="nej-strip" aria-label="Det, jeg ikke g&oslash;r">
+  <span>Ingen licenser, jeg f&aring;r provision af</span><span class="nej-dot">&middot;</span><span>Ingen pilot uden slutdato</span><span class="nej-dot">&middot;</span><span>Jeg siger det, n&aring;r projektet er d&aring;rligt begrundet</span>
+</div>
 
 <!-- KENDER I DET? -->
 <section data-reveal id="det-jeg-har-set" style="background: var(--bg-secondary); border-top: 1px solid var(--border);">
@@ -767,7 +777,7 @@
           Jeg har skrevet digte i tyve &aring;r, under navnet <a href="https://www.tkbars.dk" rel="noopener" style="color: var(--gold-light);">T.K. Bars</a>, og ledet IT-programmer i regulerede milj&oslash;er lige s&aring; l&aelig;nge: pharma, pension, telekom, offentlig sektor. De to ting har ikke meget med hinanden at g&oslash;re. Indtil man skal forklare en bestyrelse, hvorfor en maskine uden krop kan lyde s&aring; overbevisende om ting, den ikke kan m&aelig;rke.
         </p>
         <p class="about-text">
-          I hvert program, jeg har overtaget, l&aring; der &eacute;n beslutning, ingen ville eje. Jeg blev betalt for at finde den og tage den. Siden februar har jeg ogs&aring; drevet en enmandsfabrik af AI-agenter, der bygger rigtige l&oslash;sninger til rigtige kunder. Over 4.000 &aelig;ndringer er g&aring;et i drift, og ingen af dem er godkendt af den, der skrev dem. Det er beviset for, at jeg ikke taler om noget, jeg har l&aelig;st om.
+          I hvert program, jeg har overtaget, l&aring; der &eacute;n beslutning, ingen ville eje. Jeg blev betalt for at finde den og tage den. Siden februar har jeg ogs&aring; drevet en enmandsfabrik af AI-agenter, der bygger rigtige l&oslash;sninger til rigtige kunder, og ingen &aelig;ndring g&aring;r i drift, godkendt af den, der skrev den. Hvad der er g&aring;et i drift, st&aring;r p&aring; fabrikkens side med dato og kilde. Det er beviset for, at jeg ikke taler om noget, jeg har l&aelig;st om.
         </p>
         <p class="about-text" style="font-size: 0.92rem; color: var(--text-muted);">
           <a href="/workshop" style="color: var(--text-secondary);">Se fabrikken og tallene &rarr;</a> &nbsp;&middot;&nbsp; <a href="/about" style="color: var(--text-secondary);">CV, referencer og certificeringer &rarr;</a>
@@ -781,8 +791,16 @@
 <section data-reveal id="ydelser">
   <div class="section-inner">
     <div class="section-label">Det, I kan k&oslash;be</div>
-    <h2 class="section-title">Fra f&oslash;rste samtale til drift. Start dér, hvor sp&oslash;rgsm&aring;let ligger hos jer.</h2>
+    <h2 class="section-title">En trappe, ikke en prisliste. Start nederst, hvor I ikke skal beslutte noget.</h2>
     <div class="services-list">
+      <a href="/book-session#formular" class="service-item" style="text-decoration: none; color: inherit;">
+        <div class="service-num">00</div>
+        <div>
+          <h3>30 minutter &mdash; gratis, ingen forpligtelse</h3>
+          <p>I fort&aelig;ller, hvor I st&aring;r. Jeg siger, om det giver mening at g&aring; videre, og hvis ikke, siger jeg det ogs&aring;. <span class="price">0 kr.</span></p>
+        </div>
+        <span class="service-arrow">&rarr;</span>
+      </a>
       <a href="/services-da#session" class="service-item" style="text-decoration: none; color: inherit;">
         <div class="service-num">01</div>
         <div>
@@ -835,6 +853,21 @@
       <div class="question">Kan vi rulle tilbage, og har vi pr&oslash;vet det?</div>
       <div class="question">Hvem har sagt god for, at den overhovedet m&aring; k&oslash;re?</div>
     </div>
+  </div>
+</section>
+
+<!-- SPURGT FØR -->
+<section data-reveal id="spurgt-foer">
+  <div class="section-inner">
+    <div class="section-label">Spurgt f&oslash;r</div>
+    <h2 class="section-title">Det, folk t&aelig;nker, f&oslash;r de ringer.</h2>
+    <dl class="faq-list">
+      <dt>Er du et konsulenthus?</dt><dd>Nej. Jeg er &eacute;n person. Det, I ser, er det, I f&aring;r.</dd>
+      <dt>S&aelig;lger du kurser i prompting?</dt><dd>Nej. Om AI g&oslash;r jer klogere eller bare hurtigere, afg&oslash;res d&eacute;r, hvor beslutningerne tages, ikke i et kursuslokale.</dd>
+      <dt>F&aring;r du provision af nogen leverand&oslash;r?</dt><dd>Nej. Jeg anbefaler ikke v&aelig;rkt&oslash;jer, jeg tjener p&aring;, og jeg siger det, hvis det bedste svar er at lade v&aelig;re.</dd>
+      <dt>Skal vi have besluttet noget, f&oslash;r vi ringer?</dt><dd>Nej. Det er netop pointen med den f&oslash;rste halve time.</dd>
+      <dt>Arbejder du ogs&aring; med organisationer, der ikke er klar?</dt><dd>Ja. Det er de fleste, og det er dem, jeg er bedst til.</dd>
+    </dl>
   </div>
 </section>
 
