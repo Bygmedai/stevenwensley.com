@@ -19,8 +19,8 @@
     "metrics": "node scripts/fetch-metrics.mjs && node scripts/update-metrics.mjs && node scripts/build-tools.mjs && node scripts/build-factory.mjs && node scripts/build-deadlines.mjs && node scripts/build-footer-nav.mjs && node scripts/build-meta.mjs && node scripts/build-sitemap.mjs"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.6",
-    "@playwright/test": "^1.64.0",
+    "@11ty/eleventy": "^3.1.7",
+    "@playwright/test": "^1.64.1",
     "esbuild": "0.28.2",
     "http-server": "^14.1.1"
   }
