@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }}</title>
+<meta name="description" content="{{ description }}">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ site.url }}{{ page.url }}">
+<meta property="og:image" content="{{ site.url }}/assets/img/og.jpg">
+<meta property="og:locale" content="da_DK">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="{{ site.url }}{{ page.url }}">
+{% if noindex %}<meta name="robots" content="noindex, nofollow">{% endif %}
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/dm-serif-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/sw.css">
+</head>
+<body class="sw">
+<a class="skip" href="#indhold">Spring til indhold</a>
+<header><div class="w hd"><a class="brand" href="/">Steven <b>Wensley</b></a><nav aria-label="Hovedmenu">
+{%- for l in site.nav %}<a href="{{ l.url }}"{% if l.url == page.url %} class="on" aria-current="page"{% endif %}>{{ l.text }}</a>{% endfor -%}
+<a class="btn sm" href="{{ site.cta.url }}">{{ site.cta.text }}</a></nav></div></header>
+<main id="indhold">
+{{ content | safe }}
+</main>
+<footer><div class="w"><span>Steven Wensley · {{ site.firma }} · CVR {{ site.cvr }} · <a href="mailto:{{ site.email }}">{{ site.email }}</a> · <a href="tel:{{ site.telefonLink }}">{{ site.telefon }}</a></span><span class="ft"><a href="{{ site.bygmedai }}">Projekter: bygmedai.dk</a><a href="{{ site.linkedin }}">LinkedIn</a><a href="/privatliv/">Privatliv</a></span></div></footer>
+</body>
+</html>
