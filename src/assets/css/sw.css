@@ -50,18 +50,19 @@ a:focus-visible,.btn:focus-visible,summary:focus-visible{outline:3px solid var(-
 
 /* stevenwensley.com: serif-overskrifter, helte-billede, spørgsmål, portræt */
 .sw h1,.sw h2,.sw .brand{font-family:'DM Serif Display',Georgia,serif;font-weight:400;letter-spacing:-.01em}
-.sw h1{font-size:clamp(40px,6.4vw,78px);line-height:1.02;max-width:14ch}.sw h2{font-size:clamp(30px,3.8vw,46px);line-height:1.08}
+.sw h1{font-size:clamp(40px,5.6vw,70px);line-height:1.02;max-width:14ch}.sw h2{font-size:clamp(30px,3.8vw,46px);line-height:1.08}
 .sw .brand{font-size:22px}.sw .brand b{font-weight:400}
 .sw h1 em{font-style:italic;color:var(--acc)}
 .hero.sw-hero{padding:var(--s5) 0 var(--s4)}
-.sw-hero .g2{grid-template-columns:1.05fr .95fr;align-items:center}
+.sw-hero .g2{grid-template-columns:1fr 1.1fr;align-items:center;gap:var(--s4)}
 figure{margin:0}figure img{display:block;width:100%;height:auto;border-radius:var(--r)}
 figcaption{font-size:12.5px;color:var(--mut);margin-top:8px}
 .qcards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3);counter-reset:q}
-.qcard{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:28px;position:relative;overflow:hidden}
+.qcard{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:28px 28px 84px;position:relative;overflow:hidden}
+.qcard .q,.qcard p{position:relative;z-index:1}
 .qcard .q{font-family:'DM Serif Display',Georgia,serif;font-size:clamp(24px,2.4vw,30px);line-height:1.15;margin:0 0 14px;color:var(--fg)}
 .qcard p{color:var(--mut);margin:0;font-size:16px}
-.qcard::after{content:"?";position:absolute;right:14px;bottom:-34px;font-family:'DM Serif Display',Georgia,serif;font-size:150px;line-height:1;color:var(--acc-soft);pointer-events:none}
+.qcard::after{content:"?";position:absolute;right:18px;bottom:-30px;font-family:'DM Serif Display',Georgia,serif;font-size:120px;line-height:1;color:var(--acc-soft);pointer-events:none;z-index:0}
 .portrait{display:grid;grid-template-columns:280px 1fr;gap:var(--s4);align-items:center}
 .portrait img{border-radius:var(--r);width:100%;max-width:280px;height:auto;display:block}
 .talks{display:grid;gap:var(--s3)}.talk{border-left:3px solid var(--acc);padding:4px 0 4px 24px}
