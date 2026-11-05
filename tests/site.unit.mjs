@@ -42,6 +42,7 @@ test("det gamle er væk: ingen compliance, ingen vibekodning, intet engelsk", ()
 test("AI-illustrationen er mærket, og portrætterne er fotos", () => {
   assert.match(read("index.html"), /Illustration lavet med AI/);
   assert.match(read("index.html"), /steven-skjorte\.jpg/);
+  assert.match(read("oplaeg/index.html"), /Illustration lavet med AI/);
 });
 
 test("gamle adresser 301'er til levende sider, og ingen regel peger på en død side", () => {
