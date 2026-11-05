@@ -1,210 +1,33 @@
 // @ts-check
+// Smoke-test af stevenwensley.com efter oprydningen (S639). Kører mod en lokal server.
 const { test, expect } = require('@playwright/test');
-const fs = require('fs');
-const path = require('path');
+const BASE = process.env.BASE_URL || 'http://localhost:8080';
+const PAGES = ['/', '/oplaeg/', '/om/', '/kontakt/', '/privatliv/'];
 
-const BASE_URL = process.env.BASE_URL || 'http://localhost:8080';
-
-// ============================================================
-// BygMedAI Smoke Test Suite
-// Fælles test-suite til alle BygMedAI-managed sites
-// ============================================================
-
-// Directories that hold generated copies of the site rather than the site
-// itself. _site is the publish directory assembled by scripts/build-publish.mjs;
-// without it here, anyone who ran that script before the tests got every page
-// discovered twice — once as `about.html` and once as `_site/about.html` — and
-// the second copy is requested at a URL the server does not serve. The run then
-// fails for reasons that have nothing to do with the site. CI never hit this
-// because _site is git-ignored and no CI job builds it before the smoke job,
-// which is exactly what made it a trap locally.
-const GENERATED_DIRS = new Set(['_site', 'test-results', 'playwright-report']);
-
-// Discover all HTML files in repo (skip backups and redirects)
-function discoverPages(dir, prefix = '') {
-  const pages = [];
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-  for (const entry of entries) {
-    if (entry.name.startsWith('.') || entry.name === 'node_modules' || entry.name === 'src') continue;
-    if (prefix === '' && GENERATED_DIRS.has(entry.name)) continue;
-    const fullPath = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      pages.push(...discoverPages(fullPath, prefix + entry.name + '/'));
-    } else if (entry.name.endsWith('.html') && !entry.name.includes('backup')) {
-      // Skip redirect pages (contain only meta refresh)
-      const content = fs.readFileSync(fullPath, 'utf-8');
-      if (content.includes('http-equiv="refresh"') && content.length < 500) continue;
-      pages.push(prefix + entry.name);
-    }
-  }
-  return pages;
+for (const p of PAGES) {
+  test(`${p} indlæses uden JS-fejl, med h1, menu og fod`, async ({ page }) => {
+    const fejl = [];
+    page.on('pageerror', (e) => fejl.push(e.message));
+    const res = await page.goto(BASE + p);
+    expect(res && res.status()).toBe(200);
+    await expect(page.locator('h1')).toHaveCount(1);
+    await expect(page.locator('nav[aria-label="Hovedmenu"] a[href="/kontakt/"]')).toBeVisible();
+    await expect(page.locator('footer')).toContainText('CVR 37244449');
+    expect(fejl).toEqual([]);
+  });
+  test(`${p} har ingen vandret scroll på mobil`, async ({ browser }) => {
+    const ctx = await browser.newContext({ viewport: { width: 375, height: 800 } });
+    const page = await ctx.newPage();
+    await page.goto(BASE + p);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(375);
+    await ctx.close();
+  });
 }
 
-// Get repo root (where HTML files live)
-const REPO_ROOT = path.resolve(__dirname, '..');
-const ALL_PAGES = discoverPages(REPO_ROOT);
-
-// Screenshot directory
-const SCREENSHOT_DIR = path.join(__dirname, 'screenshots');
-fs.mkdirSync(SCREENSHOT_DIR, { recursive: true });
-
-// ============================================================
-// TEST 1: All pages load without JS errors
-// ============================================================
-test.describe('Console Error Check', () => {
-  for (const page of ALL_PAGES) {
-    test(`${page} — no JS errors`, async ({ page: browserPage }) => {
-      const errors = [];
-      browserPage.on('console', msg => {
-        if (msg.type() === 'error') {
-          errors.push(msg.text());
-        }
-      });
-      browserPage.on('pageerror', err => {
-        errors.push(err.message);
-      });
-
-      const response = await browserPage.goto(`${BASE_URL}/${page}`, {
-        waitUntil: 'networkidle',
-        timeout: 15000
-      });
-
-      // Page should load
-      expect(response?.status()).toBeLessThan(400);
-
-      // Filter out known non-critical errors
-      const criticalErrors = errors.filter(e =>
-        !e.includes('fonts.googleapis') &&
-        !e.includes('Failed to load resource') && // External CDN
-        !e.includes('net::ERR_') && // Network errors (external)
-        !e.includes('cloudflareinsights.com') && // CF analytics beacon CORS-blocked on localhost test origin
-        !e.includes('sandboxed') && // iframe sandbox (portfolio browser previews)
-        !e.includes('Blocked script execution') // Same — sandboxed iframes
-      );
-
-      if (criticalErrors.length > 0) {
-        console.log(`JS errors on ${page}:`, criticalErrors);
-      }
-      expect(criticalErrors).toHaveLength(0);
-    });
-  }
-});
-
-// ============================================================
-// TEST 2: Responsive screenshots (3 breakpoints)
-// ============================================================
-const VIEWPORTS = [
-  { name: 'mobile', width: 375, height: 812 },
-  { name: 'tablet', width: 768, height: 1024 },
-  { name: 'desktop', width: 1440, height: 900 },
-];
-
-// Only screenshot key pages (not all 30)
-const KEY_PAGE_NAMES = [
-  'index.html',
-  'en.html',
-  'forloeb.html',
-  'services.html',
-  'insights.html',
-  'book-session.html',
-  'ai-governance-assessment.html',
-];
-const KEY_PAGES = ALL_PAGES.filter(p => KEY_PAGE_NAMES.includes(p)).slice(0, 7);
-
-test.describe('Responsive Screenshots', () => {
-  for (const page of KEY_PAGES) {
-    for (const vp of VIEWPORTS) {
-      test(`${page} @ ${vp.name} (${vp.width}px)`, async ({ browser }) => {
-        const context = await browser.newContext({
-          viewport: { width: vp.width, height: vp.height }
-        });
-        const browserPage = await context.newPage();
-
-        await browserPage.goto(`${BASE_URL}/${page}`, {
-          waitUntil: 'networkidle',
-          timeout: 15000
-        });
-
-        // Wait for animations to settle
-        await browserPage.waitForTimeout(500);
-
-        const slug = page.replace(/[\/\.]/g, '-');
-        await browserPage.screenshot({
-          path: path.join(SCREENSHOT_DIR, `${slug}-${vp.name}.png`),
-          fullPage: true
-        });
-
-        await context.close();
-      });
-    }
-  }
-});
-
-// ============================================================
-// TEST 3: Critical elements exist
-// ============================================================
-test.describe('Critical Elements', () => {
-  test('index.html has nav, hero, footer', async ({ page }) => {
-    await page.goto(`${BASE_URL}/index.html`, { waitUntil: 'networkidle' });
-
-    // Nav exists
-    await expect(page.locator('nav, .nav')).toBeVisible();
-
-    // At least one h1
-    const h1Count = await page.locator('h1').count();
-    expect(h1Count).toBeGreaterThanOrEqual(1);
-
-    // Footer exists
-    await expect(page.locator('footer')).toBeVisible();
-  });
-
-  test('All pages have meta viewport', async ({ page }) => {
-    for (const p of ALL_PAGES.slice(0, 10)) { // Check first 10
-      await page.goto(`${BASE_URL}/${p}`, { waitUntil: 'domcontentloaded' });
-      const viewport = await page.locator('meta[name="viewport"]').count();
-      expect(viewport, `${p} missing viewport meta`).toBeGreaterThanOrEqual(1);
-    }
-  });
-
-  test('All pages have lang attribute', async ({ page }) => {
-    for (const p of ALL_PAGES.slice(0, 10)) {
-      await page.goto(`${BASE_URL}/${p}`, { waitUntil: 'domcontentloaded' });
-      const lang = await page.locator('html').getAttribute('lang');
-      expect(lang, `${p} missing lang attribute`).toBeTruthy();
-    }
-  });
-});
-
-// ============================================================
-// TEST 4: No horizontal overflow (common CSS bug)
-// ============================================================
-test.describe('Layout Integrity', () => {
-  for (const page of KEY_PAGES) {
-    test(`${page} — no horizontal overflow on mobile`, async ({ browser }) => {
-      const context = await browser.newContext({
-        viewport: { width: 375, height: 812 }
-      });
-      const browserPage = await context.newPage();
-
-      await browserPage.goto(`${BASE_URL}/${page}`, {
-        waitUntil: 'networkidle',
-        timeout: 15000
-      });
-
-      // Check both html and body scrollWidth — html reflects actual visible overflow
-      const { htmlWidth, bodyWidth, viewportWidth } = await browserPage.evaluate(() => ({
-        htmlWidth: document.documentElement.scrollWidth,
-        bodyWidth: document.body.scrollWidth,
-        viewportWidth: window.innerWidth
-      }));
-
-      // Use html scrollWidth (respects overflow clipping) as primary check
-      // Fall back to body scrollWidth only if html passes (catches unclipped overflow)
-      const effectiveWidth = Math.min(htmlWidth, bodyWidth);
-      expect(effectiveWidth, `${page} has horizontal overflow: html=${htmlWidth}px body=${bodyWidth}px > viewport=${viewportWidth}px`)
-        .toBeLessThanOrEqual(viewportWidth + 5);
-
-      await context.close();
-    });
+test('helte-billedet og portrættet indlæses', async ({ page }) => {
+  await page.goto(BASE + '/');
+  for (const sel of ['figure img', '.portrait img']) {
+    const ok = await page.locator(sel).first().evaluate((img) => img.complete && img.naturalWidth > 0);
+    expect(ok, sel).toBe(true);
   }
 });
