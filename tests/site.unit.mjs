@@ -71,3 +71,12 @@ test("fra-priserne står på forsiden og /oplaeg/, ekskl. moms, og de gamle pris
   assert.match(oplaeg, /Fra 12\.000 kr\. ekskl\. moms/);
   for (const side of SIDER) assert.doesNotMatch(read(side), /6\.500|45\.000/, side);
 });
+
+test("historikeren og digteren er foldet ud: hvorfor, ikke kun hvem", () => {
+  const forside = read("index.html").replace(/<[^>]+>/g, " ");
+  for (const ord of ["Historikeren", "Digteren", "Programlederen", "Kildekritik"]) assert.ok(forside.includes(ord), ord);
+  const om = read("om/index.html");
+  assert.match(om, /href="https:\/\/tkbars\.dk\/om\/"/);
+  assert.match(om.replace(/<[^>]+>/g, " "), /kilde uden afsender/);
+  assert.doesNotMatch(om, /ser det, andre overser/);
+});
