@@ -60,3 +60,14 @@ test("ingen serverfunktioner og ingen tredjeparts-scripts", () => {
   assert.equal(existsSync("functions"), false);
   for (const side of SIDER) assert.doesNotMatch(read(side), /<script/i, side);
 });
+
+test("fra-priserne står på forsiden og /oplaeg/, ekskl. moms, og de gamle priser er væk", () => {
+  const forside = read("index.html").replace(/<[^>]+>/g, " ");
+  for (const pris of ["1.400 kr. i timen", "fra 18.000 kr.", "fra 35.000 kr.", "fra 75.000 kr.", "Fra 12.000 kr."]) {
+    assert.ok(forside.includes(pris), pris);
+  }
+  assert.match(forside, /ekskl\. moms/);
+  const oplaeg = read("oplaeg/index.html").replace(/<[^>]+>/g, " ");
+  assert.match(oplaeg, /Fra 12\.000 kr\. ekskl\. moms/);
+  for (const side of SIDER) assert.doesNotMatch(read(side), /6\.500|45\.000/, side);
+});
