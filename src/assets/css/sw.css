@@ -71,3 +71,4 @@ figcaption{font-size:12.5px;color:var(--mut);margin-top:8px}
 .cross{display:flex;justify-content:space-between;align-items:center;gap:var(--s3);flex-wrap:wrap;border:1px solid var(--line);border-radius:var(--r);padding:24px 28px;background:#fff}
 .cross p{margin:0;color:var(--mut)}.cross strong{color:var(--fg)}
 @media(max-width:960px){.sw-hero .g2,.portrait{grid-template-columns:1fr}.qcards{grid-template-columns:1fr}.portrait img{max-width:240px}}
+.card p.price{margin-top:var(--s2);color:var(--fg);font-weight:600;font-size:15.5px;line-height:1.6}
