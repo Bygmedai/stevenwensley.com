@@ -14,13 +14,18 @@
 </head>
 <body class="sw">
 <a class="skip" href="#indhold">Spring til indhold</a>
-<header><div class="w hd"><a class="brand" href="/ny/">Steven <b>Wensley</b></a><nav aria-label="Hovedmenu">
+<header><div class="w hd"><a class="brand" href="/ny/">Steven <b>Wensley</b></a>
+<div class="hdr"><nav class="dnav" aria-label="Hovedmenu">
 {%- for l in nyNav %}<a href="{{ l.url }}"{% if l.url == page.url %} class="on" aria-current="page"{% endif %}>{{ l.text }}</a>{% endfor -%}
-<a class="btn sm" href="/ny/#kontakt">Book 30 minutter</a></nav></div></header>
+</nav>
+<details class="mnav"><summary aria-label="Åbn menu">Menu</summary><nav aria-label="Mobilmenu"><a href="/ny/"{% if page.url == "/ny/" %} class="on" aria-current="page"{% endif %}>Forside</a>
+{%- for l in nyNav %}<a href="{{ l.url }}"{% if l.url == page.url %} class="on" aria-current="page"{% endif %}>{{ l.text }}</a>{% endfor -%}
+<a href="/ny/kontakt/"{% if page.url == "/ny/kontakt/" %} class="on" aria-current="page"{% endif %}>Kontakt</a></nav></details>
+<a class="btn sm" href="/ny/kontakt/">Book 30 minutter</a></div></div></header>
 <main id="indhold">
 {{ content | safe }}
 </main>
-<footer><div class="w"><span class="ft"><span>Steven Wensley · <span class="ph">STEVEN: bekræft CVR – i dag {{ site.firma }} · CVR {{ site.cvr }}</span> · <span class="ph">STEVEN: bekræft kontakt – i dag {{ site.email }} · {{ site.telefon }}</span></span><span class="pv">Preview af design B v2 · ikke publiceret</span></span>
-<nav aria-label="Fodmenu"><a href="/ny/">Forside</a>{% for l in nyNav %}<a href="{{ l.url }}">{{ l.text }}</a>{% endfor %}<a href="/privatliv/">Privatliv</a></nav></div></footer>
+<footer><div class="w"><span class="ft"><span>Steven Wensley · {{ site.firma }} · CVR {{ site.cvr }} · <a href="mailto:{{ site.email }}">{{ site.email }}</a> · <a href="tel:{{ site.telefonLink }}">{{ site.telefon }}</a></span><span class="pv">Preview af design B v2 · ikke publiceret</span></span>
+<nav aria-label="Fodmenu"><a href="/ny/">Forside</a>{% for l in nyNav %}<a href="{{ l.url }}">{{ l.text }}</a>{% endfor %}<a href="/ny/kontakt/">Kontakt</a><a href="{{ site.bygmedai }}">Projekter: bygmedai.dk</a><a href="{{ site.linkedin }}">LinkedIn</a><a href="/privatliv/">Privatliv</a></nav></div></footer>
 </body>
 </html>

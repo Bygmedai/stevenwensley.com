@@ -2,7 +2,7 @@
 // Design B v2 "Nordisk lys" (BYG-991): preview-siderne under /ny/ ved 390/768/1440.
 const { test, expect } = require('@playwright/test');
 const BASE = process.env.BASE_URL || 'http://localhost:8080';
-const PAGES = ['/ny/', '/ny/saadan-kan-jeg-hjaelpe/', '/ny/spoergsmaal/', '/ny/om-mig/'];
+const PAGES = ['/ny/', '/ny/saadan-kan-jeg-hjaelpe/', '/ny/spoergsmaal/', '/ny/om-mig/', '/ny/kontakt/'];
 const WIDTHS = [390, 768, 1440];
 
 for (const p of PAGES) {
@@ -39,4 +39,34 @@ test('pladsholdere er gule og synlige', async ({ page }) => {
   const ph = page.locator('.ph').first();
   await expect(ph).toBeVisible();
   expect(await ph.evaluate((e) => getComputedStyle(e).backgroundColor)).toBe('rgb(255, 247, 214)');
+});
+
+test('mobilmenu ved 375px: menupunkter kan nås uden JS', async ({ browser }) => {
+  const ctx = await browser.newContext({ viewport: { width: 375, height: 800 }, javaScriptEnabled: false });
+  const page = await ctx.newPage();
+  await page.goto(BASE + '/ny/');
+  const menu = page.locator('details.mnav');
+  await expect(menu.locator('summary')).toBeVisible();
+  await expect(page.locator('nav.dnav')).toBeHidden();
+  await menu.locator('summary').click();
+  for (const t of ['Sådan arbejder jeg', 'Spørgsmål', 'Om mig', 'Kontakt']) await expect(menu.getByRole('link', { name: t })).toBeVisible();
+  await menu.getByRole('link', { name: 'Om mig' }).click();
+  await expect(page).toHaveURL(/\/ny\/om-mig\/$/);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(375);
+  await ctx.close();
+});
+
+test('desktop: hovedmenu synlig, mobilmenu skjult', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto(BASE + '/ny/');
+  await expect(page.locator('nav.dnav a', { hasText: 'Om mig' })).toBeVisible();
+  await expect(page.locator('details.mnav')).toBeHidden();
+});
+
+test('#kontakt lander under sticky header', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto(BASE + '/ny/#kontakt');
+  const top = await page.locator('#kontakt').evaluate((e) => e.getBoundingClientRect().top);
+  const hdr = await page.locator('header').evaluate((e) => e.getBoundingClientRect().bottom);
+  expect(top).toBeGreaterThanOrEqual(hdr - 1);
 });
