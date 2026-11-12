@@ -67,3 +67,27 @@ test("mobilmenu uden JS: details/summary med alle sider", () => {
 test("ankre har scroll-margin-top under sticky header", () => {
   assert.match(read("assets/css/tokens.css"), /\[id\]\{scroll-margin-top:\d+px\}/);
 });
+
+test("ingen gule pladsholdere tilbage på /ny/", () => {
+  for (const side of NY) assert.doesNotMatch(read(side), /class="(ph|phbox)"|VERIFICÉR|STEVEN:/, side);
+});
+
+test("priserne står ordret som på den gamle forside, ekskl. moms", () => {
+  const t = read("ny/saadan-kan-jeg-hjaelpe/index.html").replace(/<[^>]+>/g, " ");
+  for (const pris of ["Derefter 1.400 kr. i timen", "Halv dag fra 18.000 kr.", "Heldag fra 35.000 kr.", "Fire halve dage fra 75.000 kr.", "Fra 12.000 kr.", "Alle priser er ekskl. moms. Ved halve og hele dage er formøde og skriftlig opsamling med."]) assert.ok(t.includes(pris), pris);
+  for (const side of NY) assert.doesNotMatch(read(side), /6\.500|45\.000|39\.500/, side);
+});
+
+test("portrætter, illustration, referencer og sprog efter beslutningerne", () => {
+  assert.match(read("ny/index.html"), /src="\/assets\/img\/steven-skjorte\.jpg"/);
+  assert.match(read("ny/index.html"), /Illustration lavet med AI/);
+  assert.match(read("ny/index.html"), /Referencer gives på forespørgsel\./);
+  assert.match(read("ny/om-mig/index.html"), /src="\/assets\/img\/steven-roede-briller\.jpg"/);
+  const faq = read("ny/spoergsmaal/index.html");
+  assert.match(faq, /København/); assert.doesNotMatch(faq, /Skandinavien/);
+  for (const side of NY) assert.doesNotMatch(read(side), /interim|Bestyrelsesbriefing/i, side);
+  const k = read("ny/kontakt/index.html");
+  assert.match(k, /Den første samtale er gratis og tager 30 minutter\./);
+  assert.match(k, /href="mailto:steven\.wensley@gmail\.com"/); assert.match(k, /href="tel:\+4553886061"/);
+  assert.doesNotMatch(k, /<form|<iframe|<script/i);
+});

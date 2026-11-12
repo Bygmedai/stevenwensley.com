@@ -34,11 +34,15 @@ for (const p of PAGES) {
   });
 }
 
-test('pladsholdere er gule og synlige', async ({ page }) => {
-  await page.goto(BASE + '/ny/');
-  const ph = page.locator('.ph').first();
-  await expect(ph).toBeVisible();
-  expect(await ph.evaluate((e) => getComputedStyle(e).backgroundColor)).toBe('rgb(255, 247, 214)');
+test('ingen pladsholdere tilbage, og portrætter og illustration indlæses', async ({ page }) => {
+  for (const p of PAGES) {
+    await page.goto(BASE + p);
+    await expect(page.locator('.ph, .phbox')).toHaveCount(0);
+    for (const img of await page.locator('main img').all()) {
+      await img.scrollIntoViewIfNeeded();
+      expect(await img.evaluate((i) => i.complete && i.naturalWidth > 0), p).toBe(true);
+    }
+  }
 });
 
 test('mobilmenu ved 375px: menupunkter kan nås uden JS', async ({ browser }) => {

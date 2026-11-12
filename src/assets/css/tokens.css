@@ -70,3 +70,8 @@ ul.qs li .qd{display:block;font-size:16px;font-weight:400;color:var(--mut);margi
 @media(max-width:640px){.brand{font-size:17px;white-space:nowrap}.hd{gap:12px}.hdr{gap:8px}.hdr .btn.sm{padding:9px 13px;font-size:13.5px;white-space:nowrap}.mnav summary{padding:8px 12px;font-size:14px}}
 @media(max-width:380px){.w{padding:0 16px}.brand{font-size:16px}}
 @media(max-width:370px){.hdr .btn.sm{display:none}}
+/* Portræt og illustration (BYG-991, ingen pladsholdere). */
+figure.pt{margin:0}figure.pt img{display:block;width:100%;max-width:341px;height:auto;border-radius:var(--r);margin:0 auto}
+figure.ill{margin:var(--s3) 0 0}figure.ill img{display:block;width:100%;height:auto;border-radius:var(--r)}figure.ill figcaption{font-size:13px;color:var(--mut);margin-top:8px}
+.card p.price{color:var(--fg);font-weight:600;font-size:15.5px;line-height:1.6}
+@media(max-width:960px){figure.pt img{max-width:260px;margin:0}}
