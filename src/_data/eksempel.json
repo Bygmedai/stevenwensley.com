@@ -1,12 +1,21 @@
 {
-  "_kommentar": "Tal til figuren ved «Hvem ejer den tid, AI frigør?». Afskrevet fra AI-overblikket (bygmedai.dk), udgivelse rel-ai-overblikket-001, hvor hvert tal har citat og sidetal. Beløb i 1.000 kr., 2026-priser. Prøven i tests/ny.unit.mjs holder etiketter og netto op mod tallene.",
+  "_kommentar": "Tal til figuren ved «Hvem ejer den tid, AI frigør?». Afskrevet fra AI-overblikket (bygmedai.dk): udgivelsen og posterne står i felterne «udgivelse» og «poster», og hvert tal har citat og sidetal dér. Rettes en af posterne i AI-overblikket, skal figuren kontrolleres og «udgivelse» føres ajour. Beløb i 1.000 kr., 2026-priser. Prøven i tests/ny.unit.mjs holder etiketter og netto op mod tallene.",
   "kommune": "Høje-Taastrup Kommune",
   "kilde": "Prioriteringsforslag ØU10 til Budget 2026–2029: Anvendelse af kunstig intelligens i Høje-Taastrup Kommune",
   "kildeUrl": "https://www.htk.dk/p/Dokumenter%20Htk.dk/OAC/Budget2026-29/Hoeringsmateriale/Indarbejdet/%C3%98U10-Anvendelse-af-kunstig-intelligens-i-HTK.DOCX.pdf",
   "overblikUrl": "https://bygmedai.dk/indsigt/offentlig-ai/kommuner/hoeje-taastrup/",
+  "udgivelse": "rel-ai-overblikket-001",
+  "udgivelseUrl": "https://bygmedai.dk/indsigt/offentlig-ai/udgivelser/rel-ai-overblikket-001.json",
+  "poster": [
+    "obs-hoeje-taastrup-budget-2026-investering",
+    "obs-hoeje-taastrup-budget-2026-effektivisering",
+    "obs-hoeje-taastrup-budget-2026-netto"
+  ],
   "laest": "13. november 2026",
   "investering": 1500,
   "investeringLabel": "1,5",
+  "rammebesparelse2026": 450,
+  "rammebesparelse2026Label": "450.000 kr.",
   "skalaMax": 2400,
   "aar": [
     {

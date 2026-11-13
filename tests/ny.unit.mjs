@@ -152,6 +152,22 @@ test("eksemplet: figurens etiketter og netto svarer til tallene, og kilden står
   assert.match(tekst(h), /Forslaget er taget med i budgetforliget for 2026\./);
 });
 
+test("eksemplet siger ikke mere, end budgettet dokumenterer, og er bundet til en udgivelse", () => {
+  const e = JSON.parse(readFileSync("src/_data/eksempel.json", "utf8"));
+  const t = tekst(read("ny/index.html"));
+  // Et budgetkrav er ikke en målt effekt, og forslaget rummer også en rammebesparelse.
+  assert.ok(t.includes("Tallene er budgetkrav, ikke målt effekt."));
+  assert.ok(t.includes(`administrativ rammebesparelse på ${e.rammebesparelse2026Label} i 2026`));
+  assert.equal(e.rammebesparelse2026Label, `${e.rammebesparelse2026}.000 kr.`);
+  assert.ok(t.includes("før effekten er målt"));
+  assert.doesNotMatch(t, /ikke længere, om AI frigør tid|Gevinsten er skrevet ind/);
+  // Figuren følger en bestemt udgivelse og bestemte poster i AI-overblikket.
+  assert.match(e.udgivelse, /^rel-ai-overblikket-\d{3}$/);
+  assert.ok(e.udgivelseUrl.endsWith(`/udgivelser/${e.udgivelse}.json`));
+  assert.ok(Array.isArray(e.poster) && e.poster.length >= 3);
+  for (const id of e.poster) assert.match(id, /^obs-hoeje-taastrup-/, id);
+});
+
 test("AI-overblikket står på Om mig, i foden og på den gamle forside", () => {
   assert.match(read("ny/om-mig/index.html"), /<dt>AI-overblikket<\/dt>/);
   for (const side of [...NY, "index.html", "om/index.html"]) assert.match(read(side), /href="https:\/\/bygmedai\.dk\/indsigt\/offentlig-ai\/"[^>]*>AI-overblikket<\/a>/, side);
