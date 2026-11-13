@@ -28,6 +28,6 @@ jobs:
         run: |
           npx http-server _site -p 8080 -s &
           sleep 2
-          npx playwright test tests/smoke.spec.js --reporter=list
+          npx playwright test tests/smoke.spec.js tests/ny.spec.js --reporter=list
         env:
           BASE_URL: http://localhost:8080

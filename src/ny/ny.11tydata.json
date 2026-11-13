@@ -1,0 +1,10 @@
+{
+  "layout": "ny.njk",
+  "noindex": true,
+  "eleventyExcludeFromCollections": false,
+  "nyNav": [
+    { "text": "Sådan arbejder jeg", "url": "/ny/saadan-kan-jeg-hjaelpe/" },
+    { "text": "Spørgsmål", "url": "/ny/spoergsmaal/" },
+    { "text": "Om mig", "url": "/ny/om-mig/" }
+  ]
+}
