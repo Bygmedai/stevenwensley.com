@@ -1,0 +1,45 @@
+{
+  "_kommentar": "Tal til figuren ved «Hvem ejer den tid, AI frigør?». Afskrevet fra AI-overblikket (bygmedai.dk), udgivelse rel-ai-overblikket-001, hvor hvert tal har citat og sidetal. Beløb i 1.000 kr., 2026-priser. Prøven i tests/ny.unit.mjs holder etiketter og netto op mod tallene.",
+  "kommune": "Høje-Taastrup Kommune",
+  "kilde": "Prioriteringsforslag ØU10 til Budget 2026–2029: Anvendelse af kunstig intelligens i Høje-Taastrup Kommune",
+  "kildeUrl": "https://www.htk.dk/p/Dokumenter%20Htk.dk/OAC/Budget2026-29/Hoeringsmateriale/Indarbejdet/%C3%98U10-Anvendelse-af-kunstig-intelligens-i-HTK.DOCX.pdf",
+  "overblikUrl": "https://bygmedai.dk/indsigt/offentlig-ai/kommuner/hoeje-taastrup/",
+  "laest": "13. november 2026",
+  "investering": 1500,
+  "investeringLabel": "1,5",
+  "skalaMax": 2400,
+  "aar": [
+    {
+      "aar": 2026,
+      "effektivisering": 1000,
+      "effektiviseringLabel": "1,0",
+      "netto": 500,
+      "nettoLabel": "+0,5",
+      "stillinger": 2
+    },
+    {
+      "aar": 2027,
+      "effektivisering": 1100,
+      "effektiviseringLabel": "1,1",
+      "netto": 400,
+      "nettoLabel": "+0,4",
+      "stillinger": 2
+    },
+    {
+      "aar": 2028,
+      "effektivisering": 1650,
+      "effektiviseringLabel": "1,65",
+      "netto": -150,
+      "nettoLabel": "−0,15",
+      "stillinger": 3
+    },
+    {
+      "aar": 2029,
+      "effektivisering": 2200,
+      "effektiviseringLabel": "2,2",
+      "netto": -700,
+      "nettoLabel": "−0,7",
+      "stillinger": 4
+    }
+  ]
+}
