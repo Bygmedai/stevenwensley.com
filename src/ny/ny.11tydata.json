@@ -3,8 +3,21 @@
   "noindex": true,
   "eleventyExcludeFromCollections": false,
   "nyNav": [
-    { "text": "Sådan arbejder jeg", "url": "/ny/saadan-kan-jeg-hjaelpe/" },
-    { "text": "Spørgsmål", "url": "/ny/spoergsmaal/" },
-    { "text": "Om mig", "url": "/ny/om-mig/" }
+    {
+      "text": "Sådan kan jeg hjælpe",
+      "url": "/ny/saadan-kan-jeg-hjaelpe/"
+    },
+    {
+      "text": "Oplæg",
+      "url": "/ny/oplaeg/"
+    },
+    {
+      "text": "Spørgsmål",
+      "url": "/ny/spoergsmaal/"
+    },
+    {
+      "text": "Om mig",
+      "url": "/ny/om-mig/"
+    }
   ]
 }

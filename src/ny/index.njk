@@ -6,13 +6,13 @@ description: "Jeg hjælper ledergrupper med at forstå, hvad AI betyder for dere
 {#- Kilder: BYG-992 (hero, situationer, første skridt) og den gamle forside / (spørgsmål, illustration, hvorfor mig med portræt, afslutning, mikrotekst) + /om/ (referencer). Gamle tekster er brugt ordret. -#}
 <div class="hero"><div class="w"><span class="eyebrow">AI-rådgivning for ledergrupper</span><h1>I vil gerne bruge AI. Men hvor begynder I?</h1>
 <p class="lead">Jeg hjælper ledergrupper med at forstå, hvad AI betyder for deres eget arbejde – og hvem der har ansvaret, når den bliver en del af det. Vi starter med jeres hverdag, ikke med teknologien.</p>
-<div class="acts"><a class="btn" href="/ny/kontakt/">Tag en uforpligtende snak</a><a class="btn ghost" href="/ny/saadan-kan-jeg-hjaelpe/">Læs hvordan jeg arbejder</a></div>
+<div class="acts"><a class="btn" href="/ny/kontakt/">Tag en uforpligtende snak</a><a class="btn ghost" href="/ny/saadan-kan-jeg-hjaelpe/">Se hvordan jeg kan hjælpe</a></div>
 <p class="micro">Første samtale er gratis · Jeg sælger ingen licenser · Jeg siger det, når projektet er dårligt begrundet</p></div></div>
 
 <section class="alt"><div class="w"><span class="eyebrow">Kender I det?</span><h2>Tre situationer, I måske kender</h2><p class="intro">Hverdagseksempler – ikke kundecases.</p><div class="g3">
 <div class="card"><p class="quote">“Vi har købt licenserne, men intet har ændret sig.”</p><p>Værktøjet er rullet ud, men ingen har talt om, hvad det skal bruges til.</p></div>
-<div class="card"><p class="quote">“Nogle bruger det hele tiden, andre slet ikke.”</p><p>Ledelsen ved ikke, hvad der sker – eller hvad der er okay.</p></div>
-<div class="card"><p class="quote">“Bestyrelsen spørger, hvad vores AI-plan er.”</p><p>Og ingen i ledergruppen føler sig sikker nok til at svare.</p></div></div>
+<div class="card"><p class="quote">“Besparelsen står allerede i budgettet. Ingen har målt noget endnu.”</p><p>Gevinsten er lagt ind på forhånd. Hvem der skal levere den, og hvordan I ser, om den kom, er ikke aftalt.</p></div>
+<div class="card"><p class="quote">“Bestyrelsen eller byrådet spørger, hvad vores AI-plan er.”</p><p>Og ingen i ledergruppen føler sig sikker nok til at svare.</p></div></div>
 <p class="micro">Referencer gives på forespørgsel.</p></div></section>
 
 <section><div class="w g2"><div><span class="eyebrow">Første skridt</span><h2>Hvordan vi kommer i gang</h2></div><div><p>Jeg tror ikke på, at I skal kunne beskrive et AI-projekt, før vi mødes. De fleste ledergrupper kan ikke – og det er helt normalt.</p><p>En samtale om jeres AI-spørgsmål med det, I allerede har, på bordet. Den første er gratis og tager 30 minutter.</p><p>Derfor begynder vi med at forstå: Hvad kan AI faktisk i jeres type arbejde, hvad kan den ikke, og hvilke beslutninger skal I selv træffe? Først derefter giver det mening at tale om rådgivning eller projekter.</p><p>Alt begynder med jeres eget materiale, ikke med slides om, hvad AI kan.</p><a href="/ny/saadan-kan-jeg-hjaelpe/">Se hvordan et forløb ser ud →</a></div></div></section>
@@ -23,7 +23,24 @@ description: "Jeg hjælper ledergrupper med at forstå, hvad AI betyder for dere
 <li>Hvem ejer den tid, AI frigør?<span class="qd">Når en agent sparer en time, forsvinder timen ikke. Den havner hos nogen. Har ingen besluttet hos hvem, bliver gevinsten til uro.</span></li>
 <li>Hvem skriver under, når maskinen har lavet arbejdet?<span class="qd">AI flytter magten fra dem, der laver arbejdet, til dem, der skal stå inde for det. Bliver underskriften et stempel, har I mistet kontrollen uden at opdage det.</span></li>
 <li>Hvem lærer de nye at dømme?<span class="qd">De opgaver, nye medarbejdere lærte faget på, er dem, AI tager først. Hvem skal så lære dem at se, når noget er forkert?</span></li>
-</ul></div></section>
+</ul></div>
+{#- Eksemplet med tal (S647): tallene står i src/_data/eksempel.json og er afskrevet fra AI-overblikket. Ingen scripts; svævetekst via <title>, og tallene står også som tabel. -#}
+{%- set e = eksempel -%}{%- set px = 190 / e.skalaMax -%}{%- set y0 = 220 -%}
+<div class="w"><div class="eks"><div><span class="eyebrow">Et eksempel med tal</span><h3>I Høje-Taastrup står svaret i budgettet.</h3>
+<p>I budgetforslaget for 2026 vil {{ e.kommune }} investere {{ e.investeringLabel }} mio. kr. om året i kunstig intelligens. I samme forslag er effektiviseringen lagt ind på forhånd: {{ e.aar[0].stillinger }} stillinger i {{ e.aar[0].aar }}, stigende til {{ e.aar[3].stillinger }} i {{ e.aar[3].aar }}.</p>
+<p>Det er ikke en kritik. Kommunen har gjort regnestykket synligt. Men stillingerne er trukket ud af budgettet, før effekten er målt. Så står to spørgsmål tilbage: Bliver tiden frigjort? Og hvem afleverer den, hvis den ikke gør?</p>
+<p class="mt"><a href="{{ e.overblikUrl }}">Se tallene med citat og sidetal i AI-overblikket →</a></p></div>
+<figure class="fig"><figcaption class="fig-t">Effektiviseringen er skrevet ind, før den er målt<span>Mio. kr. om året, 2026-priser</span></figcaption>
+<ul class="fig-l"><li class="b">Effektivisering lagt ind i budgettet</li><li class="l">Investering i kunstig intelligens</li></ul>
+<svg viewBox="0 0 360 264" role="img" aria-labelledby="eks-t eks-d"><title id="eks-t">Effektivisering og investering i {{ e.kommune }}s budgetforslag, {{ e.aar[0].aar }}–{{ e.aar[3].aar }}</title><desc id="eks-d">Investeringen er {{ e.investeringLabel }} mio. kr. hvert år. Effektiviseringen er {% for a in e.aar %}{{ a.effektiviseringLabel }} mio. kr. i {{ a.aar }}{% if not loop.last %}, {% endif %}{% endfor %}.</desc>
+<g class="fig-g">{% for v in [0, 1000, 2000] %}<line x1="34" x2="352" y1="{{ (y0 - v * px) | round(1) }}" y2="{{ (y0 - v * px) | round(1) }}"/><text x="28" y="{{ (y0 - v * px + 4) | round(1) }}" text-anchor="end">{{ v / 1000 }}</text>{% endfor %}</g>
+{% for a in e.aar %}{%- set cx = 34 + 79.5 * loop.index0 + 39.75 -%}{%- set top = y0 - a.effektivisering * px -%}
+<g><title>{{ a.aar }}: effektivisering {{ a.effektiviseringLabel }} mio. kr., investering {{ e.investeringLabel }} mio. kr., netto {{ a.nettoLabel }} mio. kr., {{ a.stillinger }} stillinger</title><path class="fig-b" d="M{{ (cx - 22) | round(1) }},{{ y0 }}V{{ (top + 4) | round(1) }}q0,-4 4,-4h36q4,0 4,4V{{ y0 }}z"/><text class="fig-v" x="{{ cx | round(1) }}" y="{{ (top - 7) | round(1) }}" text-anchor="middle">{{ a.effektiviseringLabel }}</text><text class="fig-x" x="{{ cx | round(1) }}" y="240" text-anchor="middle">{{ a.aar }}</text><text class="fig-s" x="{{ cx | round(1) }}" y="256" text-anchor="middle">{{ a.stillinger }} stillinger</text></g>{% endfor %}
+<line class="fig-i" x1="34" x2="352" y1="{{ (y0 - e.investering * px) | round(1) }}" y2="{{ (y0 - e.investering * px) | round(1) }}"/><text class="fig-il" x="36" y="{{ (y0 - e.investering * px - 7) | round(1) }}">Investering: {{ e.investeringLabel }} hvert år</text>
+</svg>
+<details class="fig-d"><summary>Tallene som tabel</summary><table><thead><tr><th scope="col">År</th><th scope="col">Investering</th><th scope="col">Effektivisering</th><th scope="col">Netto</th><th scope="col">Stillinger</th></tr></thead><tbody>{% for a in e.aar %}<tr><th scope="row">{{ a.aar }}</th><td>{{ e.investeringLabel }}</td><td>{{ a.effektiviseringLabel }}</td><td>{{ a.nettoLabel }}</td><td>{{ a.stillinger }}</td></tr>{% endfor %}</tbody></table><p>Mio. kr. Ordene er kommunens: investering, effektivisering og «Samlet ændring (Netto)». Plus er en merudgift, minus en mindreudgift.</p></details>
+<p class="fig-k">Kilde: <a href="{{ e.kildeUrl }}">{{ e.kommune }}, prioriteringsforslag ØU10 til Budget 2026–2029</a>. Forslaget er taget med i budgetforliget for 2026. Læst {{ e.laest }}.</p>
+<p class="fig-k">Tallene er budgetkrav, ikke målt effekt. Forslaget indeholder også en administrativ rammebesparelse på {{ e.rammebesparelse2026Label }} i 2026. Kilden skriver ikke, hvordan den hænger sammen med effektiviseringen i figuren.</p></figure></div></div></section>
 
 <section><div class="w g2"><figure class="pt"><img src="/assets/img/steven-skjorte.jpg" width="341" height="512" alt="Steven Wensley i lyseblå skjorte" loading="lazy"></figure><div><span class="eyebrow">Hvorfor mig</span><h2>Historiker og digter først. IT-mand bagefter.</h2><p>AI er en maskine, der skriver. Alt, hvad den giver jer, er tekst, og det hele lyder lige sikkert. Det svære er ikke længere at få noget skrevet. Det svære er at læse det, før nogen skriver under.</p>
 <dl class="kv">

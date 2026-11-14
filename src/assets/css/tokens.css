@@ -75,3 +75,23 @@ figure.pt{margin:0}figure.pt img{display:block;width:100%;max-width:341px;height
 figure.ill{margin:var(--s3) 0 0}figure.ill img{display:block;width:100%;height:auto;border-radius:var(--r)}figure.ill figcaption{font-size:13px;color:var(--mut);margin-top:8px}
 .card p.price{color:var(--fg);font-weight:600;font-size:15.5px;line-height:1.6}
 @media(max-width:960px){figure.pt img{max-width:260px;margin:0}}
+/* S647: eksemplet med tal på forsiden. Én farve for søjlerne, mørk stiplet linje for investeringen. Ingen scripts. */
+.eks{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:var(--s5);align-items:start;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:var(--s4);margin-top:var(--s4)}
+.eks h3{font-size:clamp(22px,2.4vw,28px);line-height:1.2;letter-spacing:-.02em;margin:0 0 var(--s2)}.eks p{color:var(--mut);margin:0 0 var(--s2)}.eks p.mt{margin:var(--s3) 0 0;font-weight:600}
+.fig{margin:0}.fig svg{display:block;width:100%;height:auto;max-width:560px;font-family:var(--font)}
+.fig-t{font-size:18px;font-weight:700;letter-spacing:-.01em;line-height:1.3;color:var(--fg)}.fig-t span{display:block;font-size:14px;font-weight:400;letter-spacing:0;color:var(--mut);margin-top:2px}
+.fig-l{list-style:none;display:flex;flex-wrap:wrap;gap:6px 20px;padding:0;margin:12px 0 4px;font-size:14px;color:var(--mut)}.fig-l li{display:flex;align-items:center;gap:8px}
+.fig-l li::before{content:"";flex:none;width:14px}.fig-l .b::before{height:14px;border-radius:3px;background:var(--acc)}.fig-l .l::before{width:22px;border-top:2px dashed var(--fg)}
+.fig-g line{stroke:var(--line);stroke-width:1}.fig-g text{font-size:12px;fill:var(--mut)}
+.fig-b{fill:var(--acc)}.fig-v{font-size:16px;font-weight:700;fill:var(--fg)}.fig-x{font-size:14px;font-weight:600;fill:var(--fg)}.fig-s{font-size:12px;fill:var(--mut)}
+.fig-i{stroke:var(--fg);stroke-width:2;stroke-dasharray:6 4}.fig-il{font-size:12.5px;font-weight:600;fill:var(--fg);paint-order:stroke;stroke:#fff;stroke-width:3px}
+details.fig-d{border:0;padding:0;margin-top:8px}.fig-d summary{font-size:14px;font-weight:600;justify-content:flex-start;gap:8px}.fig-d summary::after{font-size:16px}
+.fig-d table{border-collapse:collapse;width:100%;max-width:560px;font-size:14px;margin-top:10px;font-variant-numeric:tabular-nums}.fig-d th,.fig-d td{text-align:right;padding:6px 8px;border-bottom:1px solid var(--line)}.fig-d th:first-child{text-align:left}.fig-d thead th{color:var(--mut);font-weight:600}.fig-d p{font-size:13px;margin:8px 0 0}
+.fig-k{font-size:13px;color:var(--mut);margin:12px 0 0}
+@media(max-width:960px){.eks{grid-template-columns:1fr;gap:var(--s4);padding:var(--s3)}}
+@media(max-width:640px){.eks{padding:20px 16px}.fig-d table{font-size:13px}.fig-d th,.fig-d td{padding:6px 3px}}
+.fig-d{overflow-x:auto}.eks>*{min-width:0}
+/* Fire menupunkter: den foldede menu bruges op til 900 px, så knappen altid er på skærmen. */
+@media(max-width:900px){.dnav{display:none}.mnav{display:block}}
+/* Citatet i kortene stod med brødtekstens farve og uden luft, fordi .card p vandt over .quote. */
+.card p.quote{font-size:20px;color:var(--fg);margin:0 0 12px}

@@ -1,7 +1,7 @@
 {
   "url": "https://stevenwensley.com",
   "navn": "Steven Wensley",
-  "email": "steven.wensley@gmail.com",
+  "email": "steven@bygmedai.dk",
   "telefon": "+45 53 88 60 61",
   "telefonLink": "+4553886061",
   "linkedin": "https://www.linkedin.com/in/stevenwensley/",
@@ -9,9 +9,22 @@
   "cvr": "37244449",
   "bygmedai": "https://bygmedai.dk/",
   "nav": [
-    { "text": "Ydelser", "url": "/#ydelser" },
-    { "text": "Oplæg", "url": "/oplaeg/" },
-    { "text": "Om", "url": "/om/" }
+    {
+      "text": "Ydelser",
+      "url": "/#ydelser"
+    },
+    {
+      "text": "Oplæg",
+      "url": "/oplaeg/"
+    },
+    {
+      "text": "Om",
+      "url": "/om/"
+    }
   ],
-  "cta": { "text": "Skriv til mig", "url": "/kontakt/" }
+  "cta": {
+    "text": "Skriv til mig",
+    "url": "/kontakt/"
+  },
+  "overblik": "https://bygmedai.dk/indsigt/offentlig-ai/"
 }
