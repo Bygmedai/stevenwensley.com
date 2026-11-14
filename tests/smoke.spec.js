@@ -1,8 +1,8 @@
 // @ts-check
-// Smoke-test af stevenwensley.com efter oprydningen (S639). Kører mod en lokal server.
+// Smoke-test af stevenwensley.com med det nye design i produktion (S647). Kører mod en lokal server.
 const { test, expect } = require('@playwright/test');
 const BASE = process.env.BASE_URL || 'http://localhost:8080';
-const PAGES = ['/', '/oplaeg/', '/om/', '/kontakt/', '/privatliv/'];
+const PAGES = ['/', '/saadan-kan-jeg-hjaelpe/', '/oplaeg/', '/spoergsmaal/', '/om-mig/', '/kontakt/', '/privatliv/'];
 
 for (const p of PAGES) {
   test(`${p} indlæses uden JS-fejl, med h1, menu og fod`, async ({ page }) => {
@@ -11,7 +11,8 @@ for (const p of PAGES) {
     const res = await page.goto(BASE + p);
     expect(res && res.status()).toBe(200);
     await expect(page.locator('h1')).toHaveCount(1);
-    await expect(page.locator('nav[aria-label="Hovedmenu"] a[href="/kontakt/"]')).toBeVisible();
+    await expect(page.locator('header a.btn[href="/kontakt/"]')).toBeVisible();
+    await expect(page.locator('nav[aria-label="Hovedmenu"] a')).toHaveCount(4);
     await expect(page.locator('footer')).toContainText('CVR 37244449');
     expect(fejl).toEqual([]);
   });
@@ -24,10 +25,14 @@ for (const p of PAGES) {
   });
 }
 
-test('helte-billedet og portrættet indlæses', async ({ page }) => {
+test('illustrationen og portrættet på forsiden indlæses, og 404 har vej hjem', async ({ page }) => {
   await page.goto(BASE + '/');
-  for (const sel of ['figure img', '.portrait img']) {
-    const ok = await page.locator(sel).first().evaluate((img) => img.complete && img.naturalWidth > 0);
-    expect(ok, sel).toBe(true);
+  for (const sel of ['figure.ill img', 'figure.pt img']) {
+    const img = page.locator(sel).first();
+    await img.scrollIntoViewIfNeeded();
+    await expect.poll(() => img.evaluate((i) => i.complete && i.naturalWidth > 0), { message: sel }).toBe(true);
   }
+  await page.goto(BASE + '/404.html');
+  await expect(page.locator('h1')).toHaveCount(1);
+  await expect(page.locator('main a[href="/"]')).toBeVisible();
 });

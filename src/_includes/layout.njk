@@ -1,3 +1,4 @@
+{#- Design B v2 "Nordisk lys" (BYG-991). I produktion fra 14/11 2026 (S647). Ingen scripts i siderne; Cloudflare Web Analytics sættes på ved udrulning. -#}
 <!doctype html>
 <html lang="da">
 <head>
@@ -9,25 +10,31 @@
 <meta property="og:description" content="{{ description }}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-<meta property="og:image" content="{{ site.url }}/assets/img/og.jpg">
+<meta property="og:image" content="{{ site.url }}{{ ogImage or "/assets/img/og.jpg" }}">
 <meta property="og:locale" content="da_DK">
+<meta property="og:site_name" content="{{ site.navn }}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="{{ site.url }}{{ page.url }}">
 {% if noindex %}<meta name="robots" content="noindex, nofollow">{% endif %}
 <link rel="icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/dm-serif-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/css/sw.css">
+<link rel="stylesheet" href="/assets/css/tokens.css">
 </head>
 <body class="sw">
 <a class="skip" href="#indhold">Spring til indhold</a>
-<header><div class="w hd"><a class="brand" href="/">Steven <b>Wensley</b></a><nav aria-label="Hovedmenu">
+<header><div class="w hd"><a class="brand" href="/">Steven <b>Wensley</b></a>
+<div class="hdr"><nav class="dnav" aria-label="Hovedmenu">
 {%- for l in site.nav %}<a href="{{ l.url }}"{% if l.url == page.url %} class="on" aria-current="page"{% endif %}>{{ l.text }}</a>{% endfor -%}
-<a class="btn sm" href="{{ site.cta.url }}">{{ site.cta.text }}</a></nav></div></header>
+</nav>
+<details class="mnav"><summary aria-label="Åbn menu">Menu</summary><nav aria-label="Mobilmenu"><a href="/"{% if page.url == "/" %} class="on" aria-current="page"{% endif %}>Forside</a>
+{%- for l in site.nav %}<a href="{{ l.url }}"{% if l.url == page.url %} class="on" aria-current="page"{% endif %}>{{ l.text }}</a>{% endfor -%}
+<a href="{{ site.cta.url }}"{% if page.url == site.cta.url %} class="on" aria-current="page"{% endif %}>Kontakt</a></nav></details>
+<a class="btn sm" href="{{ site.cta.url }}">{{ site.cta.text }}</a></div></div></header>
 <main id="indhold">
 {{ content | safe }}
 </main>
-<footer><div class="w"><span>Steven Wensley · {{ site.firma }} · CVR {{ site.cvr }} · <a href="mailto:{{ site.email }}">{{ site.email }}</a> · <a href="tel:{{ site.telefonLink }}">{{ site.telefon }}</a></span><span class="ft"><a href="{{ site.overblik }}">AI-overblikket</a><a href="{{ site.bygmedai }}">Projekter: bygmedai.dk</a><a href="{{ site.linkedin }}">LinkedIn</a><a href="/privatliv/">Privatliv</a></span></div></footer>
+<footer><div class="w"><span>Steven Wensley · {{ site.firma }} · CVR {{ site.cvr }} · <a href="mailto:{{ site.email }}">{{ site.email }}</a> · <a href="tel:{{ site.telefonLink }}">{{ site.telefon }}</a></span>
+<nav aria-label="Fodmenu"><a href="/">Forside</a>{% for l in site.nav %}<a href="{{ l.url }}">{{ l.text }}</a>{% endfor %}<a href="{{ site.cta.url }}">Kontakt</a><a href="{{ site.overblik }}">AI-overblikket</a><a href="{{ site.linkedin }}">LinkedIn</a><a href="/privatliv/">Privatliv</a></nav></div></footer>
 </body>
 </html>

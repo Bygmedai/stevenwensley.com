@@ -1,13 +1,13 @@
 // @ts-check
-// Design B v2 "Nordisk lys" (BYG-991): preview-siderne under /ny/ ved 390/768/1440.
+// Design B v2 "Nordisk lys" (BYG-991), i produktion fra 14/11 2026 (S647): siderne ved 390/768/1440.
 const { test, expect } = require('@playwright/test');
 const BASE = process.env.BASE_URL || 'http://localhost:8080';
-const PAGES = ['/ny/', '/ny/saadan-kan-jeg-hjaelpe/', '/ny/oplaeg/', '/ny/spoergsmaal/', '/ny/om-mig/', '/ny/kontakt/'];
+const PAGES = ['/', '/saadan-kan-jeg-hjaelpe/', '/oplaeg/', '/spoergsmaal/', '/om-mig/', '/kontakt/'];
 const WIDTHS = [390, 768, 1440];
 
 for (const p of PAGES) {
   for (const w of WIDTHS) {
-    test(`${p} @${w}px: ingen vandret scroll, én h1, noindex`, async ({ browser }) => {
+    test(`${p} @${w}px: ingen vandret scroll, én h1, ingen noindex`, async ({ browser }) => {
       const ctx = await browser.newContext({ viewport: { width: w, height: 900 } });
       const page = await ctx.newPage();
       const fejl = [];
@@ -17,7 +17,8 @@ for (const p of PAGES) {
       await page.evaluate(() => document.fonts.ready);
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(w);
       await expect(page.locator('h1')).toHaveCount(1);
-      await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+      await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
+      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://stevenwensley.com' + p);
       await expect(page.locator('header a.btn')).toBeVisible();
       expect(await page.evaluate(() => getComputedStyle(document.body).fontFamily)).toMatch(/Inter/);
       expect(fejl).toEqual([]);
@@ -48,28 +49,28 @@ test('ingen pladsholdere tilbage, og portrætter og illustration indlæses', asy
 test('mobilmenu ved 375px: menupunkter kan nås uden JS', async ({ browser }) => {
   const ctx = await browser.newContext({ viewport: { width: 375, height: 800 }, javaScriptEnabled: false });
   const page = await ctx.newPage();
-  await page.goto(BASE + '/ny/');
+  await page.goto(BASE + '/');
   const menu = page.locator('details.mnav');
   await expect(menu.locator('summary')).toBeVisible();
   await expect(page.locator('nav.dnav')).toBeHidden();
   await menu.locator('summary').click();
   for (const t of ['Sådan kan jeg hjælpe', 'Oplæg', 'Spørgsmål', 'Om mig', 'Kontakt']) await expect(menu.getByRole('link', { name: t })).toBeVisible();
   await menu.getByRole('link', { name: 'Om mig' }).click();
-  await expect(page).toHaveURL(/\/ny\/om-mig\/$/);
+  await expect(page).toHaveURL(/\/om-mig\/$/);
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(375);
   await ctx.close();
 });
 
 test('desktop: hovedmenu synlig, mobilmenu skjult', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 800 });
-  await page.goto(BASE + '/ny/');
+  await page.goto(BASE + '/');
   await expect(page.locator('nav.dnav a', { hasText: 'Om mig' })).toBeVisible();
   await expect(page.locator('details.mnav')).toBeHidden();
 });
 
 test('#kontakt lander under sticky header', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 800 });
-  await page.goto(BASE + '/ny/#kontakt');
+  await page.goto(BASE + '/#kontakt');
   const top = await page.locator('#kontakt').evaluate((e) => e.getBoundingClientRect().top);
   const hdr = await page.locator('header').evaluate((e) => e.getBoundingClientRect().bottom);
   expect(top).toBeGreaterThanOrEqual(hdr - 1);
@@ -79,7 +80,7 @@ test('figuren på forsiden: fire søjler, læselig på mobil, tabel uden JS', as
   for (const w of [390, 1280]) {
     const ctx = await browser.newContext({ viewport: { width: w, height: 900 }, javaScriptEnabled: false });
     const page = await ctx.newPage();
-    await page.goto(BASE + '/ny/');
+    await page.goto(BASE + '/');
     const svg = page.locator('figure.fig svg');
     await svg.scrollIntoViewIfNeeded();
     await expect(svg.locator('path.fig-b')).toHaveCount(4);
@@ -98,7 +99,7 @@ test('figuren på forsiden: fire søjler, læselig på mobil, tabel uden JS', as
 test('menuen ved 800px: foldet menu, og knappen er på skærmen', async ({ browser }) => {
   const ctx = await browser.newContext({ viewport: { width: 800, height: 800 } });
   const page = await ctx.newPage();
-  await page.goto(BASE + '/ny/');
+  await page.goto(BASE + '/');
   await expect(page.locator('nav.dnav')).toBeHidden();
   await expect(page.locator('details.mnav summary')).toBeVisible();
   const btn = await page.locator('header a.btn').boundingBox();
