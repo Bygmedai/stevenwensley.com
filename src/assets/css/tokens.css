@@ -1,5 +1,5 @@
 /* Design B v2 "Nordisk lys" (BYG-991). Fælles tokens med bygmedai.dk; .sw = blå accent #1d4ed8.
-   Bruges kun af preview-siderne under /ny/ (layout ny.njk). Inter er selvhostet (OFL, se /assets/fonts/OFL-Inter.txt). */
+   Bruges af hele sitet (layout.njk). Inter er selvhostet (OFL, se /assets/fonts/OFL-Inter.txt). */
 @font-face{font-family:Inter;src:url(/assets/fonts/inter-latin-wght-normal.woff2) format("woff2");font-weight:100 900;font-display:swap;unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2190-2193}
 @font-face{font-family:Inter;src:url(/assets/fonts/inter-latin-ext-wght-normal.woff2) format("woff2");font-weight:100 900;font-display:swap;unicode-range:U+0100-024F}
 :root{--bg:#fff;--soft:#f3f6fa;--fg:#0f1b2d;--mut:#4b5870;--line:#dde4ee;--r:14px;--max:1160px;--s1:8px;--s2:16px;--s3:24px;--s4:40px;--s5:72px;--s6:112px;--font:Inter,system-ui,sans-serif}
@@ -95,3 +95,5 @@ details.fig-d{border:0;padding:0;margin-top:8px}.fig-d summary{font-size:14px;fo
 @media(max-width:900px){.dnav{display:none}.mnav{display:block}}
 /* Citatet i kortene stod med brødtekstens farve og uden luft, fordi .card p vandt over .quote. */
 .card p.quote{font-size:20px;color:var(--fg);margin:0 0 12px}
+/* Løbende tekst (privatliv). */
+.txt{max-width:760px}.txt h2{font-size:22px;letter-spacing:-.01em;margin:var(--s4) 0 var(--s1);max-width:none}.txt p{color:var(--mut);margin:0 0 var(--s2)}

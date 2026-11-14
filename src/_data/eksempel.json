@@ -4,11 +4,11 @@
   "kilde": "Prioriteringsforslag ØU10 til Budget 2026–2029: Anvendelse af kunstig intelligens i Høje-Taastrup Kommune",
   "kildeUrl": "https://www.htk.dk/p/Dokumenter%20Htk.dk/OAC/Budget2026-29/Hoeringsmateriale/Indarbejdet/%C3%98U10-Anvendelse-af-kunstig-intelligens-i-HTK.DOCX.pdf",
   "overblikUrl": "https://bygmedai.dk/indsigt/offentlig-ai/kommuner/hoeje-taastrup/",
-  "udgivelse": "rel-ai-overblikket-001",
-  "udgivelseUrl": "https://bygmedai.dk/indsigt/offentlig-ai/udgivelser/rel-ai-overblikket-001.json",
+  "udgivelse": "rel-ai-overblikket-002",
+  "udgivelseUrl": "https://bygmedai.dk/indsigt/offentlig-ai/udgivelser/rel-ai-overblikket-002.json",
   "poster": [
     "obs-hoeje-taastrup-budget-2026-investering",
-    "obs-hoeje-taastrup-budget-2026-effektivisering",
+    "obs-hoeje-taastrup-budget-2026-effektivisering-rettet-1",
     "obs-hoeje-taastrup-budget-2026-netto"
   ],
   "laest": "13. november 2026",
@@ -50,5 +50,8 @@
       "nettoLabel": "−0,7",
       "stillinger": 4
     }
+  ],
+  "rettelserKontrolleret": [
+    "cor-001-hoeje-taastrup-rammebesparelse"
   ]
 }

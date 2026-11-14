@@ -7,23 +7,26 @@
   "linkedin": "https://www.linkedin.com/in/stevenwensley/",
   "firma": "COYS v/ Wensley",
   "cvr": "37244449",
-  "bygmedai": "https://bygmedai.dk/",
   "nav": [
     {
-      "text": "Ydelser",
-      "url": "/#ydelser"
+      "text": "Sådan kan jeg hjælpe",
+      "url": "/saadan-kan-jeg-hjaelpe/"
     },
     {
       "text": "Oplæg",
       "url": "/oplaeg/"
     },
     {
-      "text": "Om",
-      "url": "/om/"
+      "text": "Spørgsmål",
+      "url": "/spoergsmaal/"
+    },
+    {
+      "text": "Om mig",
+      "url": "/om-mig/"
     }
   ],
   "cta": {
-    "text": "Skriv til mig",
+    "text": "Book 30 minutter",
     "url": "/kontakt/"
   },
   "overblik": "https://bygmedai.dk/indsigt/offentlig-ai/"

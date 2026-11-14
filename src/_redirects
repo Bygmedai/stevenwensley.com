@@ -1,8 +1,8 @@
 # stevenwensley.com efter oprydningen 4/11 2026 (S639).
 # Alle gamle adresser 301'er direkte til en levende side, uden mellemled.
 # Projekter, metode og fabrik bor nu på bygmedai.dk; personen og rådgivningen her.
-/about  /om/  301
-/about.html  /om/  301
+/about  /om-mig/  301
+/about.html  /om-mig/  301
 /ai-governance-assessment  /  301
 /ai-governance-assessment.html  /  301
 /ai-playbook  /  301
@@ -27,8 +27,8 @@
 /factory-now.html  https://bygmedai.dk/fabrikken/  301
 /for-brokers  https://bygmedai.dk/#samarbejde  301
 /for-brokers.html  https://bygmedai.dk/#samarbejde  301
-/forloeb  /#ydelser  301
-/forloeb.html  /#ydelser  301
+/forloeb  /saadan-kan-jeg-hjaelpe/#ydelser  301
+/forloeb.html  /saadan-kan-jeg-hjaelpe/#ydelser  301
 /glossary  /  301
 /glossary.html  /  301
 /hallucination-defence  /  301
@@ -87,10 +87,10 @@
 /regulatory-deadlines.html  /  301
 /roi-calculator  /  301
 /roi-calculator.html  /  301
-/services-da  /#ydelser  301
-/services-da.html  /#ydelser  301
-/services  /#ydelser  301
-/services.html  /#ydelser  301
+/services-da  /saadan-kan-jeg-hjaelpe/#ydelser  301
+/services-da.html  /saadan-kan-jeg-hjaelpe/#ydelser  301
+/services  /saadan-kan-jeg-hjaelpe/#ydelser  301
+/services.html  /saadan-kan-jeg-hjaelpe/#ydelser  301
 /spejlet  /  301
 /spejlet.html  /  301
 /templates/*  /  301
@@ -98,8 +98,8 @@
 /tools.html  /  301
 /verify-receipt  /  301
 /verify-receipt.html  /  301
-/workshop  /#ydelser  301
-/workshop.html  /#ydelser  301
+/workshop  /saadan-kan-jeg-hjaelpe/#ydelser  301
+/workshop.html  /saadan-kan-jeg-hjaelpe/#ydelser  301
 /insights/ai-governance-starter-kit  /  301
 /insights/ai-governance-starter-kit.html  /  301
 /insights/ai-infrastructure-timing-problem  /  301
@@ -139,3 +139,8 @@
 /img/photo-contact.jpg  /assets/img/steven-roede-briller.jpg  301
 /img/photo-hero.jpg  /assets/img/steven-staaende.jpg  301
 /og-image.png  /assets/img/og.jpg  301
+# Det nye design gik i produktion 14/11 2026 (S647): preview-adresserne og den gamle Om-side peger på de nye sider.
+/om  /om-mig/  301
+/om/  /om-mig/  301
+/ny  /  301
+/ny/*  /:splat  301
