@@ -25,7 +25,7 @@ for (const p of PAGES) {
   });
 }
 
-test('illustrationen og portrættet på forsiden indlæses, og 404 har vej hjem', async ({ page }) => {
+test('illustrationen og portrættet på forsiden indlæses, og 404 har vej videre', async ({ page }) => {
   await page.goto(BASE + '/');
   for (const sel of ['figure.ill img', 'figure.pt img']) {
     const img = page.locator(sel).first();
@@ -34,5 +34,8 @@ test('illustrationen og portrættet på forsiden indlæses, og 404 har vej hjem'
   }
   await page.goto(BASE + '/404.html');
   await expect(page.locator('h1')).toHaveCount(1);
-  await expect(page.locator('main a[href="/"]')).toBeVisible();
+  // 404 peger på det, sitet tilbyder, og på kontakt. Vejen til forsiden er navnet i toppen.
+  await expect(page.locator('main a[href="/saadan-kan-jeg-hjaelpe/"]')).toBeVisible();
+  await expect(page.locator('main a[href="/kontakt/"]')).toBeVisible();
+  await expect(page.locator('header a.brand[href="/"]')).toBeVisible();
 });
