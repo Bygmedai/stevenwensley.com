@@ -16,7 +16,7 @@ for (const side of SIDER) {
     const h = read(side);
     assert.equal((h.match(/<h1[\s>]/g) || []).length, 1);
     assert.match(h, /<html lang="da">/);
-    assert.match(h, /<a class="btn sm" href="\/kontakt\/">Book 30 minutter<\/a>/);
+    assert.match(h, /<a class="btn sm" href="\/kontakt\/">Tal med mig<\/a>/);
     assert.match(h, /CVR 37244449/);
   });
 }
@@ -99,14 +99,16 @@ test("oplæg har prisen ekskl. moms, og de gamle priser er væk", () => {
 
 test("historikeren og digteren er foldet ud: hvorfor, ikke kun hvem", () => {
   const forside = read("index.html").replace(/<[^>]+>/g, " ");
-  for (const ord of ["Historikeren", "Digteren", "Programlederen", "Kildekritik"]) assert.ok(forside.includes(ord), ord);
+  for (const ord of ["Historikeren", "Digteren", "Programlederen", "Kilderne skal kunne bære."]) assert.ok(forside.includes(ord), ord);
   const om = read("om-mig/index.html");
   assert.match(om, /href="https:\/\/tkbars\.dk\/om\/"/);
-  assert.match(om.replace(/<[^>]+>/g, " "), /kilde uden afsender/);
+  for (const ord of ["Historikeren: Hvad bygger det på?", "Digteren: Hvad mener vi præcist?", "Programlederen: Hvem gør hvad?"]) assert.ok(om.includes(ord), ord);
+  // En agents rettigheder, værktøjer og godkendelser er også grænser: sproget er ikke det eneste sted.
+  assert.doesNotMatch(om, /eneste sted, I kan sætte dens grænser|1880/);
   assert.doesNotMatch(om, /ser det, andre overser/);
 });
 
-test("privatliv: samme løfter som før, og måling uden cookies er nævnt", () => {
+test("privatliv: afsnittene er bevaret, og måling uden cookies er nævnt", () => {
   const t = read("privatliv/index.html").replace(/<[^>]+>/g, " ");
-  for (const s of ["Så lidt som muligt.", "ingen formularer, ingen konti og ingen cookies", "Cloudflare Web Analytics", "Datatilsynet"]) assert.ok(t.includes(s), s);
+  for (const s of ["bruger jeg oplysningerne til at svare på din henvendelse", "Dataansvarlig", "Jeg sælger og deler ikke dine oplysninger", "Cloudflare Web Analytics", "uden cookies", "Datatilsynet"]) assert.ok(t.includes(s), s);
 });
