@@ -12,8 +12,8 @@
     "verify": "node scripts/build-publish.mjs && node --test tests/*.unit.mjs"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.7",
-    "@playwright/test": "^1.64.1",
+    "@11ty/eleventy": "^3.1.8",
+    "@playwright/test": "^1.65.0",
     "esbuild": "0.28.2",
     "http-server": "^14.1.1"
   }
