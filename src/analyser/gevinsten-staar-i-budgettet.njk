@@ -2,15 +2,15 @@
 permalink: /analyser/gevinsten-staar-i-budgettet/
 layout: layout.njk
 title: "Gevinsten står i budgettet. Målingen mangler. · Steven Wensley"
-description: "Tre kommuner har skrevet en gevinst fra AI ind i budgettet. Ingen af de 14 kildekontrollerede oplysninger er en opgjort effekt. Hvad ledelsen skal spørge om."
+description: "Tre kommuner har skrevet en gevinst fra AI ind i budgettet. Ingen af de 20 kildekontrollerede oplysninger er en opgjort effekt. Hvad ledelsen skal spørge om."
 artikel:
   overskrift: "Gevinsten står i budgettet. Målingen mangler."
   dato: "2026-11-19"
 ---
-{#- Salgsplanen trin 2 (19/11 2026). Tal og citater står i src/_data/gevinstgab.json og er afskrevet fra udgave 004 af AI-overblikket. Ingen tal fra høsten, før de er i en udgave. -#}
+{#- Salgsplanen trin 2 (19/11 2026). Tal og citater står i src/_data/gevinstgab.json og er afskrevet fra udgave 005 af AI-overblikket. Ingen tal fra høsten, før de er i en udgave. -#}
 {%- set g = gevinstgab -%}
 <div class="hero"><div class="w"><span class="eyebrow">Analyse · 19. november 2026</span><h1>Gevinsten står i budgettet. Målingen mangler.</h1>
-<p class="lead">I den kildekontrollerede udgave af AI-overblikket har tre kommuner skrevet en gevinst fra AI ind i deres budget. Ingen af de 14 oplysninger er en opgjort effekt. Beløbene er planer, og nogen skal levere dem.</p></div></div>
+<p class="lead">I den kildekontrollerede udgave af AI-overblikket har tre kommuner skrevet en gevinst fra AI ind i deres budget. Ingen af de {{ g.poster | length }} oplysninger er en opgjort effekt. Beløbene er planer, og nogen skal levere dem.</p></div></div>
 
 <section class="alt"><div class="w"><h2>Det, kommunerne har skrevet</h2>
 <p class="intro">Albertslund, Frederiksberg og Høje-Taastrup regner alle med, at AI sparer penge inden for få år. Beløbene dækker forskellige år og er opgjort forskelligt, så de kan ikke lægges sammen.</p>
@@ -27,14 +27,22 @@ artikel:
 {%- endfor %}
 </div></div></section>
 
-<section><div class="w g2"><div><h2>Hvad de 14 oplysninger er</h2>
-<p>Udgave 004 rummer 14 oplysninger: 13 fra de tre kommuner og én national målsætning. Ingen af dem fortæller, om en gevinst er kommet.</p>
+<section><div class="w"><h2>Seks kommuner mere: penge og forsøg</h2>
+<p class="intro">Udgave 005 føjede seks kommuner til, hver med én oplysning. Tre sætter penge eller årsværk af til AI, og tre afprøver eller bruger det. Ingen af dem sætter tal på en gevinst.</p>
+<div class="g3">
+{%- for n in g.nye %}
+<div class="card"><h3>{{ n.navn }}</h3><p class="mt0">{{ n.type }}</p><p class="mt"><a href="{{ n.overblikUrl }}#{{ n.post }}">{{ n.titel }}</a></p></div>
+{%- endfor %}
+</div></div></section>
+
+<section class="alt"><div class="w g2"><div><h2>Hvad de {{ g.poster | length }} oplysninger er</h2>
+<p>Udgave 005 rummer {{ g.poster | length }} oplysninger: 13 fra Albertslund, Frederiksberg og Høje-Taastrup, seks fra de nye kommuner og én national målsætning. Ingen af dem fortæller, om en gevinst er kommet.</p>
 <p>En plan er ikke en fejl. Men et budgetkrav er ikke en målt effekt, og den forskel er ledelsens at holde øje med.</p></div>
-<table class="tbl"><caption>Oplysningerne i udgave 004 efter type</caption><thead><tr><th scope="col">Type</th><th scope="col">Antal</th></tr></thead><tbody>
+<table class="tbl"><caption>Oplysningerne i udgave 005 efter type</caption><thead><tr><th scope="col">Type</th><th scope="col">Antal</th></tr></thead><tbody>
 {%- for t in g.typer %}<tr><th scope="row">{{ t.type }}</th><td>{{ t.antal }}</td></tr>{% endfor -%}
 </tbody></table></div></section>
 
-<section class="alt"><div class="w"><div class="txt">
+<section><div class="w"><div class="txt">
 <h2>Presset kommer oppefra</h2>
 <p>Regeringen, KL og Danske Regioner har et fælles mål for den offentlige sektor:</p>
 <blockquote class="cit"><p>«{{ g.citater.nationalt.tekst }}»</p><footer><a href="{{ g.citater.nationalt.kildeUrl }}">{{ g.citater.nationalt.kilde }}</a></footer></blockquote>
@@ -46,15 +54,15 @@ artikel:
 <blockquote class="cit"><p>«{{ g.citater.kommuneaftale.tekst }}»</p><footer>{{ g.citater.kommuneaftale.kilde }}</footer></blockquote>
 </div></div></section>
 
-<section><div class="w"><div class="txt">
+<section class="alt"><div class="w"><div class="txt">
 <h2>Hvem følger op?</h2>
-<p>Kun ét sted i udgavens 14 oplysninger står det, hvem der holder øje med, om gevinsten kommer. Frederiksbergs budgetaftale siger om AI til rute- og besøgsplanlægning i hjemmeplejen:</p>
+<p>Kun ét sted i udgavens {{ g.poster | length }} oplysninger står det, hvem der holder øje med, om gevinsten kommer. Frederiksbergs budgetaftale siger om AI til rute- og besøgsplanlægning i hjemmeplejen:</p>
 <blockquote class="cit"><p>«{{ g.citater.udvalget.tekst }}»</p><footer>{{ g.citater.udvalget.kilde }}</footer></blockquote>
 <p>Medarbejderne spørger også. I Høje-Taastrup står der:</p>
 <blockquote class="cit"><p>«{{ g.citater.medarbejdere.tekst }}»</p><footer>{{ g.citater.medarbejdere.kilde }}</footer></blockquote>
 </div></div></section>
 
-<section class="alt"><div class="w g2"><div><h2>Tre spørgsmål til jeres egne budgetlinjer</h2>
+<section><div class="w g2"><div><h2>Tre spørgsmål til jeres egne budgetlinjer</h2>
 <p>Står der en gevinst fra AI i jeres budget, er det de spørgsmål, ledelsen skal kunne svare på, før pengene er hentet.</p>
 <div class="acts mt"><a class="btn" href="/kontakt/">Tal med mig</a><a href="/saadan-kan-jeg-hjaelpe/#gevinstgennemgang">Se Gevinstgennemgangen →</a></div></div>
 <ul class="qs">
@@ -63,8 +71,8 @@ artikel:
 <li>Hvordan opdager I, om gevinsten kommer?<span class="qd">Hvad måler I, hvem ser det, og hvornår tager I stilling igen?</span></li>
 </ul></div></section>
 
-<section><div class="w"><div class="txt">
+<section class="alt"><div class="w"><div class="txt">
 <h2>Om tallene</h2>
-<p>Alle tal og citater på siden, undtagen økonomiaftalen, er afskrevet fra <a href="{{ g.udgivelseUrl }}">udgave 004 af AI-overblikket</a> på bygmedai.dk, kildekontrolleret og udgivet {{ g.udgivet }}. Hver oplysning har kilde, citat og sidetal på kommunens side i overblikket. Læst {{ g.laest }}.</p>
-<p>Udgaven dækker tre kommuner og siger intet om de øvrige 95. Rettes en oplysning i overblikket, kontrolleres denne side.</p>
+<p>Alle tal og citater på siden, undtagen økonomiaftalen, er afskrevet fra <a href="{{ g.udgivelseUrl }}">udgave 005 af AI-overblikket</a> på bygmedai.dk, kildekontrolleret og udgivet {{ g.udgivet }}. Hver oplysning har kilde, citat og sidetal på kommunens side i overblikket. Læst {{ g.laest }}.</p>
+<p>Udgaven dækker ni kommuner og siger intet om de øvrige 89. Rettes en oplysning i overblikket, kontrolleres denne side.</p>
 </div></div></section>

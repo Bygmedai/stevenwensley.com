@@ -1,8 +1,8 @@
 {
-  "_kommentar": "Tal og citater til analysen «Gevinsten står i budgettet. Målingen mangler.» på /analyser/gevinsten-staar-i-budgettet/. Afskrevet fra udgave 004 af AI-overblikket (bygmedai.dk): alle 14 oplysninger i udgaven står i «poster», fordi siden udtaler sig om dem alle («ingen er en opgjort effekt»). Rettes en af posterne i AI-overblikket, skal siden kontrolleres og «udgivelse» føres ajour; genbrugslisten i bygmedai-11ty (docs/udgivelser/genbrug.json) fører stedet. Citaterne er ordrette fra kilderne, som udgaven gengiver dem. Prøven i tests/analyse.unit.mjs holder antal, poster og citater op mod siden.",
-  "udgivelse": "rel-ai-overblikket-004",
-  "udgivelseUrl": "https://bygmedai.dk/indsigt/offentlig-ai/udgivelser/rel-ai-overblikket-004.json",
-  "udgivet": "17. november 2026",
+  "_kommentar": "Tal og citater til analysen «Gevinsten står i budgettet. Målingen mangler.» på /analyser/gevinsten-staar-i-budgettet/. Afskrevet fra udgave 005 af AI-overblikket (bygmedai.dk): alle 20 oplysninger i udgaven står i «poster», fordi siden udtaler sig om dem alle («ingen er en opgjort effekt»). «nye» er de seks kommuner, udgave 005 føjede til; titlerne er udgavens egne. Rettes en af posterne i AI-overblikket, skal siden kontrolleres og «udgivelse» føres ajour; genbrugslisten i bygmedai-11ty (docs/udgivelser/genbrug.json) fører stedet. Citaterne er ordrette fra kilderne, som udgaven gengiver dem. Prøven i tests/analyse.unit.mjs holder antal, poster og citater op mod siden.",
+  "udgivelse": "rel-ai-overblikket-005",
+  "udgivelseUrl": "https://bygmedai.dk/indsigt/offentlig-ai/udgivelser/rel-ai-overblikket-005.json",
+  "udgivet": "19. november 2026",
   "laest": "19. november 2026",
   "poster": [
     "obs-national-ambition-2035",
@@ -18,16 +18,46 @@
     "obs-albertslund-forslag-7-1-besparelse",
     "obs-frederiksberg-aeou01-ruteplanlaegning",
     "obs-frederiksberg-tvaer01-besparelse",
-    "obs-frederiksberg-tvaer01-implementering"
+    "obs-frederiksberg-tvaer01-implementering",
+    "obs-broendby-7da67fd109",
+    "obs-frederikssund-06347cb1fe",
+    "obs-koege-65fb31376c",
+    "obs-solroed-e739a2354c",
+    "obs-esbjerg-7f88812c47",
+    "obs-svendborg-5fa0c347be"
   ],
-  "rettelserKontrolleret": ["cor-001-hoeje-taastrup-rammebesparelse"],
+  "rettelserKontrolleret": [
+    "cor-001-hoeje-taastrup-rammebesparelse"
+  ],
   "typer": [
-    { "type": "Budgetforslag", "antal": 8 },
-    { "type": "Budgetaftale", "antal": 3 },
-    { "type": "Vedtaget budget", "antal": 1 },
-    { "type": "National målsætning", "antal": 1 },
-    { "type": "Afprøvning", "antal": 1 },
-    { "type": "Opgjort effekt", "antal": 0 }
+    {
+      "type": "Budgetforslag",
+      "antal": 9
+    },
+    {
+      "type": "Budgetaftale",
+      "antal": 5
+    },
+    {
+      "type": "Vedtaget budget",
+      "antal": 1
+    },
+    {
+      "type": "National målsætning",
+      "antal": 1
+    },
+    {
+      "type": "Afprøvning",
+      "antal": 3
+    },
+    {
+      "type": "I drift",
+      "antal": 1
+    },
+    {
+      "type": "Opgjort effekt",
+      "antal": 0
+    }
   ],
   "kommuner": [
     {
@@ -39,7 +69,10 @@
       "opfoelgning": "Ingen oplysning i udgaven.",
       "kilde": "Administrationens budgetkatalog til Budget 2025, s. 113–115",
       "kildeUrl": "https://albertslund.dk/media/db0jqvmf/budgetkatalog-budget-2025.pdf",
-      "poster": ["obs-albertslund-forslag-7-1-investering", "obs-albertslund-forslag-7-1-besparelse"]
+      "poster": [
+        "obs-albertslund-forslag-7-1-investering",
+        "obs-albertslund-forslag-7-1-besparelse"
+      ]
     },
     {
       "navn": "Frederiksberg Kommune",
@@ -50,7 +83,11 @@
       "opfoelgning": "Udvalget følger, om ruteplanlægningen frigiver den forventede tid.",
       "kilde": "Bilag 2. Effektiviseringer og besparelser i budget 2026, s. 2 og 6",
       "kildeUrl": "https://www.frederiksberg.dk/media/zbrakrej/effektiviseringer-og-besparelser-i-budget-2026.pdf",
-      "poster": ["obs-frederiksberg-aeou01-ruteplanlaegning", "obs-frederiksberg-tvaer01-besparelse", "obs-frederiksberg-tvaer01-implementering"]
+      "poster": [
+        "obs-frederiksberg-aeou01-ruteplanlaegning",
+        "obs-frederiksberg-tvaer01-besparelse",
+        "obs-frederiksberg-tvaer01-implementering"
+      ]
     },
     {
       "navn": "Høje-Taastrup Kommune",
@@ -61,7 +98,54 @@
       "opfoelgning": "Ingen oplysning i udgaven.",
       "kilde": "Prioriteringsforslag ØU10 til Budget 2026–2029, s. 1–2",
       "kildeUrl": "https://www.htk.dk/p/Dokumenter%20Htk.dk/OAC/Budget2026-29/Hoeringsmateriale/Indarbejdet/%C3%98U10-Anvendelse-af-kunstig-intelligens-i-HTK.DOCX.pdf",
-      "poster": ["obs-hoeje-taastrup-budget-2026-investering", "obs-hoeje-taastrup-budget-2026-effektivisering-rettet-1"]
+      "poster": [
+        "obs-hoeje-taastrup-budget-2026-investering",
+        "obs-hoeje-taastrup-budget-2026-effektivisering-rettet-1"
+      ]
+    }
+  ],
+  "nye": [
+    {
+      "navn": "Brøndby Kommune",
+      "titel": "Forslag om tre årsværk til AI",
+      "type": "Budgetforslag",
+      "post": "obs-broendby-7da67fd109",
+      "overblikUrl": "https://bygmedai.dk/indsigt/offentlig-ai/kommuner/broendby/"
+    },
+    {
+      "navn": "Køge Kommune",
+      "titel": "Generativ AI til 1.000 medarbejdere",
+      "type": "Budgetaftale",
+      "post": "obs-koege-65fb31376c",
+      "overblikUrl": "https://bygmedai.dk/indsigt/offentlig-ai/kommuner/koege/"
+    },
+    {
+      "navn": "Solrød Kommune",
+      "titel": "Et årsværk mere til AI og robotics",
+      "type": "Budgetaftale",
+      "post": "obs-solroed-e739a2354c",
+      "overblikUrl": "https://bygmedai.dk/indsigt/offentlig-ai/kommuner/solroed/"
+    },
+    {
+      "navn": "Frederikssund Kommune",
+      "titel": "Pilotprojekter med AI i dokumentationen",
+      "type": "Afprøvning",
+      "post": "obs-frederikssund-06347cb1fe",
+      "overblikUrl": "https://bygmedai.dk/indsigt/offentlig-ai/kommuner/frederikssund/"
+    },
+    {
+      "navn": "Esbjerg Kommune",
+      "titel": "Chatbot med generativ AI på 90 sprog",
+      "type": "Afprøvning",
+      "post": "obs-esbjerg-7f88812c47",
+      "overblikUrl": "https://bygmedai.dk/indsigt/offentlig-ai/kommuner/esbjerg/"
+    },
+    {
+      "navn": "Svendborg Kommune",
+      "titel": "Fakturaer behandles med machine learning",
+      "type": "I drift",
+      "post": "obs-svendborg-5fa0c347be",
+      "overblikUrl": "https://bygmedai.dk/indsigt/offentlig-ai/kommuner/svendborg/"
     }
   ],
   "citater": {

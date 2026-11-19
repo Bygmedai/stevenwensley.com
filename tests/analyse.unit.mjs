@@ -22,18 +22,40 @@ for (const side of SIDER) {
   });
 }
 
-test("analysen bygger på hele udgave 004 og siger, hvilken udgave det er", () => {
-  assert.equal(g.udgivelse, "rel-ai-overblikket-004");
-  assert.equal(g.poster.length, 14);
-  assert.equal(new Set(g.poster).size, 14);
+test("analysen bygger på hele udgave 005 og siger, hvilken udgave det er", () => {
+  // Steven 19/11 2026: «go på 005». Udgave 005: 20 oplysninger, ni kommuner og én national målsætning.
+  assert.equal(g.udgivelse, "rel-ai-overblikket-005");
+  assert.ok(g.udgivelseUrl.endsWith("/rel-ai-overblikket-005.json"));
+  assert.equal(g.poster.length, 20);
+  assert.equal(new Set(g.poster).size, 20);
   const sum = g.typer.reduce((s, t) => s + t.antal, 0);
   assert.equal(sum, g.poster.length, "typerne skal tilsammen give alle oplysninger");
   assert.equal(g.typer.find((t) => t.type === "Opgjort effekt").antal, 0);
   for (const k of g.kommuner) for (const p of k.poster) assert.ok(g.poster.includes(p), p);
   for (const c of Object.values(g.citater)) assert.ok(g.poster.includes(c.post), c.post);
-  const h = read(ANALYSE);
+  const h = read(ANALYSE), t = tekst(h);
   assert.ok(h.includes(`href="${g.udgivelseUrl}"`));
-  assert.match(tekst(h), /Ingen af de 14 oplysninger er en opgjort effekt\./);
+  assert.match(t, /Ingen af de 20 oplysninger er en opgjort effekt\./);
+  assert.match(t, /udgave 005 af AI-overblikket/);
+  assert.match(t, /Udgaven dækker ni kommuner og siger intet om de øvrige 89\./);
+  assert.doesNotMatch(t, /udgave 004|\b14 oplysninger/);
+  assert.match(tekst(read("analyser/index.html")), /Ingen af de 20 kildekontrollerede oplysninger er en opgjort effekt\./);
+});
+
+test("de seks nye kommuner står med udgavens titel, type og et link til oplysningen", () => {
+  assert.equal(g.nye.length, 6);
+  // 3 kommuner med en gevinst + 6 nye = ni kommuner; 13 + 6 + 1 national = 20 oplysninger.
+  assert.equal(new Set([...g.kommuner.map((k) => k.navn), ...g.nye.map((n) => n.navn)]).size, 9);
+  const h = read(ANALYSE), t = tekst(h);
+  for (const n of g.nye) {
+    assert.ok(g.poster.includes(n.post), n.post);
+    assert.ok(!g.kommuner.some((k) => k.poster.includes(n.post)), n.post);
+    assert.ok(h.includes(`href="${n.overblikUrl}#${n.post}"`), n.navn);
+    assert.ok(t.includes(n.titel), n.titel);
+    assert.ok(g.typer.some((r) => r.type === n.type && r.antal > 0), n.type);
+  }
+  // Ingen af de nye er en gevinst i budgettet: de står ikke blandt kortene med «Forventet gevinst».
+  assert.match(t, /Ingen af dem sætter tal på en gevinst\./);
 });
 
 test("hvert citat står ordret, og hver kommune har kilde og link til overblikket", () => {
