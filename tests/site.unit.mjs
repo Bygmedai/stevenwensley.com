@@ -87,6 +87,21 @@ test("gamle adresser 301'er til levende sider, og ingen regel peger på en død 
   assert.match(read("saadan-kan-jeg-hjaelpe/index.html"), /id="ydelser"/);
 });
 
+test("gamle adresser virker også med skråstreg til sidst, og ingen regel skygger for en levende side", () => {
+  // Cloudflare Pages matcher /en og /en/ hver for sig: 19/11 2026 gav /en/ og /forloeb/ 404.
+  const regler = new Map([...read("_redirects").matchAll(/^(\/\S*)\s+(\S+)\s+301$/gm)].map(([, fra, til]) => [fra, til]));
+  const stjerner = [...regler.keys()].filter((fra) => fra.endsWith("/*")).map((fra) => fra.slice(0, -1));
+  const mangler = [];
+  for (const [fra, til] of regler) {
+    if (fra.endsWith("/") || fra.endsWith("*") || /\.[a-z]+$/i.test(fra)) continue;
+    if (stjerner.some((s) => `${fra}/`.startsWith(s))) continue; // dækket af en regel med stjerne, fx /insights/*
+    if (regler.get(`${fra}/`) !== til) mangler.push(`${fra}/ → ${til}`);
+  }
+  assert.deepEqual(mangler, []);
+  const skygger = [...regler.keys()].filter((fra) => fra.endsWith("/") && existsSync(join(SITE, fra, "index.html")));
+  assert.deepEqual(skygger, []);
+});
+
 test("ingen serverfunktioner og ingen scripts i siderne", () => {
   assert.equal(existsSync("functions"), false);
   // Kun datablokke til søgemaskiner (application/ld+json) er tilladt; de køres ikke.
