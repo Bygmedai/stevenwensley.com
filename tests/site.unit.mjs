@@ -114,6 +114,13 @@ test("oplæg har prisen ekskl. moms, og de gamle priser er væk", () => {
   for (const side of SIDER) assert.doesNotMatch(read(side), /6\.500|45\.000/, side);
 });
 
+test("erfaringen er 20 år, samme tal overalt", () => {
+  // Steven 19/11 2026: «20 år er tallet.» Forsiden og Om mig sagde 18.
+  for (const side of SIDER) assert.doesNotMatch(read(side).replace(/<[^>]+>/g, " "), /\b18 års?\b/, side);
+  assert.match(read("index.html"), /med IT-programmer i 20 år\./);
+  assert.match(read("om-mig/index.html"), /I 20 år har jeg arbejdet med projekter og programmer/);
+});
+
 test("historikeren og digteren er foldet ud: hvorfor, ikke kun hvem", () => {
   const forside = read("index.html").replace(/<[^>]+>/g, " ");
   for (const ord of ["Historikeren", "Digteren", "Programlederen", "Kilderne skal kunne bære."]) assert.ok(forside.includes(ord), ord);
