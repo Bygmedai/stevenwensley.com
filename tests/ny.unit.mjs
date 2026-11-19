@@ -87,7 +87,9 @@ test("portrætter, illustration, referencer og sprog efter beslutningerne", () =
   assert.match(read("index.html"), /Illustration lavet med AI/);
   // Situationerne på forsiden er Stevens egne beskrivelser: ingen citater, ingen kundeattribution, intet referenceløfte.
   assert.doesNotMatch(read("index.html"), /Referencer gives på forespørgsel|class="quote"|ikke kundecases/);
-  assert.match(read("om-mig/index.html"), /Gives på forespørgsel\./);
+  // Salgsplanen 19/11 2026: de offentlige anbefalinger på LinkedIn vises som link; personlige referencer stadig på forespørgsel.
+  assert.match(read("om-mig/index.html"), /Personlige referencer gives på forespørgsel\./);
+  assert.match(read("om-mig/index.html"), /Skriftlige anbefalinger[^<]*<a href="https:\/\/www\.linkedin\.com\/in\/stevenwensley\/">min LinkedIn-profil<\/a>/);
   assert.match(read("om-mig/index.html"), /src="\/assets\/img\/steven-roede-briller\.jpg"/);
   const faq = read("spoergsmaal/index.html");
   assert.match(faq, /København/); assert.doesNotMatch(faq, /Skandinavien/);
