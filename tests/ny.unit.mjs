@@ -16,7 +16,7 @@ for (const side of NY) {
     assert.equal((h.match(/<h1[\s>]/g) || []).length, 1);
     assert.match(h, /href="\/assets\/css\/tokens\.css"/);
     assert.match(h, /<body class="sw">/);
-    assert.doesNotMatch(h, /<script/i);
+    assert.doesNotMatch(h.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, ""), /<script/i);
     assert.doesNotMatch(h, /fonts\.googleapis|fonts\.gstatic/);
   });
 }
@@ -87,7 +87,9 @@ test("portrætter, illustration, referencer og sprog efter beslutningerne", () =
   assert.match(read("index.html"), /Illustration lavet med AI/);
   // Situationerne på forsiden er Stevens egne beskrivelser: ingen citater, ingen kundeattribution, intet referenceløfte.
   assert.doesNotMatch(read("index.html"), /Referencer gives på forespørgsel|class="quote"|ikke kundecases/);
-  assert.match(read("om-mig/index.html"), /Gives på forespørgsel\./);
+  // Salgsplanen 19/11 2026: de offentlige anbefalinger på LinkedIn vises som link; personlige referencer stadig på forespørgsel.
+  assert.match(read("om-mig/index.html"), /Personlige referencer gives på forespørgsel\./);
+  assert.match(read("om-mig/index.html"), /Skriftlige anbefalinger[^<]*<a href="https:\/\/www\.linkedin\.com\/in\/stevenwensley\/">min LinkedIn-profil<\/a>/);
   assert.match(read("om-mig/index.html"), /src="\/assets\/img\/steven-roede-briller\.jpg"/);
   const faq = read("spoergsmaal/index.html");
   assert.match(faq, /København/); assert.doesNotMatch(faq, /Skandinavien/);
@@ -95,7 +97,7 @@ test("portrætter, illustration, referencer og sprog efter beslutningerne", () =
   const k = read("kontakt/index.html");
   assert.match(k, /Den første samtale er gratis og tager 30 minutter\./);
   assert.match(k, /href="mailto:steven@bygmedai\.dk"/); assert.match(k, /href="tel:\+4553886061"/);
-  assert.doesNotMatch(k, /<form|<iframe|<script/i);
+  assert.doesNotMatch(k.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, ""), /<form|<iframe|<script/i);
 });
 
 // --- S647: de to sites siger det samme om de samme ting ---

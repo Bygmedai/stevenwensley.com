@@ -20,6 +20,14 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/tokens.css">
+{#- Strukturerede data til søgemaskiner: data, ikke kode (se src/_data/ld.js). -#}
+<script type="application/ld+json">{{ ld.person | dump | replace("</", "<\\/") | safe }}</script>
+{%- if page.url == ld.side %}
+<script type="application/ld+json">{{ ld.raadgivning | dump | replace("</", "<\\/") | safe }}</script>
+{%- endif %}
+{%- if artikel %}
+<script type="application/ld+json">{{ ld.artikel(artikel.overskrift, description, page.url, artikel.dato) | dump | replace("</", "<\\/") | safe }}</script>
+{%- endif %}
 </head>
 <body class="sw">
 <a class="skip" href="#indhold">Spring til indhold</a>
@@ -35,6 +43,6 @@
 {{ content | safe }}
 </main>
 <footer><div class="w"><span><strong>Steven Wensley</strong> · AI-rådgivning, lederforløb og oplæg. · {{ site.firma }} · CVR {{ site.cvr }} · <a href="mailto:{{ site.email }}">{{ site.email }}</a> · <a href="tel:{{ site.telefonLink }}">{{ site.telefon }}</a></span>
-<nav aria-label="Fodmenu"><a href="{{ site.overblik }}">Se kommunernes AI-arbejde</a><a href="{{ site.linkedin }}">LinkedIn</a><a href="{{ site.cta.url }}">Kontakt</a><a href="/privatliv/">Privatliv</a></nav></div></footer>
+<nav aria-label="Fodmenu"><a href="/analyser/">Analyser</a><a href="{{ site.overblik }}">Se kommunernes AI-arbejde</a><a href="{{ site.linkedin }}">LinkedIn</a><a href="{{ site.cta.url }}">Kontakt</a><a href="/privatliv/">Privatliv</a></nav></div></footer>
 </body>
 </html>

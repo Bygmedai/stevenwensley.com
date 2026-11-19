@@ -8,7 +8,8 @@ const SITE = "_site";
 const URL = "https://stevenwensley.com";
 const read = (p) => readFileSync(join(SITE, p), "utf8");
 const HOVED = ["index.html", "saadan-kan-jeg-hjaelpe/index.html", "oplaeg/index.html", "spoergsmaal/index.html", "om-mig/index.html", "kontakt/index.html"];
-const SIDER = [...HOVED, "privatliv/index.html"];
+// Analyserne (salgsplanen 19/11 2026) skal overholde de samme regler som resten af sitet.
+const SIDER = [...HOVED, "privatliv/index.html", "analyser/index.html", "analyser/gevinsten-staar-i-budgettet/index.html"];
 const sti = (side) => "/" + side.replace("index.html", "");
 
 for (const side of SIDER) {
@@ -88,7 +89,8 @@ test("gamle adresser 301'er til levende sider, og ingen regel peger på en død 
 
 test("ingen serverfunktioner og ingen scripts i siderne", () => {
   assert.equal(existsSync("functions"), false);
-  for (const side of [...SIDER, "404.html"]) assert.doesNotMatch(read(side), /<script/i, side);
+  // Kun datablokke til søgemaskiner (application/ld+json) er tilladt; de køres ikke.
+  for (const side of [...SIDER, "404.html"]) assert.doesNotMatch(read(side).replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, ""), /<script/i, side);
 });
 
 test("oplæg har prisen ekskl. moms, og de gamle priser er væk", () => {
