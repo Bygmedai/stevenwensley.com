@@ -71,7 +71,7 @@ test("AI-illustrationerne er mærket, og portrætterne er fotos", () => {
 
 test("gamle adresser 301'er til levende sider, og ingen regel peger på en død side", () => {
   const r = read("_redirects");
-  for (const gammel of ["/about", "/services-da", "/nis2-gap-assessment", "/lovable-til-drift", "/for-brokers", "/insights/*", "/en", "/om", "/om/", "/ny", "/ny/*"]) {
+  for (const gammel of ["/about", "/services-da", "/nis2-gap-assessment", "/lovable-til-drift", "/for-brokers", "/insights/*", "/templates", "/templates.html", "/en", "/om", "/om/", "/ny", "/ny/*"]) {
     assert.match(r, new RegExp(`^${gammel.replace(/[*/.]/g, (c) => "\\" + c)}\\s+\\S+\\s+301`, "m"), gammel);
   }
   assert.match(r, /^\/ny\/\*\s+\/:splat\s+301$/m);
