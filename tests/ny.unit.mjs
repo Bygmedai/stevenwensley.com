@@ -16,7 +16,7 @@ for (const side of NY) {
     assert.equal((h.match(/<h1[\s>]/g) || []).length, 1);
     assert.match(h, /href="\/assets\/css\/tokens\.css"/);
     assert.match(h, /<body class="sw">/);
-    assert.doesNotMatch(h, /<script/i);
+    assert.doesNotMatch(h.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, ""), /<script/i);
     assert.doesNotMatch(h, /fonts\.googleapis|fonts\.gstatic/);
   });
 }
@@ -95,7 +95,7 @@ test("portrætter, illustration, referencer og sprog efter beslutningerne", () =
   const k = read("kontakt/index.html");
   assert.match(k, /Den første samtale er gratis og tager 30 minutter\./);
   assert.match(k, /href="mailto:steven@bygmedai\.dk"/); assert.match(k, /href="tel:\+4553886061"/);
-  assert.doesNotMatch(k, /<form|<iframe|<script/i);
+  assert.doesNotMatch(k.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, ""), /<form|<iframe|<script/i);
 });
 
 // --- S647: de to sites siger det samme om de samme ting ---

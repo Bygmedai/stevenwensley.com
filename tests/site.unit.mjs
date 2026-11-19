@@ -88,7 +88,8 @@ test("gamle adresser 301'er til levende sider, og ingen regel peger på en død 
 
 test("ingen serverfunktioner og ingen scripts i siderne", () => {
   assert.equal(existsSync("functions"), false);
-  for (const side of [...SIDER, "404.html"]) assert.doesNotMatch(read(side), /<script/i, side);
+  // Kun datablokke til søgemaskiner (application/ld+json) er tilladt; de køres ikke.
+  for (const side of [...SIDER, "404.html"]) assert.doesNotMatch(read(side).replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, ""), /<script/i, side);
 });
 
 test("oplæg har prisen ekskl. moms, og de gamle priser er væk", () => {
