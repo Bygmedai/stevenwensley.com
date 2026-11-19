@@ -6,6 +6,7 @@
     { "navn": "Lederforløb: led arbejdet med AI-agenter, halv dag", "pris": 18000, "fra": true, "tekst": "Halv dag fra 18.000 kr." },
     { "navn": "Lederforløb: led arbejdet med AI-agenter, heldag", "pris": 35000, "fra": true, "tekst": "Heldag fra 35.000 kr." },
     { "navn": "Lederforløb: led arbejdet med AI-agenter, fire halve dage", "pris": 75000, "fra": true, "tekst": "Fire halve dage fra 75.000 kr." },
-    { "navn": "Oplæg om AI, magt og ansvar", "pris": 12000, "fra": true, "tekst": "Fra 12.000 kr." }
+    { "navn": "Oplæg om AI, magt og ansvar", "pris": 12000, "fra": true, "tekst": "Fra 12.000 kr." },
+    { "navn": "Gevinstgennemgangen", "pris": 18000, "fra": true, "tekst": "En halv dag fra 18.000 kr. ekskl. moms" }
   ]
 }

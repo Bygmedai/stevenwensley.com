@@ -8,7 +8,8 @@ const SITE = "_site";
 const URL = "https://stevenwensley.com";
 const read = (p) => readFileSync(join(SITE, p), "utf8");
 const HOVED = ["index.html", "saadan-kan-jeg-hjaelpe/index.html", "oplaeg/index.html", "spoergsmaal/index.html", "om-mig/index.html", "kontakt/index.html"];
-const SIDER = [...HOVED, "privatliv/index.html"];
+// Analyserne (salgsplanen 19/11 2026) skal overholde de samme regler som resten af sitet.
+const SIDER = [...HOVED, "privatliv/index.html", "analyser/index.html", "analyser/gevinsten-staar-i-budgettet/index.html"];
 const sti = (side) => "/" + side.replace("index.html", "");
 
 for (const side of SIDER) {

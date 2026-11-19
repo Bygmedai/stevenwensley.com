@@ -65,4 +65,17 @@ const raadgivning = {
   },
 };
 
-module.exports = { person, raadgivning, side };
+// En analyse: overskrift, beskrivelse, adresse og dato fra sidens front matter.
+const artikel = (overskrift, beskrivelse, sti, dato) => ({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: overskrift,
+  description: beskrivelse,
+  url: `${site.url}${sti}`,
+  datePublished: dato,
+  inLanguage: "da",
+  author: { "@id": person["@id"] },
+  publisher: { "@id": person["@id"] },
+});
+
+module.exports = { person, raadgivning, side, artikel };
