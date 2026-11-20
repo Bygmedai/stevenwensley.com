@@ -83,7 +83,8 @@ test("ingen tal fra høsten, der ikke er i en udgave", () => {
 test("Gevinstgennemgangen: på Sådan kan jeg hjælpe, linket fra forsiden og analysen", () => {
   const s = read("saadan-kan-jeg-hjaelpe/index.html");
   assert.match(s, /id="gevinstgennemgang"/);
-  assert.match(s, /<h2>Gevinstgennemgangen<\/h2>/);
+  // Den bløde bindestreg lader overskriften knække ved 320 px uden vandret scroll (Sirius 20/11 2026).
+  assert.match(s, /<h2>Gevinst&shy;gennemgangen<\/h2>/);
   assert.ok(tekst(s).includes("En halv dag fra 18.000 kr. ekskl. moms"));
   assert.match(read("index.html"), /href="\/saadan-kan-jeg-hjaelpe\/#gevinstgennemgang"/);
   assert.match(read(ANALYSE), /href="\/saadan-kan-jeg-hjaelpe\/#gevinstgennemgang"/);

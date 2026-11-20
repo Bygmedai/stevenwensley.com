@@ -4,7 +4,8 @@ const { test, expect } = require('@playwright/test');
 const BASE = process.env.BASE_URL || 'http://localhost:8080';
 // Analyserne kom med 20/11 2026: «ledelsesbeslutninger» i overskriften på /analyser/ gav vandret scroll på telefonen.
 const PAGES = ['/', '/saadan-kan-jeg-hjaelpe/', '/oplaeg/', '/spoergsmaal/', '/om-mig/', '/kontakt/', '/analyser/', '/analyser/gevinsten-staar-i-budgettet/'];
-const WIDTHS = [390, 768, 1440];
+// 320 px kom med 20/11 2026: «Gevinstgennemgangen» var 2 px for bred ved den bredde.
+const WIDTHS = [320, 390, 768, 1440];
 
 for (const p of PAGES) {
   for (const w of WIDTHS) {
@@ -20,7 +21,13 @@ for (const p of PAGES) {
       await expect(page.locator('h1')).toHaveCount(1);
       await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://stevenwensley.com' + p);
-      await expect(page.locator('header a.btn')).toBeVisible();
+      // Under 371 px er knappen i toppen skjult med vilje (QA #109), så toppen ikke klemmes; Kontakt står i telefonmenuen.
+      if (w <= 370) {
+        await expect(page.locator('header a.btn')).toBeHidden();
+        await expect(page.locator('details.mnav nav a[href="/kontakt/"]')).toHaveCount(1);
+      } else {
+        await expect(page.locator('header a.btn')).toBeVisible();
+      }
       expect(await page.evaluate(() => getComputedStyle(document.body).fontFamily)).toMatch(/Inter/);
       expect(fejl).toEqual([]);
       await ctx.close();
