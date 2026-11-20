@@ -31,10 +31,10 @@
     },
     "/spoergsmaal/": {
       "fil": "/assets/img/og-spoergsmaal.jpg",
-      "overskrift": "Spørgsmål før vi taler sammen",
+      "overskrift": "Det praktiske, før vi tager fat",
       "eyebrow": "Spørgsmål",
       "linje": null,
-      "sha256": "c8425d31f79c82c567ddcbf94a1779f2fd8c7714f1ef57333f1d9570af5e55ca"
+      "sha256": "e4409b46c12bda030a67e21d2b971eef972cbeef878985b7415ccaec2a53d1c7"
     },
     "/om-mig/": {
       "fil": "/assets/img/og-om-mig.jpg",
@@ -45,10 +45,10 @@
     },
     "/kontakt/": {
       "fil": "/assets/img/og-kontakt.jpg",
-      "overskrift": "Skriv til mig.",
+      "overskrift": "Lad os tage fat.",
       "eyebrow": "Kontakt",
       "linje": null,
-      "sha256": "dc257c834c1122ea8b5a114fe0465018055179cfc7083401c9bb4555f49790fb"
+      "sha256": "03902e54b3e4735e2418c4fe453b0032b6c9e233244071a3961dfa5b5143ac13"
     },
     "/privatliv/": {
       "fil": "/assets/img/og-privatliv.jpg",
@@ -59,17 +59,17 @@
     },
     "/analyser/": {
       "fil": "/assets/img/og-analyser.jpg",
-      "overskrift": "Det, myndighederne selv skriver om AI.",
+      "overskrift": "Fra AI-løfter til ledelsesbeslutninger.",
       "eyebrow": "Analyser",
       "linje": null,
-      "sha256": "9753b8c6909723ed9886210d2967cfc506f92ed12a8c812d96dd002bad51febe"
+      "sha256": "c92273ebd55922d1298ba0fea8e03a950b7c1695472d66bb8452e20f28dd8057"
     },
     "/analyser/gevinsten-staar-i-budgettet/": {
       "fil": "/assets/img/og-analyser-gevinsten-staar-i-budgettet.jpg",
-      "overskrift": "Gevinsten står i budgettet. Målingen mangler.",
+      "overskrift": "Budgettet regner med AI. Hvem leverer gevinsten?",
       "eyebrow": "Analyse · 19. november 2026",
-      "linje": "Ingen af de 20 oplysninger er en opgjort effekt.",
-      "sha256": "6079ec38a80b014172d10609b105ba33e04fa4fbcb5240f338540e9e65ea1a83"
+      "linje": "Tre kommuners budgetmateriale regner med gevinster fra AI.",
+      "sha256": "b74e2283fa43ec37134dca8b3b516690567026b66000de7ab137fd0e0ffa4eda"
     }
   }
 }

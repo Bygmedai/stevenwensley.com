@@ -116,7 +116,7 @@ test("portrætter, illustration, referencer og sprog efter beslutningerne", () =
   assert.match(faq, /København/); assert.doesNotMatch(faq, /Skandinavien/);
   for (const side of NY) assert.doesNotMatch(read(side), /interim|Bestyrelsesbriefing/i, side);
   const k = read("kontakt/index.html");
-  assert.match(k, /Den første samtale er gratis og tager 30 minutter\./);
+  assert.match(k, /Første samtale er gratis og tager 30 minutter\./);
   assert.match(k, /href="mailto:steven@bygmedai\.dk"/); assert.match(k, /href="tel:\+4553886061"/);
   assert.doesNotMatch(k.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, ""), /<form|<iframe|<script/i);
 });
@@ -211,7 +211,7 @@ test("AI-overblikket står på Om mig, i foden og ved figuren, og krydslinks sig
   for (const side of [...NY, "privatliv/index.html"]) assert.match(read(side), /href="https:\/\/bygmedai\.dk\/indsigt\/offentlig-ai\/"[^>]*>AI i det offentlige<\/a>/, side);
   assert.match(read("index.html"), /href="https:\/\/bygmedai\.dk\/indsigt\/offentlig-ai\/kommuner\/hoeje-taastrup\/"/);
   // Et link til bygmedai.dk siger, hvad læseren finder dér. Ingen side kalder længere Bygmedai en projektbutik.
-  assert.match(read("kontakt/index.html"), /<dt>Kommunernes AI-arbejde<\/dt><dd><a href="https:\/\/bygmedai\.dk\/indsigt\/offentlig-ai\/">Se AI-overblikket<\/a>/);
+  assert.match(read("kontakt/index.html"), /<dt>AI i det offentlige<\/dt><dd><a href="https:\/\/bygmedai\.dk\/indsigt\/offentlig-ai\/">Se AI-overblikket<\/a>/);
   assert.match(read("oplaeg/index.html"), /<a href="https:\/\/bygmedai\.dk\/indsigt\/offentlig-ai\/">Se kommunernes budgetter<\/a>/);
   for (const side of [...NY, "privatliv/index.html"]) {
     const h = read(side);

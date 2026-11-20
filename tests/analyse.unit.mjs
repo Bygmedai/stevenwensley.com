@@ -35,11 +35,13 @@ test("analysen bygger på hele udgave 005 og siger, hvilken udgave det er", () =
   for (const c of Object.values(g.citater)) assert.ok(g.poster.includes(c.post), c.post);
   const h = read(ANALYSE), t = tekst(h);
   assert.ok(h.includes(`href="${g.udgivelseUrl}"`));
-  assert.match(t, /Ingen af de 20 oplysninger er en opgjort effekt\./);
+  // Revision 2: udsagnet er afgrænset til udgaven. Ingen national konklusion om manglende måling.
+  assert.match(t, /Hvad står der i udgave 005\? Udgaven rummer 20 oplysninger: 13 fra Albertslund, Frederiksberg og Høje-Taastrup, seks fra de nye kommuner og én national målsætning\. Ingen af oplysningerne er en opgjort effekt\. Det beskriver indholdet i denne udgave; det afgør ikke, hvad kommunerne har målt andre steder\./);
   assert.match(t, /udgave 005 af AI-overblikket/);
   assert.match(t, /Udgaven dækker ni kommuner og siger intet om de øvrige 89\./);
   assert.doesNotMatch(t, /udgave 004|\b14 oplysninger/);
-  assert.match(tekst(read("analyser/index.html")), /Ingen af de 20 kildekontrollerede oplysninger er en opgjort effekt\./);
+  assert.match(tekst(read("analyser/index.html")), /Analysen undersøger forudsætningerne og opfølgningen i udgave 005 af AI-overblikket\./);
+  for (const side of SIDER) assert.doesNotMatch(tekst(read(side)), /Målingen mangler/, side);
 });
 
 test("de seks nye kommuner står med udgavens titel, type og et link til oplysningen", () => {
@@ -55,7 +57,7 @@ test("de seks nye kommuner står med udgavens titel, type og et link til oplysni
     assert.ok(g.typer.some((r) => r.type === n.type && r.antal > 0), n.type);
   }
   // Ingen af de nye er en gevinst i budgettet: de står ikke blandt kortene med «Forventet gevinst».
-  assert.match(t, /Ingen af dem sætter tal på en gevinst\./);
+  assert.match(t, /Ingen af de seks oplysninger sætter tal på en gevinst\./);
 });
 
 test("hvert citat står ordret, og hver kommune har kilde og link til overblikket", () => {
@@ -67,6 +69,9 @@ test("hvert citat står ordret, og hver kommune har kilde og link til overblikke
     assert.ok(h.includes(`href="${k.overblikUrl}"`), k.navn);
   }
   for (const r of g.typer) assert.ok(t.includes(`${r.type} ${r.antal}`), r.type);
+  // Revision 2: bemærkningen om beløbene står synligt lige efter de tre kommunekort.
+  assert.match(h, /<\/div>\n<p class="mt">Beløbene dækker forskellige år og er opgjort forskelligt\. De kan ikke lægges sammen\.<\/p><\/div><\/section>/);
+  assert.ok(h.indexOf("Beløbene dækker forskellige år") > h.lastIndexOf("Se oplysningerne og kilderne"));
 });
 
 test("ingen tal fra høsten, der ikke er i en udgave", () => {
@@ -94,7 +99,10 @@ test("analyserne kan findes: hovedmenuen på alle sider og en Article-blok", () 
   const blokke = [...read(ANALYSE).matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
   const art = blokke.find((b) => b["@type"] === "Article");
   assert.ok(art);
-  assert.equal(art.headline, "Gevinsten står i budgettet. Målingen mangler.");
+  // Revision 2: ny overskrift, samme adresse. Overskriften, Article-blokken og kortet på /analyser/ er den samme tekst.
+  assert.equal(art.headline, "Budgettet regner med AI. Hvem leverer gevinsten?");
+  assert.match(read(ANALYSE), /<h1>Budgettet regner med AI\. Hvem leverer gevinsten\?<\/h1>/);
+  assert.match(read("analyser/index.html"), /<a href="\/analyser\/gevinsten-staar-i-budgettet\/">Budgettet regner med AI\. Hvem leverer gevinsten\?<\/a>/);
   assert.equal(art.url, "https://stevenwensley.com/analyser/gevinsten-staar-i-budgettet/");
   assert.equal(art.datePublished, "2026-11-19");
 });

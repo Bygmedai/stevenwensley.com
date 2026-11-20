@@ -1,12 +1,13 @@
 ---
 permalink: /analyser/
 layout: layout.njk
-title: "Analyser af AI i det offentlige · Steven Wensley"
-description: "Analyser af det, myndighederne selv skriver om AI. Tallene er afskrevet fra AI-overblikket på bygmedai.dk, med kilde ved hvert tal."
+title: "AI i det offentlige — analyser · Steven Wensley"
+description: "Hvad bygger AI-planerne på, hvem skal levere gevinsten, og hvem følger op? Analyser af offentlige budgetter, beslutninger og erfaringer."
 ---
-{#- Salgsplanen trin 2 (19/11 2026): stedet, hvor analyserne bor. -#}
-<div class="hero"><div class="w"><span class="eyebrow">Analyser</span><h1>Det, myndighederne selv skriver om AI.</h1>
-<p class="lead">Analyserne bygger på tal fra <a href="{{ site.overblik }}">AI-overblikket</a> på bygmedai.dk. Hvert tal har sin kilde, og hver analyse siger, hvilken udgave den bygger på.</p></div></div>
+{#- Salgsplanen trin 2 (19/11 2026): stedet, hvor analyserne bor. Tekst: tekstgrundlaget, revision 2 (Sirius 20/11 2026), felterne A. Korttitlen er analysens overskrift (artikel.overskrift). -#}
+{%- set udgave = gevinstgab.udgivelse | replace("rel-ai-overblikket-", "") -%}
+<div class="hero"><div class="w"><span class="eyebrow">Analyser</span><h1>Fra AI-løfter til ledelsesbeslutninger.</h1>
+<p class="lead">Jeg læser budgetter, beslutninger og erfaringer fra det offentlige Danmark. Her undersøger jeg, hvilke krav planerne stiller til dem, der skal få arbejdet til at ændre sig.</p></div></div>
 <section class="alt"><div class="w"><div class="g3">
-<div class="card"><span class="eyebrow">19. november 2026</span><h2><a href="/analyser/gevinsten-staar-i-budgettet/">Gevinsten står i budgettet. Målingen mangler.</a></h2><p>Tre kommuner har skrevet en gevinst fra AI ind i budgettet. Ingen af de {{ gevinstgab.poster | length }} kildekontrollerede oplysninger er en opgjort effekt.</p></div>
+<div class="card"><span class="eyebrow">19. november 2026</span><h2><a href="/analyser/gevinsten-staar-i-budgettet/">Budgettet regner med AI. Hvem leverer gevinsten?</a></h2><p>Tre kommuners budgetmateriale regner med gevinster fra AI. Analysen undersøger forudsætningerne og opfølgningen i udgave {{ udgave }} af AI-overblikket.</p></div>
 </div></div></section>
