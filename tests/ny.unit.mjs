@@ -249,3 +249,26 @@ test("forsidens top har én linje om AI-overblikket, med link og uden tal", () =
   assert.equal(linjer[0], 'Bygger på <a href="https://bygmedai.dk/indsigt/offentlig-ai/">AI-overblikket</a>: kommuner, regioner og staten, med kilden ved hvert tal.');
   assert.doesNotMatch(linjer[0].replace(/<[^>]+>/g, ""), /\d/);
 });
+
+// BYG-1217: månedsbriefet som et lille første skridt. Tilmelding med en mail til sitets ene adresse; ingen formular.
+test("månedsbriefet: maillink med emne og tekst på forsiden og analyserne, og et afsnit i privatlivsteksten", () => {
+  const site = JSON.parse(readFileSync(new URL("../src/_data/site.json", import.meta.url), "utf8"));
+  for (const side of ["index.html", "analyser/index.html", "analyser/gevinsten-staar-i-budgettet/index.html"]) {
+    const h = read(side);
+    const m = [...h.matchAll(/<a href="([^"]+)">Få månedens ændringer i det offentliges AI på mail<\/a>/g)];
+    assert.equal(m.length, 1, side);
+    const u = new URL(m[0][1].replace(/&amp;/g, "&"));
+    assert.equal(u.protocol, "mailto:", side);
+    assert.equal(u.pathname, site.email, side);
+    assert.equal(u.searchParams.get("subject"), "Tilmeld månedsbriefet", side);
+    assert.equal(u.searchParams.get("body"), "Skriv mig på månedsbriefet.", side);
+  }
+  for (const side of [...NY, "privatliv/index.html"]) assert.doesNotMatch(read(side), /<form[\s>]/i, side);
+  const p = read("privatliv/index.html").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
+  assert.match(p, /Månedsbriefet/);
+  assert.match(p, /liste hos Resend/);
+  // Resends sendeområde i EU flytter ikke data: Resend opbevarer data i USA.
+  assert.match(p, /Resend opbevarer data i USA/);
+  assert.doesNotMatch(p, /Resend \(i EU\)/);
+  assert.match(p, /Svar «afmeld» på et brev, så sletter jeg dig\./);
+});

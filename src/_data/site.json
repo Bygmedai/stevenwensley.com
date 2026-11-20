@@ -30,5 +30,6 @@
     "url": "/kontakt/"
   },
   "overblik": "https://bygmedai.dk/indsigt/offentlig-ai/",
-  "booking": "https://calendly.com/steven-bygmedai/new-meeting"
+  "booking": "https://calendly.com/steven-bygmedai/new-meeting",
+  "maanedsbrief": "mailto:steven@bygmedai.dk?subject=Tilmeld%20m%C3%A5nedsbriefet&body=Skriv%20mig%20p%C3%A5%20m%C3%A5nedsbriefet."
 }
