@@ -4,12 +4,15 @@ layout: layout.njk
 title: "Kontakt Steven Wensley · AI og ledelse"
 description: "Tal med Steven Wensley om AI, ledelse eller et oplæg. Første samtale er gratis og tager 30 minutter. Skriv eller ring direkte."
 ---
-{#- Kilde: den gamle /kontakt/ ordret. Fælles mål for alle «Book 30 minutter»-knapper: mail og telefon som på den gamle side, ingen kalender og ingen formular.
+{#- Kilde: den gamle /kontakt/ ordret. Alle «Lad os tale»-knapper går hertil. Her vælger man kalender, mail eller telefon; ingen formular.
+    Kalenderen (Steven 20/11 2026, valg A): et almindeligt link ud til Calendly i site.booking, kun på denne side. Ingen indlejret kalender og intet script (src/_headers).
     Tekst: tekstgrundlaget, revision 2 (Sirius 20/11 2026), felterne K. Knapperne er korte; adresse og nummer står fuldt ud i kortet. -#}
 <div class="hero"><div class="w g2"><div><span class="eyebrow">Kontakt</span><h1>Lad os tage fat.</h1>
 <p class="lead">En opgave, en beslutning eller et oplæg? Skriv kort, eller ring direkte. Første samtale er gratis og tager 30 minutter. Jeg svarer selv.</p>
-<div class="acts"><a class="btn" href="mailto:{{ site.email }}">Skriv til mig</a><a class="btn ghost" href="tel:{{ site.telefonLink }}">Ring til mig</a></div></div>
+<div class="acts"><a class="btn" href="{{ site.booking }}">Book 30 minutter</a><a class="btn ghost" href="mailto:{{ site.email }}">Skriv til mig</a><a class="btn ghost" href="tel:{{ site.telefonLink }}">Ring til mig</a></div>
+<p class="micro">Kalenderen ligger hos Calendly. Dens knapper og mails er på engelsk.</p></div>
 <div class="card"><dl class="kv">
+<div><dt>Kalender</dt><dd><a href="{{ site.booking }}">Book 30 minutter hos Calendly</a></dd></div>
 <div><dt>Mail</dt><dd><a href="mailto:{{ site.email }}">{{ site.email }}</a></dd></div>
 <div><dt>Telefon</dt><dd><a href="tel:{{ site.telefonLink }}">{{ site.telefon | replace(" ", "&nbsp;") | safe }}</a></dd></div>
 <div><dt>LinkedIn</dt><dd><a href="{{ site.linkedin }}">linkedin.com/in/stevenwensley</a></dd></div>
