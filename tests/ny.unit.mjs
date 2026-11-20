@@ -75,17 +75,17 @@ test("QA #109: kort-overskrifter er h2, FAQ er lukket, ét mål for samtaleknapp
     // Revision 2: ingen kalender. Knapperne til en samtale går til kontaktsiden.
     for (const [, href] of read(side).matchAll(/<a[^>]*href="([^"]*)"[^>]*>(?:Tal med mig|Lad os tale|Tal om jeres budget)<\/a>/g)) assert.equal(href, "/kontakt/", side);
     // «Book 30 minutter» må kun stå på et link, der faktisk åbner kalenderen (Calendly, 20/11 2026).
-    assert.doesNotMatch(read(side).replace(/<a [^>]*href="https:\/\/calendly\.com\/steven-bygmedai\/30min"[^>]*>Book 30 minutter[^<]*<\/a>/g, ""), /Book 30 minutter|Book et oplæg|uforpligtende snak/, side);
+    assert.doesNotMatch(read(side).replace(/<a [^>]*href="https:\/\/calendly\.com\/steven-bygmedai\/new-meeting"[^>]*>Book 30 minutter[^<]*<\/a>/g, ""), /Book 30 minutter|Book et oplæg|uforpligtende snak/, side);
   }
 });
 
 test("kalenderen: et link ud til Calendly, kun på Kontakt, og privatlivsteksten nævner den", () => {
   // Steven 20/11 2026, valg A: «Book 30 minutter» står kun på Kontakt; alle «Lad os tale» går dertil.
   const site = JSON.parse(readFileSync("src/_data/site.json", "utf8"));
-  assert.equal(site.booking, "https://calendly.com/steven-bygmedai/30min");
+  assert.equal(site.booking, "https://calendly.com/steven-bygmedai/new-meeting");
   const k = read("kontakt/index.html");
-  assert.match(k, /<a class="btn" href="https:\/\/calendly\.com\/steven-bygmedai\/30min">Book 30 minutter<\/a><a class="btn ghost" href="mailto:steven@bygmedai\.dk">Skriv til mig<\/a><a class="btn ghost" href="tel:\+4553886061">Ring til mig<\/a>/);
-  assert.match(k, /<dt>Kalender<\/dt><dd><a href="https:\/\/calendly\.com\/steven-bygmedai\/30min">Book 30 minutter hos Calendly<\/a><\/dd>/);
+  assert.match(k, /<a class="btn" href="https:\/\/calendly\.com\/steven-bygmedai\/new-meeting">Book 30 minutter<\/a><a class="btn ghost" href="mailto:steven@bygmedai\.dk">Skriv til mig<\/a><a class="btn ghost" href="tel:\+4553886061">Ring til mig<\/a>/);
+  assert.match(k, /<dt>Kalender<\/dt><dd><a href="https:\/\/calendly\.com\/steven-bygmedai\/new-meeting">Book 30 minutter hos Calendly<\/a><\/dd>/);
   assert.match(k, /Kalenderen ligger hos Calendly\. Dens knapper og mails er på engelsk\./);
   for (const side of [...NY, "privatliv/index.html", "404.html"]) {
     const h = read(side);
