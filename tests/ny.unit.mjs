@@ -239,3 +239,13 @@ test("AI-overblikket står på Om mig, i foden og ved figuren, og krydslinks sig
     for (const [, href] of h.matchAll(/href="(https:\/\/bygmedai\.dk\/[^"]*)"/g)) assert.ok(href.includes("/indsigt/offentlig-ai/") || href.includes("/fabrikken/"), `${side} → ${href}`);
   }
 });
+
+// BYG-1219: toppen af forsiden siger, at rådgivningen bygger på AI-overblikket. Linjen har intet tal, før tallet står i en frossen udgave.
+test("forsidens top har én linje om AI-overblikket, med link og uden tal", () => {
+  const h = read("index.html");
+  const top = h.slice(h.indexOf('<div class="hero">'), h.indexOf("</div></div>", h.indexOf('<div class="hero">')));
+  const linjer = [...top.matchAll(/<p class="micro">([^]*?)<\/p>/g)].map((m) => m[1]).filter((x) => x.includes("AI-overblikket"));
+  assert.equal(linjer.length, 1);
+  assert.equal(linjer[0], 'Bygger på <a href="https://bygmedai.dk/indsigt/offentlig-ai/">AI-overblikket</a>: kommuner, regioner og staten, med kilden ved hvert tal.');
+  assert.doesNotMatch(linjer[0].replace(/<[^>]+>/g, ""), /\d/);
+});
