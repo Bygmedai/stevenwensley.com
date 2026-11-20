@@ -9,7 +9,7 @@
   "cvr": "37244449",
   "nav": [
     {
-      "text": "Sådan kan jeg hjælpe",
+      "text": "Rådgivning",
       "url": "/saadan-kan-jeg-hjaelpe/"
     },
     {
@@ -17,8 +17,8 @@
       "url": "/oplaeg/"
     },
     {
-      "text": "Spørgsmål",
-      "url": "/spoergsmaal/"
+      "text": "Analyser",
+      "url": "/analyser/"
     },
     {
       "text": "Om mig",
@@ -26,7 +26,7 @@
     }
   ],
   "cta": {
-    "text": "Tal med mig",
+    "text": "Lad os tale",
     "url": "/kontakt/"
   },
   "overblik": "https://bygmedai.dk/indsigt/offentlig-ai/"

@@ -38,10 +38,25 @@ test("accent #1d4ed8 i .sw, Inter selvhostet", () => {
   assert.match(css, /url\(\/assets\/fonts\/inter-latin-wght-normal\.woff2\)/);
 });
 
-test("forsiden: situationer og første skridt før de tre spørgsmål", () => {
+test("forsiden: konflikterne før de tre spørgsmål, og procesafsnittet er væk", () => {
+  // Tekstgrundlaget, revision 2 (Sirius 20/11 2026): F-17 til F-19 udgår som hel sektion.
   const t = read("index.html");
-  const sit = t.indexOf("Det begynder ofte her"), start = t.indexOf("Vi tager jeres arbejde med ind i rummet"), usagt = t.indexOf("Tre spørgsmål til ledelsen");
-  assert.ok(sit > 0 && start > sit && usagt > start);
+  const konflikt = t.indexOf("Her bliver AI en ledelsesopgave"), spm = t.indexOf("Tre spørgsmål, I skal tage stilling til");
+  assert.ok(konflikt > 0 && spm > konflikt);
+  assert.doesNotMatch(t, /Vi tager jeres arbejde med ind i rummet|Se former og priser/);
+});
+
+test("forsiden, revision 2: position, uafhængighed, analysen og bemærkningen ved figuren", () => {
+  const h = read("index.html"), t = tekst(h);
+  assert.match(h, /<h1>AI flytter magt\. Tag ledelsen\.<\/h1>/);
+  assert.ok(t.includes("Første samtale: 30 minutter. Gratis."));
+  assert.ok(t.includes("Jeg sælger ingen licenser og får ingen provision fra leverandører."));
+  assert.match(h, /<a class="btn ghost" href="\/analyser\/gevinsten-staar-i-budgettet\/">Læs analysen<\/a>/);
+  // Rammebesparelsen står direkte under figuren ved kilden, ikke i det lukkede felt og ikke i småt.
+  const fig = h.slice(h.indexOf('<figure class="fig">'), h.indexOf("</figure>", h.indexOf('<figure class="fig">')));
+  const note = fig.indexOf('<p class="fig-r">Forslaget omtaler også en administrativ rammebesparelse');
+  assert.ok(note > fig.indexOf("</details>") && note < fig.indexOf('<p class="fig-k">'));
+  assert.match(h, /<a href="https:\/\/www\.linkedin\.com\/in\/stevenwensley\/">Se anbefalingerne fra blandt andre NNIT, TCS og Nordea på LinkedIn\.<\/a>/);
 });
 
 test("siderne står i sitemap, og /ny/ og det gamle design er væk", () => {
@@ -52,12 +67,13 @@ test("siderne står i sitemap, og /ny/ og det gamle design er væk", () => {
   for (const side of [...NY, "privatliv/index.html", "404.html"]) assert.doesNotMatch(read(side), /href="\/ny\/|href="\/om\/"/, side);
 });
 
-test("QA #109: kort-overskrifter er h2, FAQ er lukket, ét mål for «Tal med mig»", () => {
+test("QA #109: kort-overskrifter er h2, FAQ er lukket, ét mål for samtaleknapperne", () => {
   const h = read("saadan-kan-jeg-hjaelpe/index.html");
-  for (const t of ["Forstå", "Beslut", "Følg med"]) assert.match(h, new RegExp(`<h2>${t}</h2>`), t);
+  for (const t of ["En opgave at begynde med", "Et ansvar, der kan bruges", "Noget at følge op på"]) assert.match(h, new RegExp(`<h2>${t}</h2>`), t);
   assert.doesNotMatch(read("spoergsmaal/index.html"), /<details[^>]*\sopen/);
   for (const side of NY) {
-    for (const [, href] of read(side).matchAll(/<a[^>]*href="([^"]*)"[^>]*>Tal med mig<\/a>/g)) assert.equal(href, "/kontakt/", side);
+    // Revision 2: ingen kalender. Knapperne til en samtale går til kontaktsiden.
+    for (const [, href] of read(side).matchAll(/<a[^>]*href="([^"]*)"[^>]*>(?:Tal med mig|Lad os tale|Tal om jeres budget)<\/a>/g)) assert.equal(href, "/kontakt/", side);
     assert.doesNotMatch(read(side), /Book 30 minutter|Book et oplæg|uforpligtende snak/, side);
   }
 });
@@ -88,14 +104,19 @@ test("portrætter, illustration, referencer og sprog efter beslutningerne", () =
   // Situationerne på forsiden er Stevens egne beskrivelser: ingen citater, ingen kundeattribution, intet referenceløfte.
   assert.doesNotMatch(read("index.html"), /Referencer gives på forespørgsel|class="quote"|ikke kundecases/);
   // Salgsplanen 19/11 2026: de offentlige anbefalinger på LinkedIn vises som link; personlige referencer stadig på forespørgsel.
-  assert.match(read("om-mig/index.html"), /Personlige referencer gives på forespørgsel\./);
-  assert.match(read("om-mig/index.html"), /Skriftlige anbefalinger[^<]*<a href="https:\/\/www\.linkedin\.com\/in\/stevenwensley\/">min LinkedIn-profil<\/a>/);
+  // Revision 2: linjen står i toppen af Om mig og gentages ikke i erfaringslisten.
+  const om = read("om-mig/index.html");
+  assert.match(om, /Personlige referencer gives på forespørgsel\./);
+  assert.match(om, /På <a href="https:\/\/www\.linkedin\.com\/in\/stevenwensley\/">LinkedIn<\/a> finder du skriftlige anbefalinger fra kolleger og kunder hos blandt andre NNIT, TCS og Nordea\./);
+  assert.equal(om.split("NNIT, TCS og Nordea").length - 1, 1);
+  assert.ok(om.indexOf("NNIT, TCS og Nordea") < om.indexOf("Tre fag. Samme utålmodighed."));
+  assert.doesNotMatch(om, /<dt>Referencer<\/dt>/);
   assert.match(read("om-mig/index.html"), /src="\/assets\/img\/steven-roede-briller\.jpg"/);
   const faq = read("spoergsmaal/index.html");
   assert.match(faq, /København/); assert.doesNotMatch(faq, /Skandinavien/);
   for (const side of NY) assert.doesNotMatch(read(side), /interim|Bestyrelsesbriefing/i, side);
   const k = read("kontakt/index.html");
-  assert.match(k, /Den første samtale er gratis og tager 30 minutter\./);
+  assert.match(k, /Første samtale er gratis og tager 30 minutter\./);
   assert.match(k, /href="mailto:steven@bygmedai\.dk"/); assert.match(k, /href="tel:\+4553886061"/);
   assert.doesNotMatch(k.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, ""), /<form|<iframe|<script/i);
 });
@@ -116,16 +137,20 @@ test("menuen bruger sidens eget navn, og oplæg står i menuen", () => {
   for (const side of NY) {
     const h = read(side);
     assert.doesNotMatch(h, /Sådan arbejder jeg/, side);
-    assert.match(h, /<a href="\/saadan-kan-jeg-hjaelpe\/"[^>]*>Sådan kan jeg hjælpe<\/a>/, side);
+    assert.match(h, /<a href="\/saadan-kan-jeg-hjaelpe\/"[^>]*>Rådgivning<\/a>/, side);
+    assert.match(h, /<a href="\/analyser\/"[^>]*>Analyser<\/a>/, side);
     assert.match(h, /<a href="\/oplaeg\/"[^>]*>Oplæg<\/a>/, side);
   }
-  assert.match(read("saadan-kan-jeg-hjaelpe/index.html"), /<h1>Fra AI-spørgsmål til beslutninger\.<\/h1>/);
+  assert.match(read("saadan-kan-jeg-hjaelpe/index.html"), /<h1>Det skal virke, når mødet er slut\.<\/h1>/);
 });
 
 test("oplæg: de tre oplæg, «Hvem ejer den tid» først, og prisen", () => {
   const o = tekst(read("oplaeg/index.html"));
-  for (const t of ["AI flytter arbejdet. Hvem tager ansvaret?", "Hvem ejer den tid, AI frigør?", "AI er ikke et IT-problem. Det er et magtproblem.", "AI-agenter i arbejde", "Fra 12.000 kr. ekskl. moms."]) assert.ok(o.includes(t), t);
-  assert.ok(o.indexOf("Hvem ejer den tid, AI frigør?") < o.indexOf("Det er et magtproblem."));
+  for (const t of ["Lad os tale om det, AI gør ved jer.", "Hvem ejer den tid, AI frigør?", "AI flytter magt. Hvem får den?", "Du har fået agenter. Har du også lært at lede dem?", "Fra 12.000 kr. ekskl. moms."]) assert.ok(o.includes(t), t);
+  assert.ok(o.indexOf("Hvem ejer den tid, AI frigør?") < o.indexOf("AI flytter magt. Hvem får den?"));
+  // Revision 2: knapperne åbner mail med emnet Oplæg. De bestiller ingen dato.
+  const knapper = [...read("oplaeg/index.html").matchAll(/<a class="btn" href="([^"]+)">Forespørg på et oplæg<\/a>/g)].map((m) => m[1]);
+  assert.deepEqual(knapper, ["mailto:steven@bygmedai.dk?subject=Opl%C3%A6g", "mailto:steven@bygmedai.dk?subject=Opl%C3%A6g"]);
   assert.match(read("oplaeg/index.html"), /Illustration lavet med AI/);
   assert.match(read("saadan-kan-jeg-hjaelpe/index.html"), /href="\/oplaeg\/"/);
 });
@@ -133,7 +158,7 @@ test("oplæg: de tre oplæg, «Hvem ejer den tid» først, og prisen", () => {
 test("den offentlige leder er med i de tre situationer", () => {
   const t = tekst(read("index.html"));
   assert.ok(t.includes("Besparelsen står i budgettet. Nogen skal levere den."));
-  for (const s of ["Licenserne er købt. Arbejdet skal følge med.", "Ledelsen skal vælge retning."]) assert.ok(t.includes(s), s);
+  for (const s of ["Licensen er købt. Forandringen mangler.", "Hvem bestemmer, hvad der er godt nok?"]) assert.ok(t.includes(s), s);
 });
 
 test("eksemplet: figurens etiketter og netto svarer til tallene, og kilden står ved figuren", () => {
@@ -183,11 +208,11 @@ test("eksemplet siger ikke mere, end budgettet dokumenterer, og er bundet til en
 
 test("AI-overblikket står på Om mig, i foden og ved figuren, og krydslinks siger, hvad læseren finder", () => {
   assert.match(read("om-mig/index.html"), /<dt>AI-overblikket<\/dt>/);
-  for (const side of [...NY, "privatliv/index.html"]) assert.match(read(side), /href="https:\/\/bygmedai\.dk\/indsigt\/offentlig-ai\/"[^>]*>Se kommunernes AI-arbejde<\/a>/, side);
+  for (const side of [...NY, "privatliv/index.html"]) assert.match(read(side), /href="https:\/\/bygmedai\.dk\/indsigt\/offentlig-ai\/"[^>]*>AI i det offentlige<\/a>/, side);
   assert.match(read("index.html"), /href="https:\/\/bygmedai\.dk\/indsigt\/offentlig-ai\/kommuner\/hoeje-taastrup\/"/);
   // Et link til bygmedai.dk siger, hvad læseren finder dér. Ingen side kalder længere Bygmedai en projektbutik.
-  assert.match(read("kontakt/index.html"), /<dt>Kommunernes AI-arbejde<\/dt><dd><a href="https:\/\/bygmedai\.dk\/indsigt\/offentlig-ai\/">Se AI-overblikket<\/a>/);
-  assert.match(read("oplaeg/index.html"), />Se eksemplerne i AI-overblikket<\/a>/);
+  assert.match(read("kontakt/index.html"), /<dt>AI i det offentlige<\/dt><dd><a href="https:\/\/bygmedai\.dk\/indsigt\/offentlig-ai\/">Se AI-overblikket<\/a>/);
+  assert.match(read("oplaeg/index.html"), /<a href="https:\/\/bygmedai\.dk\/indsigt\/offentlig-ai\/">Se kommunernes budgetter<\/a>/);
   for (const side of [...NY, "privatliv/index.html"]) {
     const h = read(side);
     assert.doesNotMatch(h, /Gå til bygmedai\.dk|Projekter: bygmedai\.dk|min virksomhed for større AI-projekter/, side);

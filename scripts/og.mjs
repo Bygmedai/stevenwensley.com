@@ -19,13 +19,14 @@ import { resolve } from "node:path";
 import { chromium } from "@playwright/test";
 
 const BRED = 1200, HØJ = 630;
-const STANDARD_EYEBROW = "AI-rådgivning for ledergrupper";
-const FOD = "AI-rådgivning, lederforløb og oplæg.";
+const STANDARD_EYEBROW = "AI, magt og ledelse";
+const FOD = "AI flytter magt. Tag ledelsen.";
 // Fast liste: én fil pr. side i sitemap. Navnet følger adressen (se ogFil i tests/og.unit.mjs).
 const SIDER = ["/", "/saadan-kan-jeg-hjaelpe/", "/oplaeg/", "/spoergsmaal/", "/om-mig/", "/kontakt/", "/privatliv/", "/analyser/", "/analyser/gevinsten-staar-i-budgettet/"];
 export const ogFil = (url) => `/assets/img/og-${url === "/" ? "forside" : url.replace(/^\/|\/$/g, "").replace(/\//g, "-")}.jpg`;
 
-const tekst = (s) => s.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+// En blød bindestreg (&shy;) er et knækpunkt på telefonen, ikke en del af overskriften.
+const tekst = (s) => s.replace(/<[^>]+>/g, "").replace(/&shy;|\u00ad/g, "").replace(/\s+/g, " ").trim();
 const html = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
 
 // «ogLinje» i en sides front matter: en ekstra linje under overskriften. Den skal stå ordret på siden (prøves i tests/og.unit.mjs).

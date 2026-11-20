@@ -20,7 +20,7 @@ const person = {
   url: `${site.url}/`,
   image: `${site.url}/assets/img/steven-skjorte.jpg`,
   jobTitle: "AI-rådgiver for ledergrupper",
-  description: "AI-rådgivning, lederforløb og oplæg.",
+  description: "Rådgivning, lederforløb og oplæg om at bruge AI, ændre arbejdet og tage ansvar for beslutningerne.",
   email: `mailto:${site.email}`,
   telephone: site.telefon,
   sameAs: [site.linkedin],

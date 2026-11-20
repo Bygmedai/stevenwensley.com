@@ -11,7 +11,7 @@ const SITE = "_site";
 const URL = "https://stevenwensley.com";
 const og = JSON.parse(readFileSync("src/_data/og.json", "utf8"));
 const read = (p) => readFileSync(join(SITE, p), "utf8");
-const tekst = (s) => s.replace(/<[^>]+>/g, "").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+const tekst = (s) => s.replace(/<[^>]+>/g, "").replace(/&nbsp;/g, " ").replace(/&shy;|\u00ad/g, "").replace(/\s+/g, " ").trim();
 const ogFil = (url) => `/assets/img/og-${url === "/" ? "forside" : url.replace(/^\/|\/$/g, "").replace(/\//g, "-")}.jpg`;
 const sider = [...read("sitemap.xml").matchAll(/<loc>https:\/\/stevenwensley\.com(\/[^<]*)<\/loc>/g)].map((m) => m[1]);
 const html = (url) => read(`${url.slice(1)}index.html`);
@@ -59,10 +59,11 @@ test("billedets tekst er sidens nuværende overskrift og eyebrow", () => {
     const helt = h.match(/<div class="hero">([\s\S]*?)<\/h1>/)[0];
     assert.equal(e.overskrift, tekst(helt.match(/<h1>([\s\S]*?)<\/h1>/)[1]), `${url}: overskriften er ændret – kør npm run og`);
     const eb = helt.match(/<span class="eyebrow">([\s\S]*?)<\/span>/);
-    assert.equal(e.eyebrow, eb ? tekst(eb[1]) : "AI-rådgivning for ledergrupper", `${url}: eyebrow`);
+    assert.equal(e.eyebrow, eb ? tekst(eb[1]) : "AI, magt og ledelse", `${url}: eyebrow`);
     if (e.linje) assert.ok(tekst(h).includes(e.linje), `${url}: linjen «${e.linje}» står ikke på siden`);
   }
-  assert.equal(og.sider["/analyser/gevinsten-staar-i-budgettet/"].linje, "Ingen af de 20 oplysninger er en opgjort effekt.");
+  // Revision 2: linjen er analysens første sætning (AN-03 = første sætning i AN-06).
+  assert.equal(og.sider["/analyser/gevinsten-staar-i-budgettet/"].linje, "Tre kommuners budgetmateriale regner med gevinster fra AI.");
 });
 
 test("reservebilledet er forsidens, og det gamle budskab er væk", () => {
@@ -93,5 +94,9 @@ test("telefonnummeret knækker ikke: hårde mellemrum", () => {
     assert.match(h, /\+45&nbsp;53&nbsp;88&nbsp;60&nbsp;61/, url);
     assert.doesNotMatch(h, />[^<]*\+45 53 88 60 61/, url);
   }
-  assert.match(read("kontakt/index.html"), /Ring \+45&nbsp;53&nbsp;88&nbsp;60&nbsp;61/);
+  // Revision 2: knapperne er korte; adresse og nummer står fuldt ud i kontaktkortet.
+  const k = read("kontakt/index.html");
+  assert.match(k, /<a class="btn" href="mailto:steven@bygmedai\.dk">Skriv til mig<\/a><a class="btn ghost" href="tel:\+4553886061">Ring til mig<\/a>/);
+  assert.match(k, /<dt>Mail<\/dt><dd><a href="mailto:steven@bygmedai\.dk">steven@bygmedai\.dk<\/a><\/dd>/);
+  assert.match(k, /<dt>Telefon<\/dt><dd><a href="tel:\+4553886061">\+45&nbsp;53&nbsp;88&nbsp;60&nbsp;61<\/a><\/dd>/);
 });

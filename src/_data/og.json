@@ -2,74 +2,74 @@
   "_kommentar": "Lavet af scripts/og.mjs (npm run og). Hver side har sit eget delebillede; «overskrift», «eyebrow» og «linje» er de tekster, billedet er lavet ud fra, og «sha256» er billedfilens fingeraftryk. tests/og.unit.mjs holder dem op mod siderne. Ret ikke i hånden.",
   "reserve": {
     "fil": "/assets/img/og.jpg",
-    "overskrift": "I vil bruge AI. Lad os begynde med arbejdet.",
+    "overskrift": "AI flytter magt. Tag ledelsen.",
     "eyebrow": "AI-rådgivning for ledergrupper",
     "linje": null,
-    "sha256": "f75d7ae65cde9863740a9c098309457ebe8558fab81edd31de9d514cf19d9fdf"
+    "sha256": "bebc94b37d3eff573ea6f7e23602bc527bc6b59518636f1889467264b1536f96"
   },
   "sider": {
     "/": {
       "fil": "/assets/img/og-forside.jpg",
-      "overskrift": "I vil bruge AI. Lad os begynde med arbejdet.",
+      "overskrift": "AI flytter magt. Tag ledelsen.",
       "eyebrow": "AI-rådgivning for ledergrupper",
       "linje": null,
-      "sha256": "f75d7ae65cde9863740a9c098309457ebe8558fab81edd31de9d514cf19d9fdf"
+      "sha256": "bebc94b37d3eff573ea6f7e23602bc527bc6b59518636f1889467264b1536f96"
     },
     "/saadan-kan-jeg-hjaelpe/": {
       "fil": "/assets/img/og-saadan-kan-jeg-hjaelpe.jpg",
-      "overskrift": "Fra AI-spørgsmål til beslutninger.",
-      "eyebrow": "Sparring og lederforløb",
+      "overskrift": "Det skal virke, når mødet er slut.",
+      "eyebrow": "Rådgivning og lederforløb",
       "linje": null,
-      "sha256": "0e3aa719d055ae8d81ccdbe9be0745b1a8fd1e5be2136017bf4e9b563e463ac0"
+      "sha256": "580cf0452a54205dfc6af0fa37b37adc5d1ca2d16fedff2a9f94d8d5d70e8615"
     },
     "/oplaeg/": {
       "fil": "/assets/img/og-oplaeg.jpg",
-      "overskrift": "AI flytter arbejdet. Hvem tager ansvaret?",
+      "overskrift": "Lad os tale om det, AI gør ved jer.",
       "eyebrow": "Oplæg",
       "linje": null,
-      "sha256": "0060faf529417fd423eccccf4bbbd26dad539afed335047f7293dc27bbb599ae"
+      "sha256": "e05d7fc20dee18a734eb33f888b3e7f309b171281c7f781a9cbeac85f0b5c34b"
     },
     "/spoergsmaal/": {
       "fil": "/assets/img/og-spoergsmaal.jpg",
-      "overskrift": "Spørgsmål før vi taler sammen",
+      "overskrift": "Det praktiske, før vi tager fat",
       "eyebrow": "Spørgsmål",
       "linje": null,
-      "sha256": "9280d2327457845d3c24e7c1dde2bce066b4aab73eb2d1fbbdcc209ffc47ae3b"
+      "sha256": "e4409b46c12bda030a67e21d2b971eef972cbeef878985b7415ccaec2a53d1c7"
     },
     "/om-mig/": {
       "fil": "/assets/img/og-om-mig.jpg",
       "overskrift": "Historiker. Digter. Programleder.",
       "eyebrow": "Om mig",
       "linje": null,
-      "sha256": "7f8a24793fd6fcdc249e1e12464f5e7945a8c9515de525094af93fab7a41270e"
+      "sha256": "6958f200e460f2b444e71ff0ee967b5285aa4ff13ca3d0e85b4be12e0998ffcb"
     },
     "/kontakt/": {
       "fil": "/assets/img/og-kontakt.jpg",
-      "overskrift": "Skriv til mig.",
+      "overskrift": "Lad os tage fat.",
       "eyebrow": "Kontakt",
       "linje": null,
-      "sha256": "157e8af31a327934ccad157eed6c08639655365c41bbfca6b6ed781e434d024f"
+      "sha256": "03902e54b3e4735e2418c4fe453b0032b6c9e233244071a3961dfa5b5143ac13"
     },
     "/privatliv/": {
       "fil": "/assets/img/og-privatliv.jpg",
       "overskrift": "Privatliv",
-      "eyebrow": "AI-rådgivning for ledergrupper",
+      "eyebrow": "AI, magt og ledelse",
       "linje": null,
-      "sha256": "04dbab73e50abe075913f5f9ae58305762ae5c7637fa7443eab9a117d9301591"
+      "sha256": "0878c119b54bae5b9d2b7460273e5295e03e2019e46722d5bfad2e3f24d8f20d"
     },
     "/analyser/": {
       "fil": "/assets/img/og-analyser.jpg",
-      "overskrift": "Det, myndighederne selv skriver om AI.",
+      "overskrift": "Fra AI-løfter til ledelsesbeslutninger.",
       "eyebrow": "Analyser",
       "linje": null,
-      "sha256": "38670c1b604dbe70286862f6235aa49ceb881770d02295d0fe487b36444748d7"
+      "sha256": "c92273ebd55922d1298ba0fea8e03a950b7c1695472d66bb8452e20f28dd8057"
     },
     "/analyser/gevinsten-staar-i-budgettet/": {
       "fil": "/assets/img/og-analyser-gevinsten-staar-i-budgettet.jpg",
-      "overskrift": "Gevinsten står i budgettet. Målingen mangler.",
+      "overskrift": "Budgettet regner med AI. Hvem leverer gevinsten?",
       "eyebrow": "Analyse · 19. november 2026",
-      "linje": "Ingen af de 20 oplysninger er en opgjort effekt.",
-      "sha256": "6fcc6b3aaa3e50505493c97ed8bb3d9c8cc61041533d755547edd0dc6fea481b"
+      "linje": "Tre kommuners budgetmateriale regner med gevinster fra AI.",
+      "sha256": "b74e2283fa43ec37134dca8b3b516690567026b66000de7ab137fd0e0ffa4eda"
     }
   }
 }

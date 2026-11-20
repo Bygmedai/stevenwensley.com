@@ -2,7 +2,8 @@
 // Design B v2 "Nordisk lys" (BYG-991), i produktion fra 14/11 2026 (S647): siderne ved 390/768/1440.
 const { test, expect } = require('@playwright/test');
 const BASE = process.env.BASE_URL || 'http://localhost:8080';
-const PAGES = ['/', '/saadan-kan-jeg-hjaelpe/', '/oplaeg/', '/spoergsmaal/', '/om-mig/', '/kontakt/'];
+// Analyserne kom med 20/11 2026: «ledelsesbeslutninger» i overskriften på /analyser/ gav vandret scroll på telefonen.
+const PAGES = ['/', '/saadan-kan-jeg-hjaelpe/', '/oplaeg/', '/spoergsmaal/', '/om-mig/', '/kontakt/', '/analyser/', '/analyser/gevinsten-staar-i-budgettet/'];
 const WIDTHS = [390, 768, 1440];
 
 for (const p of PAGES) {
@@ -54,7 +55,9 @@ test('mobilmenu ved 375px: menupunkter kan nås uden JS', async ({ browser }) =>
   await expect(menu.locator('summary')).toBeVisible();
   await expect(page.locator('nav.dnav')).toBeHidden();
   await menu.locator('summary').click();
-  for (const t of ['Sådan kan jeg hjælpe', 'Oplæg', 'Spørgsmål', 'Om mig', 'Kontakt']) await expect(menu.getByRole('link', { name: t })).toBeVisible();
+  // Revision 2: menuen er Rådgivning, Oplæg, Analyser og Om mig; Spørgsmål og svar står i foden.
+  for (const t of ['Rådgivning', 'Oplæg', 'Analyser', 'Om mig', 'Kontakt']) await expect(menu.getByRole('link', { name: t, exact: true })).toBeVisible();
+  await expect(page.locator('footer').getByRole('link', { name: 'Spørgsmål og svar' })).toBeVisible();
   await menu.getByRole('link', { name: 'Om mig' }).click();
   await expect(page).toHaveURL(/\/om-mig\/$/);
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(375);
