@@ -2,7 +2,8 @@
 // Design B v2 "Nordisk lys" (BYG-991), i produktion fra 14/11 2026 (S647): siderne ved 390/768/1440.
 const { test, expect } = require('@playwright/test');
 const BASE = process.env.BASE_URL || 'http://localhost:8080';
-const PAGES = ['/', '/saadan-kan-jeg-hjaelpe/', '/oplaeg/', '/spoergsmaal/', '/om-mig/', '/kontakt/'];
+// Analyserne kom med 20/11 2026: «ledelsesbeslutninger» i overskriften på /analyser/ gav vandret scroll på telefonen.
+const PAGES = ['/', '/saadan-kan-jeg-hjaelpe/', '/oplaeg/', '/spoergsmaal/', '/om-mig/', '/kontakt/', '/analyser/', '/analyser/gevinsten-staar-i-budgettet/'];
 const WIDTHS = [390, 768, 1440];
 
 for (const p of PAGES) {

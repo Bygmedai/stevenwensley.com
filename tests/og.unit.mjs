@@ -11,7 +11,7 @@ const SITE = "_site";
 const URL = "https://stevenwensley.com";
 const og = JSON.parse(readFileSync("src/_data/og.json", "utf8"));
 const read = (p) => readFileSync(join(SITE, p), "utf8");
-const tekst = (s) => s.replace(/<[^>]+>/g, "").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+const tekst = (s) => s.replace(/<[^>]+>/g, "").replace(/&nbsp;/g, " ").replace(/&shy;|\u00ad/g, "").replace(/\s+/g, " ").trim();
 const ogFil = (url) => `/assets/img/og-${url === "/" ? "forside" : url.replace(/^\/|\/$/g, "").replace(/\//g, "-")}.jpg`;
 const sider = [...read("sitemap.xml").matchAll(/<loc>https:\/\/stevenwensley\.com(\/[^<]*)<\/loc>/g)].map((m) => m[1]);
 const html = (url) => read(`${url.slice(1)}index.html`);
