@@ -2,74 +2,74 @@
   "_kommentar": "Lavet af scripts/og.mjs (npm run og). Hver side har sit eget delebillede; «overskrift», «eyebrow» og «linje» er de tekster, billedet er lavet ud fra, og «sha256» er billedfilens fingeraftryk. tests/og.unit.mjs holder dem op mod siderne. Ret ikke i hånden.",
   "reserve": {
     "fil": "/assets/img/og.jpg",
-    "overskrift": "I vil bruge AI. Lad os begynde med arbejdet.",
+    "overskrift": "AI flytter magt. Tag ledelsen.",
     "eyebrow": "AI-rådgivning for ledergrupper",
     "linje": null,
-    "sha256": "f75d7ae65cde9863740a9c098309457ebe8558fab81edd31de9d514cf19d9fdf"
+    "sha256": "bebc94b37d3eff573ea6f7e23602bc527bc6b59518636f1889467264b1536f96"
   },
   "sider": {
     "/": {
       "fil": "/assets/img/og-forside.jpg",
-      "overskrift": "I vil bruge AI. Lad os begynde med arbejdet.",
+      "overskrift": "AI flytter magt. Tag ledelsen.",
       "eyebrow": "AI-rådgivning for ledergrupper",
       "linje": null,
-      "sha256": "f75d7ae65cde9863740a9c098309457ebe8558fab81edd31de9d514cf19d9fdf"
+      "sha256": "bebc94b37d3eff573ea6f7e23602bc527bc6b59518636f1889467264b1536f96"
     },
     "/saadan-kan-jeg-hjaelpe/": {
       "fil": "/assets/img/og-saadan-kan-jeg-hjaelpe.jpg",
       "overskrift": "Fra AI-spørgsmål til beslutninger.",
       "eyebrow": "Sparring og lederforløb",
       "linje": null,
-      "sha256": "0e3aa719d055ae8d81ccdbe9be0745b1a8fd1e5be2136017bf4e9b563e463ac0"
+      "sha256": "17c93a7fb244e41e85c59bffb9d2ed607590dfecac5a788a63f2eda9d4408324"
     },
     "/oplaeg/": {
       "fil": "/assets/img/og-oplaeg.jpg",
       "overskrift": "AI flytter arbejdet. Hvem tager ansvaret?",
       "eyebrow": "Oplæg",
       "linje": null,
-      "sha256": "0060faf529417fd423eccccf4bbbd26dad539afed335047f7293dc27bbb599ae"
+      "sha256": "47881d6ed9fa734fe30b3a2cc9eabeeae71469bf4614926b3f2f58b165f9b8c3"
     },
     "/spoergsmaal/": {
       "fil": "/assets/img/og-spoergsmaal.jpg",
       "overskrift": "Spørgsmål før vi taler sammen",
       "eyebrow": "Spørgsmål",
       "linje": null,
-      "sha256": "9280d2327457845d3c24e7c1dde2bce066b4aab73eb2d1fbbdcc209ffc47ae3b"
+      "sha256": "c8425d31f79c82c567ddcbf94a1779f2fd8c7714f1ef57333f1d9570af5e55ca"
     },
     "/om-mig/": {
       "fil": "/assets/img/og-om-mig.jpg",
       "overskrift": "Historiker. Digter. Programleder.",
       "eyebrow": "Om mig",
       "linje": null,
-      "sha256": "7f8a24793fd6fcdc249e1e12464f5e7945a8c9515de525094af93fab7a41270e"
+      "sha256": "6958f200e460f2b444e71ff0ee967b5285aa4ff13ca3d0e85b4be12e0998ffcb"
     },
     "/kontakt/": {
       "fil": "/assets/img/og-kontakt.jpg",
       "overskrift": "Skriv til mig.",
       "eyebrow": "Kontakt",
       "linje": null,
-      "sha256": "157e8af31a327934ccad157eed6c08639655365c41bbfca6b6ed781e434d024f"
+      "sha256": "dc257c834c1122ea8b5a114fe0465018055179cfc7083401c9bb4555f49790fb"
     },
     "/privatliv/": {
       "fil": "/assets/img/og-privatliv.jpg",
       "overskrift": "Privatliv",
-      "eyebrow": "AI-rådgivning for ledergrupper",
+      "eyebrow": "AI, magt og ledelse",
       "linje": null,
-      "sha256": "04dbab73e50abe075913f5f9ae58305762ae5c7637fa7443eab9a117d9301591"
+      "sha256": "0878c119b54bae5b9d2b7460273e5295e03e2019e46722d5bfad2e3f24d8f20d"
     },
     "/analyser/": {
       "fil": "/assets/img/og-analyser.jpg",
       "overskrift": "Det, myndighederne selv skriver om AI.",
       "eyebrow": "Analyser",
       "linje": null,
-      "sha256": "38670c1b604dbe70286862f6235aa49ceb881770d02295d0fe487b36444748d7"
+      "sha256": "9753b8c6909723ed9886210d2967cfc506f92ed12a8c812d96dd002bad51febe"
     },
     "/analyser/gevinsten-staar-i-budgettet/": {
       "fil": "/assets/img/og-analyser-gevinsten-staar-i-budgettet.jpg",
       "overskrift": "Gevinsten står i budgettet. Målingen mangler.",
       "eyebrow": "Analyse · 19. november 2026",
       "linje": "Ingen af de 20 oplysninger er en opgjort effekt.",
-      "sha256": "6fcc6b3aaa3e50505493c97ed8bb3d9c8cc61041533d755547edd0dc6fea481b"
+      "sha256": "6079ec38a80b014172d10609b105ba33e04fa4fbcb5240f338540e9e65ea1a83"
     }
   }
 }

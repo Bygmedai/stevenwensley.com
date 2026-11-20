@@ -17,7 +17,7 @@ for (const side of SIDER) {
     const h = read(side);
     assert.equal((h.match(/<h1[\s>]/g) || []).length, 1);
     assert.match(h, /<html lang="da">/);
-    assert.match(h, /<a class="btn sm" href="\/kontakt\/">Tal med mig<\/a>/);
+    assert.match(h, /<a class="btn sm" href="\/kontakt\/">Lad os tale<\/a>/);
     assert.match(h, /CVR 37244449/);
   });
 }
@@ -117,13 +117,14 @@ test("oplæg har prisen ekskl. moms, og de gamle priser er væk", () => {
 test("erfaringen er 20 år, samme tal overalt", () => {
   // Steven 19/11 2026: «20 år er tallet.» Forsiden og Om mig sagde 18.
   for (const side of SIDER) assert.doesNotMatch(read(side).replace(/<[^>]+>/g, " "), /\b18 års?\b/, side);
-  assert.match(read("index.html"), /med IT-programmer i 20 år\./);
+  assert.match(read("index.html"), /har 20 års erfaring med IT-programmer\./);
   assert.match(read("om-mig/index.html"), /I 20 år har jeg arbejdet med projekter og programmer/);
 });
 
 test("historikeren og digteren er foldet ud: hvorfor, ikke kun hvem", () => {
   const forside = read("index.html").replace(/<[^>]+>/g, " ");
-  for (const ord of ["Historikeren", "Digteren", "Programlederen", "Kilderne skal kunne bære."]) assert.ok(forside.includes(ord), ord);
+  // Revision 2: de tre fag står som de spørgsmål, Steven stiller, og hvad de giver køberen.
+  for (const ord of ["Hvad bygger det på?", "Hvad mener I egentlig?", "Hvem får det til at ske?"]) assert.ok(forside.includes(ord), ord);
   const om = read("om-mig/index.html");
   assert.match(om, /href="https:\/\/tkbars\.dk\/om\/"/);
   for (const ord of ["Historikeren: Hvad bygger det på?", "Digteren: Hvad mener vi præcist?", "Programlederen: Hvem gør hvad?"]) assert.ok(om.includes(ord), ord);

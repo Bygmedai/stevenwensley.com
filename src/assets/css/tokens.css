@@ -74,6 +74,7 @@ figure.ill{margin:var(--s3) 0 0}figure.ill img{display:block;width:100%;height:a
 details.fig-d{border:0;padding:0;margin-top:8px}.fig-d summary{font-size:14px;font-weight:600;justify-content:flex-start;gap:8px}.fig-d summary::after{font-size:16px}
 .fig-d table{border-collapse:collapse;width:100%;max-width:560px;font-size:14px;margin-top:10px;font-variant-numeric:tabular-nums}.fig-d th,.fig-d td{text-align:right;padding:6px 8px;border-bottom:1px solid var(--line)}.fig-d th:first-child{text-align:left}.fig-d thead th{color:var(--mut);font-weight:600}.fig-d p{font-size:13px;margin:8px 0 0}
 .fig-k{font-size:13px;color:var(--mut);margin:12px 0 0}
+.fig-r{color:var(--mut);margin:16px 0 0}
 @media(max-width:960px){.eks{grid-template-columns:1fr;gap:var(--s4);padding:var(--s3)}}
 @media(max-width:640px){.eks{padding:20px 16px}.fig-d table{font-size:13px}.fig-d th,.fig-d td{padding:6px 3px}}
 .fig-d{overflow-x:auto}.eks>*{min-width:0}

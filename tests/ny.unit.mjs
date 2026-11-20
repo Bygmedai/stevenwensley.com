@@ -38,10 +38,25 @@ test("accent #1d4ed8 i .sw, Inter selvhostet", () => {
   assert.match(css, /url\(\/assets\/fonts\/inter-latin-wght-normal\.woff2\)/);
 });
 
-test("forsiden: situationer og første skridt før de tre spørgsmål", () => {
+test("forsiden: konflikterne før de tre spørgsmål, og procesafsnittet er væk", () => {
+  // Tekstgrundlaget, revision 2 (Sirius 20/11 2026): F-17 til F-19 udgår som hel sektion.
   const t = read("index.html");
-  const sit = t.indexOf("Det begynder ofte her"), start = t.indexOf("Vi tager jeres arbejde med ind i rummet"), usagt = t.indexOf("Tre spørgsmål til ledelsen");
-  assert.ok(sit > 0 && start > sit && usagt > start);
+  const konflikt = t.indexOf("Her bliver AI en ledelsesopgave"), spm = t.indexOf("Tre spørgsmål, I skal tage stilling til");
+  assert.ok(konflikt > 0 && spm > konflikt);
+  assert.doesNotMatch(t, /Vi tager jeres arbejde med ind i rummet|Se former og priser/);
+});
+
+test("forsiden, revision 2: position, uafhængighed, analysen og bemærkningen ved figuren", () => {
+  const h = read("index.html"), t = tekst(h);
+  assert.match(h, /<h1>AI flytter magt\. Tag ledelsen\.<\/h1>/);
+  assert.ok(t.includes("Første samtale: 30 minutter. Gratis."));
+  assert.ok(t.includes("Jeg sælger ingen licenser og får ingen provision fra leverandører."));
+  assert.match(h, /<a class="btn ghost" href="\/analyser\/gevinsten-staar-i-budgettet\/">Læs analysen<\/a>/);
+  // Rammebesparelsen står direkte under figuren ved kilden, ikke i det lukkede felt og ikke i småt.
+  const fig = h.slice(h.indexOf('<figure class="fig">'), h.indexOf("</figure>", h.indexOf('<figure class="fig">')));
+  const note = fig.indexOf('<p class="fig-r">Forslaget omtaler også en administrativ rammebesparelse');
+  assert.ok(note > fig.indexOf("</details>") && note < fig.indexOf('<p class="fig-k">'));
+  assert.match(h, /<a href="https:\/\/www\.linkedin\.com\/in\/stevenwensley\/">Se anbefalingerne fra blandt andre NNIT, TCS og Nordea på LinkedIn\.<\/a>/);
 });
 
 test("siderne står i sitemap, og /ny/ og det gamle design er væk", () => {
@@ -116,7 +131,8 @@ test("menuen bruger sidens eget navn, og oplæg står i menuen", () => {
   for (const side of NY) {
     const h = read(side);
     assert.doesNotMatch(h, /Sådan arbejder jeg/, side);
-    assert.match(h, /<a href="\/saadan-kan-jeg-hjaelpe\/"[^>]*>Sådan kan jeg hjælpe<\/a>/, side);
+    assert.match(h, /<a href="\/saadan-kan-jeg-hjaelpe\/"[^>]*>Rådgivning<\/a>/, side);
+    assert.match(h, /<a href="\/analyser\/"[^>]*>Analyser<\/a>/, side);
     assert.match(h, /<a href="\/oplaeg\/"[^>]*>Oplæg<\/a>/, side);
   }
   assert.match(read("saadan-kan-jeg-hjaelpe/index.html"), /<h1>Fra AI-spørgsmål til beslutninger\.<\/h1>/);
@@ -133,7 +149,7 @@ test("oplæg: de tre oplæg, «Hvem ejer den tid» først, og prisen", () => {
 test("den offentlige leder er med i de tre situationer", () => {
   const t = tekst(read("index.html"));
   assert.ok(t.includes("Besparelsen står i budgettet. Nogen skal levere den."));
-  for (const s of ["Licenserne er købt. Arbejdet skal følge med.", "Ledelsen skal vælge retning."]) assert.ok(t.includes(s), s);
+  for (const s of ["Licensen er købt. Forandringen mangler.", "Hvem bestemmer, hvad der er godt nok?"]) assert.ok(t.includes(s), s);
 });
 
 test("eksemplet: figurens etiketter og netto svarer til tallene, og kilden står ved figuren", () => {
@@ -183,7 +199,7 @@ test("eksemplet siger ikke mere, end budgettet dokumenterer, og er bundet til en
 
 test("AI-overblikket står på Om mig, i foden og ved figuren, og krydslinks siger, hvad læseren finder", () => {
   assert.match(read("om-mig/index.html"), /<dt>AI-overblikket<\/dt>/);
-  for (const side of [...NY, "privatliv/index.html"]) assert.match(read(side), /href="https:\/\/bygmedai\.dk\/indsigt\/offentlig-ai\/"[^>]*>Se kommunernes AI-arbejde<\/a>/, side);
+  for (const side of [...NY, "privatliv/index.html"]) assert.match(read(side), /href="https:\/\/bygmedai\.dk\/indsigt\/offentlig-ai\/"[^>]*>AI i det offentlige<\/a>/, side);
   assert.match(read("index.html"), /href="https:\/\/bygmedai\.dk\/indsigt\/offentlig-ai\/kommuner\/hoeje-taastrup\/"/);
   // Et link til bygmedai.dk siger, hvad læseren finder dér. Ingen side kalder længere Bygmedai en projektbutik.
   assert.match(read("kontakt/index.html"), /<dt>Kommunernes AI-arbejde<\/dt><dd><a href="https:\/\/bygmedai\.dk\/indsigt\/offentlig-ai\/">Se AI-overblikket<\/a>/);

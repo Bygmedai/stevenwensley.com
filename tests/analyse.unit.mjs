@@ -85,8 +85,8 @@ test("Gevinstgennemgangen: på Sådan kan jeg hjælpe, linket fra forsiden og an
   assert.match(s, /href="\/analyser\/gevinsten-staar-i-budgettet\/"/);
 });
 
-test("analyserne kan findes: fodmenu på alle sider og en Article-blok", () => {
-  for (const side of ["index.html", "om-mig/index.html", ...SIDER]) assert.match(read(side), /<a href="\/analyser\/">Analyser<\/a>/, side);
+test("analyserne kan findes: hovedmenuen på alle sider og en Article-blok", () => {
+  for (const side of ["index.html", "om-mig/index.html", ...SIDER]) assert.match(read(side), /<a href="\/analyser\/"[^>]*>Analyser<\/a>/, side);
   const blokke = [...read(ANALYSE).matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
   const art = blokke.find((b) => b["@type"] === "Article");
   assert.ok(art);

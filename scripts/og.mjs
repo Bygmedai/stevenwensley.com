@@ -19,8 +19,8 @@ import { resolve } from "node:path";
 import { chromium } from "@playwright/test";
 
 const BRED = 1200, HØJ = 630;
-const STANDARD_EYEBROW = "AI-rådgivning for ledergrupper";
-const FOD = "AI-rådgivning, lederforløb og oplæg.";
+const STANDARD_EYEBROW = "AI, magt og ledelse";
+const FOD = "AI flytter magt. Tag ledelsen.";
 // Fast liste: én fil pr. side i sitemap. Navnet følger adressen (se ogFil i tests/og.unit.mjs).
 const SIDER = ["/", "/saadan-kan-jeg-hjaelpe/", "/oplaeg/", "/spoergsmaal/", "/om-mig/", "/kontakt/", "/privatliv/", "/analyser/", "/analyser/gevinsten-staar-i-budgettet/"];
 export const ogFil = (url) => `/assets/img/og-${url === "/" ? "forside" : url.replace(/^\/|\/$/g, "").replace(/\//g, "-")}.jpg`;

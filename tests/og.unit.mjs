@@ -59,7 +59,7 @@ test("billedets tekst er sidens nuværende overskrift og eyebrow", () => {
     const helt = h.match(/<div class="hero">([\s\S]*?)<\/h1>/)[0];
     assert.equal(e.overskrift, tekst(helt.match(/<h1>([\s\S]*?)<\/h1>/)[1]), `${url}: overskriften er ændret – kør npm run og`);
     const eb = helt.match(/<span class="eyebrow">([\s\S]*?)<\/span>/);
-    assert.equal(e.eyebrow, eb ? tekst(eb[1]) : "AI-rådgivning for ledergrupper", `${url}: eyebrow`);
+    assert.equal(e.eyebrow, eb ? tekst(eb[1]) : "AI, magt og ledelse", `${url}: eyebrow`);
     if (e.linje) assert.ok(tekst(h).includes(e.linje), `${url}: linjen «${e.linje}» står ikke på siden`);
   }
   assert.equal(og.sider["/analyser/gevinsten-staar-i-budgettet/"].linje, "Ingen af de 20 oplysninger er en opgjort effekt.");
