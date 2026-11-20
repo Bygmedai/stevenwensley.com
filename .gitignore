@@ -2,8 +2,8 @@ node_modules/
 tests/screenshots/
 .lighthouseci/
 
-# Eleventy builds directly to project root (output: ".") so no separate
-# _site/ exists by default. Defensive ignore in case anyone misconfigures.
+# Byggets output: Eleventy bygger src/ til _site/ (node scripts/build-publish.mjs),
+# og Cloudflare Pages udgiver mappen. Den hører ikke hjemme i git.
 _site/
 
 # Playwright local run artifacts

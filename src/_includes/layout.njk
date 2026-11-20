@@ -8,14 +8,20 @@
 <meta name="description" content="{{ description }}">
 <meta property="og:title" content="{{ title }}">
 <meta property="og:description" content="{{ description }}">
-<meta property="og:type" content="website">
+<meta property="og:type" content="{{ "article" if artikel else "website" }}">
 <meta property="og:url" content="{{ site.url }}{{ page.url }}">
-<meta property="og:image" content="{{ site.url }}{{ ogImage or "/assets/img/og.jpg" }}">
+{#- Delebilledet laves af scripts/og.mjs ud fra sidens overskrift (src/_data/og.json); 404 får reservebilledet. #}
+<meta property="og:image" content="{{ site.url }}{{ og.sider[page.url].fil if og.sider[page.url] else og.reserve.fil }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:locale" content="da_DK">
 <meta property="og:site_name" content="{{ site.navn }}">
 <meta name="twitter:card" content="summary_large_image">
+{%- if noindex %}
+<meta name="robots" content="noindex, nofollow">
+{%- else %}
 <link rel="canonical" href="{{ site.url }}{{ page.url }}">
-{% if noindex %}<meta name="robots" content="noindex, nofollow">{% endif %}
+{%- endif %}
 <link rel="icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -42,7 +48,7 @@
 <main id="indhold">
 {{ content | safe }}
 </main>
-<footer><div class="w"><span><strong>Steven Wensley</strong> · AI-rådgivning, lederforløb og oplæg. · {{ site.firma }} · CVR {{ site.cvr }} · <a href="mailto:{{ site.email }}">{{ site.email }}</a> · <a href="tel:{{ site.telefonLink }}">{{ site.telefon }}</a></span>
+<footer><div class="w"><span><strong>Steven Wensley</strong> · AI-rådgivning, lederforløb og oplæg. · {{ site.firma }} · CVR {{ site.cvr }} · <a href="mailto:{{ site.email }}">{{ site.email }}</a> · <a href="tel:{{ site.telefonLink }}">{{ site.telefon | replace(" ", "&nbsp;") | safe }}</a></span>
 <nav aria-label="Fodmenu"><a href="/analyser/">Analyser</a><a href="{{ site.overblik }}">Se kommunernes AI-arbejde</a><a href="{{ site.linkedin }}">LinkedIn</a><a href="{{ site.cta.url }}">Kontakt</a><a href="/privatliv/">Privatliv</a></nav></div></footer>
 </body>
 </html>

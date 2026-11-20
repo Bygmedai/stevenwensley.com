@@ -1,0 +1,75 @@
+{
+  "_kommentar": "Lavet af scripts/og.mjs (npm run og). Hver side har sit eget delebillede; «overskrift», «eyebrow» og «linje» er de tekster, billedet er lavet ud fra, og «sha256» er billedfilens fingeraftryk. tests/og.unit.mjs holder dem op mod siderne. Ret ikke i hånden.",
+  "reserve": {
+    "fil": "/assets/img/og.jpg",
+    "overskrift": "I vil bruge AI. Lad os begynde med arbejdet.",
+    "eyebrow": "AI-rådgivning for ledergrupper",
+    "linje": null,
+    "sha256": "f75d7ae65cde9863740a9c098309457ebe8558fab81edd31de9d514cf19d9fdf"
+  },
+  "sider": {
+    "/": {
+      "fil": "/assets/img/og-forside.jpg",
+      "overskrift": "I vil bruge AI. Lad os begynde med arbejdet.",
+      "eyebrow": "AI-rådgivning for ledergrupper",
+      "linje": null,
+      "sha256": "f75d7ae65cde9863740a9c098309457ebe8558fab81edd31de9d514cf19d9fdf"
+    },
+    "/saadan-kan-jeg-hjaelpe/": {
+      "fil": "/assets/img/og-saadan-kan-jeg-hjaelpe.jpg",
+      "overskrift": "Fra AI-spørgsmål til beslutninger.",
+      "eyebrow": "Sparring og lederforløb",
+      "linje": null,
+      "sha256": "0e3aa719d055ae8d81ccdbe9be0745b1a8fd1e5be2136017bf4e9b563e463ac0"
+    },
+    "/oplaeg/": {
+      "fil": "/assets/img/og-oplaeg.jpg",
+      "overskrift": "AI flytter arbejdet. Hvem tager ansvaret?",
+      "eyebrow": "Oplæg",
+      "linje": null,
+      "sha256": "0060faf529417fd423eccccf4bbbd26dad539afed335047f7293dc27bbb599ae"
+    },
+    "/spoergsmaal/": {
+      "fil": "/assets/img/og-spoergsmaal.jpg",
+      "overskrift": "Spørgsmål før vi taler sammen",
+      "eyebrow": "Spørgsmål",
+      "linje": null,
+      "sha256": "9280d2327457845d3c24e7c1dde2bce066b4aab73eb2d1fbbdcc209ffc47ae3b"
+    },
+    "/om-mig/": {
+      "fil": "/assets/img/og-om-mig.jpg",
+      "overskrift": "Historiker. Digter. Programleder.",
+      "eyebrow": "Om mig",
+      "linje": null,
+      "sha256": "7f8a24793fd6fcdc249e1e12464f5e7945a8c9515de525094af93fab7a41270e"
+    },
+    "/kontakt/": {
+      "fil": "/assets/img/og-kontakt.jpg",
+      "overskrift": "Skriv til mig.",
+      "eyebrow": "Kontakt",
+      "linje": null,
+      "sha256": "157e8af31a327934ccad157eed6c08639655365c41bbfca6b6ed781e434d024f"
+    },
+    "/privatliv/": {
+      "fil": "/assets/img/og-privatliv.jpg",
+      "overskrift": "Privatliv",
+      "eyebrow": "AI-rådgivning for ledergrupper",
+      "linje": null,
+      "sha256": "04dbab73e50abe075913f5f9ae58305762ae5c7637fa7443eab9a117d9301591"
+    },
+    "/analyser/": {
+      "fil": "/assets/img/og-analyser.jpg",
+      "overskrift": "Det, myndighederne selv skriver om AI.",
+      "eyebrow": "Analyser",
+      "linje": null,
+      "sha256": "38670c1b604dbe70286862f6235aa49ceb881770d02295d0fe487b36444748d7"
+    },
+    "/analyser/gevinsten-staar-i-budgettet/": {
+      "fil": "/assets/img/og-analyser-gevinsten-staar-i-budgettet.jpg",
+      "overskrift": "Gevinsten står i budgettet. Målingen mangler.",
+      "eyebrow": "Analyse · 19. november 2026",
+      "linje": "Ingen af de 20 oplysninger er en opgjort effekt.",
+      "sha256": "6fcc6b3aaa3e50505493c97ed8bb3d9c8cc61041533d755547edd0dc6fea481b"
+    }
+  }
+}

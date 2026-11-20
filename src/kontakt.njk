@@ -1,17 +1,16 @@
 ---
 permalink: /kontakt/
 layout: layout.njk
-ogImage: /assets/img/og-kontakt.jpg
 title: "Kontakt Steven Wensley"
 description: "Skriv eller ring om AI-rådgivning, lederforløb og oplæg. Første samtale er gratis og tager 30 minutter."
 ---
 {#- Kilde: den gamle /kontakt/ ordret. Fælles mål for alle «Book 30 minutter»-knapper: mail og telefon som på den gamle side, ingen kalender og ingen formular. -#}
 <div class="hero"><div class="w g2"><div><span class="eyebrow">Kontakt</span><h1>Skriv til mig.</h1>
 <p class="lead">Fortæl kort, hvad I arbejder med, og hvilket spørgsmål I vil tale om. Den første samtale er gratis og tager 30 minutter. Jeg svarer selv.</p>
-<div class="acts"><a class="btn" href="mailto:{{ site.email }}">Skriv til {{ site.email }}</a><a class="btn ghost" href="tel:{{ site.telefonLink }}">Ring {{ site.telefon }}</a></div></div>
+<div class="acts"><a class="btn" href="mailto:{{ site.email }}">Skriv til {{ site.email }}</a><a class="btn ghost" href="tel:{{ site.telefonLink }}">Ring {{ site.telefon | replace(" ", "&nbsp;") | safe }}</a></div></div>
 <div class="card"><dl class="kv">
 <div><dt>Mail</dt><dd><a href="mailto:{{ site.email }}">{{ site.email }}</a></dd></div>
-<div><dt>Telefon</dt><dd><a href="tel:{{ site.telefonLink }}">{{ site.telefon }}</a></dd></div>
+<div><dt>Telefon</dt><dd><a href="tel:{{ site.telefonLink }}">{{ site.telefon | replace(" ", "&nbsp;") | safe }}</a></dd></div>
 <div><dt>LinkedIn</dt><dd><a href="{{ site.linkedin }}">linkedin.com/in/stevenwensley</a></dd></div>
 <div><dt>Kommunernes AI-arbejde</dt><dd><a href="{{ site.overblik }}">Se AI-overblikket</a></dd></div>
 </dl></div></div></div>
