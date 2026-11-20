@@ -263,7 +263,7 @@ test("månedsbriefet: maillink med emne og tekst på forsiden og analyserne, og 
     assert.equal(u.searchParams.get("subject"), "Tilmeld månedsbriefet", side);
     assert.equal(u.searchParams.get("body"), "Skriv mig på månedsbriefet.", side);
   }
-  for (const side of [...NY, "privatliv/index.html"]) assert.doesNotMatch(read(side), /<form[\s>]/i, side);
+  for (const side of [...NY, "analyser/index.html", "analyser/gevinsten-staar-i-budgettet/index.html", "privatliv/index.html"]) assert.doesNotMatch(read(side), /<form[\s>]/i, side);
   const p = read("privatliv/index.html").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
   assert.match(p, /Månedsbriefet/);
   assert.match(p, /liste hos Resend/);
