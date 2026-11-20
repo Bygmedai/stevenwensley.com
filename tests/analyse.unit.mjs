@@ -83,6 +83,10 @@ test("Gevinstgennemgangen: på Sådan kan jeg hjælpe, linket fra forsiden og an
   assert.match(read("index.html"), /href="\/saadan-kan-jeg-hjaelpe\/#gevinstgennemgang"/);
   assert.match(read(ANALYSE), /href="\/saadan-kan-jeg-hjaelpe\/#gevinstgennemgang"/);
   assert.match(s, /href="\/analyser\/gevinsten-staar-i-budgettet\/"/);
+  // Revision 2: knappen lover en samtale om budgettet, ikke en bestilt halvdag; overblikket nås fra beskrivelsen, ikke fra et ekstra afsnit.
+  assert.match(s, /<a class="btn" href="\/kontakt\/">Tal om jeres budget<\/a>/);
+  assert.match(s.match(/id="gevinstgennemgang"[\s\S]*?<\/section>/)[0], /href="https:\/\/bygmedai\.dk\/indsigt\/offentlig-ai\/"/);
+  assert.doesNotMatch(s, /Fra kommunernes budgetter til jeres egne spørgsmål|Se kommunernes AI-arbejde/);
 });
 
 test("analyserne kan findes: hovedmenuen på alle sider og en Article-blok", () => {

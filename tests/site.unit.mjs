@@ -118,7 +118,7 @@ test("erfaringen er 20 år, samme tal overalt", () => {
   // Steven 19/11 2026: «20 år er tallet.» Forsiden og Om mig sagde 18.
   for (const side of SIDER) assert.doesNotMatch(read(side).replace(/<[^>]+>/g, " "), /\b18 års?\b/, side);
   assert.match(read("index.html"), /har 20 års erfaring med IT-programmer\./);
-  assert.match(read("om-mig/index.html"), /I 20 år har jeg arbejdet med projekter og programmer/);
+  assert.match(read("om-mig/index.html"), /har 20 års erfaring med projekter og programmer/);
 });
 
 test("historikeren og digteren er foldet ud: hvorfor, ikke kun hvem", () => {

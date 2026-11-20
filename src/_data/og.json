@@ -17,17 +17,17 @@
     },
     "/saadan-kan-jeg-hjaelpe/": {
       "fil": "/assets/img/og-saadan-kan-jeg-hjaelpe.jpg",
-      "overskrift": "Fra AI-spørgsmål til beslutninger.",
-      "eyebrow": "Sparring og lederforløb",
+      "overskrift": "Det skal virke, når mødet er slut.",
+      "eyebrow": "Rådgivning og lederforløb",
       "linje": null,
-      "sha256": "17c93a7fb244e41e85c59bffb9d2ed607590dfecac5a788a63f2eda9d4408324"
+      "sha256": "580cf0452a54205dfc6af0fa37b37adc5d1ca2d16fedff2a9f94d8d5d70e8615"
     },
     "/oplaeg/": {
       "fil": "/assets/img/og-oplaeg.jpg",
-      "overskrift": "AI flytter arbejdet. Hvem tager ansvaret?",
+      "overskrift": "Lad os tale om det, AI gør ved jer.",
       "eyebrow": "Oplæg",
       "linje": null,
-      "sha256": "47881d6ed9fa734fe30b3a2cc9eabeeae71469bf4614926b3f2f58b165f9b8c3"
+      "sha256": "e05d7fc20dee18a734eb33f888b3e7f309b171281c7f781a9cbeac85f0b5c34b"
     },
     "/spoergsmaal/": {
       "fil": "/assets/img/og-spoergsmaal.jpg",
