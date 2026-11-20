@@ -96,7 +96,7 @@ test("telefonnummeret knækker ikke: hårde mellemrum", () => {
   }
   // Revision 2: knapperne er korte; adresse og nummer står fuldt ud i kontaktkortet.
   const k = read("kontakt/index.html");
-  assert.match(k, /<a class="btn" href="mailto:steven@bygmedai\.dk">Skriv til mig<\/a><a class="btn ghost" href="tel:\+4553886061">Ring til mig<\/a>/);
+  assert.match(k, /<a class="btn ghost" href="mailto:steven@bygmedai\.dk">Skriv til mig<\/a><a class="btn ghost" href="tel:\+4553886061">Ring til mig<\/a>/);
   assert.match(k, /<dt>Mail<\/dt><dd><a href="mailto:steven@bygmedai\.dk">steven@bygmedai\.dk<\/a><\/dd>/);
   assert.match(k, /<dt>Telefon<\/dt><dd><a href="tel:\+4553886061">\+45&nbsp;53&nbsp;88&nbsp;60&nbsp;61<\/a><\/dd>/);
 });

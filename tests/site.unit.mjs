@@ -135,5 +135,5 @@ test("historikeren og digteren er foldet ud: hvorfor, ikke kun hvem", () => {
 
 test("privatliv: afsnittene er bevaret, og måling uden cookies er nævnt", () => {
   const t = read("privatliv/index.html").replace(/<[^>]+>/g, " ");
-  for (const s of ["bruger jeg oplysningerne til at svare på din henvendelse", "Dataansvarlig", "Jeg sælger og deler ikke dine oplysninger", "Cloudflare Web Analytics", "uden cookies", "Datatilsynet"]) assert.ok(t.includes(s), s);
+  for (const s of ["bruger jeg oplysningerne til at svare på din henvendelse", "Dataansvarlig", "Når du booker en samtale", "Calendly", "Jeg sælger og deler ikke dine oplysninger", "Cloudflare Web Analytics", "uden cookies", "Datatilsynet"]) assert.ok(t.includes(s), s);
 });
