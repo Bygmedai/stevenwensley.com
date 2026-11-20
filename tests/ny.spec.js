@@ -54,7 +54,9 @@ test('mobilmenu ved 375px: menupunkter kan nås uden JS', async ({ browser }) =>
   await expect(menu.locator('summary')).toBeVisible();
   await expect(page.locator('nav.dnav')).toBeHidden();
   await menu.locator('summary').click();
-  for (const t of ['Sådan kan jeg hjælpe', 'Oplæg', 'Spørgsmål', 'Om mig', 'Kontakt']) await expect(menu.getByRole('link', { name: t })).toBeVisible();
+  // Revision 2: menuen er Rådgivning, Oplæg, Analyser og Om mig; Spørgsmål og svar står i foden.
+  for (const t of ['Rådgivning', 'Oplæg', 'Analyser', 'Om mig', 'Kontakt']) await expect(menu.getByRole('link', { name: t, exact: true })).toBeVisible();
+  await expect(page.locator('footer').getByRole('link', { name: 'Spørgsmål og svar' })).toBeVisible();
   await menu.getByRole('link', { name: 'Om mig' }).click();
   await expect(page).toHaveURL(/\/om-mig\/$/);
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(375);
