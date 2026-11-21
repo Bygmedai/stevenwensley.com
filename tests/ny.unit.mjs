@@ -273,7 +273,9 @@ test("månedsbriefet: maillink med emne og tekst på forsiden og analyserne, og 
   assert.match(p, /Resend opbevarer data i USA/);
   assert.doesNotMatch(p, /Resend \(i EU\)/);
   assert.match(p, /Svar «afmeld» på et brev, så sletter jeg dig\./);
-  // Formålet og grundlaget: brevet kan indeholde tilbud, og grundlaget er samtykke (GDPR art. 13).
-  assert.match(p, /kan indeholde tilbud om mine kurser og oplæg/);
-  assert.match(p, /Grundlaget er dit samtykke/);
+  // Formålet og grundlaget: brevet er redaktionelt og ikke en salgskanal (Steven 21/11), og grundlaget er samtykke (GDPR art. 13).
+  const afsnit = p.slice(p.indexOf("Månedsbriefet"), p.indexOf("Besøgsstatistik"));
+  assert.match(afsnit, /Jeg bruger den kun til brevet\./);
+  assert.doesNotMatch(afsnit, /tilbud/i);
+  assert.match(afsnit, /Grundlaget er dit samtykke/);
 });
