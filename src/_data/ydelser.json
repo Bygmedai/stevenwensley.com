@@ -1,5 +1,5 @@
 {
-  "_kommentar": "Hylden (BYG-1220): ydelserne i tre trin. Et kort vises kun, når «tilSalg» er sand; et trin vises kun, når det har et kort til salg (Steven 20/11: «Vi skal kun have de rigtige produkter på hylderne»). Hver pris-«tekst» skal stå ordret på /saadan-kan-jeg-hjaelpe/; prøverne fejler, hvis prisen her og prisen på siden skilles ad, og kun priser til salg kommer med i de strukturerede data. Priserne er ekskl. moms. Et kort, der sættes til salg, skal have tekst, priser og handling, og tekst og priser kræver Stevens ja.",
+  "_kommentar": "Hylden (BYG-1220): ydelserne i tre trin. Et kort vises kun, når «tilSalg» er sand; et trin vises kun, når det har et kort til salg (Steven 20/11: «Vi skal kun have de rigtige produkter på hylderne»). Hver pris-«tekst» skal stå ordret på /saadan-kan-jeg-hjaelpe/; prøverne fejler, hvis prisen her og prisen på siden skilles ad, og kun priser til salg kommer med i de strukturerede data. Priserne er ekskl. moms. Et kort, der sættes til salg, skal have tekst, priser og handling, og tekst og priser kræver Stevens ja. En handling med «faktura»: true bliver et maillink til sitets adresse med emne og bestillingsfelter (BYG-1221); hylde.js laver adressen.",
   "side": "/saadan-kan-jeg-hjaelpe/",
   "trin": [
     { "id": "proev-selv", "overskrift": "Prøv selv" },
@@ -10,12 +10,12 @@
     {
       "id": "gevinstarket", "trin": "proev-selv", "tilSalg": false, "titel": "Gevinstarket",
       "_afventer": "BYG-1222: skabelon, vejledning og tre gennemregnede eksempler, og Stevens ja. Harukis forslag til pris: 1.500 kr. ekskl. moms (ikke godkendt).",
-      "tekst": "", "priser": [], "handling": null
+      "tekst": "", "priser": [], "handling": { "tekst": "Bestil på faktura", "faktura": true }
     },
     {
       "id": "kursusdag", "trin": "afgraenset-opgave", "tilSalg": false, "titel": "Kursusdag: Gevinsten står i budgettet",
       "_afventer": "BYG-1223: program, sted og vilkår, og Stevens ja. Harukis forslag: 25. maj og 10. juni 2027, København, 12 pladser, 6.500 kr. pr. plads ekskl. moms (ikke godkendt).",
-      "tekst": "", "priser": [], "handling": null
+      "tekst": "", "priser": [], "handling": { "tekst": "Bestil på faktura", "faktura": true }
     },
     {
       "id": "gevinstgennemgang", "trin": "afgraenset-opgave", "tilSalg": true, "titel": "Gevinstgennemgangen", "anker": "#gevinstgennemgang",

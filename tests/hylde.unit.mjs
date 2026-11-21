@@ -20,7 +20,8 @@ test("hvert kort hører til et trin, og et kort til salg har tekst, priser og é
     assert.ok(ider.has(k.trin), `${k.id}: ukendt trin ${k.trin}`);
     assert.equal(typeof k.tilSalg, "boolean", k.id);
     if (!k.tilSalg) continue;
-    assert.ok(k.tekst && k.priser.length > 0 && k.handling && k.handling.tekst && k.handling.url, `${k.id} er til salg, men mangler tekst, priser eller handling`);
+    // En handling har en adresse, eller den er bestilling på faktura, som hylde.js laver adressen til (BYG-1221).
+    assert.ok(k.tekst && k.priser.length > 0 && k.handling && k.handling.tekst && (k.handling.url || k.handling.faktura), `${k.id} er til salg, men mangler tekst, priser eller handling`);
   }
 });
 
@@ -37,7 +38,8 @@ test("hvert kort til salg står med titel, pris og handling under sit trin", () 
   for (const t of hylde.trin) {
     const start = h.indexOf(`id="${t.id}"`);
     const naeste = h.indexOf('<h3 class="eyebrow trin"', start + 1);
-    const blok = h.slice(start, naeste === -1 ? h.indexOf("</section>", start) : naeste);
+    // HTML'en skriver & som &amp; i adresser (maillinkene til bestilling på faktura har både emne og tekst).
+    const blok = h.slice(start, naeste === -1 ? h.indexOf("</section>", start) : naeste).replace(/&amp;/g, "&");
     for (const k of t.kort) {
       assert.ok(tekst(blok).includes(k.titel), `${k.titel} under ${t.overskrift}`);
       for (const p of k.priser) assert.ok(tekst(blok).includes(p.tekst), `${p.tekst} under ${t.overskrift}`);
@@ -79,4 +81,43 @@ test("et færdigt kort, der sættes til salg, kommer frem med sit trin, sin pris
   assert.deepEqual(h.trin.map((t) => t.id), data.trin.map((t) => t.id));
   assert.equal(h.proevSelv, true);
   assert.equal(h.priser.length, data.kort.flatMap((k) => k.priser).length);
+});
+
+// BYG-1221: «Bestil på faktura» åbner en mail til sitets ene adresse med emne og bestillingsfelter. Ingen formular.
+const site = JSON.parse(readFileSync("src/_data/site.json", "utf8"));
+const tjekBestilling = (href, titel) => {
+  const u = new URL(href.replace(/&amp;/g, "&"));
+  assert.equal(u.protocol, "mailto:", href);
+  assert.equal(u.pathname, site.email, href);
+  const emne = u.searchParams.get("subject") || "";
+  assert.match(emne, /^Bestilling på faktura: ./, href);
+  if (titel) assert.equal(emne, `Bestilling på faktura: ${titel}`);
+  const tekst = u.searchParams.get("body") || "";
+  for (const felt of hylde.FELTER) assert.ok(tekst.includes(felt), `${felt} mangler i ${emne}`);
+  if (titel) assert.ok(tekst.includes(`Vi vil gerne bestille: ${titel}`), emne);
+};
+
+test("hvert køb med bestilling på faktura får et maillink til sitets adresse med emne og felter", () => {
+  const medFaktura = kort.filter((k) => k.handling && k.handling.faktura);
+  assert.ok(medFaktura.length > 0);
+  // Prøves også for kort, der endnu ikke er til salg: sådan bliver linket, når de sættes til salg.
+  for (const k of medFaktura) {
+    const h = hylde.byg({ trin, kort: [{ ...k, tilSalg: true }] });
+    const vist = h.trin.flatMap((t) => t.kort)[0];
+    assert.equal(vist.handling.tekst, "Bestil på faktura");
+    tjekBestilling(vist.handling.url, k.titel);
+  }
+});
+
+test("hvert «Bestil på faktura»-link på sitet går til sitets adresse med emne og felter", () => {
+  for (const fil of alleSider()) {
+    const h = readFileSync(fil, "utf8");
+    for (const [, href] of h.matchAll(/<a[^>]*href="([^"]+)"[^>]*>Bestil på faktura<\/a>/g)) tjekBestilling(href);
+    assert.doesNotMatch(h, /<form[\s>]/i, fil);
+  }
+});
+
+test("spørgsmål og svar siger, at offentlige kunder kan betale på faktura med EAN", () => {
+  const t = tekst(read("spoergsmaal/index.html"));
+  assert.match(t, /Kan vi betale på faktura\? Ja\. Offentlige kunder får en elektronisk faktura til deres EAN-nummer\./);
 });
