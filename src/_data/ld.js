@@ -10,7 +10,9 @@
 // data aldrig siger andet end siderne. Priserne holdes op mod den synlige
 // tekst i tests/ld.unit.mjs.
 const site = require("./site.json");
-const { side, ydelser } = require("./ydelser.json");
+const { side } = require("./ydelser.json");
+// Kun det, der er til salg og står på siden (BYG-1220).
+const { priser: ydelser } = require("./hylde.js");
 
 const person = {
   "@context": "https://schema.org",

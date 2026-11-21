@@ -4,6 +4,8 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { createRequire } from "node:module";
+const require = createRequire(import.meta.url);
 
 const SITE = "_site";
 const read = (p) => readFileSync(join(SITE, p), "utf8");
@@ -26,7 +28,8 @@ test("hver side har én Person med sitets egne kontaktoplysninger", () => {
 });
 
 test("ydelserne står kun på Sådan kan jeg hjælpe, og hver pris står ordret på siden", () => {
-  const { ydelser } = JSON.parse(readFileSync("src/_data/ydelser.json", "utf8"));
+  // BYG-1220: kun prisrækkerne til salg (hylde.js) står på siden og i de strukturerede data.
+  const { priser: ydelser } = require("../src/_data/hylde.js");
   const h = read("saadan-kan-jeg-hjaelpe/index.html");
   const [service] = blokke(h).filter((b) => b["@type"] === "ProfessionalService");
   assert.ok(service, "ingen ProfessionalService");

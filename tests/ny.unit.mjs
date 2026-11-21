@@ -3,6 +3,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
+import { createRequire } from "node:module";
 
 const SITE = "_site";
 const read = (p) => readFileSync(join(SITE, p), "utf8");
@@ -115,7 +116,13 @@ test("ingen gule pladsholdere tilbage", () => {
 test("priserne er uændrede, ekskl. moms", () => {
   const t = read("saadan-kan-jeg-hjaelpe/index.html").replace(/<[^>]+>/g, " ");
   for (const pris of ["Derefter 1.400 kr. i timen", "Halv dag fra 18.000 kr.", "Heldag fra 35.000 kr.", "Fire halve dage fra 75.000 kr.", "Fra 12.000 kr.", "Alle priser er ekskl. moms. Halve og hele dage omfatter formøde og skriftlig opsamling."]) assert.ok(t.includes(pris), pris);
-  for (const side of NY) assert.doesNotMatch(read(side), /6\.500|45\.000|39\.500/, side);
+  // De fjernede ydelser fra BYG-991 må ikke komme tilbage. Et beløb, der står i en pris på hylden til salg (BYG-1220), er tilladt.
+  const { priser } = createRequire(import.meta.url)("../src/_data/hylde.js");
+  for (const side of NY) {
+    let h = read(side);
+    for (const p of priser) h = h.split(p.tekst).join("");
+    assert.doesNotMatch(h, /6\.500|45\.000|39\.500/, side);
+  }
 });
 
 test("portrætter, illustration, referencer og sprog efter beslutningerne", () => {

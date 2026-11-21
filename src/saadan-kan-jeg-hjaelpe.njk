@@ -11,10 +11,17 @@ description: "Sparring fra 1.400 kr. i timen. Lederforløb og gevinstgennemgang 
 <div class="card"><h2>Et ansvar, der kan bruges</h2><p>Gør det klart, hvad AI må udføre, hvem der bedømmer resultatet, og hvem der kan ændre kurs. Et ansvar skal følges af tid og beføjelser.</p></div>
 <div class="card"><h2>Noget at følge op på</h2><p>Aftal, hvad der skal være blevet bedre, hvem der undersøger det, og hvornår I beslutter, om I fortsætter. Så har forsøget et formål og en slutdato.</p></div></div></div></section>
 
-<section id="ydelser"><div class="w"><h2>Det kan I hyre mig til</h2><div class="g3">
-<div class="card"><h3>Sparring for direktionen</h3><p>En kritisk samtalepartner til den beslutning, I skal træffe. Vi tager fat i jeres opgave, plan eller budget og undersøger mulighederne, antagelserne og det, I endnu mangler at afklare. Første samtale er gratis og tager 30 minutter.</p><p class="price">Derefter 1.400 kr. i timen</p></div>
-<div class="card"><h3>Lederforløb: led arbejdet med AI-agenter</h3><p>For ledergrupper på op til 12. I prøver at lede AI-agenter på konkrete opgaver: give et mandat, udfordre et svar og bedømme arbejdet. I får øvelse i at lede, når en del af arbejdet bliver udført af maskiner.</p><p class="price">Halv dag fra 18.000 kr.<br>Heldag fra 35.000 kr.<br>Fire halve dage fra 75.000 kr.</p></div>
-<div class="card"><h3>Oplæg om AI, magt og ansvar</h3><p>20–60 minutter til konferencer, netværk og ledermøder, hvor I vil have en skarp diskussion af, hvad teknologien betyder for jeres arbejde. <a href="/oplaeg/">Se oplæggene</a></p><p class="price">Fra 12.000 kr.</p></div></div>
+{#- BYG-1220 (21/11 2026): hylden i trin, bygget fra ydelser.json via hylde.js. Kun kort til salg vises; et trin uden kort til salg vises ikke.
+    Trinnene er ordnet efter, hvor meget lederen binder sig. «Prøv selv» (Gevinstarket) og kursusdagen ligger i listen, men er ikke til salg endnu. -#}
+<section id="ydelser"><div class="w"><h2>Det kan I hyre mig til</h2>
+{%- for t in hylde.trin %}
+<h3 class="eyebrow trin" id="{{ t.id }}">{{ t.overskrift }}</h3>
+<div class="g2 hylde">
+{%- for k in t.kort %}
+<div class="card"><h4>{% if k.anker %}<a href="{{ k.anker }}">{{ k.titel }}</a>{% else %}{{ k.titel }}{% endif %}</h4><p>{{ k.tekst | safe }}</p><p class="price">{% for p in k.priser %}{{ p.tekst }}{% if not loop.last %}<br>{% endif %}{% endfor %}</p><div class="acts mt"><a class="btn ghost" href="{{ k.handling.url }}">{{ k.handling.tekst }}</a></div></div>
+{%- endfor %}
+</div>
+{%- endfor %}
 <p class="micro">Alle priser er ekskl. moms. Halve og hele dage omfatter formøde og skriftlig opsamling.</p>
 </div></section>
 

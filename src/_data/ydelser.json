@@ -1,12 +1,49 @@
 {
-  "_kommentar": "Ydelserne som strukturerede data til søgemaskiner (schema.org). Hver «tekst» skal stå ordret på /saadan-kan-jeg-hjaelpe/; prøven i tests/ld.unit.mjs fejler, hvis prisen her og prisen på siden skilles ad. Ret altid begge steder. Priserne er ekskl. moms.",
+  "_kommentar": "Hylden (BYG-1220): ydelserne i tre trin. Et kort vises kun, når «tilSalg» er sand; et trin vises kun, når det har et kort til salg (Steven 20/11: «Vi skal kun have de rigtige produkter på hylderne»). Hver pris-«tekst» skal stå ordret på /saadan-kan-jeg-hjaelpe/; prøverne fejler, hvis prisen her og prisen på siden skilles ad, og kun priser til salg kommer med i de strukturerede data. Priserne er ekskl. moms. Et kort, der sættes til salg, skal have tekst, priser og handling, og tekst og priser kræver Stevens ja.",
   "side": "/saadan-kan-jeg-hjaelpe/",
-  "ydelser": [
-    { "navn": "Sparring for direktionen", "pris": 1400, "enhed": "time", "fra": false, "tekst": "Derefter 1.400 kr. i timen" },
-    { "navn": "Lederforløb: led arbejdet med AI-agenter, halv dag", "pris": 18000, "fra": true, "tekst": "Halv dag fra 18.000 kr." },
-    { "navn": "Lederforløb: led arbejdet med AI-agenter, heldag", "pris": 35000, "fra": true, "tekst": "Heldag fra 35.000 kr." },
-    { "navn": "Lederforløb: led arbejdet med AI-agenter, fire halve dage", "pris": 75000, "fra": true, "tekst": "Fire halve dage fra 75.000 kr." },
-    { "navn": "Oplæg om AI, magt og ansvar", "pris": 12000, "fra": true, "tekst": "Fra 12.000 kr." },
-    { "navn": "Gevinstgennemgangen", "pris": 18000, "fra": true, "tekst": "En halv dag fra 18.000 kr. ekskl. moms" }
+  "trin": [
+    { "id": "proev-selv", "overskrift": "Prøv selv" },
+    { "id": "afgraenset-opgave", "overskrift": "En afgrænset opgave" },
+    { "id": "forloeb", "overskrift": "Et forløb" }
+  ],
+  "kort": [
+    {
+      "id": "gevinstarket", "trin": "proev-selv", "tilSalg": false, "titel": "Gevinstarket",
+      "_afventer": "BYG-1222: skabelon, vejledning og tre gennemregnede eksempler, og Stevens ja. Harukis forslag til pris: 1.500 kr. ekskl. moms (ikke godkendt).",
+      "tekst": "", "priser": [], "handling": null
+    },
+    {
+      "id": "kursusdag", "trin": "afgraenset-opgave", "tilSalg": false, "titel": "Kursusdag: Gevinsten står i budgettet",
+      "_afventer": "BYG-1223: program, sted og vilkår, og Stevens ja. Harukis forslag: 25. maj og 10. juni 2027, København, 12 pladser, 6.500 kr. pr. plads ekskl. moms (ikke godkendt).",
+      "tekst": "", "priser": [], "handling": null
+    },
+    {
+      "id": "gevinstgennemgang", "trin": "afgraenset-opgave", "tilSalg": true, "titel": "Gevinstgennemgangen", "anker": "#gevinstgennemgang",
+      "tekst": "Har I skrevet en gevinst fra AI ind i budgettet? På en halv dag gennemgår vi jeres budgetlinjer og undersøger, hvilke ændringer i arbejdet de forudsætter.",
+      "priser": [{ "navn": "Gevinstgennemgangen", "pris": 18000, "fra": true, "tekst": "En halv dag fra 18.000 kr. ekskl. moms" }],
+      "handling": { "tekst": "Tal om jeres budget", "url": "/kontakt/" }
+    },
+    {
+      "id": "oplaeg", "trin": "afgraenset-opgave", "tilSalg": true, "titel": "Oplæg om AI, magt og ansvar",
+      "tekst": "20–60 minutter til konferencer, netværk og ledermøder, hvor I vil have en skarp diskussion af, hvad teknologien betyder for jeres arbejde. <a href=\"/oplaeg/\">Se oplæggene</a>",
+      "priser": [{ "navn": "Oplæg om AI, magt og ansvar", "pris": 12000, "fra": true, "tekst": "Fra 12.000 kr." }],
+      "handling": { "tekst": "Lad os tale", "url": "/kontakt/" }
+    },
+    {
+      "id": "lederforloeb", "trin": "forloeb", "tilSalg": true, "titel": "Lederforløb: led arbejdet med AI-agenter",
+      "tekst": "For ledergrupper på op til 12. I prøver at lede AI-agenter på konkrete opgaver: give et mandat, udfordre et svar og bedømme arbejdet. I får øvelse i at lede, når en del af arbejdet bliver udført af maskiner.",
+      "priser": [
+        { "navn": "Lederforløb: led arbejdet med AI-agenter, halv dag", "pris": 18000, "fra": true, "tekst": "Halv dag fra 18.000 kr." },
+        { "navn": "Lederforløb: led arbejdet med AI-agenter, heldag", "pris": 35000, "fra": true, "tekst": "Heldag fra 35.000 kr." },
+        { "navn": "Lederforløb: led arbejdet med AI-agenter, fire halve dage", "pris": 75000, "fra": true, "tekst": "Fire halve dage fra 75.000 kr." }
+      ],
+      "handling": { "tekst": "Lad os tale", "url": "/kontakt/" }
+    },
+    {
+      "id": "sparring", "trin": "forloeb", "tilSalg": true, "titel": "Sparring for direktionen",
+      "tekst": "En kritisk samtalepartner til den beslutning, I skal træffe. Vi tager fat i jeres opgave, plan eller budget og undersøger mulighederne, antagelserne og det, I endnu mangler at afklare. Første samtale er gratis og tager 30 minutter.",
+      "priser": [{ "navn": "Sparring for direktionen", "pris": 1400, "enhed": "time", "fra": false, "tekst": "Derefter 1.400 kr. i timen" }],
+      "handling": { "tekst": "Lad os tale", "url": "/kontakt/" }
+    }
   ]
 }
