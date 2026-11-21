@@ -246,16 +246,18 @@ test("forsidens top har én linje om AI-overblikket, med link og uden tal", () =
   const top = h.slice(h.indexOf('<div class="hero">'), h.indexOf("</div></div>", h.indexOf('<div class="hero">')));
   const linjer = [...top.matchAll(/<p class="micro">([^]*?)<\/p>/g)].map((m) => m[1]).filter((x) => x.includes("AI-overblikket"));
   assert.equal(linjer.length, 1);
-  assert.equal(linjer[0], 'Bygger på <a href="https://bygmedai.dk/indsigt/offentlig-ai/">AI-overblikket</a>: kommuner, regioner og staten, med kilden ved hvert tal.');
+  // Steven 21/11: linjen om AI-overblikket og linket til månedsbriefet står som én linje med to links.
+  assert.match(linjer[0], /^Bygger på <a href="https:\/\/bygmedai\.dk\/indsigt\/offentlig-ai\/">AI-overblikket<\/a> om AI i det offentlige i Danmark, med kilden ved hvert tal\. <a href="mailto:[^"]+">Få månedens ændringer på mail<\/a>\.$/);
   assert.doesNotMatch(linjer[0].replace(/<[^>]+>/g, ""), /\d/);
 });
 
 // BYG-1217: månedsbriefet som et lille første skridt. Tilmelding med en mail til sitets ene adresse; ingen formular.
 test("månedsbriefet: maillink med emne og tekst på forsiden og analyserne, og et afsnit i privatlivsteksten", () => {
   const site = JSON.parse(readFileSync(new URL("../src/_data/site.json", import.meta.url), "utf8"));
-  for (const side of ["index.html", "analyser/index.html", "analyser/gevinsten-staar-i-budgettet/index.html"]) {
+  // Steven 21/11: forsiden har den korte linktekst; analysesiderne siger, hvad brevet handler om.
+  for (const [side, linktekst] of [["index.html", "Få månedens ændringer på mail"], ["analyser/index.html", "Få månedens nyt om AI i det offentlige i Danmark på mail"], ["analyser/gevinsten-staar-i-budgettet/index.html", "Få månedens nyt om AI i det offentlige i Danmark på mail"]]) {
     const h = read(side);
-    const m = [...h.matchAll(/<a href="([^"]+)">Få månedens ændringer i det offentliges AI på mail<\/a>/g)];
+    const m = [...h.matchAll(new RegExp(`<a href="([^"]+)">${linktekst}</a>`, "g"))];
     assert.equal(m.length, 1, side);
     const u = new URL(m[0][1].replace(/&amp;/g, "&"));
     assert.equal(u.protocol, "mailto:", side);
