@@ -30,8 +30,6 @@ test("siden viser kun trin med kort til salg, i rækkefølgen fra listen", () =>
   const forventet = trin.filter((t) => kort.some((k) => k.trin === t.id && k.tilSalg)).map((t) => t.id);
   assert.deepEqual(vist, forventet);
   assert.deepEqual(vist, hylde.trin.map((t) => t.id));
-  // I dag: Gevinstarket er ikke til salg, så «Prøv selv» står ikke på siden (Haruki 21/11).
-  assert.deepEqual(vist, ["afgraenset-opgave", "forloeb"]);
 });
 
 test("hvert kort til salg står med titel, pris og handling under sit trin", () => {
@@ -48,16 +46,37 @@ test("hvert kort til salg står med titel, pris og handling under sit trin", () 
   }
 });
 
+// Alt herunder udledes af salgsstatus (Sirius 21/11): sættes et færdigt kort til salg, skal prøverne bestå uden at blive rettet.
+const beloeb = (s) => s.match(/\d{1,3}(?:\.\d{3})* kr\./g) || [];
+
 test("det, der ikke er til salg, står ingen steder på sitet", () => {
   const skjult = kort.filter((k) => !k.tilSalg);
-  assert.ok(skjult.length > 0);
+  const aktiveBeloeb = new Set(hylde.priser.flatMap((p) => beloeb(p.tekst)));
+  // Prisforslagene i noterne til det, der ikke er til salg, er ikke godkendt og må ikke komme ud, medmindre beløbet hører til noget, der er.
+  const forslag = [...new Set(skjult.flatMap((k) => [...beloeb(k._afventer || ""), ...k.priser.flatMap((p) => beloeb(p.tekst))]))].filter((b) => !aktiveBeloeb.has(b));
   for (const fil of alleSider()) {
     const t = tekst(readFileSync(fil, "utf8"));
-    for (const k of skjult) assert.ok(!t.includes(k.titel), `${k.titel} står på ${fil}`);
-    // Harukis prisforslag til Gevinstarket og kursusdagen er ikke godkendt og må ikke komme ud.
-    assert.doesNotMatch(t, /1\.500 kr\.|6\.500 kr\./, fil);
+    for (const k of skjult) {
+      assert.ok(!t.includes(k.titel), `${k.titel} står på ${fil}`);
+      for (const p of k.priser) assert.ok(!t.includes(p.tekst), `${p.tekst} står på ${fil}`);
+    }
+    for (const b of forslag) assert.ok(!t.includes(b), `prisforslaget ${b} står på ${fil}`);
   }
-  // Forsidens henvisning til «Prøv selv» følger samme felt.
-  assert.equal(hylde.proevSelv, false);
-  assert.doesNotMatch(read("index.html"), /#proev-selv/);
+});
+
+test("forsidens henvisning til «Prøv selv» følger salgsstatus", () => {
+  const h = read("index.html");
+  if (hylde.proevSelv) assert.match(h, /<a class="btn ghost" href="\/saadan-kan-jeg-hjaelpe\/#proev-selv">/);
+  else assert.doesNotMatch(h, /#proev-selv/);
+});
+
+test("et færdigt kort, der sættes til salg, kommer frem med sit trin, sin pris og forsidens henvisning", () => {
+  const data = JSON.parse(readFileSync("src/_data/ydelser.json", "utf8"));
+  for (const k of data.kort.filter((x) => !x.tilSalg)) {
+    Object.assign(k, { tilSalg: true, tekst: "Prøvetekst.", priser: [{ navn: k.titel, pris: 1, fra: true, tekst: "Fra 1 kr." }], handling: { tekst: "Lad os tale", url: "/kontakt/" } });
+  }
+  const h = hylde.byg(data);
+  assert.deepEqual(h.trin.map((t) => t.id), data.trin.map((t) => t.id));
+  assert.equal(h.proevSelv, true);
+  assert.equal(h.priser.length, data.kort.flatMap((k) => k.priser).length);
 });

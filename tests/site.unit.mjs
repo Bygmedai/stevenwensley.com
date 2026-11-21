@@ -3,6 +3,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
+import { createRequire } from "node:module";
 
 const SITE = "_site";
 const URL = "https://stevenwensley.com";
@@ -111,7 +112,13 @@ test("ingen serverfunktioner og ingen scripts i siderne", () => {
 test("oplæg har prisen ekskl. moms, og de gamle priser er væk", () => {
   const oplaeg = read("oplaeg/index.html").replace(/<[^>]+>/g, " ");
   assert.match(oplaeg, /Fra 12\.000 kr\. ekskl\. moms/);
-  for (const side of SIDER) assert.doesNotMatch(read(side), /6\.500|45\.000/, side);
+  // De gamle priser (BYG-991) må ikke komme tilbage. Et beløb, der står i en pris på hylden til salg (BYG-1220), er tilladt.
+  const { priser } = createRequire(import.meta.url)("../src/_data/hylde.js");
+  for (const side of SIDER) {
+    let h = read(side);
+    for (const p of priser) h = h.split(p.tekst).join("");
+    assert.doesNotMatch(h, /6\.500|45\.000/, side);
+  }
 });
 
 test("erfaringen er 20 år, samme tal overalt", () => {
